@@ -19,7 +19,7 @@ export default async function Post({ params, searchParams }: Params) {
   // access
   const { key } = searchParams ?? {};
   if (btoa(PWD) !== key) {
-    return <Login originURL={`/posts/${params.slug}/`} />;
+    return <Login originURL={`/posts/${params.slug}`} />;
   }
   const content = await markdownToHtml(post.content || "");
 
@@ -50,7 +50,6 @@ type Params = {
 };
 
 export function generateMetadata({ params }: Params): Metadata {
-  console.log("generateMetadata");
   const post = getPostBySlug(params.slug);
 
   if (!post) {
@@ -68,7 +67,6 @@ export function generateMetadata({ params }: Params): Metadata {
 }
 
 export async function generateStaticParams() {
-  console.log("generateStaticParams");
   const posts = getAllPosts();
 
   return posts.map((post) => ({
