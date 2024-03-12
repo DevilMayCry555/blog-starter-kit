@@ -3,13 +3,13 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 let once = true;
-const Login = () => {
+const Login = ({originURL}:any) => {
   const router = useRouter();
   useEffect(() => {
     const onSubmit = (event: SubmitEvent) => {
       if (event.target) {
         const str = (event.target as any)[1]?.value;
-        router.push(`/?key=${btoa(str)}`);
+        router.replace(`${originURL}?key=${btoa(str)}`);
       }
       event.preventDefault();
       return false;

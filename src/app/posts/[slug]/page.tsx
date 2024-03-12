@@ -19,7 +19,7 @@ export default async function Post({ params, searchParams }: Params) {
   // access
   const { key } = searchParams ?? {};
   if (btoa(PWD) !== key) {
-    return <Login />;
+    return <Login originURL={`/posts/${params.slug}/`} />;
   }
   const content = await markdownToHtml(post.content || "");
 
