@@ -3,6 +3,7 @@ import { PostPreview } from "./post-preview";
 
 type Props = {
   posts: Post[];
+  access: string;
 };
 
 export function MoreStories({ posts }: Props) {

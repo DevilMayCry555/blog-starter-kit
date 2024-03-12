@@ -11,6 +11,7 @@ type Props = {
   excerpt: string;
   author: Author;
   slug: string;
+  access: string;
 };
 
 export function HeroPost({
@@ -20,6 +21,7 @@ export function HeroPost({
   excerpt,
   author,
   slug,
+  access,
 }: Props) {
   return (
     <section>
@@ -30,7 +32,7 @@ export function HeroPost({
         <div>
           <h3 className="mb-4 text-4xl lg:text-5xl leading-tight">
             <Link
-              as={`/posts/${slug}`}
+              as={`/posts/${slug}?key=${access}`}
               href="/posts/[slug]"
               className="hover:underline"
             >
