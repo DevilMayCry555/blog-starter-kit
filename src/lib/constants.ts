@@ -5,3 +5,4 @@ export const HOME_OG_IMAGE_URL =
 
 export const MS_NAME = "TIGER";
 export const MR_NAME = "OX";
+export const PWD = "JX981008TIGER";
