@@ -1,13 +1,13 @@
 ---
 title: "Love Diary"
 excerpt: "Sharing our daily lives, trips, and sweet moments."
-coverImage: "/assets/blog/love-diary/cover.webp"
+coverImage: "/assets/blog/love-diary/cover.jpeg"
 date: "2023-11-22T10:37:00.214Z"
 author:
   name: L.D.T
   picture: "/assets/blog/authors/ly.jpg"
 ogImage:
-  url: "/assets/blog/love-diary/cover.webp"
+  url: "/assets/blog/love-diary/cover.jpeg"
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities morbi tempus. Praesent elementum facilisis leo vel fringilla. Congue mauris rhoncus aenean vel. Egestas sed tempus urna et pharetra pharetra massa massa ultricies.
