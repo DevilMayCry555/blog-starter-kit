@@ -29,7 +29,7 @@ export default function Index({ searchParams }: any) {
           slug={heroPost.slug}
           excerpt={heroPost.excerpt}
         />
-        {morePosts.length > 0 && <MoreStories posts={morePosts} access={key} />}
+        {morePosts.length > 0 && <MoreStories posts={morePosts} />}
       </Container>
     </main>
   );
