@@ -1,4 +1,4 @@
-import { CMS_NAME, MS_NAME, MR_NAME } from "@/lib/constants";
+import { CMS_NAME } from "@/lib/constants";
 
 export function Intro() {
   return (
@@ -17,7 +17,7 @@ export function Intro() {
         and {CMS_NAME}.
       </h4>
       <h4 className="text-center md:text-left text-lg mt-5 md:pl-8">
-        ❤ ~ The love story of {MS_NAME} and {MR_NAME} ~ ❤
+        ❤ ~ Love Story ~ ❤
       </h4>
     </section>
   );
