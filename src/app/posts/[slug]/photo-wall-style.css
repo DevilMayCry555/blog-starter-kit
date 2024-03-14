@@ -1,0 +1,27 @@
+/* 照片墙 */
+.photo-wall {
+  overflow: hidden;
+}
+.photo-wall img{
+  padding: 2px;
+}
+.photo-r{
+  float: right;
+}
+.photo-l{
+  float: left;
+}
+.photo-y{
+  width: 25%;
+}
+.photo-x{
+  width: 50%;
+}
+@media (max-width: 768px) {
+  .photo-y {
+    width: 50%;
+  }
+  .photo-x{
+    width: 100%;
+  }
+}
