@@ -10,7 +10,16 @@ ogImage:
   url: "/assets/blog/photo-wall/cover.png"
 ---
 
-![这是图片](/public/assets/blog/photo-wall/wx_20240313224619.jpg "my wife")
-![这是图片](/public/assets/blog/photo-wall/wx_20240313235224.jpg "my wife")
-![这是图片](/public/assets/blog/photo-wall/wx_20240313235330.jpg "my wife")
-![这是图片](/public/assets/blog/photo-wall/wx_20240313235349.jpg "my wife")
+photo wall![这是图片](/assets/blog/photo-wall/wx_20240313224619.jpg "my wife")
+![这是图片](/assets/blog/photo-wall/wx_20240313235224.jpg "my wife")
+![这是图片](/assets/blog/photo-wall/wx_20240313235330.jpg "my wife")
+![这是图片](/assets/blog/photo-wall/wx_20240313235349.jpg "my wife")
+![这是图片](/assets/blog/photo-wall/wx_20240313235318.jpg "my wife")
+
+photo wall![这是图片](/assets/blog/photo-wall/wx_20240313235411.jpg "my wife")
+![这是图片](/assets/blog/photo-wall/wx_20240313235258.jpg "my wife")
+
+photo wall![这是图片](/assets/blog/photo-wall/wx_20240313235343.jpg "my wife")
+
+photo wall![这是图片](/assets/blog/photo-wall/wx_20240313235358.jpg "my wife")
+![这是图片](/assets/blog/photo-wall/wx_20240313235306.jpg "my wife")

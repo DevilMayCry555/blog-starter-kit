@@ -1,0 +1,16 @@
+.photo-wall-p {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  float: left;
+}
+.photo-wall-p::after {
+  content: "clear";
+  color: transparent;
+  clear: both;
+}
+@media (max-width: 768px) {
+  .photo-wall-p {
+    width: 50%;
+  }
+}
