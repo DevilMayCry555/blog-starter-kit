@@ -11,6 +11,8 @@ export default async function markdownToHtml(markdown: string) {
     .replaceAll(" r<img", '<img class="photo-r"')
     .replaceAll('y<img class="', '<img class="photo-y ')
     .replaceAll('x<img class="', '<img class="photo-x ')
+    // 时间线
+    .replaceAll("tl<strong", '<strong class="time-line"')
   // console.log("res", res);
   return res;
 }

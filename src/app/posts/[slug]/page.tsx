@@ -9,7 +9,9 @@ import Header from "../../_components/header";
 import { PostBody } from "../../_components/post-body";
 import { PostHeader } from "../../_components/post-header";
 import Login from "@/app/_components/login";
+
 import "./photo-wall-style.css";
+import "./time-line-style.css";
 
 export default async function Post({ params, searchParams }: Params) {
   const post = getPostBySlug(params.slug);
