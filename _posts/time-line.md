@@ -1,6 +1,6 @@
 ---
 title: "Time Line"
-excerpt: "戀愛i-n-g happy i-n-g 心情就像是 坐上一台噴射機"
+excerpt: "A timeline of love between Big Tiger and little bull."
 coverImage: "/assets/blog/time-line/cover.jpeg"
 date: "2024-03-14T16:43:39.261Z"
 order: "1"
