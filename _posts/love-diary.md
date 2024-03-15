@@ -1,14 +1,14 @@
 ---
 title: "Love Diary"
 excerpt: "Sharing our daily lives, trips, and sweet moments."
-coverImage: "/assets/blog/love-diary/cover.jpeg"
+coverImage: "/assets/blog/love-diary/cover.jpg"
 date: "2024-03-14T16:43:39.261Z"
 order: "2"
 author:
   name: L.D.T
   picture: "/assets/blog/authors/ly.jpg"
 ogImage:
-  url: "/assets/blog/love-diary/cover.jpeg"
+  url: "/assets/blog/love-diary/cover.jpg"
 ---
 
 **_2024/03/08 - 2024/03/10 大连_**  
