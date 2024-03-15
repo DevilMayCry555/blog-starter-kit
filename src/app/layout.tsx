@@ -9,8 +9,10 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("http://localhost:3000"),
-  title: `Next.js Blog Example with ${CMS_NAME}`,
-  description: `A statically generated blog example using Next.js and ${CMS_NAME}.`,
+  // title: `Next.js Blog Example with ${CMS_NAME}`,
+  // description: `A statically generated blog example using Next.js and ${CMS_NAME}.`,
+  title: "T.Y.D.L.Y",
+  description: "谭骏熙&刘小洋",
   openGraph: {
     images: [HOME_OG_IMAGE_URL],
   },
