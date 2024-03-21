@@ -13,6 +13,8 @@ import Login from "@/app/_components/login";
 import "./photo-wall-style.css";
 import "./time-line-style.css";
 
+import { middleware } from "@/lib/mw";
+
 export default async function Post({ params, searchParams }: Params) {
   const post = getPostBySlug(params.slug);
 
@@ -25,11 +27,14 @@ export default async function Post({ params, searchParams }: Params) {
     return <Login originURL={`/posts/${params.slug}`} />;
   }
   const content = await markdownToHtml(post.content || "");
+  // `force-cache` 是默认的参数，可以忽略
+  const staticData = await middleware();
 
   return (
     <main>
       {/* <Alert preview={post.preview} /> */}
       <Container>
+        {String(staticData)}
         <Header />
         <article className="mb-32">
           <PostHeader
