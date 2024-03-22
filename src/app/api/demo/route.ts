@@ -1,7 +1,7 @@
 export async function GET(request: Request) {
-  return {
+  return Promise.resolve({
     key: "demo",
-  };
+  });
 }
 
 export async function HEAD(request: Request) {}
