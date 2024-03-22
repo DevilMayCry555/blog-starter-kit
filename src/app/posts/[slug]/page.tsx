@@ -9,7 +9,6 @@ import Header from "../../_components/header";
 import { PostBody } from "../../_components/post-body";
 import { PostHeader } from "../../_components/post-header";
 import Login from "@/app/_components/login";
-import { put } from "@vercel/blob";
 
 import "./photo-wall-style.css";
 import "./time-line-style.css";
@@ -27,20 +26,11 @@ export default async function Post({ params, searchParams }: Params) {
   }
   const content = await markdownToHtml(post.content || "");
 
-  // const { url } = await put("users/2333.txt", "Hello World!", {
-  //   access: "public",
-  // });
-  const res = await fetch(
-    "https://am2xutdoxbbdh0th.public.blob.vercel-storage.com/users/2333-GteZyAOe3b1PBPRXytkvRimctWyNhS.txt",
-    { cache: "no-store" }
-  );
   return (
     <main>
       {/* <Alert preview={post.preview} /> */}
       <Container>
         <Header />
-        {/* {url} */}
-        {JSON.stringify(res)}
         <article className="mb-32">
           <PostHeader
             title={post.title}
