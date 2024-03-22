@@ -1,12 +1,10 @@
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
-  return NextResponse.json(
-    {
-      key: "demo",
-    },
-    { status: 200 }
-  );
+  const res = await Promise.resolve({
+    key: "demo",
+  });
+  return NextResponse.json(res, { status: 200 });
 }
 
 export async function HEAD(request: Request) {}
