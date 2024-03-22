@@ -13,7 +13,7 @@ import Login from "@/app/_components/login";
 import "./photo-wall-style.css";
 import "./time-line-style.css";
 
-import { middleware } from "@/lib/mw";
+// import { middleware } from "@/lib/mw";
 
 export default async function Post({ params, searchParams }: Params) {
   const post = getPostBySlug(params.slug);
@@ -28,7 +28,7 @@ export default async function Post({ params, searchParams }: Params) {
   }
   const content = await markdownToHtml(post.content || "");
   // `force-cache` 是默认的参数，可以忽略
-  const staticData = await middleware();
+  const staticData = await fetch("/welcome", { cache: "force-cache" });
 
   return (
     <main>
