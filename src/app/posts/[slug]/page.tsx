@@ -25,16 +25,12 @@ export default async function Post({ params, searchParams }: Params) {
     return <Login originURL={`/posts/${params.slug}`} />;
   }
   const content = await markdownToHtml(post.content || "");
-  const res = await fetch("https://www.tydwin.top/api/demo", {
-    cache: "no-cache",
-  });
 
   return (
     <main>
       {/* <Alert preview={post.preview} /> */}
       <Container>
         <Header />
-        {JSON.stringify(res)}
         <article className="mb-32">
           <PostHeader
             title={post.title}
