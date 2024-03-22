@@ -3,7 +3,6 @@ title: "Time Line"
 excerpt: "A timeline of love between Big Tiger and little bull."
 coverImage: "/assets/blog/time-line/cover.jpeg"
 date: "2024-03-14T16:43:39.261Z"
-order: "1"
 author:
   name: L.D.T
   picture: "/assets/blog/authors/ly.jpg"
