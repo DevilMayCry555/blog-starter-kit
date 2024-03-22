@@ -25,7 +25,9 @@ export default async function Post({ params, searchParams }: Params) {
     return <Login originURL={`/posts/${params.slug}`} />;
   }
   const content = await markdownToHtml(post.content || "");
-  const res = await fetch("https://www.tydwin.top/demo", { cache: "no-cache" });
+  const res = await fetch("https://www.tydwin.top/api/demo", {
+    cache: "no-cache",
+  });
 
   return (
     <main>
