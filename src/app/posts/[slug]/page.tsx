@@ -34,7 +34,7 @@ export default async function Post({ params, searchParams }: Params) {
     <main>
       {/* <Alert preview={post.preview} /> */}
       <Container>
-        {String(staticData)}
+        {JSON.stringify(staticData)}
         <Header />
         <article className="mb-32">
           <PostHeader
