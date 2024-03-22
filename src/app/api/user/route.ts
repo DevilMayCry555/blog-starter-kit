@@ -1,6 +1,11 @@
 export async function GET(request: Request) {
   return Promise.resolve({
-    key: "user",
+    onmessage(...args: any[]) {
+      console.log(args);
+      return {
+        key: "user",
+      };
+    },
   });
 }
 
