@@ -1,12 +1,12 @@
+import { NextResponse } from "next/server";
+
 export async function GET(request: Request) {
-  return Promise.resolve({
-    onmessage(...args: any[]) {
-      console.log(args);
-      return {
-        key: "demo",
-      };
+  return NextResponse.json(
+    {
+      key: "demo",
     },
-  });
+    { status: 200 }
+  );
 }
 
 export async function HEAD(request: Request) {}
