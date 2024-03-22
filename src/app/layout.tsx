@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   // title: `Next.js Blog Example with ${CMS_NAME}`,
   // description: `A statically generated blog example using Next.js and ${CMS_NAME}.`,
   title: "T.Y.D.L.Y",
-  description: "谭骏熙&刘小洋",
+  description: "LY LOVE TYD",
   openGraph: {
     images: [HOME_OG_IMAGE_URL],
   },
