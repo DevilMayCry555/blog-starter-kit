@@ -15,7 +15,7 @@ export async function middleware(request) {
       };
     }, null);
   if (params.key) {
-    await put("visitor.txt", `${request.ip ?? "unknow"}`, {
+    await put("visitor.txt", `${request.ip ?? "unknow"} ${request.url}`, {
       access: "public",
     });
   }
