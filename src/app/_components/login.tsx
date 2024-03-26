@@ -73,7 +73,7 @@ const Login = ({ originURL }: any) => {
 
           <div>
             <Link
-              href={`${originURL}?auth_token=${btoa(Pwd)}`}
+              href={`${originURL}?token=${btoa(Pwd)}`}
               // className="hover:underline"
               replace
             >
