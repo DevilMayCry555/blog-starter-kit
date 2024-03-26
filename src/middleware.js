@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
-import { put } from "@vercel/blob";
+import { get } from "@vercel/edge-config";
 
 export async function middleware(request) {
-  //   return NextResponse.redirect(new URL("/", request.url));
-  const { search } = request.nextUrl;
+  const { search, origin, pathname } = request.nextUrl;
+  const refer = `${origin}${pathname}`;
   const params = `${search}`
-    .slice(1)
+    .replace("?", "")
     .split("&")
     .reduce((a, b) => {
       const [key, val] = b.split("=");
@@ -14,10 +14,9 @@ export async function middleware(request) {
         [key]: val,
       };
     }, null);
-  if (params.key) {
-    await put("visitor.txt", `${request.ip ?? "unknow"} ${request.url}`, {
-      access: "public",
-    });
+  const PWD = await get("pwd");
+  if (decodeURIComponent(params.auth_token) !== btoa(PWD)) {
+    return NextResponse.redirect(new URL(`/auth?from=${refer}`, origin));
   }
 }
 
