@@ -8,8 +8,6 @@ import Container from "../../_components/container";
 import Header from "../../_components/header";
 import { PostBody } from "../../_components/post-body";
 import { PostHeader } from "../../_components/post-header";
-import Login from "@/app/_components/login";
-import { get } from "@vercel/edge-config";
 
 import "./photo-wall-style.css";
 import "./time-line-style.css";
@@ -18,12 +16,6 @@ export default async function Post({ params, searchParams }: Params) {
 
   if (!post) {
     return notFound();
-  }
-  // access
-  const { token } = searchParams ?? {};
-  const PWD = await get("pwd");
-  if (btoa(`${PWD}`) !== token) {
-    return <Login originURL={`/posts/${params.slug}`} />;
   }
 
   const content = await markdownToHtml(post.content || "");
@@ -78,3 +70,10 @@ export async function generateStaticParams() {
     slug: post.slug,
   }));
 }
+// async function getData() {
+//   const response = await fetch(
+//     "http://10.67.78.52:5117/api/pm/duty/page?pageSize=10&remark=&pageNum=1"
+//   );
+//   const data = await response.json();
+//   return data;
+// }
