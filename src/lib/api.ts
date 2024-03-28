@@ -2,7 +2,11 @@ import { Post } from "@/interfaces/post";
 import fs from "fs";
 import matter from "gray-matter";
 import { join } from "path";
-import { headers } from "next/headers";
+
+const baseurl =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://www.tydwin.top";
 
 const postsDirectory = join(process.cwd(), "_posts");
 
@@ -28,7 +32,6 @@ export function getAllPosts(): Post[] {
   return posts;
 }
 export async function nfetch(url: string, options?: RequestInit): Promise<any> {
-  const baseURL = headers().get("host");
-  const res = await fetch(`${baseURL}${url}`, options);
+  const res = await fetch(`${baseurl}${url}`, options);
   return await res.json();
 }
