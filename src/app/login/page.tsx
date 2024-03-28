@@ -1,10 +1,11 @@
 import Loginer from "@/app/_components/login";
-import { baseURL } from "@/lib/api";
+import { headers } from "next/headers";
 
 export default function Login() {
   return (
     <>
-      {baseURL}
+      {headers().get("host")}
+      {headers().get("referer")}
       <Loginer />
     </>
   );
