@@ -2,6 +2,8 @@ import { Post } from "@/interfaces/post";
 import fs from "fs";
 import matter from "gray-matter";
 import { join } from "path";
+import { headers } from "next/headers";
+export const baseURL = headers().get("host");
 
 const postsDirectory = join(process.cwd(), "_posts");
 
@@ -25,4 +27,8 @@ export function getAllPosts(): Post[] {
     // sort posts by date in descending order
     .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
   return posts;
+}
+export async function nfetch(url: string, options?: RequestInit): Promise<any> {
+  const res = await fetch(`${baseURL}${url}`, options);
+  return await res.json();
 }

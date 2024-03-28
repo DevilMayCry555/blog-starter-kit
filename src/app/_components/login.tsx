@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 
-const Login = ({ originURL }: any) => {
+const Login = () => {
   const [Pwd, setPwd] = useState("");
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -73,7 +73,7 @@ const Login = ({ originURL }: any) => {
 
           <div>
             <Link
-              href={`${originURL}/${btoa(Pwd)}`}
+              href={`/api/demo/${btoa(Pwd)}`}
               // className="hover:underline"
               replace
             >

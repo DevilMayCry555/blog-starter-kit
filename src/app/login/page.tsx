@@ -1,5 +1,11 @@
 import Loginer from "@/app/_components/login";
+import { baseURL } from "@/lib/api";
 
 export default function Login() {
-  return <Loginer originURL="/api/demo" />;
+  return (
+    <>
+      {baseURL}
+      <Loginer />
+    </>
+  );
 }
