@@ -11,7 +11,7 @@ import { PostHeader } from "../../_components/post-header";
 
 import "./photo-wall-style.css";
 import "./time-line-style.css";
-export default async function Post({ params, searchParams }: Params) {
+export default async function Post({ params }: Params) {
   const post = getPostBySlug(params.slug);
 
   if (!post) {
@@ -43,7 +43,6 @@ type Params = {
   params: {
     slug: string;
   };
-  searchParams: any;
 };
 
 export function generateMetadata({ params }: Params): Metadata {

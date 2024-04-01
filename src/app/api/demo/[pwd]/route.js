@@ -1,11 +1,9 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-// import { get } from "@vercel/edge-config";
 import { PWD } from "@/lib/constants";
 
-export async function GET(request, context) {
-  const { pwd } = context.params;
-  // const PWD = await get("pwd");
+export async function GET(request, { params }) {
+  const { pwd } = params;
   if (pwd === btoa(`${PWD}`)) {
     cookies().set({
       name: "auth-token",
@@ -15,7 +13,7 @@ export async function GET(request, context) {
     });
     return NextResponse.redirect(new URL("/", request.url));
   }
-  return NextResponse.json("Incorrect password !");
+  return NextResponse.redirect(new URL("/login", request.url));
 }
 
 export async function HEAD(request) {}
