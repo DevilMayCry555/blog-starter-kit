@@ -1,4 +1,8 @@
-const trans_data = (value) => JSON.stringify([].concat(value)).slice(1, -1);
+const trans_data = (value) =>
+  JSON.stringify([].concat(value))
+    .slice(1, -1)
+    .split(",")
+    .map((it) => "${" + it + "}");
 /**
  * 建表
  * @param {表名} name
@@ -31,7 +35,7 @@ const delete_table = (name = "table") => `DROP TABLE ${name};`;
 const update_table = (name = "table", data = { uid: btoa(Math.random()) }) => {
   const cols = Object.keys(data).join(",");
   const vals = trans_data(Object.values(data));
-  return `INSERT INTO ${name} (${cols}) VALUES (${vals});`;
+  return `INSERT INTO ${name} (${cols}) VALUES (${vals})`;
 };
 
 // 查询
@@ -79,11 +83,15 @@ const select_limit = (limit = 10, current = 1) => {
   const offset = (current - 1) * limit;
   return `LIMIT ${limit} OFFSET ${offset}`;
 };
-const select_table = ({ name, wheres, or, orderby, asc, limit, current }) => {
+const select_table = (
+  name,
+  wheres,
+  { or, orderby, asc, limit, current } = {}
+) => {
   return `SELECT * FROM ${name} 
   ${wheres ? select_where(wheres, or) : ""} 
   ${orderby ? select_order(orderby, asc) : ""} 
-  ${limit ? select_limit(limit, current) : ""};`;
+  ${limit ? select_limit(limit, current) : ""}`;
 };
 
 exports.db = {
