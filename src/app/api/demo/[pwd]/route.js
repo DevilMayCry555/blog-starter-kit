@@ -4,10 +4,11 @@ import { PWD } from "@/lib/constants";
 
 export async function GET(request, { params }) {
   const { pwd } = params;
-  if (pwd === btoa(`${PWD}`)) {
+  const find = PWD.find((it) => it.base64 === pwd);
+  if (find) {
     cookies().set({
       name: "auth-token",
-      value: pwd,
+      value: find.role,
       httpOnly: true,
       maxAge: 7 * 24 * 3600,
     });
