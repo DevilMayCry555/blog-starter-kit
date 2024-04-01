@@ -32,6 +32,6 @@ export function getAllPosts(): Post[] {
   return posts;
 }
 export async function nfetch(url: string, options?: RequestInit): Promise<any> {
-  const res = await fetch(`${baseurl}${url}`, options);
+  const res = await fetch(`${baseurl}/api${url}`, options);
   return await res.json();
 }
