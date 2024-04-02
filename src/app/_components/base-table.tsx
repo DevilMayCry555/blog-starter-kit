@@ -5,15 +5,18 @@ interface Props {
   actions: any[];
 }
 export default function BaseTable({ fields, rows, actions = [] }: Props) {
-  const columns: any[] = fields.map((it) => it.name);
+  // 取消uid行的显示
+  const columns: any[] = fields.map((it) => it.name).slice(1);
   return (
-    <Table striped bordered hover>
+    <Table striped bordered hover responsive>
       <thead>
         <tr>
           {columns.map((it, idx) => (
-            <th key={idx}>{it}</th>
+            <th className="min-w-40" key={idx}>
+              {it}
+            </th>
           ))}
-          <th>actions</th>
+          <th className="min-w-40">actions</th>
         </tr>
       </thead>
       <tbody>
