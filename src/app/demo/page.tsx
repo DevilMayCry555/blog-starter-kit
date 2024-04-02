@@ -1,9 +1,10 @@
 import BaseForm from "../_components/base-form";
 import BaseTable from "../_components/base-table";
 import BaseModal from "../_components/base-modal";
-import { sql } from "@vercel/postgres";
+import req from "@/lib/request";
 export default async function Demo() {
-  const { fields, rows } = await sql`SELECT * FROM users;`;
+  const { data } = await req.get("/api/user");
+  const { fields, rows } = data;
   const formProps = {
     action: "/api/user",
     method: "new",

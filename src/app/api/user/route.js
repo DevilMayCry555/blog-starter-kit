@@ -5,6 +5,10 @@ import { qs, getuuid } from "@/lib/utils";
 export async function GET(request) {
   const { search } = request.nextUrl;
   const { method, ...rest } = qs(search);
+  if (!method) {
+    const data = await sql`SELECT * FROM users;`;
+    return NextResponse.json(data, { status: 200 });
+  }
   if (method === "delete") {
     await sql`DELETE FROM users WHERE uid = ${rest.uid};`;
   }
