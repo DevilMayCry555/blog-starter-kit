@@ -6,27 +6,22 @@ interface Props {
 }
 export default function BaseTable({ fields, rows, actions = [] }: Props) {
   // 取消uid行的显示
-  const columns: any[] = fields.map((it) => it.name).slice(1);
+  const columns: any[] = fields.map((it) => it.name);
   return (
     <Table striped bordered hover responsive>
       <thead>
         <tr>
+          <th className="min-w-40">actions</th>
           {columns.map((it, idx) => (
             <th className="min-w-40" key={idx}>
               {it}
             </th>
           ))}
-          <th className="min-w-40">actions</th>
         </tr>
       </thead>
       <tbody>
         {rows.map((row) => (
           <tr key={row.uid}>
-            {columns.map((it, idx) => (
-              <td key={idx} style={{ verticalAlign: "middle" }}>
-                {row[it]}
-              </td>
-            ))}
             <td>
               {actions.map((it, idx) => {
                 const { text, action, params } = it;
@@ -52,6 +47,11 @@ export default function BaseTable({ fields, rows, actions = [] }: Props) {
                 );
               })}
             </td>
+            {columns.map((it, idx) => (
+              <td key={idx} style={{ verticalAlign: "middle" }}>
+                {row[it]}
+              </td>
+            ))}
           </tr>
         ))}
       </tbody>

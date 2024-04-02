@@ -30,5 +30,5 @@ export default function BasePagination({
       </Pagination.Item>
     );
   }
-  return <Pagination>{items}</Pagination>;
+  return <Pagination className="my-4">{items}</Pagination>;
 }

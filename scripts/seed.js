@@ -1,15 +1,9 @@
 const { sql } = require("@vercel/postgres");
 const { db } = require("./db");
 // 已存在的表
-// CREATE TABLE users (uid VARCHAR(60) PRIMARY KEY,username VARCHAR(60),likes INT,intro VARCHAR(100));
+// CREATE TABLE users (uid VARCHAR(50) PRIMARY KEY,username VARCHAR(20),birthday VARCHAR(20),intro VARCHAR(20),create_time VARCHAR(20),update_time VARCHAR(20));
 const actions = async () => {
-  console.log(
-    db.select("users", {
-      uid: { include: ["MC4yMjkzNzcwOTMzNjUzMzA3NA=="] },
-    })
-  );
-  return await sql`SELECT * FROM users 
-  WHERE uid IN (${"MC4yMjkzNzcwOTMzNjUzMzA3NA=="})`;
+  return await sql`CREATE TABLE users (uid VARCHAR(50) PRIMARY KEY,username VARCHAR(20),birthday VARCHAR(20),intro VARCHAR(20),create_time VARCHAR(20),update_time VARCHAR(20));`;
 };
 // actions().then((res) => {
 //   console.log(res);

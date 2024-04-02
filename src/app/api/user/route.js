@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { sql } from "@vercel/postgres";
 import { qs, getuuid } from "@/lib/utils";
+import { parseISO, format } from "date-fns";
 
 export async function GET(request) {
   const { search } = request.nextUrl;
@@ -8,8 +9,6 @@ export async function GET(request) {
   if (!method) {
     const { current, pageSize } = rest;
     const offset = (current - 1) * pageSize;
-    // const data =
-    //   await sql`SELECT * FROM users LIMIT ${pageSize} OFFSET ${offset};`;
     const { rows, fields } = await sql`SELECT * FROM users;`;
     const data = {
       fields,
@@ -22,8 +21,9 @@ export async function GET(request) {
     await sql`DELETE FROM users WHERE uid = ${rest.uid};`;
   }
   if (method === "new") {
-    await sql`INSERT INTO users (uid,username)
-    VALUES (${getuuid()},${rest.username});`;
+    const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
+    await sql`INSERT INTO users (uid,username,create_time)
+    VALUES (${getuuid()},${rest.username},${time});`;
   }
   return NextResponse.redirect(new URL("/demo", request.url));
 }
