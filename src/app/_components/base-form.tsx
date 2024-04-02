@@ -1,5 +1,3 @@
-"use client";
-
 import { getuuid } from "@/lib/utils";
 import { Button } from "react-bootstrap";
 
@@ -10,12 +8,15 @@ interface Column {
 }
 interface Props {
   columns: Column[];
-  config?: { [k: string]: any };
+  action: string;
+  method: string;
 }
 
-export default function BaseForm({ columns, config }: Props) {
+export default function BaseForm({ columns, action, method }: Props) {
   return (
-    <form action="/404" method="POST" {...config} encType="text/plain">
+    <form action={action} method="GET" encType="text/plain">
+      <input className="hidden" name="method" required defaultValue={method} />
+      {/* 表单项 */}
       {columns.map((it) => {
         const { field, label, type = "input" } = it;
         const uuid = getuuid(field);

@@ -5,10 +5,8 @@ import { sql } from "@vercel/postgres";
 export default async function Demo() {
   const { fields, rows } = await sql`SELECT * FROM users;`;
   const formProps = {
-    config: {
-      action: "/api/user",
-      method: "POST",
-    },
+    action: "/api/user",
+    method: "new",
     columns: [
       {
         field: "username",

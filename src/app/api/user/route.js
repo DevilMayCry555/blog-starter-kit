@@ -8,21 +8,17 @@ export async function GET(request) {
   if (method === "delete") {
     await sql`DELETE FROM users WHERE uid = ${rest.uid};`;
   }
+  if (method === "new") {
+    await sql`INSERT INTO users (uid,username) VALUES (${getuuid()},${
+      rest.username
+    })`;
+  }
   return NextResponse.redirect(new URL("/demo", request.url));
 }
 
 export async function HEAD(request) {}
 
-export async function POST(request) {
-  const body = await request.text();
-  const data = qs(body);
-  if (data) {
-    await sql`INSERT INTO users (uid,username) VALUES (${getuuid()},${
-      data.username
-    })`;
-  }
-  return NextResponse.redirect(new URL("/demo", request.url));
-}
+export async function POST(request) {}
 
 export async function PUT(request) {}
 
