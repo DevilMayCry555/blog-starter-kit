@@ -3,11 +3,6 @@ import fs from "fs";
 import matter from "gray-matter";
 import { join } from "path";
 
-const baseurl =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3000"
-    : "https://www.tydwin.top";
-
 const postsDirectory = join(process.cwd(), "_posts");
 
 export function getPostSlugs() {
@@ -30,8 +25,4 @@ export function getAllPosts(): Post[] {
     // sort posts by date in descending order
     .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
   return posts;
-}
-export async function nfetch(url: string, options?: RequestInit): Promise<any> {
-  const res = await fetch(`${baseurl}/api${url}`, options);
-  return await res.json();
 }

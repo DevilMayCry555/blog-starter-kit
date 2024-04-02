@@ -7,7 +7,7 @@ export const qs = (str = "") => {
     const [key, val] = b.split("=");
     return {
       ...a,
-      [key]: val,
+      [key]: decodeURIComponent(val),
     };
   }, {} as { [k: string]: any });
 };
