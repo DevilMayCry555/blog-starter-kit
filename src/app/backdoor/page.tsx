@@ -47,9 +47,6 @@ export default async function Demo({ searchParams }: any) {
   ];
   return (
     <main>
-      <Link href="/backdoor" replace className="text-white">
-        控制台
-      </Link>
       <Container>
         <BaseModal action="create" title="create user">
           <BaseForm {...formProps} />
