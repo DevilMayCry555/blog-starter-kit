@@ -29,7 +29,7 @@ export async function GET(request) {
     await sql`INSERT INTO users (uid,username,create_time,intro)
     VALUES (${getuuid()},${username},${time},${intro});`;
   }
-  return NextResponse.redirect(new URL("/demo", request.url));
+  return NextResponse.redirect(new URL("/backdoor", request.url));
 }
 
 export async function HEAD(request) {}

@@ -19,7 +19,7 @@ export default function BaseModal({
   const handleShow = () => setShow(true);
   return (
     <div>
-      <Button variant="primary" className="my-4" onClick={handleShow}>
+      <Button variant="outline-primary" className="my-4" onClick={handleShow}>
         {action}
       </Button>
 
@@ -27,7 +27,7 @@ export default function BaseModal({
         <Modal.Header closeButton>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="bg-slate-300">{children}</Modal.Body>
+        <Modal.Body>{children}</Modal.Body>
         {/* <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
