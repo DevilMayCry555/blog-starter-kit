@@ -2,10 +2,8 @@ import axios from "axios";
 
 axios.defaults.headers["Content-Type"] = "application/json;charset=utf-8";
 
-const baseURL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3000"
-    : "https://www.tydwin.top";
+const isDEV = process.env.NODE_ENV === "development";
+const baseURL = isDEV ? "http://localhost:3000" : "https://www.tydwin.top";
 
 // 创建axios实例
 const service = axios.create({

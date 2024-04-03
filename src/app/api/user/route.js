@@ -10,8 +10,6 @@ export async function GET(request) {
     const { current, pageSize } = rest;
     const offset = (current - 1) * pageSize;
     const { rows, fields } = await sql`SELECT * FROM users;`;
-    const qwer = await sql`SELECT uid FROM users;`;
-    console.log(qwer);
     const data = {
       fields,
       rows: rows.slice(offset, offset + pageSize),
