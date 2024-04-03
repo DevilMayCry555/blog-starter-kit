@@ -7,7 +7,7 @@ export default function TopBanner() {
       style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
     >
       <div>
-        <Link href="/backdoor" className="text-white">
+        <Link href="/backdoor" replace className="text-white">
           控制台
         </Link>
       </div>

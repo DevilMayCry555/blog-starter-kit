@@ -1,7 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-a {
-  color: rgb(33, 37, 41) !important;
-}

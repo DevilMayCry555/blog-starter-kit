@@ -3,8 +3,10 @@ import BaseForm from "../_components/base-form";
 import BaseTable from "../_components/base-table";
 import BaseModal from "../_components/base-modal";
 import BasePagination from "../_components/base-pagination";
+import Link from "next/link";
 
 import req from "@/lib/request";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default async function Demo({ searchParams }: any) {
   const { current = 1, pageSize = 10 } = searchParams;
@@ -45,6 +47,9 @@ export default async function Demo({ searchParams }: any) {
   ];
   return (
     <main>
+      <Link href="/backdoor" replace className="text-white">
+        控制台
+      </Link>
       <Container>
         <BaseModal action="create" title="create user">
           <BaseForm {...formProps} />
