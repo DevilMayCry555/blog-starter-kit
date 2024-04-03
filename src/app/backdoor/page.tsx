@@ -6,6 +6,7 @@ import BasePagination from "../_components/base-pagination";
 
 import req from "@/lib/request";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Link from "next/link";
 
 export default async function Demo({ searchParams }: any) {
   const { current = 1, pageSize = 10 } = searchParams;
@@ -25,15 +26,20 @@ export default async function Demo({ searchParams }: any) {
         label: "用户名",
         type: "input",
       },
+      {
+        field: "admin",
+        label: "管理员权限",
+        type: "checkbox",
+      },
     ],
   };
   const actions = [
     {
       text: "删除",
       action: "/api/user",
+      method: "delete",
       params: (row: any) => {
         return {
-          method: "delete",
           uid: row.uid,
         };
       },
@@ -42,7 +48,12 @@ export default async function Demo({ searchParams }: any) {
   return (
     <main>
       <Container>
-        <BaseModal action="new" title="new user">
+        <div>
+          <Link href="/" className="hover:underline">
+            Blog
+          </Link>
+        </div>
+        <BaseModal action="create" title="create user">
           <BaseForm {...formProps} />
         </BaseModal>
         <BaseTable fields={fields} rows={rows} actions={actions} />
@@ -50,7 +61,7 @@ export default async function Demo({ searchParams }: any) {
           current={current}
           pageSize={pageSize}
           total={total}
-          path="/demo"
+          path="/backdoor"
         />
       </Container>
     </main>

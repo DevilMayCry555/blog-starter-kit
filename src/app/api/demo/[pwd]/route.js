@@ -8,7 +8,7 @@ export async function GET(request, { params }) {
   if (find) {
     cookies().set({
       name: "auth-token",
-      value: find.role,
+      value: find.base64,
       httpOnly: true,
       maxAge: 7 * 24 * 3600,
     });

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-
+const isDev = process.env.NODE_ENV === "development";
 export function middleware(request) {
   const access = cookies().get("auth-token");
   // console.log("access", access);
@@ -10,11 +10,11 @@ export function middleware(request) {
   }
   const { pathname } = request.nextUrl;
   // 控制台 仅管理员可见
-  if (pathname === "/demo" && access.value !== "admin") {
-    return NextResponse.redirect(new URL("/login", request.url));
+  if (pathname === "/backdoor" && !isDev) {
+    return NextResponse.redirect(new URL("/", request.url));
   }
 }
 
 export const config = {
-  matcher: ["/posts/:slug*", "/demo"],
+  matcher: ["/posts/:slug*", "/backdoor"],
 };

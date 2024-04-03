@@ -21,12 +21,12 @@ export default function BaseForm({ columns, action, method }: Props) {
         const { field, label, type = "input" } = it;
         const uuid = getuuid(field);
         return (
-          <div key={field}>
+          <div key={field} className="mb-4">
             <label
               htmlFor={uuid}
               className="block text-sm font-medium leading-6 text-gray-900"
             >
-              {label}:
+              {label}：
             </label>
             {type === "input" && (
               <input
@@ -36,12 +36,18 @@ export default function BaseForm({ columns, action, method }: Props) {
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             )}
+            {type === "checkbox" && (
+              <input
+                id={uuid}
+                name={field}
+                type="checkbox"
+                className="h-8 w-8 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+              />
+            )}
           </div>
         );
       })}
-      <Button type="submit" className="mt-6">
-        submit
-      </Button>
+      <Button type="submit">submit</Button>
     </form>
   );
 }

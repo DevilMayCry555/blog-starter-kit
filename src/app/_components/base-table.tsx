@@ -22,12 +22,13 @@ export default function BaseTable({ fields, rows, actions = [] }: Props) {
       <tbody>
         {rows.map((row) => (
           <tr key={row.uid}>
+            {/* actions */}
             <td>
               {actions.map((it, idx) => {
-                const { text, action, params } = it;
-                const items = Object.entries({ ...params(row) });
+                const { text, action, method, params } = it;
+                const items = Object.entries({ ...params(row), method });
                 return (
-                  <form key={`${row.uid}-${idx}`} action={action} method="GET">
+                  <form key={idx} action={action} method="GET">
                     {items.map((it) => {
                       const [key, val] = it;
                       return (
