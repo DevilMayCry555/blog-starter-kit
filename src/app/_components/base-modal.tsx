@@ -18,7 +18,7 @@ export default function BaseModal({
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   return (
-    <>
+    <div>
       <Button variant="primary" className="my-4" onClick={handleShow}>
         {action}
       </Button>
@@ -37,6 +37,6 @@ export default function BaseModal({
           </Button>
         </Modal.Footer> */}
       </Modal>
-    </>
+    </div>
   );
 }

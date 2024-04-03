@@ -1,6 +1,4 @@
 import Container from "@/app/_components/container";
-import TopBanner from "./_components/top-banner";
-
 import { HeroPost } from "@/app/_components/hero-post";
 import { Intro } from "@/app/_components/intro";
 import { MoreStories } from "@/app/_components/more-stories";
@@ -16,7 +14,6 @@ export default function Index() {
   return (
     <main>
       <Container>
-        <TopBanner />
         <Intro />
         <HeroPost
           title={heroPost.title}

@@ -1,21 +1,34 @@
-import Link from "next/link";
+"use client";
+
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 export default function TopBanner() {
   return (
-    <div
-      className="flex justify-between  items-center fixed top-0 left-0 right-0  p-4 h-16"
-      style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+    <Navbar
+      expand="lg"
+      className="bg-body-tertiary"
+      // bg="dark"
+      // data-bs-theme="dark"
     >
-      <div>
-        <Link href="/backdoor" replace className="text-white">
-          控制台
-        </Link>
-      </div>
-      <div>
-        <Link href="/logout" className="text-white">
-          登出
-        </Link>
-      </div>
-    </div>
+      <Navbar.Brand href="/">T.Y.D.L.Y</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="me-auto">
+          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link href="/backdoor">Config</Nav.Link>
+          <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.2">
+              Another action
+            </NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="#action/3.4">
+              Separated link
+            </NavDropdown.Item>
+          </NavDropdown>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
   );
 }

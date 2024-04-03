@@ -3,10 +3,8 @@ import BaseForm from "../_components/base-form";
 import BaseTable from "../_components/base-table";
 import BaseModal from "../_components/base-modal";
 import BasePagination from "../_components/base-pagination";
-import Link from "next/link";
 
 import req from "@/lib/request";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 export default async function Demo({ searchParams }: any) {
   const { current = 1, pageSize = 10 } = searchParams;
