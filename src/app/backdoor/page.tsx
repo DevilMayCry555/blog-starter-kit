@@ -5,8 +5,6 @@ import BaseModal from "../_components/base-modal";
 import BasePagination from "../_components/base-pagination";
 
 import req from "@/lib/request";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Link from "next/link";
 
 export default async function Demo({ searchParams }: any) {
   const { current = 1, pageSize = 10 } = searchParams;
@@ -48,11 +46,6 @@ export default async function Demo({ searchParams }: any) {
   return (
     <main>
       <Container>
-        <div>
-          <Link href="/" className="hover:underline">
-            Blog
-          </Link>
-        </div>
         <BaseModal action="create" title="create user">
           <BaseForm {...formProps} />
         </BaseModal>
