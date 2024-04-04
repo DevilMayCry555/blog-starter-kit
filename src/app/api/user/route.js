@@ -30,15 +30,22 @@ export async function GET(request) {
     VALUES (${getuuid()},${username},${time},${intro});`;
   }
   if (method === "update") {
-    const { uid, username, admin } = rest;
-    const intro = JSON.stringify({
-      admin: !!admin,
-    });
+    const { uid, birthday } = rest;
     const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
     await sql`UPDATE users SET
-    username = ${username},
-    intro = ${intro},
-    update_time = ${time}
+    update_time = ${time},
+    birthday = ${birthday}
+    WHERE uid = ${uid};`;
+  }
+  if(method === 'admin'){
+    const { uid } = rest;
+    const {rows} = await sql`SELECT * FROM users WHERE uid = ${uid};`
+    const {admin} = JSON.parse(rows[0].intro ?? '{}')
+    const intro = JSON.stringify({
+      admin: !admin,
+    });
+    await sql`UPDATE users SET
+    intro = ${intro}
     WHERE uid = ${uid};`;
   }
   return NextResponse.redirect(new URL("/backdoor", request.url));

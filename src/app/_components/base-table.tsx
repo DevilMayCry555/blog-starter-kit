@@ -2,9 +2,9 @@ import { Button, Table } from "react-bootstrap";
 interface Props {
   fields: any[];
   rows: any[];
-  actions: any[];
+  actions: (...args:any[]) => any[];
 }
-export default function BaseTable({ fields, rows, actions = [] }: Props) {
+export default function BaseTable({ fields, rows, actions = () => [] }: Props) {
   // 取消uid行的显示
   const columns: any[] = fields.map((it) => it.name);
   return (
@@ -24,9 +24,9 @@ export default function BaseTable({ fields, rows, actions = [] }: Props) {
           <tr key={row.uid}>
             {/* actions */}
             <td>
-              {actions.map((it, idx) => {
+              {actions(row).map((it, idx) => {
                 const { text, action, method, params } = it;
-                const items = Object.entries({ ...params(row), method });
+                const items = Object.entries({ ...params, method });
                 return (
                   <form key={idx} action={action} method="GET">
                     {items.map((it) => {

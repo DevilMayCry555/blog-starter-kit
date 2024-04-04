@@ -41,29 +41,33 @@ export default async function Demo({ searchParams }: any) {
         type: "input",
       },
       {
-        field: "username",
-        label: "用户名",
-        type: "input",
-      },
-      {
-        field: "admin",
-        label: "管理员权限",
-        type: "checkbox",
+        field: "birthday",
+        label: "生日",
+        type: "date",
       },
     ],
   };
-  const actions = [
-    {
-      text: "删除",
-      action: "/api/user",
-      method: "delete",
-      params: (row: any) => {
-        return {
+  const actions = (row: any) => {
+    const { admin } = JSON.parse(row.intro ?? '{}');
+    return [
+      {
+        text: "删除",
+        action: "/api/user",
+        method: "delete",
+        params: {
           uid: row.uid,
-        };
+        },
       },
-    },
-  ];
+      {
+        text: admin ? "关闭管理员" : "开启管理员",
+        action: "/api/user",
+        method: "admin",
+        params: {
+          uid: row.uid,
+        },
+      },
+    ];
+  };
   return (
     <main>
       <Container>

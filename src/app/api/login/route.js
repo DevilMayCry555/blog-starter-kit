@@ -1,10 +1,12 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { PWD } from "@/lib/constants";
+import { sql } from "@vercel/postgres";
 
-export async function GET(request, { params }) {
-  const { pwd } = params;
-  const find = PWD.find((it) => it.base64 === pwd);
+export async function GET(request) {
+  const { search } = request.nextUrl;
+  const { pwd } = qs(search);
+  const { rows } = await sql`SELECT * FROM users;`;
+  const find = rows.find((it) => it.uid === pwd);
   if (find) {
     cookies().set({
       name: "auth-token",
