@@ -4,6 +4,11 @@ import { qs, getuuid } from "@/lib/utils";
 import { format } from "date-fns";
 
 export async function GET(request) {
+  const auth = request.cookies._headers.get("role-token");
+  console.log(auth);
+  if (!auth) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
   const { search } = request.nextUrl;
   const { method, ...rest } = qs(search);
   if (!method) {
@@ -37,10 +42,10 @@ export async function GET(request) {
     birthday = ${birthday}
     WHERE uid = ${uid};`;
   }
-  if(method === 'admin'){
+  if (method === "admin") {
     const { uid } = rest;
-    const {rows} = await sql`SELECT * FROM users WHERE uid = ${uid};`
-    const {admin} = JSON.parse(rows[0].intro ?? '{}')
+    const { rows } = await sql`SELECT * FROM users WHERE uid = ${uid};`;
+    const { admin } = JSON.parse(rows[0].intro ?? "{}");
     const intro = JSON.stringify({
       admin: !admin,
     });

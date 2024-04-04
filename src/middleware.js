@@ -16,5 +16,5 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/posts/:slug*", "/backdoor", "/api/user"],
+  matcher: ["/posts/:slug*", "/backdoor"],
 };
