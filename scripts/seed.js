@@ -7,6 +7,6 @@ const actions = async () => {
   // return sql`DROP TABLE chats;`;
   return await sql`CREATE TABLE chats (uid VARCHAR(50),user_id VARCHAR(50),user_name VARCHAR(20),content VARCHAR(20),create_time VARCHAR(20));`;
 };
-actions().then((res) => {
-  console.log(res);
-});
+// actions().then((res) => {
+//   console.log(res);
+// });
