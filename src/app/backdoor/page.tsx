@@ -15,10 +15,31 @@ export default async function Demo({ searchParams }: any) {
     },
   });
   const { fields, rows, total } = data;
-  const formProps = {
+  const createProps = {
     action: "/api/user",
-    method: "new",
+    method: "create",
     columns: [
+      {
+        field: "username",
+        label: "用户名",
+        type: "input",
+      },
+      {
+        field: "admin",
+        label: "管理员权限",
+        type: "checkbox",
+      },
+    ],
+  };
+  const updateProps = {
+    action: "/api/user",
+    method: "update",
+    columns: [
+      {
+        field: "uid",
+        label: "uid",
+        type: "input",
+      },
       {
         field: "username",
         label: "用户名",
@@ -47,7 +68,10 @@ export default async function Demo({ searchParams }: any) {
     <main>
       <Container>
         <BaseModal action="create" title="create user">
-          <BaseForm {...formProps} />
+          <BaseForm {...createProps} />
+        </BaseModal>
+        <BaseModal action="update" title="update user">
+          <BaseForm {...updateProps} />
         </BaseModal>
         <BaseTable fields={fields} rows={rows} actions={actions} />
         <BasePagination

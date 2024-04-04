@@ -20,7 +20,7 @@ export async function GET(request) {
   if (method === "delete") {
     await sql`DELETE FROM users WHERE uid = ${rest.uid};`;
   }
-  if (method === "new") {
+  if (method === "create") {
     const { username, admin } = rest;
     const intro = JSON.stringify({
       admin: !!admin,
@@ -28,6 +28,18 @@ export async function GET(request) {
     const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
     await sql`INSERT INTO users (uid,username,create_time,intro)
     VALUES (${getuuid()},${username},${time},${intro});`;
+  }
+  if (method === "update") {
+    const { uid, username, admin } = rest;
+    const intro = JSON.stringify({
+      admin: !!admin,
+    });
+    const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
+    await sql`UPDATE users SET
+    username = ${username},
+    intro = ${intro},
+    update_time = ${time}
+    WHERE uid = ${uid};`;
   }
   return NextResponse.redirect(new URL("/backdoor", request.url));
 }

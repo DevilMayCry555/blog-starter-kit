@@ -18,7 +18,7 @@ export default function BaseModal({
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   return (
-    <div>
+    <div className="inline-block mx-2">
       <Button variant="outline-primary" className="my-4" onClick={handleShow}>
         {action}
       </Button>
