@@ -1,8 +1,13 @@
 import { NextResponse } from "next/server";
 import { sql } from "@vercel/postgres";
-import { qs, getuuid } from "@/lib/utils";
+import { qs } from "@/lib/utils";
 import { format } from "date-fns";
-
+const create = (data) => {
+  const { uid, userid, username, content } = data;
+  const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
+  return sql`INSERT INTO chats (uid,user_id,user_name,content,create_time)
+    VALUES (${uid},${userid},${username},${content},${time});`;
+};
 export async function GET(request) {
   const auth = request.cookies._headers.get("role-token");
   // console.log(auth);
@@ -12,24 +17,24 @@ export async function GET(request) {
   const { search } = request.nextUrl;
   const { method, ...rest } = qs(search);
   if (!method) {
-    const { current, pageSize } = rest;
-    const offset = (current - 1) * pageSize;
-    const { rows, fields } = await sql`SELECT * FROM chats;`;
-    const data = {
-      fields,
-      rows: rows.slice(offset, offset + pageSize),
-      total: rows.length,
-    };
+    const { uid } = rest;
+    const { rows } = await sql`SELECT * FROM chats WHERE uid = ${uid};`;
+    if (rows.length === 0) {
+      await create({
+        uid,
+        userid: "anonymous",
+        username: "Robot",
+        content: "hello,world",
+      });
+    }
+    const data = await sql`SELECT * FROM chats WHERE uid = ${uid};`;
     return NextResponse.json(data, { status: 200 });
   }
   if (method === "delete") {
     await sql`DELETE FROM chats WHERE uid = ${rest.uid};`;
   }
   if (method === "create") {
-    const { content } = rest;
-    const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
-    await sql`INSERT INTO chats (uid,username,create_time,intro)
-    VALUES (${getuuid()},${username},${time},${intro});`;
+    await create({ ...rest });
   }
   if (method === "update") {
     const { uid, birthday } = rest;
@@ -50,7 +55,7 @@ export async function GET(request) {
     intro = ${intro}
     WHERE uid = ${uid};`;
   }
-  return NextResponse.redirect(new URL("/backdoor", request.url));
+  return NextResponse.redirect(new URL("/meeting", request.url));
 }
 
 export async function HEAD(request) {}

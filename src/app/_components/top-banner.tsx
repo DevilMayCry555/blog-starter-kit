@@ -29,7 +29,7 @@ export default function TopBanner({ cookie }: any) {
             <span className="opacity-0">gap</span>Config
           </Nav.Link>
           {uid && (
-            <Nav.Link href={`/user/${uid}&${username}`}>
+            <Nav.Link href={`/user/${uid}`}>
               <span className="opacity-0">gap</span>
               Hello, {username}
             </Nav.Link>
