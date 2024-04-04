@@ -22,7 +22,9 @@ export default function TopBanner({ cookie }: any) {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
-          {/* <Nav.Link href="/">Home</Nav.Link> */}
+          <Nav.Link href="/meeting">
+            <span className="opacity-0">gap</span>Meeting
+          </Nav.Link>
           <Nav.Link href="/backdoor" className="hidden">
             <span className="opacity-0">gap</span>Config
           </Nav.Link>
