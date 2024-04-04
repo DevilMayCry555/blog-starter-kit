@@ -6,7 +6,8 @@ import {
   // NavDropdown
 } from "react-bootstrap";
 
-export default function TopBanner() {
+export default function TopBanner({ cookie }: any) {
+  const [uid, username] = cookie ? JSON.parse(atob(cookie.value)) : [];
   return (
     <Navbar
       expand="lg"
@@ -24,9 +25,21 @@ export default function TopBanner() {
           <Nav.Link href="/backdoor">
             <span className="opacity-0">gap</span>Config
           </Nav.Link>
-          <Nav.Link href="/logout">
-            <span className="opacity-0">gap</span>Logout
-          </Nav.Link>
+          {uid && (
+            <Nav.Link href={`/user/${uid}`}>
+              <span className="opacity-0">gap</span>
+              Hello, {username}
+            </Nav.Link>
+          )}
+          {uid ? (
+            <Nav.Link href="/api/logout">
+              <span className="opacity-0">gap</span>Logout
+            </Nav.Link>
+          ) : (
+            <Nav.Link href="/api/login">
+              <span className="opacity-0">gap</span>Login
+            </Nav.Link>
+          )}
           {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
             <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.2">

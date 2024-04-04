@@ -73,7 +73,7 @@ const Login = () => {
 
           <div>
             <Link
-              href={`/api/login/?uid=${btoa(Pwd)}`}
+              href={`/api/login?pwd=${btoa(Pwd)}`}
               // className="hover:underline"
               replace
             >

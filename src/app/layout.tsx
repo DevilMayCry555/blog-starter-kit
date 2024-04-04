@@ -7,6 +7,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "@/app/_components/footer";
 import TopBanner from "./_components/top-banner";
 
+import { cookies } from "next/headers";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -23,6 +25,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const token = cookies().get("auth-token");
+  // console.log(token);
   return (
     <html lang="en">
       <head>
@@ -59,7 +63,7 @@ export default function RootLayout({
         <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       </head>
       <body className={inter.className}>
-        <TopBanner />
+        <TopBanner cookie={token} />
         <div className="min-h-screen">{children}</div>
         <Footer />
       </body>
