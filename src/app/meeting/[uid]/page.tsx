@@ -4,16 +4,19 @@ import req from "@/lib/request";
 import "./style.css";
 import { notFound } from "next/navigation";
 
-export default async function Meeting() {
+export default async function Meeting({ params }: Params) {
   const token = cookies().get("auth-token");
 
   if (!token) {
     return notFound();
   }
+  if (!["public", "tyd"].includes(params.uid)) {
+    return notFound();
+  }
   const [userid, username] = JSON.parse(atob(token.value));
   const { data } = await req.get("/api/meeting", {
     params: {
-      uid: "tydly",
+      uid: params.uid,
     },
     headers: {
       ["role-token"]: token?.value,
@@ -26,15 +29,11 @@ export default async function Meeting() {
       <div className="chat-room min-h-screen flex flex-col">
         <form action="/api/meeting" method="GET" encType="text/plain">
           <input type="text" name="method" defaultValue="create" hidden />
+          <input type="text" name="uid" defaultValue={params.uid} hidden />
           <input type="text" name="userid" defaultValue={userid} hidden />
           <input type="text" name="username" defaultValue={username} hidden />
           <div className="input-box">
-            <input
-              type="text"
-              name="content"
-              disabled={!token}
-              placeholder="请输入消息..."
-            />
+            <input type="text" name="content" placeholder="请输入消息..." />
             <button type="submit">发送</button>
           </div>
         </form>
@@ -61,3 +60,8 @@ export default async function Meeting() {
     </main>
   );
 }
+type Params = {
+  params: {
+    uid: string;
+  };
+};
