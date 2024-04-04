@@ -11,7 +11,8 @@ export async function GET(request) {
     if (!auth) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
-    const data = await sql`SELECT * FROM chats WHERE uid = ${uid};`;
+    const data =
+      await sql`SELECT * FROM chats WHERE uid = ${uid} ORDER BY create_time DESC;`;
     return NextResponse.json(data, { status: 200 });
   }
   if (method === "delete") {
