@@ -2,7 +2,7 @@
 title: "Love Diary"
 excerpt: "Sharing our daily lives, trips, and sweet moments."
 coverImage: "/assets/blog/love-diary/cover.jpg"
-date: "2024-03-25"
+date: "2024-04-04"
 author:
   name: L.D.T
   picture: "/assets/blog/authors/ly.jpg"
