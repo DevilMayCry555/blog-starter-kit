@@ -39,15 +39,22 @@ export default async function Meeting({ params }: Params) {
           </div>
         </form>
         <div className="chat-box flex-1">
-          {[].concat(rows).map((row, idx) => {
-            const { user_name, content } = row;
-            return (
-              <div key={idx} className="chat-message">
-                <span className="user-name">{user_name}:</span>
-                <span className="message-content">{content}</span>
-              </div>
-            );
-          })}
+          {[]
+            .concat(rows)
+            .reverse()
+            .map((row, idx, ary) => {
+              const { user_name, content, create_time } = row;
+              return (
+                <div key={idx} className="chat-message">
+                  <span className="user-name">{user_name}:</span>
+                  <div className="message-content">{content}</div>
+                  <div className="text-xs text-slate-400 flex justify-between">
+                    <span>{create_time}</span>
+                    <span>#{ary.length - idx}</span>
+                  </div>
+                </div>
+              );
+            })}
           {/* <div className="chat-message">
             <span className="user-name">王者之剑:</span>
             <span className="message-content">你好，有没有人要组队？</span>
