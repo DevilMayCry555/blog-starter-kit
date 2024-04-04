@@ -5,7 +5,7 @@ import { format } from "date-fns";
 
 export async function GET(request) {
   const auth = request.cookies._headers.get("role-token");
-  console.log(auth);
+  // console.log(auth);
   if (!auth) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
