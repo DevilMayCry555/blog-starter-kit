@@ -3,6 +3,7 @@ import req from "@/lib/request";
 
 import "./style.css";
 import { notFound } from "next/navigation";
+import { Reload } from "@/app/_components/reload";
 
 export default async function Meeting({ params }: Params) {
   const token = cookies().get("auth-token");
@@ -27,7 +28,9 @@ export default async function Meeting({ params }: Params) {
   return (
     <main>
       <div className="chat-room min-h-screen flex flex-col">
-        warning: space === +
+        <div className="d-grid">
+          <Reload />
+        </div>
         <form action="/api/meeting" method="GET" encType="text/plain">
           <input type="text" name="method" defaultValue="create" hidden />
           <input type="text" name="uid" defaultValue={params.uid} hidden />
@@ -48,9 +51,9 @@ export default async function Meeting({ params }: Params) {
                 <div key={idx} className="chat-message">
                   <span className="user-name">{user_name}:</span>
                   <div className="message-content">{content}</div>
-                  <div className="text-xs text-slate-400 flex justify-between">
+                  <div className="text-xs text-slate-400">
+                    <span>#{ary.length - idx} </span>
                     <span>{create_time}</span>
-                    <span>#{ary.length - idx}</span>
                   </div>
                 </div>
               );

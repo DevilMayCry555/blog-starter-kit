@@ -19,7 +19,7 @@ export async function GET(request) {
   }
   if (method === "create") {
     const { userid, username, content } = rest;
-    const time = format(new Date(Date.now), "yyyy-MM-dd HH:mm:ss");
+    const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
     await sql`INSERT INTO chats (uid,user_id,user_name,content,create_time)
     VALUES (${uid},${userid},${username},${content},${time});`;
   }
