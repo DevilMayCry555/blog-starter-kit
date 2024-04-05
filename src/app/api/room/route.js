@@ -1,26 +1,35 @@
 import { NextResponse } from "next/server";
 import { sql } from "@vercel/postgres";
 import { qs } from "@/lib/utils";
-import { format } from "date-fns";
 
 export async function GET(request) {
   const { search } = request.nextUrl;
-  const { method, uid, ...rest } = qs(search);
+  const { method, ...rest } = qs(search);
   if (!method) {
     const auth = request.cookies._headers.get("role-token");
+    // console.log(auth);
     if (!auth) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
-    const data = await sql`SELECT * FROM chats WHERE uid = ${uid};`;
+    const { current, pageSize } = rest;
+    const offset = (current - 1) * pageSize;
+    const { rows, fields } = await sql`SELECT * FROM rooms;`;
+    const data = {
+      fields,
+      rows: rows.slice(offset, offset + pageSize),
+      total: rows.length,
+    };
     return NextResponse.json(data, { status: 200 });
   }
-  if (method === "create") {
-    const { userid, username, content } = rest;
-    const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
-    await sql`INSERT INTO chats (uid,user_id,user_name,content,create_time)
-    VALUES (${uid},${userid},${username},${content},${time});`;
+  if (method === "delete") {
+    await sql`DELETE FROM rooms WHERE uid = ${rest.uid};`;
   }
-  return NextResponse.redirect(new URL("/meeting/" + uid, request.url));
+  if (method === "create") {
+    const { uid, password } = rest;
+    await sql`INSERT INTO rooms (uid,password)
+    VALUES (${uid},${password});`;
+  }
+  return NextResponse.redirect(new URL("/backdoor/room", request.url));
 }
 
 export async function HEAD(request) {}

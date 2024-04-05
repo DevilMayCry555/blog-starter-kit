@@ -53,7 +53,7 @@ export async function GET(request) {
     intro = ${intro}
     WHERE uid = ${uid};`;
   }
-  return NextResponse.redirect(new URL("/backdoor", request.url));
+  return NextResponse.redirect(new URL("/backdoor/user", request.url));
 }
 
 export async function HEAD(request) {}

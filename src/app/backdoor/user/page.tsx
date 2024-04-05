@@ -1,8 +1,8 @@
-import Container from "../_components/container";
-import BaseForm from "../_components/base-form";
-import BaseTable from "../_components/base-table";
-import BaseModal from "../_components/base-modal";
-import BasePagination from "../_components/base-pagination";
+import Container from "../../_components/container";
+import BaseForm from "../../_components/base-form";
+import BaseTable from "../../_components/base-table";
+import BaseModal from "../../_components/base-modal";
+import BasePagination from "../../_components/base-pagination";
 
 import req from "@/lib/request";
 import { cookies } from "next/headers";
@@ -87,7 +87,7 @@ export default async function Backdoor({ searchParams }: any) {
           current={current}
           pageSize={pageSize}
           total={total}
-          path="/backdoor"
+          path="/backdoor/user"
         />
       </Container>
     </main>
