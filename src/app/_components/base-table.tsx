@@ -1,8 +1,9 @@
+import Link from "next/link";
 import { Button, Table } from "react-bootstrap";
 interface Props {
   fields: any[];
   rows: any[];
-  actions: (...args:any[]) => any[];
+  actions: (...args: any[]) => any[];
 }
 export default function BaseTable({ fields, rows, actions = () => [] }: Props) {
   // 取消uid行的显示
@@ -23,10 +24,17 @@ export default function BaseTable({ fields, rows, actions = () => [] }: Props) {
         {rows.map((row) => (
           <tr key={row.uid}>
             {/* actions */}
-            <td>
+            <td className="flex justify-between items-center flex-wrap">
               {actions(row).map((it, idx) => {
                 const { text, action, method, params } = it;
                 const items = Object.entries({ ...params, method });
+                if (method === "router") {
+                  return (
+                    <Link key={idx} href={action}>
+                      <Button variant="link">{text}</Button>
+                    </Link>
+                  );
+                }
                 return (
                   <form key={idx} action={action} method="GET">
                     {items.map((it) => {

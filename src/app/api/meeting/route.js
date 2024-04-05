@@ -11,6 +11,10 @@ export async function GET(request) {
     if (!auth) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
+    const { rows } = await sql`SELECT * FROM rooms WHERE uid = ${uid};`;
+    if (rows.length === 0) {
+      return NextResponse.redirect(new URL("/404", request.url));
+    }
     const data = await sql`SELECT * FROM chats WHERE uid = ${uid};`;
     return NextResponse.json(data, { status: 200 });
   }

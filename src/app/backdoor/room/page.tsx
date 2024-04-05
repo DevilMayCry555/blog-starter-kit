@@ -33,6 +33,7 @@ export default async function Backdoor({ searchParams }: any) {
         field: "password",
         label: "口令",
         type: "input",
+        required: false,
       },
     ],
   };
@@ -45,6 +46,19 @@ export default async function Backdoor({ searchParams }: any) {
         params: {
           uid: row.uid,
         },
+      },
+      {
+        text: "清空",
+        action: "/api/room",
+        method: "clear",
+        params: {
+          uid: row.uid,
+        },
+      },
+      {
+        text: "查看",
+        action: "/meeting/" + row.uid,
+        method: "router",
       },
     ];
   };

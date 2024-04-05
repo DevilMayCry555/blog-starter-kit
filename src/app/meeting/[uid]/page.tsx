@@ -3,15 +3,12 @@ import req from "@/lib/request";
 
 import "./style.css";
 import { notFound } from "next/navigation";
-import { Reload } from "@/app/_components/reload";
+// import { Reload } from "@/app/_components/reload";
 
 export default async function Meeting({ params }: Params) {
   const token = cookies().get("auth-token");
 
   if (!token) {
-    return notFound();
-  }
-  if (!["public", "tyd"].includes(params.uid)) {
     return notFound();
   }
   const [userid, username] = JSON.parse(atob(token.value));
@@ -28,9 +25,9 @@ export default async function Meeting({ params }: Params) {
   return (
     <main>
       <div className="chat-room min-h-screen flex flex-col">
-        <div className="d-grid">
+        {/* <div className="d-grid">
           <Reload />
-        </div>
+        </div> */}
         <form action="/api/meeting" method="GET" encType="text/plain">
           <input type="text" name="method" defaultValue="create" hidden />
           <input type="text" name="uid" defaultValue={params.uid} hidden />
