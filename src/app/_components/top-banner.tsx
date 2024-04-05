@@ -39,8 +39,13 @@ export default function TopBanner({ cookie }: any) {
               <span className="opacity-0">gap</span>Login
             </Nav.Link>
           )}
-          <NavDropdown title="Backdoor" id="basic-nav-dropdown">
+          <NavDropdown
+            className="px-4"
+            title="Backdoor"
+            id="basic-nav-dropdown"
+          >
             <NavDropdown.Item href="/backdoor/user">User</NavDropdown.Item>
+            <NavDropdown.Divider />
             <NavDropdown.Item href="/backdoor/room">Room</NavDropdown.Item>
             {/* <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
             <NavDropdown.Divider />
