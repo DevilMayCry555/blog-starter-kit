@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  Nav,
-  Navbar,
-  // NavDropdown
-} from "react-bootstrap";
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 export default function TopBanner({ cookie }: any) {
   const [uid, username] = cookie ? JSON.parse(atob(cookie.value)) : [];
@@ -43,17 +39,15 @@ export default function TopBanner({ cookie }: any) {
               <span className="opacity-0">gap</span>Login
             </Nav.Link>
           )}
-          {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">
-              Another action
-            </NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+          <NavDropdown title="Backdoor" id="basic-nav-dropdown">
+            <NavDropdown.Item href="/backdoor/user">User</NavDropdown.Item>
+            <NavDropdown.Item href="/backdoor/room">Room</NavDropdown.Item>
+            {/* <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item href="#action/3.4">
               Separated link
-            </NavDropdown.Item>
-          </NavDropdown> */}
+            </NavDropdown.Item> */}
+          </NavDropdown>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
