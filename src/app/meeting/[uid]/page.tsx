@@ -16,9 +16,6 @@ export default async function Meeting({ params }: Params) {
     params: {
       uid: params.uid,
     },
-    headers: {
-      ["role-token"]: token?.value,
-    },
   });
   const { rows } = data;
 

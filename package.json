@@ -5,7 +5,7 @@
     "build": "next build",
     "start": "next start",
     "seed": "node -r dotenv/config ./scripts/seed.js",
-    "ddev": "node server.js"
+    "tyd": "node server.js"
   },
   "dependencies": {
     "@vercel/edge-config": "^1.1.0",
