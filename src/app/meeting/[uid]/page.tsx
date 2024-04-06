@@ -25,6 +25,7 @@ export default async function Meeting({ params }: Params) {
   return (
     <main>
       <div className="chat-room min-h-screen flex flex-col">
+        {/* <Reload /> */}
         <form action="/api/meeting" method="GET" encType="text/plain">
           <input type="text" name="method" defaultValue="create" hidden />
           <input type="text" name="uid" defaultValue={params.uid} hidden />
@@ -54,7 +55,6 @@ export default async function Meeting({ params }: Params) {
             })}
         </div>
       </div>
-      {/* <Reload /> */}
     </main>
   );
 }
