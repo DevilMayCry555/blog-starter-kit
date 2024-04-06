@@ -13,8 +13,8 @@ export function middleware(request) {
   const { pathname } = request.nextUrl;
   const [uid] = JSON.parse(atob(access.value));
   const is_self_page =
+    // 仅管理员可见
     doors.includes(pathname) || String(pathname).split("/").includes("posts");
-  // 控制台 仅管理员可见
   if (is_self_page && uid !== PWD) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
