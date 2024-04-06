@@ -25,9 +25,6 @@ export default async function Meeting({ params }: Params) {
   return (
     <main>
       <div className="chat-room min-h-screen flex flex-col">
-        {/* <div className="d-grid">
-          <Reload />
-        </div> */}
         <form action="/api/meeting" method="GET" encType="text/plain">
           <input type="text" name="method" defaultValue="create" hidden />
           <input type="text" name="uid" defaultValue={params.uid} hidden />
@@ -55,16 +52,9 @@ export default async function Meeting({ params }: Params) {
                 </div>
               );
             })}
-          {/* <div className="chat-message">
-            <span className="user-name">王者之剑:</span>
-            <span className="message-content">你好，有没有人要组队？</span>
-          </div>
-          <div className="chat-message">
-            <span className="user-name">影之女神:</span>
-            <span className="message-content">我想组队，你几级了？</span>
-          </div> */}
         </div>
       </div>
+      {/* <Reload /> */}
     </main>
   );
 }

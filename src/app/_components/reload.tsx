@@ -1,14 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Button } from "react-bootstrap";
+import { useEffect } from "react";
 
 export function Reload() {
   const router = useRouter();
-  return (
-    <Button
-      variant="outline-success"
-      onClick={() => router.refresh()}
-    >{`<(￣︶￣)↗[Reload!]`}</Button>
-  );
+
+  useEffect(() => {
+    router.refresh();
+    console.log("refresh");
+  });
+  return <div className="hidden"></div>;
 }
