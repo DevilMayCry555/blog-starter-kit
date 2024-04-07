@@ -39,7 +39,11 @@ export default async function Meeting({ params }: Params) {
     uid: params.uid,
   };
   const { rows } = data;
-
+  const format_name = (name = "robot") =>
+    name
+      .split("_")
+      .map((it, idx) => (idx > 0 ? "*" : it))
+      .join("");
   return (
     <main>
       <div className="chat-room min-h-screen">
@@ -53,7 +57,7 @@ export default async function Meeting({ params }: Params) {
               const { user_name, content, create_time } = row;
               return (
                 <div key={idx} className="chat-message">
-                  <span className="user-name">{user_name}:</span>
+                  <span className="user-name">{format_name(user_name)}:</span>
                   <div className="message-content">{content}</div>
                   <div className="text-xs text-slate-400">
                     <span>#{ary.length - idx} </span>
