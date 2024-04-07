@@ -19,7 +19,7 @@ export default function TopBanner({ cookie }: any) {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
           <Nav.Link href="/meeting/public">
-            <span className="opacity-0">gap</span>Meeting
+            <span className="opacity-0">gap</span>广场
           </Nav.Link>
           <Nav.Link href="/backdoor" className="hidden">
             <span className="opacity-0">gap</span>Config
@@ -27,26 +27,22 @@ export default function TopBanner({ cookie }: any) {
           {uid && (
             <Nav.Link href={`/user/${uid}`}>
               <span className="opacity-0">gap</span>
-              Hello, {username}
+              你好, {username}
             </Nav.Link>
           )}
           {uid ? (
             <Nav.Link href="/api/logout">
-              <span className="opacity-0">gap</span>Logout
+              <span className="opacity-0">gap</span>退出
             </Nav.Link>
           ) : (
             <Nav.Link href="/api/login">
-              <span className="opacity-0">gap</span>Login
+              <span className="opacity-0">gap</span>登录
             </Nav.Link>
           )}
-          <NavDropdown
-            className="px-4"
-            title="Backdoor"
-            id="basic-nav-dropdown"
-          >
-            <NavDropdown.Item href="/backdoor/user">User</NavDropdown.Item>
+          <NavDropdown className="px-4" title="控制台" id="basic-nav-dropdown">
+            <NavDropdown.Item href="/backdoor/user">用户</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item href="/backdoor/room">Room</NavDropdown.Item>
+            <NavDropdown.Item href="/backdoor/room">团建</NavDropdown.Item>
             {/* <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item href="#action/3.4">
