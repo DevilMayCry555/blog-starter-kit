@@ -5,18 +5,13 @@ import BaseModal from "../../_components/base-modal";
 import BasePagination from "../../_components/base-pagination";
 
 import req from "@/lib/request";
-import { cookies } from "next/headers";
 
 export default async function Backdoor({ searchParams }: any) {
-  const token = cookies().get("auth-token");
   const { current = 1, pageSize = 10 } = searchParams;
   const { data } = await req.get("/api/room", {
     params: {
       current,
       pageSize,
-    },
-    headers: {
-      ["role-token"]: token?.value,
     },
   });
   const { fields, rows, total } = data;

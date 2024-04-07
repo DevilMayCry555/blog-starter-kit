@@ -6,11 +6,6 @@ export async function GET(request) {
   const { search } = request.nextUrl;
   const { method, ...rest } = qs(search);
   if (!method) {
-    const auth = request.cookies._headers.get("role-token");
-    // console.log(auth);
-    if (!auth) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
     const { current, pageSize } = rest;
     const offset = (current - 1) * pageSize;
     const { rows, fields } = await sql`SELECT * FROM rooms;`;

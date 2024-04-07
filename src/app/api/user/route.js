@@ -7,11 +7,6 @@ export async function GET(request) {
   const { search } = request.nextUrl;
   const { method, ...rest } = qs(search);
   if (!method) {
-    const auth = request.cookies._headers.get("role-token");
-    // console.log(auth);
-    if (!auth) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
     const { current, pageSize } = rest;
     const offset = (current - 1) * pageSize;
     const { rows, fields } = await sql`SELECT * FROM users;`;
@@ -27,12 +22,9 @@ export async function GET(request) {
   }
   if (method === "create") {
     const { username, admin } = rest;
-    const intro = JSON.stringify({
-      admin: !!admin,
-    });
     const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
-    await sql`INSERT INTO users (uid,username,create_time,intro)
-    VALUES (${getuuid()},${username},${time},${intro});`;
+    await sql`INSERT INTO users (uid,username,create_time,admin)
+    VALUES (${getuuid()},${username},${time},${admin ? 1 : 0});`;
   }
   if (method === "update") {
     const { uid, birthday } = rest;
@@ -42,15 +34,13 @@ export async function GET(request) {
     birthday = ${birthday}
     WHERE uid = ${uid};`;
   }
+  // 切换管理员状态
   if (method === "admin") {
     const { uid } = rest;
     const { rows } = await sql`SELECT * FROM users WHERE uid = ${uid};`;
-    const { admin } = JSON.parse(rows[0].intro ?? "{}");
-    const intro = JSON.stringify({
-      admin: !admin,
-    });
+    const { admin } = rows[0];
     await sql`UPDATE users SET
-    intro = ${intro}
+    admin = ${Number(admin) ? 0 : 1}
     WHERE uid = ${uid};`;
   }
   return NextResponse.redirect(new URL("/backdoor/user", request.url));

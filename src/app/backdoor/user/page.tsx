@@ -48,7 +48,7 @@ export default async function Backdoor({ searchParams }: any) {
     ],
   };
   const actions = (row: any) => {
-    const { admin } = JSON.parse(row.intro ?? "{}");
+    const { admin } = row;
     return [
       {
         text: "删除",
@@ -59,7 +59,7 @@ export default async function Backdoor({ searchParams }: any) {
         },
       },
       {
-        text: admin ? "关闭管理员" : "开启管理员",
+        text: Number(admin) ? "关闭管理员" : "开启管理员",
         action: "/api/user",
         method: "admin",
         params: {

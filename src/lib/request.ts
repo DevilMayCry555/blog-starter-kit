@@ -19,7 +19,7 @@ service.interceptors.request.use(
   function (config) {
     const token = cookies().get("auth-token");
     if (token) {
-      config.headers.set("role-token", token.value);
+      config.headers.set("Content-tyd", token.value);
     }
     // 在发送请求之前做些什么
     return config;

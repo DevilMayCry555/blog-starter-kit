@@ -7,10 +7,6 @@ export async function GET(request) {
   const { search } = request.nextUrl;
   const { method, uid, ...rest } = qs(search);
   if (!method) {
-    const auth = request.cookies._headers.get("role-token");
-    if (!auth) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
     const { rows } = await sql`SELECT * FROM rooms WHERE uid = ${uid};`;
     if (rows.length === 0) {
       return NextResponse.redirect(new URL("/404", request.url));
