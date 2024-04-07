@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { sql } from "@vercel/postgres";
 import { qs } from "@/lib/utils";
 import { encrypt } from "@/lib/constants";
+import { format } from "date-fns";
 
 export async function GET(request) {
   const { search } = request.nextUrl;

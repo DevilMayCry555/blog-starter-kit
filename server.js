@@ -11,19 +11,28 @@ const port = 3000;
 // when using middleware `hostname` and `port` must be provided below
 const app = next({ dev, hostname, port });
 const handler = app.getRequestHandler();
-const users = [];
+const users = {};
 app.prepare().then(() => {
   const httpServer = createServer(handler);
 
   const io = new Server(httpServer);
 
   io.on("connection", (socket) => {
-    // ...
-    console.log("connection", socket.id);
-    users.push(socket);
-    socket.on("hello", (value) => {
-      users.forEach((it) => {
-        it.emit("qwer", value);
+    // clear disconnected
+    Object.entries(users).forEach((it) => {
+      const [id, client] = it;
+      if (!client.connected) {
+        delete users[id];
+      }
+    });
+    // hello
+    socket.on("hello", ({ userid }) => {
+      users[userid] = socket;
+      // counter
+      Object.values(users).forEach((it, _idx, ary) => {
+        it.emit("broadcast", {
+          counter: ary.length,
+        });
       });
     });
   });

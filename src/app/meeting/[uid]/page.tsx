@@ -3,7 +3,7 @@ import req from "@/lib/request";
 
 import "./style.css";
 import { notFound } from "next/navigation";
-// import { Reload } from "@/app/_components/reload";
+import { WSClient } from "@/app/_components/ws-client";
 const Send = ({ formData }: { formData: { [k: string]: any } }) => {
   return (
     <form action="/api/meeting" method="GET" encType="text/plain">
@@ -47,7 +47,7 @@ export default async function Meeting({ params }: Params) {
   return (
     <main>
       <div className="chat-room min-h-screen">
-        {/* <Reload /> */}
+        <WSClient userid={userid} />
         <Send formData={formData} />
         <div className="chat-box">
           {[]
