@@ -11,6 +11,10 @@ export async function GET(request) {
   const { rows } = await sql`SELECT * FROM users;`;
   const find = rows.find((it) => it.uid === password);
   if (find) {
+    const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
+    await sql`UPDATE users SET
+    update_time = ${time}
+    WHERE uid = ${password};`;
     cookies().set({
       name: "auth-token",
       value: encrypt([password, find.username]),
