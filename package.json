@@ -1,10 +1,11 @@
 {
   "private": true,
   "scripts": {
-    "dev": "node server.js",
+    "dev": "next",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js",
-    "seed": "node -r dotenv/config seed.js"
+    "start": "next start",
+    "seed": "node -r dotenv/config ./scripts/seed.js",
+    "tyd": "node server.js"
   },
   "dependencies": {
     "@vercel/edge-config": "^1.1.0",
