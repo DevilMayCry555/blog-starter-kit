@@ -46,3 +46,37 @@ app.prepare().then(() => {
       console.log(`> Ready on http://${hostname}:${port}`);
     });
 });
+export default function (req, res) {
+  const httpServer = createServer(handler);
+
+  const io = new Server(httpServer);
+
+  io.on("connection", (socket) => {
+    // clear disconnected
+    Object.entries(users).forEach((it) => {
+      const [id, client] = it;
+      if (!client.connected) {
+        delete users[id];
+      }
+    });
+    // hello
+    socket.on("hello", ({ userid }) => {
+      users[userid] = socket;
+      // counter
+      Object.values(users).forEach((it, _idx, ary) => {
+        it.emit("broadcast", {
+          counter: ary.length,
+        });
+      });
+    });
+  });
+
+  httpServer
+    .once("error", (err) => {
+      console.error(err);
+      process.exit(1);
+    })
+    .listen(port, () => {
+      console.log(`> Ready on http://${hostname}:${port}`);
+    });
+}
