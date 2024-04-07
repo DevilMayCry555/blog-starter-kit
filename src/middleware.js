@@ -3,6 +3,11 @@ import { cookies, headers } from "next/headers";
 import { PWD } from "./lib/constants";
 // const isDev = process.env.NODE_ENV === "development";
 export function middleware(request) {
+  // 所有api 除了登录
+  const { pathname } = request.nextUrl;
+  if (pathname === "/api/login") {
+    return;
+  }
   const access = !!headers().get("Content-tyd")
     ? {
         value: headers().get("Content-tyd"),
