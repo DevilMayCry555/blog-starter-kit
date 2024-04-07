@@ -40,11 +40,11 @@ export default async function Backdoor({ searchParams }: any) {
         label: "uid",
         type: "input",
       },
-      {
-        field: "username",
-        label: "用户名",
-        type: "input",
-      },
+      // {
+      //   field: "username",
+      //   label: "用户名",
+      //   type: "input",
+      // },
       {
         field: "birthday",
         label: "生日",

@@ -27,9 +27,8 @@ export async function GET(request) {
     VALUES (${getuuid()},${username},${time},${admin ? 1 : 0});`;
   }
   if (method === "update") {
-    const { uid, birthday, username } = rest;
+    const { uid, birthday } = rest;
     await sql`UPDATE users SET
-    username = ${username},
     birthday = ${birthday}
     WHERE uid = ${uid};`;
   }
