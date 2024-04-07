@@ -13,8 +13,7 @@ export async function GET(request) {
     await sql`INSERT INTO chats (uid,user_id,user_name,content,create_time)
     VALUES (${uid},${userid},${username},${content},${time});`;
   }
-  // return NextResponse.redirect(new URL("/meeting/" + uid, request.url));
-  return NextResponse.json({ data: true }, { status: 200 });
+  return NextResponse.redirect(new URL("/meeting/" + uid, request.url));
 }
 
 export async function HEAD(request) {}
