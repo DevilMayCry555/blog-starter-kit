@@ -7,8 +7,9 @@ import { encrypt } from "@/lib/constants";
 export async function GET(request) {
   const { search } = request.nextUrl;
   const { pwd } = qs(search);
+  const password = btoa(pwd);
   const { rows } = await sql`SELECT * FROM users;`;
-  const find = rows.find((it) => it.uid === btoa(pwd));
+  const find = rows.find((it) => it.uid === password);
   if (find) {
     cookies().set({
       name: "auth-token",
