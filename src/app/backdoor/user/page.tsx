@@ -3,17 +3,11 @@ import BaseForm from "../../_components/base-form";
 import BaseTable from "../../_components/base-table";
 import BaseModal from "../../_components/base-modal";
 import BasePagination from "../../_components/base-pagination";
-
-import req from "@/lib/request";
+import { fetchUsers } from "@/lib/sql";
 
 export default async function Backdoor({ searchParams }: any) {
   const { current = 1, pageSize = 10 } = searchParams;
-  const { data } = await req.get("/api/user", {
-    params: {
-      current,
-      pageSize,
-    },
-  });
+  const data = await fetchUsers(current, pageSize);
   const { fields, rows, total } = data;
   const createProps = {
     action: "/api/user",

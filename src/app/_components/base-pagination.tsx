@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 interface Props {
   current: string;
   pageSize: string;
-  total: string;
+  total: number;
   path: string;
 }
 export default function BasePagination({
