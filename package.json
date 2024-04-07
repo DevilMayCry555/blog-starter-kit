@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "node server.js",
-    "build": "next build",
+    "build": "node server.js && next build",
     "start": "NODE_ENV=production node server.js",
     "seed": "node -r dotenv/config ./scripts/seed.js"
   },
