@@ -4,7 +4,22 @@ import req from "@/lib/request";
 import "./style.css";
 import { notFound } from "next/navigation";
 // import { Reload } from "@/app/_components/reload";
-
+const Send = ({ formData }: { formData: { [k: string]: any } }) => {
+  return (
+    <form action="/api/meeting" method="GET" encType="text/plain">
+      {Object.entries({ ...formData }).map((it) => {
+        const [key, val] = it;
+        return (
+          <input key={key} type="text" name={key} defaultValue={val} hidden />
+        );
+      })}
+      <div className="input-box">
+        <input type="text" name="content" placeholder="请输入消息..." />
+        <button type="submit">发送</button>
+      </div>
+    </form>
+  );
+};
 export default async function Meeting({ params }: Params) {
   const token = cookies().get("auth-token");
 
@@ -17,23 +32,20 @@ export default async function Meeting({ params }: Params) {
       uid: params.uid,
     },
   });
+  const formData = {
+    method: "create",
+    userid,
+    username,
+    uid: params.uid,
+  };
   const { rows } = data;
 
   return (
     <main>
-      <div className="chat-room min-h-screen flex flex-col">
+      <div className="chat-room min-h-screen">
         {/* <Reload /> */}
-        <form action="/api/meeting" method="GET" encType="text/plain">
-          <input type="text" name="method" defaultValue="create" hidden />
-          <input type="text" name="uid" defaultValue={params.uid} hidden />
-          <input type="text" name="userid" defaultValue={userid} hidden />
-          <input type="text" name="username" defaultValue={username} hidden />
-          <div className="input-box">
-            <input type="text" name="content" placeholder="请输入消息..." />
-            <button type="submit">发送</button>
-          </div>
-        </form>
-        <div className="chat-box flex-1">
+        <Send formData={formData} />
+        <div className="chat-box">
           {[]
             .concat(rows)
             .reverse()
