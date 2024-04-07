@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
 import { PWD } from "./lib/constants";
 // const isDev = process.env.NODE_ENV === "development";
 export function middleware(request) {
@@ -8,11 +8,7 @@ export function middleware(request) {
   if (pathname === "/api/login") {
     return;
   }
-  const access = !!headers().get("Content-tyd")
-    ? {
-        value: headers().get("Content-tyd"),
-      }
-    : cookies().get("auth-token");
+  const access = cookies().get("auth-token");
   // console.log("access", access);
   // 未登录
   if (!access) {
@@ -26,5 +22,5 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/posts/:slug*", "/backdoor/:door*", "/api/user", "/api/room"],
+  matcher: ["/posts/:slug*", "/backdoor/:door*", "/api/:api*"],
 };

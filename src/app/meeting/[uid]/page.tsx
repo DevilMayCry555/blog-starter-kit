@@ -19,7 +19,12 @@ const Send = ({ formData }: { formData: { [k: string]: any } }) => {
         );
       })}
       <div className="input-box">
-        <input type="text" name="content" placeholder="请输入消息..." />
+        <input
+          type="text"
+          name="content"
+          required
+          placeholder="请输入消息..."
+        />
         <button type="submit">发送</button>
       </div>
     </form>
