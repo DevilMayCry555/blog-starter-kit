@@ -41,6 +41,11 @@ export default async function Backdoor({ searchParams }: any) {
         type: "input",
       },
       {
+        field: "username",
+        label: "用户名",
+        type: "input",
+      },
+      {
         field: "birthday",
         label: "生日",
         type: "date",
@@ -59,7 +64,7 @@ export default async function Backdoor({ searchParams }: any) {
         },
       },
       {
-        text: Number(admin) ? "关闭管理员" : "开启管理员",
+        text: Number(admin) ? "管理 关" : "管理 开",
         action: "/api/user",
         method: "admin",
         params: {

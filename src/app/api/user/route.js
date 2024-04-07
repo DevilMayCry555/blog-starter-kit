@@ -27,10 +27,11 @@ export async function GET(request) {
     VALUES (${getuuid()},${username},${time},${admin ? 1 : 0});`;
   }
   if (method === "update") {
-    const { uid, birthday } = rest;
+    const { uid, birthday, username } = rest;
     const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
     await sql`UPDATE users SET
     update_time = ${time},
+    username = ${username},
     birthday = ${birthday}
     WHERE uid = ${uid};`;
   }

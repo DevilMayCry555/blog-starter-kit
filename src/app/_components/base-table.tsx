@@ -12,7 +12,7 @@ export default function BaseTable({ fields, rows, actions = () => [] }: Props) {
     <Table striped bordered hover responsive>
       <thead>
         <tr>
-          <th className="min-w-40">actions</th>
+          <th>actions</th>
           {columns.map((it, idx) => (
             <th className="min-w-40" key={idx}>
               {it}
@@ -24,7 +24,7 @@ export default function BaseTable({ fields, rows, actions = () => [] }: Props) {
         {rows.map((row) => (
           <tr key={row.uid}>
             {/* actions */}
-            <td className="flex justify-between items-center flex-wrap">
+            <td>
               {actions(row).map((it, idx) => {
                 const { text, action, method, params } = it;
                 const items = Object.entries({ ...params, method });
