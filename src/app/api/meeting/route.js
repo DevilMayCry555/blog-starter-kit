@@ -6,7 +6,10 @@ import { format } from "date-fns";
 export async function GET(request) {
   const { search } = request.nextUrl;
   const { method, uid, ...rest } = qs(search);
-
+  const { rows } = await sql`SELECT * FROM rooms WHERE uid = ${uid};`;
+  if (rows.length === 0) {
+    return NextResponse.redirect(new URL("/404", request.url));
+  }
   if (method === "create") {
     const { userid, username, content } = rest;
     const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
