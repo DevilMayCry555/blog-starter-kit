@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { PWD } from "./lib/constants";
+import { fetchSelf } from "./lib/sql";
 // const isDev = process.env.NODE_ENV === "development";
-export function middleware(request) {
+export async function middleware(request) {
   // 所有api 除了登录
   const { pathname } = request.nextUrl;
   if (["/api/login", "/api/logout"].includes(pathname)) {
@@ -14,8 +14,13 @@ export function middleware(request) {
   if (!access) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
+  const info = await fetchSelf(access.value);
+  if (!info) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+  const { admin } = info;
   // 仅管理员
-  if (access.value !== PWD) {
+  if (!Number(admin)) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 }
