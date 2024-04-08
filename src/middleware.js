@@ -5,7 +5,7 @@ import { PWD } from "./lib/constants";
 export function middleware(request) {
   // 所有api 除了登录
   const { pathname } = request.nextUrl;
-  if (pathname === "/api/login") {
+  if (["/api/login", "/api/logout"].includes(pathname)) {
     return;
   }
   const access = cookies().get("auth-token");
@@ -15,8 +15,7 @@ export function middleware(request) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
   // 仅管理员
-  const [uid] = JSON.parse(atob(access.value));
-  if (uid !== PWD) {
+  if (access.value !== PWD) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 }

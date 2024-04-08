@@ -8,6 +8,7 @@ import Footer from "@/app/_components/footer";
 import TopBanner from "./_components/top-banner";
 
 import { cookies } from "next/headers";
+import { fetchSelf } from "@/lib/sql";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,12 +21,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const token = cookies().get("auth-token");
+  const info = token?.value ? await fetchSelf(token.value) : null;
   // console.log(token);
   return (
     <html lang="en">
@@ -63,7 +65,7 @@ export default function RootLayout({
         <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       </head>
       <body className={inter.className}>
-        <TopBanner cookie={token} />
+        <TopBanner info={info} />
         <div className="min-h-screen">{children}</div>
         <Footer />
       </body>

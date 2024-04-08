@@ -2,8 +2,8 @@
 
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 
-export default function TopBanner({ cookie }: any) {
-  const [uid, username] = cookie ? JSON.parse(atob(cookie.value)) : [];
+export default function TopBanner({ info }: any) {
+  const { uid, username } = info ?? {};
   return (
     <Navbar
       expand="lg"
