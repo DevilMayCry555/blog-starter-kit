@@ -25,7 +25,7 @@ export default function TopBanner({ info }: any) {
             <span className="opacity-0">gap</span>Config
           </Nav.Link>
           {uid && (
-            <Nav.Link href={`/user/${uid}`}>
+            <Nav.Link href={`/user/${btoa(uid)}`}>
               <span className="opacity-0">gap</span>
               你好, {username}
             </Nav.Link>
