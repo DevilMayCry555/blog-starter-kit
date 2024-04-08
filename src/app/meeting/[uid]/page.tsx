@@ -1,6 +1,5 @@
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
-import { Image } from "react-bootstrap";
 
 import "./style.css";
 import { fetchChats } from "@/lib/sql";
@@ -9,7 +8,7 @@ const format_name = (name = "robot") =>
   name
     .split("_")
     .map((it, idx) => (idx > 0 ? "*" : it))
-    .join("_");
+    .join(" ");
 const Send = ({ formData }: { formData: { [k: string]: any } }) => {
   return (
     <form action="/api/meeting" method="GET" encType="text/plain">
@@ -59,9 +58,9 @@ export default async function Meeting({ params }: Params) {
             <div key={idx} className="chat-message">
               <div className="user-name">{format_name(user_name)}:</div>
               <div className="message-content">{content}</div>
-              <div className="text-xs text-slate-400">
-                <span>#{ary.length - idx} </span>
+              <div className="text-xs text-slate-400 flex justify-between">
                 <span>{create_time}</span>
+                <span>#{ary.length - idx} </span>
               </div>
             </div>
           );
