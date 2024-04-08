@@ -1,8 +1,7 @@
-import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 
 import "./style.css";
-import { fetchChats } from "@/lib/sql";
+import { fetchChats, fetchSelf } from "@/lib/sql";
 // import { WSClient } from "@/app/_components/ws-client";
 const format_name = (name = "robot") =>
   name
@@ -31,17 +30,16 @@ const Send = ({ formData }: { formData: { [k: string]: any } }) => {
   );
 };
 export default async function Meeting({ params }: Params) {
-  const token = cookies().get("auth-token");
-
-  if (!token) {
+  const userinfo = await fetchSelf();
+  if (!userinfo) {
     return notFound();
   }
+  const { uid: userid, username } = userinfo;
   const data = await fetchChats(params.uid);
   if (!data) {
     return notFound();
   }
   const { rows } = data;
-  const [userid, username] = JSON.parse(atob(token.value));
   const formData = {
     method: "create",
     userid,

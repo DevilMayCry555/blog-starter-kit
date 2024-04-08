@@ -7,7 +7,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "@/app/_components/footer";
 import TopBanner from "./_components/top-banner";
 
-import { cookies } from "next/headers";
 import { fetchSelf } from "@/lib/sql";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -26,8 +25,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const token = cookies().get("auth-token");
-  const info = token?.value ? await fetchSelf(token.value) : null;
+  const info = await fetchSelf();
   // console.log(token);
   return (
     <html lang="en">
