@@ -2,8 +2,7 @@
 
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 
-export default function TopBanner({ info }: any) {
-  const { uid, username } = info ?? {};
+export default function TopBanner({ uid }: any) {
   return (
     <Navbar
       expand="lg"
@@ -27,7 +26,7 @@ export default function TopBanner({ info }: any) {
           {uid && (
             <Nav.Link href={`/user/${btoa(uid)}`}>
               <span className="opacity-0">gap</span>
-              你好, {username}
+              我的
             </Nav.Link>
           )}
           {uid ? (
