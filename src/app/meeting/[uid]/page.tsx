@@ -56,15 +56,10 @@ export default async function Meeting({ params }: Params) {
         {rows.reverse().map((row, idx, ary) => {
           const { user_name, content, create_time } = row;
           return (
-            <div key={idx} className="chat-message relative">
-              <Image
-                className="absolute h-full top-0 left-0 -z-10"
-                src="/assets/room/container.png"
-              />
+            <div key={idx} className="chat-message">
               <div className="user-name">{format_name(user_name)}:</div>
               <div className="message-content">{content}</div>
-              <div className="opacity-0">zsbd</div>
-              <div className="text-xs text-slate-400 absolute bottom-0 left-0">
+              <div className="text-xs text-slate-400">
                 <span>#{ary.length - idx} </span>
                 <span>{create_time}</span>
               </div>
