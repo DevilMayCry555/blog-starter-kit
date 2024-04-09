@@ -24,8 +24,7 @@ export async function GET(request) {
   }
   // 切换管理员状态
   if (method === "admin") {
-    const { rows } = await sql`SELECT * FROM users WHERE uid = ${rest.uid};`;
-    const [{ admin }] = rows;
+    const { uid, admin } = rest;
     await sql`UPDATE users SET
     admin = ${Number(admin) ? 0 : 1}
     WHERE uid = ${uid};`;

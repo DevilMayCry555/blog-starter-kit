@@ -64,6 +64,7 @@ export default async function Backdoor({ searchParams }: any) {
         method: "admin",
         params: {
           uid: row.uid,
+          admin,
         },
       },
     ];
