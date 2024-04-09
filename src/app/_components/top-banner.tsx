@@ -20,8 +20,8 @@ export default function TopBanner({ uid }: any) {
           <Nav.Link href="/meeting/public">
             <span className="opacity-0">gap</span>广场
           </Nav.Link>
-          <Nav.Link href="/backdoor" className="hidden">
-            <span className="opacity-0">gap</span>Config
+          <Nav.Link href="/pet">
+            <span className="opacity-0">gap</span>宠物
           </Nav.Link>
           {uid && (
             <Nav.Link href={`/user/${btoa(uid)}`}>
