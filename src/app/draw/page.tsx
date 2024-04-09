@@ -1,26 +1,33 @@
 "use client";
 
-import { useEffect } from "react";
-import { DrawingBoard } from "../../lib/canvas";
-import { Button } from "react-bootstrap";
+import { useState } from "react";
+import { Offcanvas, Button } from "react-bootstrap";
+import DrawCanvas from "./draw-canvas";
 
-export default function Draw() {
-  useEffect(() => {
-    new DrawingBoard("drawboard");
-  }, []);
+function Draw() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
-    <div className="py-4 text-center">
-      <Button id="clear" variant="outline-secondary">
-        clear
-      </Button>
-      <canvas
-        id="drawboard"
-        className="shadow-md m-auto mt-2"
-        width={463.5}
-        height={750}
-      >
-        当前浏览器不支持canvas元素，请升级或更换浏览器！
-      </canvas>
+    <div>
+      <div className="flex justify-center">
+        <Button variant="outline-primary" onClick={handleShow}>
+          打开画板
+        </Button>
+      </div>
+
+      <Offcanvas show={show} onHide={handleClose}>
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>canvas</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <DrawCanvas />
+        </Offcanvas.Body>
+      </Offcanvas>
     </div>
   );
 }
+
+export default Draw;
