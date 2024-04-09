@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { fetchUser } from "./lib/sql";
 // const isDev = process.env.NODE_ENV === "development";
+const admin_routes = ["/posts", "/backdoor", "/api"];
 export async function middleware(request) {
   // 所有api 除了登录
   const { pathname } = request.nextUrl;
@@ -18,13 +19,21 @@ export async function middleware(request) {
   if (!info) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
+  if (!admin_routes.some((it) => pathname.includes(it))) {
+    return;
+  }
+  // 仅管理员可见
   const { admin } = info;
-  // 仅管理员
   if (!Number(admin)) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 }
 
 export const config = {
-  matcher: ["/posts/:slug*", "/backdoor/:door*", "/api/:api*"],
+  matcher: [
+    "/posts/:slug*",
+    "/backdoor/:door*",
+    "/api/:api*",
+    "/meeting/:uid*",
+  ],
 };
