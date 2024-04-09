@@ -26,7 +26,7 @@ export async function GET(request) {
   if (method === "admin") {
     const { uid } = rest;
     const { rows } = await sql`SELECT * FROM users WHERE uid = ${uid};`;
-    const { admin } = rows[0];
+    const [{ admin }] = rows;
     await sql`UPDATE users SET
     admin = ${Number(admin) ? 0 : 1}
     WHERE uid = ${uid};`;
