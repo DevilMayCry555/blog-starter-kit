@@ -29,7 +29,7 @@ export const fetchChats = async (uid: string) => {
   const data = await sql`SELECT * FROM chats WHERE uid = ${uid};`;
   return data;
 };
-export const fetchSelf = async (uid?: string) => {
+export const fetchUser = async (uid?: string) => {
   const token = uid ? { value: uid } : cookies().get("auth-token");
   if (!token) {
     return null;

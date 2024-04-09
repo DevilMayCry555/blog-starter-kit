@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { fetchSelf } from "./lib/sql";
+import { fetchUser } from "./lib/sql";
 // const isDev = process.env.NODE_ENV === "development";
 export async function middleware(request) {
   // 所有api 除了登录
@@ -14,7 +14,7 @@ export async function middleware(request) {
   if (!access) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
-  const info = await fetchSelf(access.value);
+  const info = await fetchUser(access.value);
   if (!info) {
     return NextResponse.redirect(new URL("/login", request.url));
   }

@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
 import "./style.css";
-import { fetchChats, fetchSelf } from "@/lib/sql";
+import { fetchChats, fetchUser } from "@/lib/sql";
 // import { WSClient } from "@/app/_components/ws-client";
 const format_name = (name = "robot") =>
   name
@@ -30,7 +30,7 @@ const Send = ({ formData }: { formData: { [k: string]: any } }) => {
   );
 };
 export default async function Meeting({ params }: Params) {
-  const userinfo = await fetchSelf();
+  const userinfo = await fetchUser();
   if (!userinfo) {
     return notFound();
   }

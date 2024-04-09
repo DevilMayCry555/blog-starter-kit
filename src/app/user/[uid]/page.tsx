@@ -1,10 +1,10 @@
 import Container from "@/app/_components/container";
-import { fetchSelf } from "@/lib/sql";
+import { fetchUser } from "@/lib/sql";
 import { notFound } from "next/navigation";
 
 export default async function User({ params }: Params) {
   const uid = decodeURIComponent(params.uid);
-  const info = await fetchSelf(atob(uid));
+  const info = await fetchUser(atob(uid));
   if (!info) {
     return notFound();
   }
