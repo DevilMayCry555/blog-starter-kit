@@ -21,6 +21,7 @@ export class DrawingBoard {
     this.redraw();
     this.createUserEvents();
   }
+
   private createUserEvents() {
     let canvas = this.canvas;
 
@@ -57,6 +58,7 @@ export class DrawingBoard {
     }
     context.closePath();
   }
+
   private addClick(x: number, y: number, dragging: boolean) {
     this.clickX.push(x);
     this.clickY.push(y);
@@ -74,14 +76,6 @@ export class DrawingBoard {
     this.clearCanvas();
   };
 
-  private releaseEventHandler = () => {
-    this.paint = false;
-    this.redraw();
-  };
-
-  private cancelEventHandler = () => {
-    this.paint = false;
-  };
   private pressEventHandler = (e: MouseEvent | TouchEvent) => {
     let mouseX = (e as TouchEvent).changedTouches
       ? (e as TouchEvent).changedTouches[0].pageX
@@ -113,5 +107,14 @@ export class DrawingBoard {
     }
 
     e.preventDefault();
+  };
+
+  private releaseEventHandler = () => {
+    this.paint = false;
+    this.redraw();
+  };
+
+  private cancelEventHandler = () => {
+    this.paint = false;
   };
 }
