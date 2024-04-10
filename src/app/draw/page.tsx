@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Offcanvas, Button } from "react-bootstrap";
+import { Offcanvas, Button, CloseButton } from "react-bootstrap";
 import DrawCanvas from "./draw-canvas";
 
 function Draw() {
@@ -19,8 +19,9 @@ function Draw() {
       </div>
 
       <Offcanvas show={show} onHide={handleClose}>
-        <Offcanvas.Header closeButton>
+        <Offcanvas.Header closeLabel="close">
           <Offcanvas.Title>canvas</Offcanvas.Title>
+          <CloseButton type="qwer" onClick={handleClose} />
         </Offcanvas.Header>
         <Offcanvas.Body>
           <DrawCanvas />

@@ -19,7 +19,7 @@ export default function DrawCanvas() {
         当前浏览器不支持canvas元素，请升级或更换浏览器！
       </canvas>
       <div className="mt-4 text-center">
-        <Button id="clear" variant="outline-secondary">
+        <Button type="qwer" id="clear" variant="secondary">
           clear
         </Button>
       </div>
