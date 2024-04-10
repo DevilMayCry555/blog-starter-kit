@@ -43,6 +43,6 @@ export const fetchRoom = async (uid: string) => {
     rows: [data],
   } = await sql`SELECT * FROM rooms WHERE password = ${atob(
     token.value
-  )},uid = ${uid};`;
+  )} AND uid = ${uid};`;
   return data;
 };

@@ -22,7 +22,7 @@ export async function GET(request) {
     const { uid, password } = rest;
     const pwd = uid === "public" ? "public" : password;
     const { rows } =
-      await sql`SELECT * FROM rooms WHERE password = ${pwd},uid = ${uid};`;
+      await sql`SELECT * FROM rooms WHERE password = ${pwd} AND uid = ${uid};`;
     const [data] = rows;
     if (data) {
       cookies().set({
