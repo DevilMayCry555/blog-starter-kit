@@ -18,7 +18,7 @@ export default function DrawDrawer() {
       >
         打开画板
       </Button>
-      <Offcanvas show={show} onHide={handleClose}>
+      <Offcanvas show={show} onHide={handleClose} backdrop="static">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>canvas</Offcanvas.Title>
         </Offcanvas.Header>

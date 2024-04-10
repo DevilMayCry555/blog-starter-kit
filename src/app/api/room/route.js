@@ -18,33 +18,21 @@ export async function GET(request) {
     await sql`INSERT INTO rooms (uid,password)
     VALUES (${uid},${password});`;
   }
-  if (method === "draw") {
+  if (method === "join") {
     const { uid, password } = rest;
-    if (uid) {
-      // 创建房间
-      await sql`INSERT INTO rooms (uid,password)
-      VALUES (${uid},${password});`;
+    const pwd = uid === "public" ? "public" : password;
+    const { rows } =
+      await sql`SELECT * FROM rooms WHERE password = ${pwd},uid = ${uid};`;
+    const [data] = rows;
+    if (data) {
       cookies().set({
-        name: "draw-token",
+        name: "room-token",
         value: btoa(password),
         httpOnly: true,
         maxAge: 3 * 24 * 3600,
       });
-    } else {
-      // 进入房间
-      const { rows } =
-        await sql`SELECT * FROM rooms WHERE password = ${password}`;
-      const [data] = rows;
-      if (data) {
-        cookies().set({
-          name: "draw-token",
-          value: btoa(password),
-          httpOnly: true,
-          maxAge: 3 * 24 * 3600,
-        });
-      }
     }
-    return NextResponse.redirect(new URL("/draw", request.url));
+    return NextResponse.redirect(new URL("/meeting/" + uid, request.url));
   }
   return NextResponse.redirect(new URL("/backdoor/room", request.url));
 }

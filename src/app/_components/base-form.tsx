@@ -9,14 +9,21 @@ interface Column {
   type: string;
   required?: boolean;
   options?: any[];
+  init?: string;
 }
 interface Props {
   columns: Column[];
   action: string;
   method: string;
+  text?: string;
 }
 
-export default function BaseForm({ columns, action, method }: Props) {
+export default function BaseForm({
+  columns,
+  action,
+  method,
+  text = "submit",
+}: Props) {
   return (
     <Form action={action} method="GET" encType="text/plain">
       <Form.Group className="hidden">
@@ -30,13 +37,19 @@ export default function BaseForm({ columns, action, method }: Props) {
           type = "input",
           required = true,
           options = [],
+          init,
         } = it;
         const uuid = getuuid(field);
         return (
           <Form.Group key={field} className="mb-3">
             <Form.Label htmlFor={uuid}>{label}</Form.Label>
             {type === "input" && (
-              <Form.Control name={field} required={required} id={uuid} />
+              <Form.Control
+                name={field}
+                required={required}
+                id={uuid}
+                defaultValue={init}
+              />
             )}
             {type === "textarea" && (
               <Form.Control as="textarea" name={field} rows={3} id={uuid} />
@@ -65,7 +78,7 @@ export default function BaseForm({ columns, action, method }: Props) {
         );
       })}
       <Button variant="outline-primary" type="submit">
-        submit
+        {text}
       </Button>
     </Form>
   );

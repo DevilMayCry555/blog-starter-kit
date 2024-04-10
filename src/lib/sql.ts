@@ -34,3 +34,15 @@ export const fetchUser = async (uid?: string) => {
   const [data] = rows;
   return data;
 };
+export const fetchRoom = async (uid: string) => {
+  const token = cookies().get("room-token");
+  if (!token) {
+    return null;
+  }
+  const {
+    rows: [data],
+  } = await sql`SELECT * FROM rooms WHERE password = ${atob(
+    token.value
+  )},uid = ${uid};`;
+  return data;
+};
