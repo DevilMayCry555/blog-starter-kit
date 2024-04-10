@@ -1,16 +1,8 @@
-"use client";
-
-import { useState } from "react";
-import { Offcanvas, Button, CloseButton } from "react-bootstrap";
-import DrawCanvas from "./draw-canvas";
 import BaseModal from "../_components/base-modal";
 import BaseForm from "../_components/base-form";
+import Drawer from "./draw-drawer";
 
-function Draw() {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+async function Draw() {
   const createProps = {
     action: "/api/room",
     method: "draw",
@@ -41,28 +33,15 @@ function Draw() {
     ],
   };
   return (
-    <>
-      <div className="min-h-screen flex flex-col items-center justify-around">
-        <Button variant="outline-primary" onClick={handleShow}>
-          打开画板
-        </Button>
-        <BaseModal action="创建房间" title="create">
-          <BaseForm {...createProps} />
-        </BaseModal>
-        <BaseModal action="加入房间" title="join">
-          <BaseForm {...joinProps} />
-        </BaseModal>
-      </div>
-
-      <Offcanvas show={show} onHide={handleClose}>
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>canvas</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-          <DrawCanvas />
-        </Offcanvas.Body>
-      </Offcanvas>
-    </>
+    <div className="min-h-screen w-2/4 m-auto">
+      <Drawer />
+      <BaseModal action="创建房间" title="create">
+        <BaseForm {...createProps} />
+      </BaseModal>
+      <BaseModal action="加入房间" title="join">
+        <BaseForm {...joinProps} />
+      </BaseModal>
+    </div>
   );
 }
 

@@ -9,7 +9,7 @@ export default function DrawCanvas() {
     new DrawingBoard("drawboard");
   }, []);
   return (
-    <div className="h-full">
+    <div>
       <canvas
         id="drawboard"
         className="shadow-md m-auto"

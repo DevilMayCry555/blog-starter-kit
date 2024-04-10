@@ -18,8 +18,12 @@ export default function BaseModal({
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   return (
-    <div className="inline-block mx-2">
-      <Button variant="outline-primary" className="my-4" onClick={handleShow}>
+    <>
+      <Button
+        variant="outline-primary"
+        className="mx-2 my-4"
+        onClick={handleShow}
+      >
         {action}
       </Button>
 
@@ -37,6 +41,6 @@ export default function BaseModal({
           </Button>
         </Modal.Footer> */}
       </Modal>
-    </div>
+    </>
   );
 }
