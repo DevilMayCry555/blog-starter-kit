@@ -7,13 +7,13 @@ const { sql } = require("@vercel/postgres");
 // 房间
 // CREATE TABLE rooms (uid VARCHAR(50) PRIMARY KEY,password VARCHAR(20));
 // 画板
-// CREATE TABLE arts (uid VARCHAR(50) PRIMARY KEY,user_id VARCHAR(50),title VARCHAR(20),content VARCHAR(60000),finish CHAR(1));
+// CREATE TABLE arts (uid VARCHAR(50) PRIMARY KEY,user_id VARCHAR(50),title VARCHAR(20),content VARCHAR(60000),answer VARCHAR(50));
 // 猜测
-// CREATE TABLE guess (uid VARCHAR(50),user_id VARCHAR(50),content VARCHAR(50),answer CHAR(1));
+// CREATE TABLE guess (uid VARCHAR(50),user_id VARCHAR(50),content VARCHAR(50),win CHAR(1));
 const actions = async () => {
   // return sql`DROP TABLE rooms;`;
   return await sql`ALTER TABLE guess
-  ADD COLUMN answer CHAR(1);`;
+  ADD COLUMN win CHAR(1);`;
 };
 // actions().then((res) => {
 //   console.log(res);
