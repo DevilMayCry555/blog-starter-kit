@@ -1,9 +1,7 @@
 import { notFound } from "next/navigation";
+import { fetchChats, fetchUser } from "@/lib/sql";
 
 import "./style.css";
-import { fetchChats, fetchRoom, fetchUser } from "@/lib/sql";
-import DrawDrawer from "./draw-drawer";
-import NotFound from "./not-found";
 // import { WSClient } from "@/app/_components/ws-client";
 const format_name = (name = "robot") =>
   name
@@ -39,10 +37,6 @@ export default async function Meeting({ params }: Params) {
   }
   // 口令错误
   const roomid = decodeURIComponent(params.uid);
-  const room = await fetchRoom(roomid);
-  if (!room) {
-    return <NotFound uid={roomid} />;
-  }
   const { rows } = await fetchChats(roomid);
   const { uid: userid, username } = userinfo;
   const formData = {
@@ -54,7 +48,7 @@ export default async function Meeting({ params }: Params) {
   return (
     <div className="chat-room min-h-screen flex flex-col">
       <Send formData={formData} />
-      <DrawDrawer />
+
       <div className="chat-box flex-1">
         {rows.reverse().map((row, idx, ary) => {
           const { user_name, content, create_time } = row;

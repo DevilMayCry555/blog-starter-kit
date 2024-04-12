@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { DrawingBoard } from "../../../lib/canvas";
+import { DrawingBoard } from "../../lib/canvas";
 import { Button } from "react-bootstrap";
 let once = false;
 export default function DrawCanvas() {

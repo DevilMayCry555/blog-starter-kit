@@ -1,7 +1,7 @@
 import BaseForm from "@/app/_components/base-form";
 import BaseModal from "@/app/_components/base-modal";
 
-async function NotFound({ uid }: any) {
+async function AuthError({ uid }: any) {
   const joinProps = {
     action: "/api/room",
     method: "join",
@@ -34,4 +34,4 @@ async function NotFound({ uid }: any) {
   );
 }
 
-export default NotFound;
+export default AuthError;

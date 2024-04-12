@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { sql } from "@vercel/postgres";
 import { qs } from "@/lib/utils";
-import { cookies } from "next/headers";
+// import { cookies } from "next/headers";
 
 export async function GET(request) {
   const { search } = request.nextUrl;
@@ -18,22 +18,22 @@ export async function GET(request) {
     await sql`INSERT INTO rooms (uid,password)
     VALUES (${uid},${password});`;
   }
-  if (method === "join") {
-    const { uid, password } = rest;
-    const pwd = uid === "public" ? "public" : password;
-    const { rows } =
-      await sql`SELECT * FROM rooms WHERE password = ${pwd} AND uid = ${uid};`;
-    const [data] = rows;
-    if (data) {
-      cookies().set({
-        name: "room-token",
-        value: btoa(password),
-        httpOnly: true,
-        maxAge: 3 * 24 * 3600,
-      });
-    }
-    return NextResponse.redirect(new URL("/meeting/" + uid, request.url));
-  }
+  // if (method === "join") {
+  //   const { uid, password } = rest;
+  //   const pwd = uid === "public" ? "public" : password;
+  //   const { rows } =
+  //     await sql`SELECT * FROM rooms WHERE password = ${pwd} AND uid = ${uid};`;
+  //   const [data] = rows;
+  //   if (data) {
+  //     cookies().set({
+  //       name: "room-token",
+  //       value: btoa(password),
+  //       httpOnly: true,
+  //       maxAge: 3 * 24 * 3600,
+  //     });
+  //   }
+  //   return NextResponse.redirect(new URL("/meeting/" + uid, request.url));
+  // }
   return NextResponse.redirect(new URL("/backdoor/room", request.url));
 }
 
