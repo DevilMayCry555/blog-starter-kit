@@ -34,19 +34,19 @@ export const fetchUser = async (uid?: string) => {
   const [data] = rows;
   return data;
 };
-export const fetchArts = async (
-  current: number,
-  pageSize: number,
-  detail = false
-) => {
+export const fetchArts = async (current: number, pageSize: number) => {
   const offset = (current - 1) * pageSize;
-  const api = () =>
-    detail ? sql`SELECT * FROM arts;` : sql`SELECT uid,title FROM arts;`;
-  const { rows, fields } = await api();
+  const { rows, fields } = await sql`SELECT uid,title FROM arts;`;
   const data = {
     fields,
     rows: rows.slice(offset, offset + pageSize),
     total: rows.length,
   };
+  return data;
+};
+export const fetchArt = async (uid: string) => {
+  const {
+    rows: [data],
+  } = await sql`SELECT * FROM arts WHERE uid = ${uid};`;
   return data;
 };
