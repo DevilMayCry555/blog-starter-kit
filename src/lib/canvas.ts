@@ -36,8 +36,8 @@ export class DrawingBoard {
     canvas.addEventListener("touchcancel", this.cancelEventHandler);
 
     document
-      .getElementById("clear")!
-      .addEventListener("click", this.clearEventHandler);
+      .getElementById("clear")
+      ?.addEventListener("click", this.clearEventHandler);
   }
 
   private redraw() {
