@@ -19,11 +19,6 @@ async function AuthError({ uid }: any) {
       },
     ],
   };
-  // const quitProps = {
-  //   action: "/api/room",
-  //   method: "quit",
-  //   columns: [],
-  // };
 
   return (
     <div className="min-h-screen w-2/4 m-auto">
