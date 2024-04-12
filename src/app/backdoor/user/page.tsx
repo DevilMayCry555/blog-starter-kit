@@ -8,8 +8,7 @@ import { fetchUsers } from "@/lib/sql";
 
 export default async function Backdoor({ searchParams }: any) {
   const { current = 1, pageSize = 10 } = searchParams;
-  const data = await fetchUsers(current, pageSize);
-  const { fields, rows, total } = data;
+  const { fields, rows, total } = await fetchUsers(current, pageSize);
   const createProps = {
     action: "/api/user",
     method: "create",

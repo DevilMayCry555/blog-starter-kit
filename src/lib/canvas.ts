@@ -1,7 +1,7 @@
 // 画板
 export class DrawingBoard {
-  private canvas: HTMLCanvasElement;
-  public context: CanvasRenderingContext2D;
+  public canvas: HTMLCanvasElement;
+  private context: CanvasRenderingContext2D;
   private paint: boolean = false;
 
   private clickX: number[] = [];

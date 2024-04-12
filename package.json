@@ -4,7 +4,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "seed": "node -r dotenv/config ./scripts/seed.js",
+    "seed": "node -r dotenv/config ./seed.js",
     "tyd": "node server.js"
   },
   "dependencies": {

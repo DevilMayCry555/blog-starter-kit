@@ -8,8 +8,7 @@ import { fetchRooms } from "@/lib/sql";
 
 export default async function Backdoor({ searchParams }: any) {
   const { current = 1, pageSize = 10 } = searchParams;
-  const data = await fetchRooms(current, pageSize);
-  const { fields, rows, total } = data;
+  const { fields, rows, total } = await fetchRooms(current, pageSize);
   const createProps = {
     action: "/api/room",
     method: "create",

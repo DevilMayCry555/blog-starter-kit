@@ -4,12 +4,18 @@ import { useEffect } from "react";
 import { DrawingBoard } from "../../lib/canvas";
 import { Button } from "react-bootstrap";
 let once = false;
+let cas: HTMLCanvasElement | null = null;
 export default function DrawCanvas() {
+  const handleSend = () => {
+    if (cas) {
+      console.log(cas.toDataURL("image/png", 0.5));
+    }
+  };
   useEffect(() => {
     if (!once) {
       once = !once;
       console.log("DrawCanvas");
-      new DrawingBoard("drawboard");
+      cas = new DrawingBoard("drawboard").canvas;
     }
   }, []);
   return (
@@ -24,7 +30,12 @@ export default function DrawCanvas() {
       </canvas>
       <div className="mt-4 text-center">
         <Button id="clear" variant="outline-secondary">
-          clear
+          清空
+        </Button>
+      </div>
+      <div className="mt-4 text-center">
+        <Button variant="outline-secondary" onClick={handleSend}>
+          发布
         </Button>
       </div>
     </div>
