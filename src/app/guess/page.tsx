@@ -20,7 +20,7 @@ export default async function Guess({ searchParams }: any) {
           current={current}
           pageSize={pageSize}
           total={total}
-          path="/draw"
+          path="/guess"
         />
       </Container>
     </main>
