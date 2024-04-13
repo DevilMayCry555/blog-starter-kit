@@ -48,8 +48,19 @@ export const fetchArt = async (uid: string) => {
   const {
     rows: [data],
   } = await sql`SELECT * FROM arts WHERE uid = ${uid};`;
-  const isOwn = cookies().get("auth-token")?.value === data?.user_id;
-  return data && ({ ...data, isOwn } as any);
+  const token = cookies().get("auth-token");
+  if (token) {
+    const {
+      rows: [done],
+    } =
+      await sql`SELECT * FROM guess WHERE uid = ${uid} AND user_id = ${token.value};`;
+    return {
+      ...data,
+      isOwn: token.value === data?.user_id,
+      isDone: !!done,
+    };
+  }
+  return data;
 };
 export const fetchGuesses = async (uid: string) => {
   const data = await sql`SELECT * FROM guess WHERE uid = ${uid};`;

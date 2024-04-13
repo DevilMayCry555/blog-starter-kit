@@ -22,12 +22,19 @@ export async function GET(request) {
     await sql`UPDATE arts SET
     answer = ${answer}
     WHERE uid = ${uid};`;
+    console.log("guess", guess);
     Object.keys(guess).forEach(async (userid) => {
-      await sql`UPDATE arts SET
-      answer = ${answer}
-      WHERE uid = ${uid} AND user_id = ${userid};`;
+      await sql`UPDATE guess SET
+      win = ${1}
+      WHERE uid = ${uid} AND user_id = ${decodeURIComponent(userid)};`;
     });
     return NextResponse.redirect(new URL("/guess/" + uid, request.url));
+  }
+  if (method === "guess") {
+    const { uid, userid, content } = rest;
+    await sql`INSERT INTO guess (uid,user_id,content)
+    VALUES (${uid},${userid},${content});`;
+    return NextResponse.redirect(new URL("/guess", request.url));
   }
   return NextResponse.redirect(new URL("/draw", request.url));
 }

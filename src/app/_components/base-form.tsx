@@ -1,6 +1,6 @@
 "use client";
 
-import { getuuid } from "@/lib/utils";
+// import { getuuid } from "@/lib/utils";
 import { Button, Form } from "react-bootstrap";
 
 interface Column {
@@ -41,23 +41,26 @@ export default function BaseForm({
           options = [],
           init,
         } = it;
-        const uuid = getuuid(field);
+        // const uuid = getuuid(field);
         return (
           <Form.Group hidden={hidden} key={field} className="mb-3">
-            <Form.Label htmlFor={uuid}>{label}</Form.Label>
+            <Form.Label className=" inline-block">{label}</Form.Label>
             {type === "input" && (
               <Form.Control
                 name={field}
                 required={required}
-                id={uuid}
                 defaultValue={init}
               />
             )}
             {type === "textarea" && (
-              <Form.Control as="textarea" name={field} rows={3} id={uuid} />
+              <Form.Control as="textarea" name={field} rows={3} />
             )}
             {type === "checkbox" && (
-              <Form.Check type="checkbox" name={field} id={uuid} />
+              <Form.Check
+                className="inline-block mx-2"
+                type="checkbox"
+                name={field}
+              />
             )}
             {type === "select" && (
               <Form.Select required={required}>
@@ -69,12 +72,7 @@ export default function BaseForm({
               </Form.Select>
             )}
             {["date", "time"].includes(type) && (
-              <Form.Control
-                type={type}
-                name={field}
-                required={required}
-                id={uuid}
-              />
+              <Form.Control type={type} name={field} required={required} />
             )}
           </Form.Group>
         );
