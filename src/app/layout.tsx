@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 
 import "./globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Footer from "@/app/_components/footer";
+// import Footer from "@/app/_components/footer";
 import TopBanner from "./_components/top-banner";
 
 import { cookies } from "next/headers";
@@ -65,7 +65,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <TopBanner uid={token} />
         <div className="min-h-screen">{children}</div>
-        <Footer />
+        {/* <Footer /> */}
       </body>
     </html>
   );

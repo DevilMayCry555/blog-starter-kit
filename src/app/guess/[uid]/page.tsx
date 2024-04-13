@@ -17,7 +17,9 @@ export default async function Draw({ params }: any) {
       const { rows } = await fetchGuesses(roomid);
       return (
         <div>
-          <div>答案：{finish}</div>
+          答案：
+          <div>{finish}</div>
+          参与：
           {rows.map((row) => {
             const { user_id, content, win } = row;
             return (
@@ -42,7 +44,21 @@ export default async function Draw({ params }: any) {
       const formProps = {
         action: "/api/draw",
         method: "finish",
-        columns,
+        columns: [
+          ...columns,
+          {
+            field: "answer",
+            label: "正确答案",
+            type: "input",
+          },
+          {
+            field: "uid",
+            label: "",
+            type: "input",
+            init: roomid,
+            hidden: true,
+          },
+        ],
         text: "公布答案",
       };
       return <BaseForm {...formProps} />;
@@ -66,6 +82,8 @@ export default async function Draw({ params }: any) {
     <main>
       <Container>
         <Image src={src} alt="tyd" width={309} height={500} />
+        <hr />
+        <br />
         <Bottom finish={answer} mine={isOwn} />
       </Container>
     </main>

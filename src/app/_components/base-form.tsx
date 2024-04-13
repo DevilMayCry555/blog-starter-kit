@@ -8,6 +8,7 @@ interface Column {
   label: string;
   type: string;
   required?: boolean;
+  hidden?: boolean;
   options?: any[];
   init?: string;
 }
@@ -35,13 +36,14 @@ export default function BaseForm({
           field,
           label,
           type = "input",
+          hidden = false,
           required = true,
           options = [],
           init,
         } = it;
         const uuid = getuuid(field);
         return (
-          <Form.Group key={field} className="mb-3">
+          <Form.Group hidden={hidden} key={field} className="mb-3">
             <Form.Label htmlFor={uuid}>{label}</Form.Label>
             {type === "input" && (
               <Form.Control

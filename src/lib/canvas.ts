@@ -8,7 +8,9 @@ export class DrawingBoard {
   private clickY: number[] = [];
   private clickDrag: boolean[] = [];
 
-  constructor(id = "canvas") {
+  private callbackFn: Function = console.log;
+
+  constructor(id = "canvas", cb: (...args: any[]) => void) {
     const canvas = document.getElementById(id) as HTMLCanvasElement;
     const context = canvas.getContext("2d")!;
     context.lineCap = "round";
@@ -18,6 +20,7 @@ export class DrawingBoard {
 
     this.canvas = canvas;
     this.context = context;
+    this.callbackFn = cb;
     this.redraw();
     this.createUserEvents();
   }
@@ -74,6 +77,8 @@ export class DrawingBoard {
 
   private clearEventHandler = () => {
     this.clearCanvas();
+    const data = this.canvas.toDataURL("image/png", 0.5);
+    this.callbackFn(data, "clear");
   };
 
   private pressEventHandler = (e: MouseEvent | TouchEvent) => {
@@ -112,9 +117,15 @@ export class DrawingBoard {
   private releaseEventHandler = () => {
     this.paint = false;
     this.redraw();
+
+    const data = this.canvas.toDataURL("image/png", 0.5);
+    this.callbackFn(data, "release");
   };
 
   private cancelEventHandler = () => {
     this.paint = false;
+
+    const data = this.canvas.toDataURL("image/png", 0.5);
+    this.callbackFn(data, "cancel");
   };
 }

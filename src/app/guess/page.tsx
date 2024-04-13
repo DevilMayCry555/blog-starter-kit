@@ -12,8 +12,8 @@ export default async function Guess({ searchParams }: any) {
         {rows.map((row) => {
           const { uid, title } = row;
           return (
-            <div key={uid} className="py-2">
-              <Link href={`/draw/${uid}`}>{title}</Link>
+            <div key={uid} className="py-2 border-b-2 border-red-300">
+              <Link href={`/guess/${uid}`}>{title}</Link>
             </div>
           );
         })}
