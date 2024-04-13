@@ -77,7 +77,7 @@ export class DrawingBoard {
 
   private clearEventHandler = () => {
     this.clearCanvas();
-    const data = this.canvas.toDataURL("image/png", 0.5);
+    const data = this.canvas.toDataURL("image/png", 0.2);
     this.callbackFn(data, "clear");
   };
 
@@ -118,14 +118,14 @@ export class DrawingBoard {
     this.paint = false;
     this.redraw();
 
-    const data = this.canvas.toDataURL("image/png", 0.5);
+    const data = this.canvas.toDataURL("image/png", 0.2);
     this.callbackFn(data, "release");
   };
 
   private cancelEventHandler = () => {
     this.paint = false;
 
-    const data = this.canvas.toDataURL("image/png", 0.5);
+    const data = this.canvas.toDataURL("image/png", 0.2);
     this.callbackFn(data, "cancel");
   };
 }
