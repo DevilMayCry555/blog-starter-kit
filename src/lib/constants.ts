@@ -5,4 +5,4 @@ export const HOME_OG_IMAGE_URL =
 export const BASE_URL =
   process.env.NODE_ENV !== "production"
     ? "http://localhost:3000"
-    : "https://www.tydwin.top";
+    : "https://tydwin.top";
