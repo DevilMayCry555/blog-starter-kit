@@ -31,6 +31,6 @@ export const config = {
     "/backdoor/:door*",
     "/api/:api*",
     "/meeting/:uid*",
-    "/draw/:uid*",
+    "/guess/:uid*",
   ],
 };
