@@ -54,8 +54,7 @@ const Bottom = async ({
           const { user_id, content, win } = row;
           return (
             <div key={user_id}>
-              {content}
-              {win} {!!Number(win) && "√"}
+              {content} {!!win && "√"}
             </div>
           );
         })}

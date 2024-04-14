@@ -22,7 +22,7 @@ export async function GET(request) {
     await sql`UPDATE arts SET
     answer = ${answer}
     WHERE uid = ${uid};`;
-    console.log("guess", guess);
+    // console.log("guess", guess);
     Object.keys(guess).forEach(async (userid) => {
       await sql`UPDATE guess SET
       win = ${1}
