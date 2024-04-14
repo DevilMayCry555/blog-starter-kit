@@ -49,14 +49,24 @@ export async function POST(request) {
     await sql`UPDATE users SET
     draw = ${canvas}
     WHERE uid = ${userid};`;
-    return NextResponse.redirect(new URL("/draw", request.url));
+    return NextResponse.json(
+      {
+        data: true,
+      },
+      { status: 200 }
+    );
   }
   if (method === "publish") {
     const { userid, title, canvas } = rest;
     await sql`INSERT INTO arts (uid,user_id,title,content)
     VALUES (${getuuid()},${userid},${title},${canvas});`;
-    return NextResponse.redirect(new URL("/guess", request.url));
   }
+  return NextResponse.json(
+    {
+      data: true,
+    },
+    { status: 200 }
+  );
 }
 
 export async function PUT(request) {}
