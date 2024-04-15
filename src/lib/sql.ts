@@ -1,6 +1,6 @@
 import { sql } from "@vercel/postgres";
 import { cookies } from "next/headers";
-
+// 所有用户
 export const fetchUsers = async (current: number, pageSize: number) => {
   const offset = (current - 1) * pageSize;
   const { rows, fields } = await sql`SELECT * FROM users;`;
@@ -11,6 +11,7 @@ export const fetchUsers = async (current: number, pageSize: number) => {
   };
   return data;
 };
+// 所有房间
 export const fetchRooms = async (current: number, pageSize: number) => {
   const offset = (current - 1) * pageSize;
   const { rows, fields } = await sql`SELECT * FROM rooms;`;
@@ -21,19 +22,31 @@ export const fetchRooms = async (current: number, pageSize: number) => {
   };
   return data;
 };
+// 某个房间的所有聊天
 export const fetchChats = async (uid: string) => {
   const data = await sql`SELECT * FROM chats WHERE uid = ${uid};`;
   return data;
 };
-export const fetchUser = async (uid?: string) => {
+// 用户信息 不填参数将查询当前用户
+export const fetchUser = async (uid?: string, others?: any) => {
   const token = uid ? { value: uid } : cookies().get("auth-token");
   if (!token) {
     return null;
   }
+  const { art = false } = { ...others };
   const { rows } = await sql`SELECT * FROM users WHERE uid = ${token.value};`;
   const [data] = rows;
+  if (art) {
+    const { rows: user_arts } =
+      await sql`SELECT uid,title FROM arts WHERE user_id = ${token.value};`;
+    return {
+      ...data,
+      arts: user_arts,
+    };
+  }
   return data;
 };
+// 你画我猜 列表
 export const fetchArts = async (current: number, pageSize: number) => {
   const offset = (current - 1) * pageSize;
   const { rows, fields } = await sql`SELECT uid,title FROM arts;`;
@@ -44,6 +57,7 @@ export const fetchArts = async (current: number, pageSize: number) => {
   };
   return data;
 };
+// 你画我猜 画作详情
 export const fetchArt = async (uid: string) => {
   const {
     rows: [data],
@@ -62,6 +76,7 @@ export const fetchArt = async (uid: string) => {
   }
   return data;
 };
+// 你画我猜 竞猜详情
 export const fetchGuesses = async (uid: string) => {
   const data = await sql`SELECT * FROM guess WHERE uid = ${uid};`;
   return data;

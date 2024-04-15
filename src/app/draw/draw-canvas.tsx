@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { DrawingBoard } from "../../lib/canvas";
-import { Alert, Button, Spinner } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import "./style.css";
 import { BASE_URL } from "@/lib/constants";
 
@@ -12,8 +12,6 @@ export default function DrawCanvas({ imgData, userid }: any) {
   const [cas_data, set_cas_data] = useState<string | undefined>("");
   const [title, set_title] = useState<string | undefined>("");
   const [can_pb, set_can_pb] = useState(false);
-  const [show_success, set_show_success] = useState(false);
-  const [show_error, set_show_error] = useState(false);
   const [loading, setLoading] = useState(false);
   const handleSave = (data: string) => {
     // const data = canvas?.toDataURL("image/png", 0.5);
@@ -30,19 +28,9 @@ export default function DrawCanvas({ imgData, userid }: any) {
         Accept: "application/json",
       },
       cache: "no-store",
-    })
-      .then((res) => {
-        console.log(res);
-        set_show_error(false);
-        set_show_success(true);
-      })
-      .catch(() => {
-        set_show_error(true);
-        set_show_success(false);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    }).finally(() => {
+      setLoading(false);
+    });
   };
   const handlePublish = (data: any) => {
     setLoading(true);
@@ -54,18 +42,9 @@ export default function DrawCanvas({ imgData, userid }: any) {
         Accept: "application/json",
       },
       cache: "no-store",
-    })
-      .then(() => {
-        set_show_error(false);
-        set_show_success(true);
-      })
-      .catch(() => {
-        set_show_error(true);
-        set_show_success(false);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    }).finally(() => {
+      setLoading(false);
+    });
   };
   useEffect(() => {
     if (!once) {
@@ -87,12 +66,6 @@ export default function DrawCanvas({ imgData, userid }: any) {
   return (
     <main>
       {/* <Container> */}
-      <Alert show={show_success} variant="success">
-        操作成功
-      </Alert>
-      <Alert show={show_error} variant="danger">
-        操作失败
-      </Alert>
       <form
         action="/api/draw"
         method="POST"
