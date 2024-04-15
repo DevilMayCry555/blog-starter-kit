@@ -5,7 +5,6 @@ import { DrawingBoard } from "../../lib/canvas";
 import { Alert, Button, Spinner } from "react-bootstrap";
 import "./style.css";
 import { BASE_URL } from "@/lib/constants";
-import { useRouter } from "next/navigation";
 
 let once = false;
 let canvas: HTMLCanvasElement | undefined = undefined;
@@ -16,7 +15,6 @@ export default function DrawCanvas({ imgData, userid }: any) {
   const [show_success, set_show_success] = useState(false);
   const [show_error, set_show_error] = useState(false);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
   const handleSave = (data: string) => {
     // const data = canvas?.toDataURL("image/png", 0.5);
     set_cas_data(data);
