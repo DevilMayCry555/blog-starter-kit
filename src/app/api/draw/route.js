@@ -43,7 +43,7 @@ export async function HEAD(request) {}
 
 export async function POST(request) {
   const { value } = await request.body.getReader().read();
-  const { method, ...rest } = JSON.parse(value.toString());
+  const { method, ...rest } = JSON.parse(new TextDecoder().decode(value));
   if (method === "draft") {
     const { userid, canvas } = rest;
     await sql`UPDATE users SET
