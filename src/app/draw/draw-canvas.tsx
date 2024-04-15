@@ -80,16 +80,6 @@ export default function DrawCanvas({ imgData, userid }: any) {
           e.preventDefault();
         }}
       >
-        {/* <input type="text" name="method" defaultValue={"publish"} hidden />
-        <input type="text" name="userid" defaultValue={userid} hidden /> */}
-        <input
-          type="text"
-          name="canvas"
-          value={cas_data}
-          onChange={(e) => set_cas_data(e.target.value)}
-          required
-          hidden
-        />
         <div className="input-box">
           <input
             type="text"
@@ -104,7 +94,7 @@ export default function DrawCanvas({ imgData, userid }: any) {
             variant="outline-secondary"
             disabled={!can_pb || loading}
           >
-            {loading && (
+            {loading ? (
               <Spinner
                 as="span"
                 animation="border"
@@ -112,8 +102,9 @@ export default function DrawCanvas({ imgData, userid }: any) {
                 role="status"
                 aria-hidden="true"
               />
+            ) : (
+              "发布"
             )}
-            发布
           </Button>
         </div>
       </form>
@@ -141,22 +132,12 @@ export default function DrawCanvas({ imgData, userid }: any) {
             e.preventDefault();
           }}
         >
-          {/* <input type="text" name="method" defaultValue={"draft"} hidden />
-          <input type="text" name="userid" defaultValue={userid} hidden /> */}
-          <input
-            type="text"
-            name="canvas"
-            value={cas_data}
-            onChange={(e) => set_cas_data(e.target.value)}
-            required
-            hidden
-          />
           <Button
             type="submit"
             variant="outline-secondary"
             disabled={!can_pb || loading}
           >
-            {loading && (
+            {loading ? (
               <Spinner
                 as="span"
                 animation="border"
@@ -164,8 +145,9 @@ export default function DrawCanvas({ imgData, userid }: any) {
                 role="status"
                 aria-hidden="true"
               />
+            ) : (
+              "保存"
             )}
-            保存
           </Button>
         </form>
       </div>
