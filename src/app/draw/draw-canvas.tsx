@@ -18,21 +18,7 @@ export default function DrawCanvas({ imgData, userid }: any) {
     set_cas_data(data);
     set_can_pb(true);
   };
-  const handleDraft = (data: any) => {
-    setLoading(true);
-    fetch(BASE_URL + "/api/draw", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      cache: "no-store",
-    }).finally(() => {
-      setLoading(false);
-    });
-  };
-  const handlePublish = (data: any) => {
+  const handleClick = (data: any) => {
     setLoading(true);
     fetch(BASE_URL + "/api/draw", {
       method: "POST",
@@ -71,7 +57,7 @@ export default function DrawCanvas({ imgData, userid }: any) {
         method="POST"
         encType="text/plain"
         onSubmit={(e) => {
-          handlePublish({
+          handleClick({
             method: "publish",
             userid,
             title,
@@ -124,7 +110,7 @@ export default function DrawCanvas({ imgData, userid }: any) {
           action="/api/draw"
           method="GET"
           onSubmit={(e) => {
-            handleDraft({
+            handleClick({
               method: "draft",
               userid,
               canvas: cas_data,
