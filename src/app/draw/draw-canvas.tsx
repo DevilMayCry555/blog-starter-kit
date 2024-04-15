@@ -27,12 +27,14 @@ export default function DrawCanvas({ imgData, userid }: any) {
     fetch(BASE_URL + "/api/draw", {
       method: "POST",
       body: JSON.stringify(data),
+      mode: "cors",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
       cache: "no-store",
     })
-      .then(() => {
+      .then((res) => {
+        console.log(res);
         set_show_error(false);
         set_show_success(true);
       })
