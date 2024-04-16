@@ -23,11 +23,14 @@ export async function GET(request) {
     answer = ${answer}
     WHERE uid = ${uid};`;
     // console.log("guess", guess);
-    Object.keys(guess).forEach(async (userid) => {
-      await sql`UPDATE guess SET
-      win = ${1}
-      WHERE uid = ${uid} AND user_id = ${decodeURIComponent(userid)};`;
-    });
+    await Promise.all(
+      Object.keys(guess).map((userid) => {
+        return sql`UPDATE guess SET
+        win = ${1}
+        WHERE uid = ${uid} AND user_id = ${decodeURIComponent(userid)};`;
+      })
+    );
+
     return NextResponse.redirect(new URL("/guess/" + uid, request.url));
   }
   if (method === "guess") {
