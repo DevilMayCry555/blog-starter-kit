@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { fetchUser } from "./lib/sql";
-const admin_routes = ["/posts", "/backdoor", "/api"];
+const admin_routes = ["/posts", "/backdoor"];
 export async function middleware(request) {
   // 所有api 除了登录
   const { pathname } = request.nextUrl;
