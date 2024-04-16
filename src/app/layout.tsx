@@ -64,7 +64,7 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <TopBanner uid={token} />
-        <div className="min-h-screen">{children}</div>
+        <div className="min-h-[90vh]">{children}</div>
         {/* <Footer /> */}
       </body>
     </html>
