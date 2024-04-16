@@ -46,10 +46,10 @@ export default async function Meeting({ params }: Params) {
     uid: params.uid,
   };
   return (
-    <div className="chat-room min-h-screen flex flex-col">
+    <div className="chat-room">
       <Send formData={formData} />
 
-      <div className="chat-box flex-1">
+      <div className="chat-box">
         {rows.reverse().map((row, idx, ary) => {
           const { user_name, content, create_time } = row;
           return (
@@ -64,6 +64,7 @@ export default async function Meeting({ params }: Params) {
           );
         })}
       </div>
+      <div className=" text-center text-xs">到底部了</div>
     </div>
   );
 }
