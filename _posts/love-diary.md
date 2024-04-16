@@ -2,13 +2,18 @@
 title: "Love Diary"
 excerpt: "Sharing our daily lives, trips, and sweet moments."
 coverImage: "/assets/blog/love-diary/cover.jpg"
-date: "2024-04-08"
+date: "2024-04-16"
 author:
   name: L.D.T
   picture: "/assets/blog/authors/ly.jpg"
 ogImage:
   url: "/assets/blog/love-diary/cover.jpg"
 ---
+
+**_2024/04/16 日常_**  
+公主的健康饮食
+
+pw x l![my wife](/assets/blog/love-diary/wx_20240416130226.jpg "健康饮食")
 
 **_2024/04/07 陪伴_**  
 公主有个学妹在找工作  
