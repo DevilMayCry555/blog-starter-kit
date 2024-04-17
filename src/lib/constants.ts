@@ -6,3 +6,6 @@ export const BASE_URL =
   process.env.NODE_ENV !== "production"
     ? "http://localhost:3000"
     : "https://tydwin.top";
+export const OPENAI_API_KEY =
+  "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";
+// "sk-proj-hfE7Wq4605IaRTtcMPTST3BlbkFJIMVswa4PGq6NuBmqB88o";

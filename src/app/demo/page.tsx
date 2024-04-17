@@ -2,6 +2,7 @@
 
 import { BASE_URL } from "@/lib/constants";
 import { useState } from "react";
+
 const decoder = new TextDecoder("utf-8");
 export default function Chat() {
   const [text, setText] = useState("");
