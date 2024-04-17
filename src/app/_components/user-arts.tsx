@@ -1,8 +1,8 @@
 "use client";
 
-import { ListGroup } from "react-bootstrap";
+import { Button, ListGroup } from "react-bootstrap";
 
-export default function ListArts({ listData = [] }: any) {
+export default function UserArts({ listData = [] }: any) {
   return (
     <ListGroup variant="flush" as="ul" numbered>
       {[].concat(listData).map((it) => {

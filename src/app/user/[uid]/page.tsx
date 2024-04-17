@@ -1,7 +1,7 @@
 import Container from "@/app/_components/container";
 import { fetchUser } from "@/lib/sql";
 import { notFound } from "next/navigation";
-import ListArts from "@/app/_components/list-arts";
+import UserArts from "@/app/_components/user-arts";
 
 export default async function User({ params }: Params) {
   const uid = decodeURIComponent(params.uid);
@@ -18,7 +18,7 @@ export default async function User({ params }: Params) {
         <div>生日：{birthday}</div>
         <div>管理员权限：{Number(admin) ? "开" : "关"}</div>
         <div className=" text-2xl pt-4">你画我猜</div>
-        <ListArts listData={arts} />
+        <UserArts listData={arts} />
       </Container>
     </main>
   );

@@ -35,7 +35,6 @@ export default async function Meeting({ params }: Params) {
   if (!userinfo) {
     return notFound();
   }
-  // 口令错误
   const roomid = decodeURIComponent(params.uid);
   const { rows } = await fetchChats(roomid);
   const { uid: userid, username } = userinfo;
