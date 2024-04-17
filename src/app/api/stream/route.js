@@ -23,11 +23,11 @@ function sleep(time) {
 const encoder = new TextEncoder();
 
 async function* makeIterator() {
-  yield encoder.encode("<p>One</p>");
+  yield encoder.encode("I_");
   await sleep(1000);
-  yield encoder.encode("<p>Two</p>");
+  yield encoder.encode("LOVE_");
   await sleep(1000);
-  yield encoder.encode("<p>Three</p>");
+  yield encoder.encode("YOU_❤");
 }
 export async function POST() {
   const iterator = makeIterator();
