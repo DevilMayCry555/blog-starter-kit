@@ -32,5 +32,6 @@ export const config = {
     "/api/:api*",
     "/meeting/:uid*",
     "/guess/:uid*",
+    "/demo",
   ],
 };
