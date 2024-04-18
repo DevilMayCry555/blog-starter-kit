@@ -9,7 +9,8 @@ export default function TopBanner({ uid }: any) {
       className="bg-body-tertiary"
       // bg="dark"
       // data-bs-theme="dark"
-      sticky="top"
+      // sticky="top"
+      fixed="top"
     >
       <Navbar.Brand href="/">
         <span className="opacity-0">gap</span>T.Y.D.L.Y

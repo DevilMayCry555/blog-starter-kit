@@ -61,7 +61,7 @@ export default function Chat() {
 
   return (
     <div className="flex flex-col w-full max-w-md p-2 mx-auto stretch">
-      <div className=" min-h-[70vh] overflow-auto">
+      <div className=" max-h-[50vh] overflow-auto">
         {me.map((it, idx) => {
           return (
             <div key={idx}>
