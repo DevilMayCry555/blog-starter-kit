@@ -32,6 +32,8 @@ export default function Chat() {
       setText((value) => {
         return value + slice;
       });
+      const bottom = document.getElementById("chat_bottom");
+      bottom!.scrollIntoView();
 
       return reader.read().then(process);
     });
@@ -61,41 +63,43 @@ export default function Chat() {
 
   return (
     <div className="flex flex-col w-full max-w-md p-2 mx-auto stretch">
-      <div className=" max-h-[50vh] overflow-auto">
-        {me.map((it, idx) => {
-          return (
-            <div key={idx}>
-              <div className=" text-right">
-                <strong>user: </strong>
-                <p>{it}</p>
-              </div>
-              {ai[idx] && (
-                <div>
-                  <strong>AI: </strong>
-                  <p>{ai[idx]}</p>
-                </div>
-              )}
+      <p className=" text-xs text-center">
+        模型：GPT-3.5，最后一次更新于2022年1月
+      </p>
+      {me.map((it, idx) => {
+        return (
+          <div key={idx}>
+            <div className=" text-right">
+              <strong>user: </strong>
+              <p>{it}</p>
             </div>
-          );
-        })}
-        {text && (
-          <div>
-            <strong>AI: </strong>
-            <p>{text}</p>
+            {ai[idx] && (
+              <div>
+                <strong>AI: </strong>
+                <p>{ai[idx]}</p>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-      <form onSubmit={handleSubmit}>
+        );
+      })}
+      {text && (
+        <div>
+          <strong>AI: </strong>
+          <p>{text}</p>
+        </div>
+      )}
+      <div id="chat_bottom"></div>
+      <form
+        className="fixed bottom-2 left-0 right-0 text-center"
+        onSubmit={handleSubmit}
+      >
         <input
-          className="w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl"
+          className="w-full max-w-md p-2 border border-gray-300 rounded shadow-xl"
           value={input}
           placeholder="Say something..."
           onChange={handleInputChange}
         />
       </form>
-      <p className=" text-xs text-center">
-        模型：GPT-3.5，最后一次更新于2022年1月
-      </p>
     </div>
   );
 }
