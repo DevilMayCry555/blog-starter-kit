@@ -7,5 +7,5 @@ export const BASE_URL =
     ? "http://localhost:3000"
     : "https://tydwin.top";
 export const OPENAI_API_KEY =
-  "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";
-// "sk-proj-hfE7Wq4605IaRTtcMPTST3BlbkFJIMVswa4PGq6NuBmqB88o";
+  "sk-BqkHt3TbN436RYzf4bBc339321E546C98b9f26124b2f866f";
+// "sk-proj-IYTqrveOXzJoII2bSgwrT3BlbkFJTIgUf1h4RCdjImuFL7Kq";

@@ -4,7 +4,8 @@ import { OPENAI_API_KEY } from "@/lib/constants";
 import OpenAI from "openai";
 const openai = new OpenAI({
   apiKey: OPENAI_API_KEY,
-  baseURL: "https://api.openai-proxy.com/v1",
+  // baseURL: "https://api.openai-proxy.com/v1",
+  baseURL: "https://api.xty.app/v1",
 });
 const encoder = new TextEncoder();
 
