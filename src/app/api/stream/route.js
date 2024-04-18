@@ -1,14 +1,10 @@
 import { NextResponse } from "next/server";
-import OpenAI from "openai";
 import { OPENAI_API_KEY } from "@/lib/constants";
-import { ChatGPTAPI } from "chatgpt";
 
+import OpenAI from "openai";
 const openai = new OpenAI({
   apiKey: OPENAI_API_KEY,
   baseURL: "https://api.openai-proxy.com/v1",
-});
-const api = new ChatGPTAPI({
-  apiKey: OPENAI_API_KEY,
 });
 const encoder = new TextEncoder();
 
@@ -37,16 +33,12 @@ function iteratorToStream(iterator) {
 export async function POST(req) {
   const { messages } = await req.json();
   console.log(messages);
-  // const response = await openai.chat.completions.create({
-  //   model: "gpt-3.5-turbo",
-  //   stream: true,
-  //   messages,
-  // });
-  const response = await api.sendMessage().chat.completions.create({
+  const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     stream: true,
     messages,
   });
+  console.log(response);
 
   return new NextResponse(iteratorToStream(makeIterator(response)));
 }
