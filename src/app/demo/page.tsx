@@ -5,9 +5,9 @@ import { useState } from "react";
 
 const decoder = new TextDecoder("utf-8");
 export default function Chat() {
-  const [text, setText] = useState("");
+  const [text, setText] = useState("nice to meet you");
   const [input, setInput] = useState("");
-  const [me, setme] = useState([] as string[]);
+  const [me, setme] = useState(["hello"] as string[]);
   const [ai, setai] = useState([] as string[]);
   const handleInputChange = (e: any) => {
     setInput(e.target.value);
@@ -37,46 +37,65 @@ export default function Chat() {
     });
   };
 
-  const fetchData = async (input: string) => {
+  const fetchData = async (inputs: string) => {
+    console.log(me, ai);
+    const history: any[] = [];
+    me.forEach((it, idx) => {
+      if (it) {
+        history.push({ role: "user", content: it });
+      }
+      if (ai[idx]) {
+        history.push({ role: "system", content: ai[idx] });
+      }
+    });
+    history.push({ role: "system", content: text });
+    history.push({ role: "user", content: inputs });
     const response = await fetch(BASE_URL + "/api/stream", {
       method: "POST",
-      body: JSON.stringify({ messages: [{ role: "user", content: input }] }),
+      body: JSON.stringify({
+        messages: history,
+      }),
     });
     return response;
   };
 
   return (
     <div className="flex flex-col w-full max-w-md p-2 mx-auto stretch">
-      {me.map((it, idx) => {
-        return (
-          <div key={idx}>
-            <p>
-              <strong>user: </strong>
-              <span>{it}</span>
-            </p>
-            {ai[idx + 1] && (
-              <p>
-                <strong>AI: </strong>
-                <span>{ai[idx + 1]}</span>
-              </p>
-            )}
+      <div className=" min-h-[70vh] overflow-auto">
+        {me.map((it, idx) => {
+          return (
+            <div key={idx}>
+              <div className=" text-right">
+                <strong>user: </strong>
+                <p>{it}</p>
+              </div>
+              {ai[idx] && (
+                <div>
+                  <strong>AI: </strong>
+                  <p>{ai[idx]}</p>
+                </div>
+              )}
+            </div>
+          );
+        })}
+        {text && (
+          <div>
+            <strong>AI: </strong>
+            <p>{text}</p>
           </div>
-        );
-      })}
-      {text && (
-        <p>
-          <strong>AI: </strong>
-          <span>{text}</span>
-        </p>
-      )}
+        )}
+      </div>
       <form onSubmit={handleSubmit}>
         <input
-          className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl"
+          className="w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl"
           value={input}
           placeholder="Say something..."
           onChange={handleInputChange}
         />
       </form>
+      <p className=" text-xs text-center">
+        模型：GPT-3.5，最后一次更新于2022年1月
+      </p>
     </div>
   );
 }
