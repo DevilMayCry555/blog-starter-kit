@@ -5,7 +5,7 @@ const admin_routes = ["/posts", "/backdoor"];
 export async function middleware(request) {
   // 所有api 除了登录
   const { pathname } = request.nextUrl;
-  if (["/api/login", "/api/logout"].includes(pathname)) {
+  if (["/api/login", "/api/logout", "/api/stream"].includes(pathname)) {
     return;
   }
   const access = cookies().get("auth-token");
