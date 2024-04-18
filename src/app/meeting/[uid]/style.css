@@ -1,8 +1,8 @@
 .chat-room {
-  font-family: "Arial", sans-serif;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  font-family: "Courier New", Courier, monospace;
+  /* padding: 20px; */
+  /* border: 1px solid #ccc;
+  border-radius: 5px; */
   overflow: hidden;
 }
 

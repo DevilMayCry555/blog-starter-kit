@@ -63,7 +63,6 @@ export default async function Meeting({ params }: Params) {
           );
         })}
       </div>
-      <div className=" text-center text-xs">到底部了</div>
     </div>
   );
 }
