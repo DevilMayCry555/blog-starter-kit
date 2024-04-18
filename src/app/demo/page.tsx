@@ -2,6 +2,7 @@
 
 import { BASE_URL } from "@/lib/constants";
 import { useState } from "react";
+import { Spinner } from "react-bootstrap";
 
 const decoder = new TextDecoder("utf-8");
 export default function Chat() {
@@ -9,6 +10,7 @@ export default function Chat() {
   const [input, setInput] = useState("");
   const [me, setme] = useState(["hello"] as string[]);
   const [ai, setai] = useState([] as string[]);
+  const [loading, set_loading] = useState(false);
   const handleInputChange = (e: any) => {
     setInput(e.target.value);
   };
@@ -17,6 +19,7 @@ export default function Chat() {
     e.preventDefault();
     setText("");
     setInput("");
+    set_loading(true);
     setme((state) => state.concat([input]));
     setai((state) => state.concat([text]));
     const response = await fetchData(input);
@@ -24,6 +27,7 @@ export default function Chat() {
     reader.read().then(function process({ done, value }): any {
       if (done) {
         console.log("Stream finished");
+        set_loading(false);
         return;
       }
       const slice = decoder.decode(value);
@@ -88,6 +92,7 @@ export default function Chat() {
           <p>{text}</p>
         </div>
       )}
+      {loading && <Spinner animation="grow" size="sm" />}
       <div id="chat_bottom"></div>
       <form
         className="fixed bottom-2 left-0 right-0 text-center"
@@ -98,6 +103,7 @@ export default function Chat() {
           value={input}
           placeholder="Say something..."
           onChange={handleInputChange}
+          disabled={loading}
         />
       </form>
     </div>
