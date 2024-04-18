@@ -1,8 +1,9 @@
 "use client";
 
 import { BASE_URL } from "@/lib/constants";
-import { useState } from "react";
-import { Spinner } from "react-bootstrap";
+import { REQ } from "@/lib/req";
+import { useEffect, useState } from "react";
+import { ProgressBar, Spinner } from "react-bootstrap";
 
 const decoder = new TextDecoder("utf-8");
 export default function Chat() {
@@ -11,6 +12,7 @@ export default function Chat() {
   const [me, setme] = useState(["hello"] as string[]);
   const [ai, setai] = useState([] as string[]);
   const [loading, set_loading] = useState(false);
+  const [usage, set_usage] = useState(0);
   const handleInputChange = (e: any) => {
     setInput(e.target.value);
   };
@@ -67,12 +69,24 @@ export default function Chat() {
     });
     return response;
   };
-
+  useEffect(() => {
+    REQ(
+      "https://cxapi.xty.app/log/getBalance?apiKey=sk-BqkHt3TbN436RYzf4bBc339321E546C98b9f26124b2f866f",
+      "GET"
+    ).then((res) => {
+      console.log("usage", res);
+      if (res.content) {
+        const { remain_quota, used_quota } = res.content;
+        set_usage((used_quota * 100) / (used_quota + remain_quota));
+      }
+    });
+  }, []);
   return (
     <div className="flex flex-col w-full max-w-md p-2 mx-auto stretch">
       <p className=" text-xs text-center">
-        模型：GPT-3.5，最后一次更新于2022年1月
+        模型：GPT-3.5，知识库于2022年1月停止更新，流量使用情况：
       </p>
+      <ProgressBar now={usage} />
       {me.map((it, idx) => {
         return (
           <div key={idx}>
