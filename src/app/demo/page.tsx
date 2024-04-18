@@ -74,7 +74,7 @@ export default function Chat() {
       "https://cxapi.xty.app/log/getBalance?apiKey=sk-BqkHt3TbN436RYzf4bBc339321E546C98b9f26124b2f866f",
       "GET"
     ).then((res) => {
-      console.log("usage", res);
+      // console.log("usage", res);
       if (res.content) {
         const { remain_quota, used_quota } = res.content;
         set_usage((used_quota * 100) / (used_quota + remain_quota));
