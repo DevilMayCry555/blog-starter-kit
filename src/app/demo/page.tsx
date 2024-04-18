@@ -1,6 +1,6 @@
 "use client";
 
-import { BASE_URL } from "@/lib/constants";
+import { BASE_URL, OPENAI_API_KEY_HIGH } from "@/lib/constants";
 import { REQ } from "@/lib/req";
 import { useEffect, useState } from "react";
 import { ProgressBar, Spinner } from "react-bootstrap";
@@ -71,7 +71,7 @@ export default function Chat() {
   };
   useEffect(() => {
     REQ(
-      "https://cxapi.xty.app/log/getBalance?apiKey=sk-BqkHt3TbN436RYzf4bBc339321E546C98b9f26124b2f866f",
+      `https://cxapi.xty.app/log/getBalance?apiKey=${OPENAI_API_KEY_HIGH}`,
       "GET"
     ).then((res) => {
       // console.log("usage", res);
@@ -84,7 +84,8 @@ export default function Chat() {
   return (
     <div className="flex flex-col w-full max-w-md p-2 mx-auto stretch">
       <p className=" text-xs text-center">
-        模型：GPT-3.5，知识库于2022年1月停止更新，流量使用情况：
+        {/* 模型：GPT-3.5，知识库于2022年1月停止更新，流量使用情况： */}
+        模型：GPT-4，流量使用情况：
       </p>
       <ProgressBar now={usage} />
       {me.map((it, idx) => {

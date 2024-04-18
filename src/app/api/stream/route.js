@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { OPENAI_API_KEY } from "@/lib/constants";
+import { OPENAI_API_KEY_HIGH } from "@/lib/constants";
 
 import OpenAI from "openai";
 const openai = new OpenAI({
-  apiKey: OPENAI_API_KEY,
+  apiKey: OPENAI_API_KEY_HIGH,
   // baseURL: "https://api.openai-proxy.com/v1",
   baseURL: "https://api.xty.app/v1",
 });
@@ -35,7 +35,7 @@ export async function POST(req) {
   const { messages } = await req.json();
   console.log(messages);
   const response = await openai.chat.completions.create({
-    model: "gpt-3.5-turbo",
+    model: "gpt-4-32k",
     stream: true,
     messages,
   });
