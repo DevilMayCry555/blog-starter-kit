@@ -17,6 +17,9 @@ export default function Chat() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    if (loading) {
+      return;
+    }
     setText("");
     setInput("");
     set_loading(true);
@@ -44,7 +47,7 @@ export default function Chat() {
   };
 
   const fetchData = async (inputs: string) => {
-    console.log(me, ai);
+    // console.log(me, ai);
     const history: any[] = [];
     me.forEach((it, idx) => {
       if (it) {
@@ -103,7 +106,6 @@ export default function Chat() {
           value={input}
           placeholder="Say something..."
           onChange={handleInputChange}
-          disabled={loading}
         />
       </form>
     </div>
