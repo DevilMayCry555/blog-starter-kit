@@ -41,5 +41,7 @@ export async function POST(req) {
   });
   console.log(response);
 
-  return new NextResponse(iteratorToStream(makeIterator(response)));
+  return new NextResponse(iteratorToStream(makeIterator(response)), {
+    status: 200,
+  });
 }
