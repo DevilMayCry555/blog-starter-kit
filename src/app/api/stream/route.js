@@ -5,7 +5,7 @@ import OpenAI from "openai";
 const openai = new OpenAI({
   apiKey: OPENAI_API_KEY_HIGH,
   // baseURL: "https://api.openai-proxy.com/v1",
-  baseURL: "https://api.xty.app/v1",
+  baseURL: "https://hk.xty.app/v1",
 });
 const encoder = new TextEncoder();
 
@@ -35,7 +35,7 @@ export async function POST(req) {
   const { messages } = await req.json();
   console.log(messages);
   const response = await openai.chat.completions.create({
-    model: "gpt-4-32k",
+    model: "gpt-4",
     stream: true,
     messages,
   });
