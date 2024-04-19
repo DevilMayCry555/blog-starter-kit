@@ -64,7 +64,7 @@ export default function Chat() {
     const response = await fetch(BASE_URL + "/api/stream", {
       method: "POST",
       body: JSON.stringify({
-        messages: history,
+        messages: history.slice(-10),
       }),
     });
     return response;
