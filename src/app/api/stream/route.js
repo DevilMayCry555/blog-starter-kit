@@ -55,3 +55,4 @@ export async function POST(req) {
     status: 200,
   });
 }
+export const maxDuration = 300;
