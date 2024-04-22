@@ -34,11 +34,21 @@ function iteratorToStream(iterator) {
 export async function POST(req) {
   const { messages } = await req.json();
   console.log(messages);
-  const response = await openai.chat.completions.create({
-    model: "gpt-4",
-    stream: true,
-    messages,
-  });
+  const response = await openai.chat.completions
+    .create({
+      model: "gpt-4",
+      stream: true,
+      messages,
+    })
+    .catch(async (err) => {
+      if (err instanceof OpenAI.APIError) {
+        console.log(err.status); // 400
+        console.log(err.name); // BadRequestError
+        console.log(err.headers); // {server: 'nginx', ...}
+      } else {
+        throw err;
+      }
+    });
   console.log(response);
 
   return new NextResponse(iteratorToStream(makeIterator(response)), {
