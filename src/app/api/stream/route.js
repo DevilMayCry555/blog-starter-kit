@@ -55,3 +55,14 @@ export async function POST(req) {
     status: 200,
   });
 }
+export async function GET() {
+  const response = await fetch(
+    `https://cxapi.xty.app/log/getBalance?apiKey=${OPENAI_API_KEY_HIGH}`
+  );
+  const res = await response.json();
+  // console.log("response", res);
+
+  return NextResponse.json(res, {
+    status: 200,
+  });
+}

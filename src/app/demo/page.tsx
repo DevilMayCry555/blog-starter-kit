@@ -70,15 +70,10 @@ export default function Chat() {
     return response;
   };
   useEffect(() => {
-    REQ(
-      `https://cxapi.xty.app/log/getBalance?apiKey=${OPENAI_API_KEY_HIGH}`,
-      "GET"
-    ).then((res) => {
-      // console.log("usage", res);
-      if (res.content) {
-        const { remain_quota, used_quota } = res.content;
-        set_usage((used_quota * 100) / (used_quota + remain_quota));
-      }
+    fetch(BASE_URL + "/api/stream").then(async (res) => {
+      const { content } = await res.json();
+      const { remain_quota, used_quota } = content;
+      set_usage((used_quota * 100) / (used_quota + remain_quota));
     });
   }, []);
   return (
