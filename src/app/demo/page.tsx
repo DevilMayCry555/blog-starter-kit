@@ -1,15 +1,16 @@
 "use client";
 
-import { BASE_URL, OPENAI_API_KEY_HIGH } from "@/lib/constants";
-import { REQ } from "@/lib/req";
+import { BASE_URL } from "@/lib/constants";
 import { useEffect, useState } from "react";
 import { ProgressBar, Spinner } from "react-bootstrap";
 
 const decoder = new TextDecoder("utf-8");
 export default function Chat() {
-  const [text, setText] = useState("nice to meet you");
+  const [text, setText] = useState("好的");
   const [input, setInput] = useState("");
-  const [me, setme] = useState(["hello"] as string[]);
+  const [me, setme] = useState([
+    "回复我的时候，请尽可能简洁，抓住重点。",
+  ] as string[]);
   const [ai, setai] = useState([] as string[]);
   const [loading, set_loading] = useState(false);
   const [usage, set_usage] = useState(0);
@@ -80,7 +81,7 @@ export default function Chat() {
     <div className="flex flex-col w-full max-w-md p-2 mx-auto stretch">
       <p className=" text-xs text-center">
         {/* 模型：GPT-3.5，知识库于2022年1月停止更新，流量使用情况： */}
-        模型：GPT-4，流量使用情况：
+        模型：GPT-4，单次回复不会超过10s，流量使用情况：
       </p>
       <ProgressBar now={usage} />
       {me.map((it, idx) => {
