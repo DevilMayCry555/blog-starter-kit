@@ -9,7 +9,7 @@ export default function Chat() {
   const [text, setText] = useState("好的");
   const [input, setInput] = useState("");
   const [me, setme] = useState([
-    "回复我的时候，请尽可能简洁，抓住重点。",
+    "回复我的时候，请尽可能简洁，抓住重点",
   ] as string[]);
   const [ai, setai] = useState([] as string[]);
   const [loading, set_loading] = useState(false);
