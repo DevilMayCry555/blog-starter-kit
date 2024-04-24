@@ -2,13 +2,21 @@
 title: "Love Diary"
 excerpt: "Sharing our daily lives, trips, and sweet moments."
 coverImage: "/assets/blog/love-diary/cover.jpg"
-date: "2024-04-16"
+date: "2024-04-24"
 author:
   name: L.D.T
   picture: "/assets/blog/authors/ly.jpg"
 ogImage:
   url: "/assets/blog/love-diary/cover.jpg"
 ---
+
+**_2024/04/24 日常_**  
+公主最近很累  
+帮一本科生做毕设  
+这本科生离大谱  
+每天卡着午饭点  
+来找公主请教  
+tnnd，这种人...
 
 **_2024/04/16 日常_**  
 公主的健康饮食
