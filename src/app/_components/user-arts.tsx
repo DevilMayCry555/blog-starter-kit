@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, ListGroup } from "react-bootstrap";
+import { ListGroup } from "react-bootstrap";
 
 export default function UserArts({ listData = [] }: any) {
   return (
