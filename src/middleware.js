@@ -2,10 +2,11 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { fetchUser } from "./lib/sql";
 const admin_routes = ["/posts", "/backdoor"];
+const open_routes = ["/api/login", "/api/logout", "/api/stream", "/api/open"];
 export async function middleware(request) {
   // 所有api 除了登录
   const { pathname } = request.nextUrl;
-  if (["/api/login", "/api/logout", "/api/stream"].includes(pathname)) {
+  if (open_routes.includes(pathname)) {
     return;
   }
   const access = cookies().get("auth-token");
