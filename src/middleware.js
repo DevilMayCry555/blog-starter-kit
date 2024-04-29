@@ -30,7 +30,7 @@ export const config = {
     "/posts/:slug*",
     "/backdoor/:door*",
     "/api/:api*",
-    "/meeting/:uid*",
-    "/guess/:uid*",
+    // "/meeting/:uid*",
+    // "/guess/:uid*",
   ],
 };
