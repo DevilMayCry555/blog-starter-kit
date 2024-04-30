@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { sql } from "@vercel/postgres";
 import { getuuid, qs } from "@/lib/utils";
 
+const decoder = new TextDecoder();
+
 export async function GET(request) {
   const { search } = request.nextUrl;
   const { method, ...rest } = qs(search);
@@ -46,7 +48,7 @@ export async function HEAD(request) {}
 
 export async function POST(request) {
   const { value } = await request.body.getReader().read();
-  const { method, ...rest } = JSON.parse(new TextDecoder().decode(value));
+  const { method, ...rest } = JSON.parse(decoder.decode(value));
   if (method === "draft") {
     const { userid, canvas } = rest;
     await sql`UPDATE users SET
