@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { qs } from "@/lib/utils";
 import { sql } from "@vercel/postgres";
 import { format } from "date-fns";
-
+const decoder = new TextDecoder();
 export async function GET(request) {
   const { search } = request.nextUrl;
   const { route, ...rest } = qs(search);
