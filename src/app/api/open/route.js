@@ -5,15 +5,15 @@ import { format } from "date-fns";
 const decoder = new TextDecoder();
 export async function GET(request) {
   const { search } = request.nextUrl;
-  const { route, ...rest } = qs(search);
-  if (route === "task") {
-    const { type, identity } = rest;
-    const { rows } =
-      await sql`SELECT * FROM tasks WHERE user_id = ${identity} AND type = ${type};`;
-    return NextResponse.json({ rows }, { status: 200 });
+  const { type, identity } = qs(search);
+  if (!identity) {
+    return NextResponse.json({ error: "identity error" }, { status: 500 });
   }
-  return NextResponse.json({ error: "404" }, { status: 500 });
+  const { rows } =
+    await sql`SELECT * FROM tasks WHERE user_id = ${identity} AND type = ${type};`;
+  return NextResponse.json({ rows }, { status: 200 });
 }
+
 export async function POST(request) {
   const { value } = await request.body.getReader().read();
   const { identity, title, content, type, points } = JSON.parse(
@@ -23,6 +23,31 @@ export async function POST(request) {
   const uid = Date.now();
   await sql`INSERT INTO tasks (uid,user_id,title,content,type,points,create_time)
   VALUES (${uid},${identity},${title},${content},${type},${points},${time});`;
+  return NextResponse.json(
+    {
+      data: true,
+    },
+    { status: 200 }
+  );
+}
+
+export async function DELETE(request) {
+  const { search } = request.nextUrl;
+  const { uid } = qs(search);
+  sql`DELETE FROM tasks WHERE uid = ${uid};`;
+  return NextResponse.json(
+    {
+      data: true,
+    },
+    { status: 200 }
+  );
+}
+
+export async function PUT(request) {
+  const { search } = request.nextUrl;
+  const { uid } = qs(search);
+  const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
+  sql`UPDATE tasks SET perfect_time = ${time} WHERE uid = ${uid};`;
   return NextResponse.json(
     {
       data: true,
