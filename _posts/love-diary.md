@@ -2,13 +2,26 @@
 title: "Love Diary"
 excerpt: "Sharing our daily lives, trips, and sweet moments."
 coverImage: "/assets/blog/love-diary/cover.jpg"
-date: "2024-04-24"
+date: "2024-05-19"
 author:
   name: L.D.T
   picture: "/assets/blog/authors/ly.jpg"
 ogImage:
   url: "/assets/blog/love-diary/cover.jpg"
 ---
+
+**_2024/05/19 日常_**  
+公主做实验非常辛苦  
+这周通了好几次宵  
+大头寄了些樱桃过去
+
+pw x l![my wife](/assets/blog/love-diary/wx_20240519131853.jpg "山东樱桃")
+
+**_2024/05/04 假期_**  
+五一很充实  
+公主打完了九价最后一针  
+大头下厨做了糖醋排骨  
+一起去泉城逛吃逛吃
 
 **_2024/04/24 日常_**  
 公主最近很累  
