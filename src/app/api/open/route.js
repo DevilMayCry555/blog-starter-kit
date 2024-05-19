@@ -12,6 +12,11 @@ export async function GET(request) {
     const [data] = rows;
     return NextResponse.json({ ...data }, { status: 200 });
   }
+  if (find === "locations") {
+    const type = "0";
+    const { rows } = await sql`SELECT * FROM tasks WHERE type = ${type};`;
+    return NextResponse.json({ rows }, { status: 200 });
+  }
   if (!identity) {
     return NextResponse.json({ error: "identity error" }, { status: 500 });
   }
