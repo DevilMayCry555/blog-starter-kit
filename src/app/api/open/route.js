@@ -39,8 +39,14 @@ export async function POST(request) {
 
 export async function DELETE(request) {
   const { search } = request.nextUrl;
-  const { uid } = qs(search);
-  sql`DELETE FROM tasks WHERE uid = ${uid};`;
+  const { uid, identity } = qs(search);
+  if (identity) {
+    const type = "0";
+    sql`DELETE FROM tasks WHERE type = ${type} AND user_id = ${identity};`;
+  }
+  if (uid) {
+    sql`DELETE FROM tasks WHERE uid = ${uid};`;
+  }
   return NextResponse.json(
     {
       data: true,
