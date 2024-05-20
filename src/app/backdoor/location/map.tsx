@@ -26,7 +26,7 @@ export default function AMapContainer({ locations }: Prop) {
             map = new AMap.Map("map-container", {
               // 设置地图容器id
               // viewMode: "3D", // 是否为3D地图模式
-              zoom: 5, // 初始化地图级别
+              zoom: 11, // 初始化地图级别
               // center: [116.397428, 39.90923], // 初始化地图中心点位置
             }); //"container"为 <div> 容器的 id
             // 绘制坐标点
@@ -38,7 +38,10 @@ export default function AMapContainer({ locations }: Prop) {
               const index = locations
                 .filter((it) => it["user_id"] === user_id)
                 .indexOf(item);
-              const position = new AMap.LngLat(Longitude, Latitude); //Marker 经纬度
+              const position = new AMap.LngLat(
+                Longitude + 0.006,
+                Latitude + 0.0001
+              ); //Marker 经纬度
               const marker = new AMap.Marker({
                 position: position,
                 content: `<div class="custom-content-marker">
