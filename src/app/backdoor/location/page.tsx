@@ -3,6 +3,6 @@ import AMapContainer from "./map";
 
 export default async function Backdoor() {
   const { rows } = await fetchLocations();
-  console.log(rows);
+  // console.log(rows);
   return <AMapContainer locations={rows} />;
 }

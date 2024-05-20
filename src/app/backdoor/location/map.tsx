@@ -23,7 +23,6 @@ export default function AMapContainer({ locations }: Prop) {
           plugins: ["AMap.Scale"], //需要使用的的插件列表，如比例尺'AMap.Scale'，支持添加多个如：['AMap.Scale','...','...']
         })
           .then((AMap) => {
-            console.log("lalala");
             map = new AMap.Map("map-container", {
               // 设置地图容器id
               // viewMode: "3D", // 是否为3D地图模式
