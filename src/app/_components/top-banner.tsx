@@ -49,6 +49,8 @@ export default function TopBanner({ uid }: any) {
             <NavDropdown.Item href="/backdoor/user">用户</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item href="/backdoor/room">团建</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="/backdoor/location">地图</NavDropdown.Item>
             {/* <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item href="#action/3.4">

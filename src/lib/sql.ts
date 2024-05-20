@@ -81,3 +81,8 @@ export const fetchGuesses = async (uid: string) => {
   const data = await sql`SELECT * FROM guess WHERE uid = ${uid};`;
   return data;
 };
+export const fetchLocations = async () => {
+  const type = "0";
+  const data = await sql`SELECT * FROM tasks WHERE type = ${type};`;
+  return data;
+};

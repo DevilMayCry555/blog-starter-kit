@@ -8,6 +8,7 @@
     "tyd": "node server.js"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "@vercel/edge-config": "^1.1.0",
     "@vercel/postgres": "^0.7.2",
     "bootstrap": "^5.3.3",
