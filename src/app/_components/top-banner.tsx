@@ -1,9 +1,19 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 export default function TopBanner({ uid }: any) {
-  return (
+  const [show, set_show] = useState(false);
+
+  useEffect(() => {
+    if (location.pathname === "/map") {
+      set_show(false);
+    } else {
+      set_show(true);
+    }
+  });
+  return show ? (
     <Navbar
       expand="lg"
       className="bg-body-tertiary"
@@ -58,5 +68,5 @@ export default function TopBanner({ uid }: any) {
         </Nav>
       </Navbar.Collapse>
     </Navbar>
-  );
+  ) : null;
 }
