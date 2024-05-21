@@ -37,10 +37,10 @@ export async function DELETE(request) {
   const { uid, identity } = qs(search);
   if (identity) {
     const type = "0";
-    sql`DELETE FROM tasks WHERE type = ${type} AND user_id = ${identity};`;
+    await sql`DELETE FROM tasks WHERE type = ${type} AND user_id = ${identity};`;
   }
   if (uid) {
-    sql`DELETE FROM tasks WHERE uid = ${uid};`;
+    await sql`DELETE FROM tasks WHERE uid = ${uid};`;
   }
   return NextResponse.json(
     {
@@ -54,7 +54,7 @@ export async function PUT(request) {
   const { search } = request.nextUrl;
   const { uid } = qs(search);
   const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
-  sql`UPDATE tasks SET perfect_time = ${time} WHERE uid = ${uid};`;
+  await sql`UPDATE tasks SET perfect_time = ${time} WHERE uid = ${uid};`;
   return NextResponse.json(
     {
       data: true,
