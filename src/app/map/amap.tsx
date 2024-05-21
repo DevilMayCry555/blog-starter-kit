@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import "./map.css";
+import "./amap.css";
 
 export default function AMapContainer() {
   let map: any = null;
