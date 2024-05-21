@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./map.css";
 
 interface Prop {
@@ -8,24 +8,8 @@ interface Prop {
 }
 export default function AMapContainer({ locations }: Prop) {
   let map: any = null;
-  const [la, set_la] = useState(0);
-  const [lo, set_lo] = useState(0);
+  let prev: any = null;
 
-  useEffect(() => {
-    const [la, lo] = location.hash.split("/").slice(1);
-    set_la(+la);
-    set_lo(+lo);
-    window.addEventListener(
-      "hashchange",
-      () => {
-        // console.log("The hash has changed!", location.hash.split("/").slice(1));
-        const [la, lo] = location.hash.split("/").slice(1);
-        set_la(+la);
-        set_lo(+lo);
-      },
-      false
-    );
-  }, []);
   useEffect(() => {
     if (typeof window === "undefined") {
       console.log("miss");
@@ -70,16 +54,25 @@ export default function AMapContainer({ locations }: Prop) {
               });
               map.add(marker);
             });
-            if (Number.isNaN(lo) || Number.isNaN(la)) {
-              return true;
-            }
-            const position = new AMap.LngLat(lo + 0.006, la + 0.0001);
-            const marker = new AMap.Marker({
-              position: position,
-              icon: "//a.amap.com/jsapi_demos/static/demo-center/icons/dir-via-marker.png",
-              offset: new AMap.Pixel(-13, -30),
-            });
-            map.add(marker);
+
+            // 记录当前位置
+            const onHashChange = () => {
+              if (prev) {
+                map.remove(prev);
+              }
+              const [lo, la] = location.hash.split("/").slice(1);
+              const position = new AMap.LngLat(+lo + 0.006, +la + 0.0001);
+              prev = new AMap.Marker({
+                position: position,
+                content: `<div class="custom-content-marker">
+                <div class="custom-content-marker-banner-current">current</div>
+                <img src="//a.amap.com/jsapi_demos/static/demo-center/icons/dir-via-marker.png">
+                </div>`,
+                offset: new AMap.Pixel(-13, -30),
+              });
+              map.add(prev);
+            };
+            window.addEventListener("hashchange", onHashChange, false);
           })
           .catch((e) => {
             console.log(e);
@@ -90,6 +83,6 @@ export default function AMapContainer({ locations }: Prop) {
     return () => {
       map?.destroy();
     };
-  }, [la, lo]);
+  }, []);
   return <div id="map-container" className=" min-h-screen -my-14"></div>;
 }
