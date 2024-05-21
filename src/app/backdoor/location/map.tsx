@@ -8,7 +8,6 @@ interface Prop {
 }
 export default function AMapContainer({ locations }: Prop) {
   let map: any = null;
-  let prev: any = null;
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -25,12 +24,31 @@ export default function AMapContainer({ locations }: Prop) {
           plugins: ["AMap.Scale"], //需要使用的的插件列表，如比例尺'AMap.Scale'，支持添加多个如：['AMap.Scale','...','...']
         })
           .then((AMap) => {
+            const [lo, la] = location.hash.split("/").slice(1);
+            const config = !Number.isNaN(+lo) &&
+              !Number.isNaN(+la) && {
+                center: [+lo + 0.006, +la + 0.0001],
+                zoom: 11,
+              };
             map = new AMap.Map("map-container", {
               // 设置地图容器id
               // viewMode: "3D", // 是否为3D地图模式
-              zoom: 11, // 初始化地图级别
-              // center: [116.397428, 39.90923], // 初始化地图中心点位置
-            }); //"container"为 <div> 容器的 id
+              zoom: 5, // 初始化地图级别
+              ...config, // 初始化地图中心点位置
+            }); //"map-container"为 <div> 容器的 id
+            if (config) {
+              const [Longitude, Latitude] = config.center;
+              const position = new AMap.LngLat(Longitude, Latitude);
+              const marker = new AMap.Marker({
+                position: position,
+                content: `<div class="custom-content-marker custom-content-marker-current">
+                  <div class="custom-content-marker-banner">current</div>
+                  <img src="//a.amap.com/jsapi_demos/static/demo-center/icons/dir-via-marker.png">
+                  </div>`,
+                offset: new AMap.Pixel(-13, -30),
+              });
+              map.add(marker);
+            }
             // 绘制坐标点
             locations.forEach((item) => {
               const { user_id, content, create_time } = item;
@@ -54,25 +72,6 @@ export default function AMapContainer({ locations }: Prop) {
               });
               map.add(marker);
             });
-
-            // 记录当前位置
-            const onHashChange = () => {
-              if (prev) {
-                map.remove(prev);
-              }
-              const [lo, la] = location.hash.split("/").slice(1);
-              const position = new AMap.LngLat(+lo + 0.006, +la + 0.0001);
-              prev = new AMap.Marker({
-                position: position,
-                content: `<div class="custom-content-marker custom-content-marker-current">
-                <div class="custom-content-marker-banner">current</div>
-                <img src="//a.amap.com/jsapi_demos/static/demo-center/icons/dir-via-marker.png">
-                </div>`,
-                offset: new AMap.Pixel(-13, -30),
-              });
-              map.add(prev);
-            };
-            window.addEventListener("hashchange", onHashChange, false);
           })
           .catch((e) => {
             console.log(e);

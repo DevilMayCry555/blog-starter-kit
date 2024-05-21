@@ -3,12 +3,30 @@ import { qs } from "@/lib/utils";
 import { sql } from "@vercel/postgres";
 import { format } from "date-fns";
 const decoder = new TextDecoder();
+const radar = [];
 export async function GET(request) {
   const { search } = request.nextUrl;
-  const { type, identity } = qs(search);
+  const { type, identity, location } = qs(search);
   if (!identity) {
     return NextResponse.json({ error: "identity error" }, { status: 500 });
   }
+  // radar
+  if (location) {
+    // const prev = radar.findIndex((it) =>
+    //   String(it).split("@").includes(identity)
+    // );
+    // if (prev >= 0) {
+    //   radar[prev] = `${location}@${identity}`;
+    // } else {
+    //   radar.push(`${location}@${identity}`);
+    // }
+    radar.push(`${location}@${identity}`);
+    if (radar.length > 9) {
+      radar.shift();
+    }
+    return NextResponse.json({ data: radar }, { status: 200 });
+  }
+  // task
   const { rows } =
     await sql`SELECT * FROM tasks WHERE user_id = ${identity} AND type = ${type};`;
   return NextResponse.json({ rows }, { status: 200 });
