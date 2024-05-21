@@ -1,3 +1,14 @@
+@keyframes lalala {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0.2;
+    transform: scale(1.2);
+  }
+}
 .custom-content-marker {
   position: relative;
   width: 25px;
@@ -11,7 +22,10 @@
   color: #fff;
   font-size: 10px;
 }
-.custom-content-marker-banner-current {
+.custom-content-marker-current {
+  animation: lalala 1s infinite;
+}
+.custom-content-marker-current .custom-content-marker-banner {
   position: absolute;
   bottom: 100%;
   left: 0;

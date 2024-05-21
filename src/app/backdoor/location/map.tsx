@@ -64,8 +64,8 @@ export default function AMapContainer({ locations }: Prop) {
               const position = new AMap.LngLat(+lo + 0.006, +la + 0.0001);
               prev = new AMap.Marker({
                 position: position,
-                content: `<div class="custom-content-marker">
-                <div class="custom-content-marker-banner-current">current</div>
+                content: `<div class="custom-content-marker custom-content-marker-current">
+                <div class="custom-content-marker-banner">current</div>
                 <img src="//a.amap.com/jsapi_demos/static/demo-center/icons/dir-via-marker.png">
                 </div>`,
                 offset: new AMap.Pixel(-13, -30),
