@@ -5,13 +5,7 @@ import { format } from "date-fns";
 const decoder = new TextDecoder();
 export async function GET(request) {
   const { search } = request.nextUrl;
-  const { type, identity, find } = qs(search);
-  if (find === "location") {
-    const uid = "MTcxNTkzNDkzMTcyNTAuODE3NTU3ODkwNTc3ODAwOQ==";
-    const { rows } = await sql`SELECT * FROM users WHERE uid = ${uid};`;
-    const [data] = rows;
-    return NextResponse.json({ ...data }, { status: 200 });
-  }
+  const { type, identity } = qs(search);
   if (!identity) {
     return NextResponse.json({ error: "identity error" }, { status: 500 });
   }
