@@ -1,0 +1,21 @@
+@keyframes lalala {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0.2;
+    transform: scale(1.5);
+  }
+}
+.custom-content-marker {
+  position: relative;
+  width: 25px;
+  height: 34px;
+  animation: lalala 1.5s infinite;
+}
+.custom-content-marker img {
+  width: 100%;
+  height: 100%;
+}
