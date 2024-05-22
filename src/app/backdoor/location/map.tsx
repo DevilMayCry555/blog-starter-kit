@@ -27,7 +27,7 @@ export default function AMapContainer({ locations }: Prop) {
             map = new AMap.Map("map-container", {
               // 设置地图容器id
               // viewMode: "3D", // 是否为3D地图模式
-              zoom: 5, // 初始化地图级别
+              zoom: 3, // 初始化地图级别
               // center: [+lo + 0.006, +la + 0.0001], // 初始化地图中心点位置
             }); //"map-container"为 <div> 容器的 id
             // 绘制坐标点
