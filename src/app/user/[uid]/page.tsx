@@ -17,6 +17,17 @@ export default async function User({ params }: Params) {
         <div>昵称：{username}</div>
         <div>生日：{birthday}</div>
         <div>管理员权限：{Number(admin) ? "开" : "关"}</div>
+        <div className=" text-blue-500">
+          {Number(admin) ? (
+            <>
+              <a href="/backdoor/user">用户</a>
+              <span className=" opacity-0">gap</span>
+              <a href="/backdoor/room">会议</a>
+              <span className=" opacity-0">gap</span>
+              <a href="/backdoor/location">足迹</a>
+            </>
+          ) : null}
+        </div>
         <div className=" text-2xl pt-4">你画我猜</div>
         <UserArts listData={arts} />
       </Container>

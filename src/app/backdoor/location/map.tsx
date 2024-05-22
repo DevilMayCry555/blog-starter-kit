@@ -47,7 +47,7 @@ export default function AMapContainer({ locations }: Prop) {
                 position: position,
                 content: `<div class="custom-content-marker">
                 <div class="custom-content-marker-banner" title="${create_time}">${user_id}(${index})</div>
-                <img src="//a.amap.com/jsapi_demos/static/demo-center/icons/dir-via-marker.png">
+                <img src="https://pic.616pic.com/ys_bnew_img/00/21/78/9pMv4SxM55.jpg">
                 </div>`, //将 html 传给 content
                 offset: new AMap.Pixel(-13, -30), //以 icon 的 [center bottom] 为原点
               });

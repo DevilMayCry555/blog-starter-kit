@@ -55,16 +55,11 @@ export default function TopBanner({ uid }: any) {
               <span className="opacity-0">gap</span>登录
             </Nav.Link>
           )}
-          <NavDropdown className="px-4" title="控制台" id="basic-nav-dropdown">
+          {/* <NavDropdown className="px-4" title="控制台" id="basic-nav-dropdown">
             <NavDropdown.Item href="/backdoor/user">用户</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item href="/backdoor/room">团建</NavDropdown.Item>
-            {/* <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">
-              Separated link
-            </NavDropdown.Item> */}
-          </NavDropdown>
+          </NavDropdown> */}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
