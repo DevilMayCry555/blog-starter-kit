@@ -30,6 +30,7 @@ export default function AMapContainer() {
             }); //"map-container"为 <div> 容器的 id
             // 定位
             const onGeo = () => {
+              // 精确定位
               // AMap.plugin("AMap.Geolocation", function () {
               //   var geolocation = new AMap.Geolocation({
               //     enableHighAccuracy: true, // 是否使用高精度定位，默认：true
@@ -67,12 +68,31 @@ export default function AMapContainer() {
               //     }
               //   });
               // });
+              // ip定位
               AMap.plugin("AMap.CitySearch", function () {
                 var citySearch = new AMap.CitySearch();
                 citySearch.getLocalCity(function (status: string, result: any) {
                   if (status === "complete" && result.info === "OK") {
                     // 查询成功，result即为当前所在城市信息
                     console.log("result", result);
+                    //创建矩形 Rectangle 实例
+                    var rectangle = new AMap.Rectangle({
+                      bounds: result.bounds, //矩形的范围
+                      strokeColor: "red", //轮廓线颜色
+                      strokeWeight: 6, //轮廓线宽度
+                      strokeOpacity: 0.5, //轮廓线透明度
+                      strokeStyle: "dashed", //轮廓线样式，dashed 虚线，还支持 solid 实线
+                      strokeDasharray: [30, 10], //勾勒形状轮廓的虚线和间隙的样式，30代表线段长度 10代表间隙长度
+                      fillColor: "transparent", //矩形填充颜色
+                      fillOpacity: 0.5, //矩形填充透明度
+                      cursor: "pointer", //指定鼠标悬停时的鼠标样式
+                      zIndex: 50, //矩形在地图上的层级
+                    });
+                    //矩形 Rectangle 对象添加到 Map
+                    map.add(rectangle);
+                    //根据覆盖物范围调整视野
+                    map.setFitView([rectangle]);
+                    set_address(`${result.province} ${result.city}`);
                   }
                 });
               });
@@ -82,23 +102,23 @@ export default function AMapContainer() {
               const config = !Number.isNaN(+lo) &&
                 !Number.isNaN(+la) && [+lo + 0.006, +la + 0.0001];
               if (config) {
+                const [Longitude, Latitude] = config;
+                const position = new AMap.LngLat(Longitude, Latitude);
                 if (prev) {
                   map.remove(prev);
                 }
-                const [Longitude, Latitude] = config;
-                const position = new AMap.LngLat(Longitude, Latitude);
                 prev = new AMap.Marker({
                   position: position,
                   content: `<div class="custom-content-marker">
                   <div class="custom-content-marker-animate">
-                    <img src="/assets/map-marker-current.png">
+                  <img src="/assets/map-marker-current.png">
                   </div>
                   <img src="/assets/map-marker-current.png">
                   </div>`,
                   offset: new AMap.Pixel(-13, -30),
                 });
-                map.setCenter(position);
                 map.add(prev);
+                map.setCenter(position);
                 // 逆地理编码
                 AMap.plugin("AMap.Geocoder", function () {
                   var geocoder = new AMap.Geocoder({
@@ -118,12 +138,12 @@ export default function AMapContainer() {
                     }
                   );
                 });
+              } else {
+                onGeo();
               }
             };
             onHashChange();
             window.addEventListener("hashchange", onHashChange, false);
-            // onGeo();
-            // window.addEventListener("hashchange", onGeo, false);
           })
           .catch((e) => {
             console.log(e);
@@ -138,7 +158,7 @@ export default function AMapContainer() {
   return (
     <div className=" relative">
       <div id="map-container" className=" min-h-screen -my-14"></div>
-      <div className=" absolute top-0 left-0 right-0 bg-slate-500 text-white">
+      <div className=" absolute top-0 left-0 right-0 bg-slate-500 text-white text-center">
         {address}
       </div>
     </div>
