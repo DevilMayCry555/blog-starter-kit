@@ -158,7 +158,7 @@ export default function AMapContainer() {
               }
             };
             onHashChange();
-            window.addEventListener("hashchange", onHashChange, false);
+            // window.addEventListener("hashchange", onHashChange, false);
           })
           .catch((e) => {
             console.log(e);
