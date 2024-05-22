@@ -40,15 +40,10 @@ export default function TopBanner({ uid }: any) {
           <Nav.Link href="/guess">
             <span className="opacity-0">gap</span>你画我猜
           </Nav.Link>
-          {uid && (
+          {uid ? (
             <Nav.Link href={`/user/${btoa(uid)}`}>
               <span className="opacity-0">gap</span>
               我的
-            </Nav.Link>
-          )}
-          {uid ? (
-            <Nav.Link href="/api/logout">
-              <span className="opacity-0">gap</span>退出
             </Nav.Link>
           ) : (
             <Nav.Link href="/api/login">

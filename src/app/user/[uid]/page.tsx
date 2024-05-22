@@ -27,7 +27,11 @@ export default async function User({ params }: Params) {
               <a href="/backdoor/location">足迹</a>
             </>
           ) : null}
+          <div>
+            <a href="/api/logout">退出登录</a>
+          </div>
         </div>
+
         <div className=" text-2xl pt-4">你画我猜</div>
         <UserArts listData={arts} />
       </Container>
