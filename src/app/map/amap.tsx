@@ -30,40 +30,49 @@ export default function AMapContainer() {
             }); //"map-container"为 <div> 容器的 id
             // 定位
             const onGeo = () => {
-              AMap.plugin("AMap.Geolocation", function () {
-                var geolocation = new AMap.Geolocation({
-                  enableHighAccuracy: true, // 是否使用高精度定位，默认：true
-                  timeout: 10000, // 设置定位超时时间，默认：无穷大
-                  // offset: [10, 20], // 定位按钮的停靠位置的偏移量
-                  // zoomToAccuracy: true, //  定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
-                  // position: "RB", //  定位按钮的排放位置,  RB表示右下
-                });
+              // AMap.plugin("AMap.Geolocation", function () {
+              //   var geolocation = new AMap.Geolocation({
+              //     enableHighAccuracy: true, // 是否使用高精度定位，默认：true
+              //     timeout: 10000, // 设置定位超时时间，默认：无穷大
+              //     // offset: [10, 20], // 定位按钮的停靠位置的偏移量
+              //     // zoomToAccuracy: true, //  定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+              //     // position: "RB", //  定位按钮的排放位置,  RB表示右下
+              //   });
 
-                geolocation.getCurrentPosition(function (
-                  status: string,
-                  result: any
-                ) {
-                  if (status == "complete") {
-                    // data是具体的定位信息
+              //   geolocation.getCurrentPosition(function (
+              //     status: string,
+              //     result: any
+              //   ) {
+              //     if (status == "complete") {
+              //       // data是具体的定位信息
+              //       console.log("result", result);
+              //       if (result.position) {
+              //         prev = new AMap.Marker({
+              //           position: result.position,
+              //           content: `<div class="custom-content-marker">
+              //           <div class="custom-content-marker-animate">
+              //             <img src="/assets/map-marker-current.png">
+              //           </div>
+              //           <img src="/assets/map-marker-current.png">
+              //           </div>`,
+              //           offset: new AMap.Pixel(-13, -30),
+              //         });
+              //         map.setCenter(result.position);
+              //         map.add(prev);
+              //       }
+              //       // set_address(result.regeocode.formattedAddress);
+              //     } else {
+              //       // 定位出错
+              //       console.log("lalala error");
+              //     }
+              //   });
+              // });
+              AMap.plugin("AMap.CitySearch", function () {
+                var citySearch = new AMap.CitySearch();
+                citySearch.getLocalCity(function (status: string, result: any) {
+                  if (status === "complete" && result.info === "OK") {
+                    // 查询成功，result即为当前所在城市信息
                     console.log("result", result);
-                    if (result.position) {
-                      prev = new AMap.Marker({
-                        position: result.position,
-                        content: `<div class="custom-content-marker">
-                        <div class="custom-content-marker-animate">
-                          <img src="/assets/map-marker-current.png">
-                        </div>
-                        <img src="/assets/map-marker-current.png">
-                        </div>`,
-                        offset: new AMap.Pixel(-13, -30),
-                      });
-                      map.setCenter(result.position);
-                      map.add(prev);
-                    }
-                    // set_address(result.regeocode.formattedAddress);
-                  } else {
-                    // 定位出错
-                    console.log("lalala error");
                   }
                 });
               });
@@ -111,10 +120,10 @@ export default function AMapContainer() {
                 });
               }
             };
-            // onHashChange();
-            // window.addEventListener("hashchange", onHashChange, false);
-            onGeo();
-            window.addEventListener("hashchange", onGeo, false);
+            onHashChange();
+            window.addEventListener("hashchange", onHashChange, false);
+            // onGeo();
+            // window.addEventListener("hashchange", onGeo, false);
           })
           .catch((e) => {
             console.log(e);
