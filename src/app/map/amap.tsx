@@ -25,7 +25,7 @@ export default function AMapContainer() {
             map = new AMap.Map("map-container", {
               // 设置地图容器id
               // viewMode: "3D", // 是否为3D地图模式
-              zoom: 20, // 初始化地图级别
+              zoom: 16, // 初始化地图级别
             }); //"map-container"为 <div> 容器的 id
             const onHashChange = () => {
               const [lo, la] = location.hash.split("/").slice(1);
