@@ -68,7 +68,7 @@ export default function AMapContainer({ locations }: Prop) {
                   strokeColor: "red", //轮廓线颜色
                   strokeWeight: 6, //轮廓线宽度
                   strokeOpacity: 0.5, //轮廓线透明度
-                  strokeStyle: "dashed", //轮廓线样式，dashed 虚线，还支持 solid 实线
+                  strokeStyle: "solid", //轮廓线样式，dashed 虚线，还支持 solid 实线
                   strokeDasharray: [30, 10], //勾勒形状轮廓的虚线和间隙的样式，30代表线段长度 10代表间隙长度
                   fillColor: "transparent", //矩形填充颜色
                   fillOpacity: 0.5, //矩形填充透明度
