@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./amap.css";
 
 export default function AMapContainer() {
   let map: any = null;
   let prev: any = null;
+  const [address, set_address] = useState("");
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -49,6 +50,25 @@ export default function AMapContainer() {
                 });
                 map.setCenter(position);
                 map.add(prev);
+                // 逆地理编码
+                AMap.plugin("AMap.Geocoder", function () {
+                  var geocoder = new AMap.Geocoder({
+                    city: "010", // city 指定进行编码查询的城市，支持传入城市名、adcode 和 citycode
+                  });
+
+                  var lnglat = [Longitude, Latitude];
+
+                  geocoder.getAddress(
+                    lnglat,
+                    function (status: string, result: any) {
+                      if (status === "complete" && result.info === "OK") {
+                        // result为对应的地理位置详细信息
+                        // console.log("result", result);
+                        set_address(result.regeocode.formattedAddress);
+                      }
+                    }
+                  );
+                });
               }
             };
             onHashChange();
@@ -64,5 +84,12 @@ export default function AMapContainer() {
       map?.destroy();
     };
   }, []);
-  return <div id="map-container" className=" min-h-screen -my-14"></div>;
+  return (
+    <div className=" relative">
+      <div id="map-container" className=" min-h-screen -my-14"></div>
+      <div className=" absolute top-0 left-0 right-0 bg-slate-500 text-white">
+        {address}
+      </div>
+    </div>
+  );
 }
