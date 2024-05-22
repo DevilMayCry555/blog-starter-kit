@@ -52,6 +52,15 @@ export default function AMapContainer({ locations }: Prop) {
                 offset: new AMap.Pixel(-13, -30), //以 icon 的 [center bottom] 为原点
               });
               map.add(marker);
+              const marker2 = new AMap.Marker({
+                position: position,
+                content: `<div class="custom-content-marker">
+                <div class="custom-content-marker-banner" title="${create_time}">${user_id}(${index})</div>
+                <img src="https://github.com/DevilMayCry555/blog-starter-kit/blob/main/public/assets/map-marker.png">
+                </div>`, //将 html 传给 content
+                offset: new AMap.Pixel(-13, -30), //以 icon 的 [center bottom] 为原点
+              });
+              map.add(marker2);
             });
           })
           .catch((e) => {
