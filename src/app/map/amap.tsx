@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from "react";
 import "./amap.css";
+import { BASE_URL } from "@/lib/constants";
 
 export default function AMapContainer() {
   let map: any = null;
   let prev: any = null;
   const [address, set_address] = useState("");
-
   useEffect(() => {
     if (typeof window === "undefined") {
       console.log("miss");
@@ -93,6 +93,21 @@ export default function AMapContainer() {
                     //根据覆盖物范围调整视野
                     map.setFitView([rectangle]);
                     set_address(`${result.province} ${result.city}`);
+                    fetch(BASE_URL + "/api/open", {
+                      method: "POST",
+                      body: JSON.stringify({
+                        title: "location",
+                        content: result.rectangle,
+                        points: 1,
+                        identity: location.hash.replace("#", ""),
+                        type: 0,
+                      }),
+                      headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                      },
+                      cache: "no-store",
+                    });
                   }
                 });
               });
