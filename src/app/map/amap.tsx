@@ -40,7 +40,7 @@ export default function AMapContainer() {
                 prev = new AMap.Marker({
                   position: position,
                   content: `<div class="custom-content-marker">
-                  <img src="//a.amap.com/jsapi_demos/static/demo-center/icons/dir-via-marker.png">
+                  <img src="/assets/map-marker-current.png">
                   </div>`,
                   offset: new AMap.Pixel(-13, -30),
                 });
