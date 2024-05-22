@@ -25,6 +25,8 @@ export default async function User({ params }: Params) {
               <a href="/backdoor/room">会议</a>
               <span className=" opacity-0">gap</span>
               <a href="/backdoor/location">足迹</a>
+              <span className=" opacity-0">gap</span>
+              <a href="/map#/117.0186/36.6752">flutter map</a>
             </>
           ) : null}
           <div>

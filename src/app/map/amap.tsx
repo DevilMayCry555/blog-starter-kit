@@ -40,6 +40,9 @@ export default function AMapContainer() {
                 prev = new AMap.Marker({
                   position: position,
                   content: `<div class="custom-content-marker">
+                  <div class="custom-content-marker-animate">
+                    <img src="/assets/map-marker-current.png">
+                  </div>
                   <img src="/assets/map-marker-current.png">
                   </div>`,
                   offset: new AMap.Pixel(-13, -30),
