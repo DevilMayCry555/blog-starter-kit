@@ -140,6 +140,8 @@ export default function AMapContainer() {
                     //   },
                     //   cache: "no-store",
                     // });
+                  } else {
+                    set_area(JSON.stringify(result));
                   }
                 });
               });
