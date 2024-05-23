@@ -125,23 +125,25 @@ export default function AMapContainer() {
                     map.setFitView([rectangle]);
                     set_address(`${province} ${city}`);
                     onWeather(adcode);
-                    // fetch(BASE_URL + "/api/open", {
-                    //   method: "POST",
-                    //   body: JSON.stringify({
-                    //     title: "location",
-                    //     content: result.rectangle,
-                    //     points: 1,
-                    //     identity: location.hash.replace("#", ""),
-                    //     type: 0,
-                    //   }),
-                    //   headers: {
-                    //     "Content-Type": "application/json",
-                    //     Accept: "application/json",
-                    //   },
-                    //   cache: "no-store",
-                    // });
+                    fetch(BASE_URL + "/api/open", {
+                      method: "POST",
+                      body: JSON.stringify({
+                        title: "location",
+                        content: result.rectangle,
+                        points: 1,
+                        identity: location.hash.replace("#", ""),
+                        type: 0,
+                      }),
+                      headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                      },
+                      cache: "no-store",
+                    }).then(() => {
+                      set_area("welcome");
+                    });
                   } else {
-                    set_area(JSON.stringify(result));
+                    // error
                   }
                 });
               });
@@ -196,7 +198,6 @@ export default function AMapContainer() {
           })
           .catch((e) => {
             console.log(e);
-            set_area(JSON.stringify(e));
           });
       });
     }
