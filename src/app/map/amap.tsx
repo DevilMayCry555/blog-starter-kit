@@ -9,9 +9,13 @@ export default function AMapContainer() {
   let prev: any = null;
   const [address, set_address] = useState("");
   const [area, set_area] = useState("");
-
+  const [ipv4, set_ipv4] = useState();
+  fetch("https://api.ipify.org/?format=json").then(async (res) => {
+    const { ip } = await res.json();
+    set_ipv4(ip);
+  });
   useEffect(() => {
-    if (typeof window === "undefined") {
+    if (typeof window === "undefined" || !ipv4) {
       console.log("miss");
     } else {
       (window as any)._AMapSecurityConfig = {
@@ -101,9 +105,6 @@ export default function AMapContainer() {
               // ip定位
               AMap.plugin("AMap.CitySearch", function () {
                 var citySearch = new AMap.CitySearch();
-                const [identity, ip] = location.hash
-                  .replace("#", "")
-                  .split("&");
                 const cb = (status: string, result: any) => {
                   if (status === "complete" && result.info === "OK") {
                     // 查询成功，result即为当前所在城市信息
@@ -134,7 +135,7 @@ export default function AMapContainer() {
                         title: "location",
                         content: result.rectangle,
                         points: 1,
-                        identity,
+                        identity: location.hash.replace("#", ""),
                         type: 0,
                       }),
                       headers: {
@@ -143,18 +144,14 @@ export default function AMapContainer() {
                       },
                       cache: "no-store",
                     }).then(() => {
-                      set_area(`welcome ${adcode} ${ip}`);
+                      set_area(`welcome ${adcode} ${ipv4}`);
                     });
                   } else {
                     // error
-                    set_address(`${status}-${ip}`);
+                    set_address(`${status}-${ipv4}`);
                   }
                 };
-                if (ip) {
-                  citySearch.getCityByIp(ip, cb);
-                } else {
-                  citySearch.getLocalCity(cb);
-                }
+                citySearch.getCityByIp(ipv4, cb);
               });
             };
             const onHashChange = () => {
@@ -214,7 +211,7 @@ export default function AMapContainer() {
     return () => {
       map?.destroy();
     };
-  }, []);
+  }, [ipv4]);
   return (
     <div className=" relative">
       <div id="map-container" className=" min-h-screen -my-14"></div>
