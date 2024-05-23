@@ -9,13 +9,22 @@ export default function AMapContainer() {
   let prev: any = null;
   const [address, set_address] = useState("");
   const [area, set_area] = useState("");
-  const [ipv4, set_ipv4] = useState();
-  fetch("https://api.ipify.org/?format=json").then(async (res) => {
-    const { ip } = await res.json();
-    set_ipv4(ip);
-  });
+  const [code, set_code] = useState();
+
   useEffect(() => {
-    if (typeof window === "undefined" || !ipv4) {
+    fetch("https://api.ipify.org/?format=json").then(async (res) => {
+      const { ip } = await res.json();
+      console.log("ip", ip);
+      // `https://whois.pconline.com.cn/ipJson.jsp?ip=${ip}&json=true`
+      const info = await fetch(BASE_URL + "/api/open?ipify=" + ip);
+      const { cityCode, ...rest } = await info.json();
+      console.log("cityCode", cityCode, rest);
+      set_code(cityCode);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !code) {
       console.log("miss");
     } else {
       (window as any)._AMapSecurityConfig = {
@@ -102,56 +111,65 @@ export default function AMapContainer() {
               //     }
               //   });
               // });
+              // callback
+              const cb = (status: string, result: any) => {
+                console.log(status, result);
+                if (status === "complete" && result.info === "OK") {
+                  // 查询成功，result即为当前所在城市信息
+                  console.log("result", result);
+                  return;
+                  const { bounds, province, city, adcode } = result;
+                  //创建矩形 Rectangle 实例
+                  var rectangle = new AMap.Rectangle({
+                    bounds, //矩形的范围
+                    strokeColor: "red", //轮廓线颜色
+                    strokeWeight: 6, //轮廓线宽度
+                    strokeOpacity: 0.5, //轮廓线透明度
+                    strokeStyle: "dashed", //轮廓线样式，dashed 虚线，还支持 solid 实线
+                    strokeDasharray: [30, 10], //勾勒形状轮廓的虚线和间隙的样式，30代表线段长度 10代表间隙长度
+                    fillColor: "transparent", //矩形填充颜色
+                    fillOpacity: 0.5, //矩形填充透明度
+                    cursor: "pointer", //指定鼠标悬停时的鼠标样式
+                    zIndex: 50, //矩形在地图上的层级
+                  });
+                  //矩形 Rectangle 对象添加到 Map
+                  map.add(rectangle);
+                  //根据覆盖物范围调整视野
+                  map.setFitView([rectangle]);
+                  set_address(`${province} ${city}`);
+                  // onWeather(adcode);
+                  fetch(BASE_URL + "/api/open", {
+                    method: "POST",
+                    body: JSON.stringify({
+                      title: "location",
+                      content: result.rectangle,
+                      points: 1,
+                      identity: location.hash.replace("#", ""),
+                      type: 0,
+                    }),
+                    headers: {
+                      "Content-Type": "application/json",
+                      Accept: "application/json",
+                    },
+                    cache: "no-store",
+                  }).then(() => {
+                    set_area(`welcome ${adcode} ${code}`);
+                  });
+                } else {
+                  // error
+                  set_address(`${status}-${code}`);
+                }
+              };
               // ip定位
-              AMap.plugin("AMap.CitySearch", function () {
-                var citySearch = new AMap.CitySearch();
-                const cb = (status: string, result: any) => {
-                  if (status === "complete" && result.info === "OK") {
-                    // 查询成功，result即为当前所在城市信息
-                    // console.log("result", result);
-                    const { bounds, province, city, adcode } = result;
-                    //创建矩形 Rectangle 实例
-                    var rectangle = new AMap.Rectangle({
-                      bounds, //矩形的范围
-                      strokeColor: "red", //轮廓线颜色
-                      strokeWeight: 6, //轮廓线宽度
-                      strokeOpacity: 0.5, //轮廓线透明度
-                      strokeStyle: "dashed", //轮廓线样式，dashed 虚线，还支持 solid 实线
-                      strokeDasharray: [30, 10], //勾勒形状轮廓的虚线和间隙的样式，30代表线段长度 10代表间隙长度
-                      fillColor: "transparent", //矩形填充颜色
-                      fillOpacity: 0.5, //矩形填充透明度
-                      cursor: "pointer", //指定鼠标悬停时的鼠标样式
-                      zIndex: 50, //矩形在地图上的层级
-                    });
-                    //矩形 Rectangle 对象添加到 Map
-                    map.add(rectangle);
-                    //根据覆盖物范围调整视野
-                    map.setFitView([rectangle]);
-                    set_address(`${province} ${city}`);
-                    // onWeather(adcode);
-                    fetch(BASE_URL + "/api/open", {
-                      method: "POST",
-                      body: JSON.stringify({
-                        title: "location",
-                        content: result.rectangle,
-                        points: 1,
-                        identity: location.hash.replace("#", ""),
-                        type: 0,
-                      }),
-                      headers: {
-                        "Content-Type": "application/json",
-                        Accept: "application/json",
-                      },
-                      cache: "no-store",
-                    }).then(() => {
-                      set_area(`welcome ${adcode} ${ipv4}`);
-                    });
-                  } else {
-                    // error
-                    set_address(`${status}-${ipv4}`);
-                  }
-                };
-                citySearch.getCityByIp(ipv4, cb);
+              // AMap.plugin("AMap.CitySearch", function () {
+              //   var citySearch = new AMap.CitySearch();
+              //   citySearch.getCityByIp(code, cb);
+              // });
+              AMap.plugin("AMap.Geocoder", function () {
+                var geocoder = new AMap.Geocoder({
+                  city: code, // city 指定进行编码查询的城市，支持传入城市名、adcode 和 citycode
+                });
+                // geocoder.getLocation("", cb);
               });
             };
             const onHashChange = () => {
@@ -211,7 +229,7 @@ export default function AMapContainer() {
     return () => {
       map?.destroy();
     };
-  }, [ipv4]);
+  }, [code]);
   return (
     <div className=" relative">
       <div id="map-container" className=" min-h-screen -my-14"></div>

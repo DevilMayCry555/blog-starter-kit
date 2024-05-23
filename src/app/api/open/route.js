@@ -5,7 +5,15 @@ import { format } from "date-fns";
 const decoder = new TextDecoder();
 export async function GET(request) {
   const { search } = request.nextUrl;
-  const { type, identity } = qs(search);
+  const { type, identity, ipify } = qs(search);
+  if (ipify) {
+    const infoReq = await fetch(
+      `https://whois.pconline.com.cn/ipJson.jsp?ip=${ipify}&json=true`
+    );
+    const info = await infoReq.json();
+    // console.log(info);
+    return NextResponse.json({ ...info }, { status: 200 });
+  }
   if (!identity) {
     return NextResponse.json({ error: "identity error" }, { status: 500 });
   }
