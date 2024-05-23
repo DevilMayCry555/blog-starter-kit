@@ -40,7 +40,7 @@ export default function AMapContainer() {
                 weather.getLive(adcode, function (err: any, data: any) {
                   //err 正确时返回 null
                   //data 返回实时天气数据，返回数据见下表
-                  console.log(err, data);
+                  // console.log(err, data);
                   const {
                     temperature,
                     humidity,
@@ -104,7 +104,7 @@ export default function AMapContainer() {
                 citySearch.getLocalCity(function (status: string, result: any) {
                   if (status === "complete" && result.info === "OK") {
                     // 查询成功，result即为当前所在城市信息
-                    console.log("result", result);
+                    // console.log("result", result);
                     const { bounds, province, city, adcode } = result;
                     //创建矩形 Rectangle 实例
                     var rectangle = new AMap.Rectangle({
@@ -124,7 +124,7 @@ export default function AMapContainer() {
                     //根据覆盖物范围调整视野
                     map.setFitView([rectangle]);
                     set_address(`${province} ${city}`);
-                    // onWeather(adcode);
+                    onWeather(adcode);
                     // fetch(BASE_URL + "/api/open", {
                     //   method: "POST",
                     //   body: JSON.stringify({
