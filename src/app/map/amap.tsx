@@ -147,9 +147,7 @@ export default function AMapContainer() {
                     });
                   } else {
                     // error
-                    set_address(
-                      `${status}-${result}-${JSON.stringify(result)}`
-                    );
+                    set_address(`${status}-${ip}`);
                   }
                 };
                 if (ip) {
