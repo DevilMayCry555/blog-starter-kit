@@ -92,22 +92,46 @@ export default function AMapContainer() {
                     map.add(rectangle);
                     //根据覆盖物范围调整视野
                     map.setFitView([rectangle]);
-                    set_address(`${result.province} ${result.city}`);
-                    fetch(BASE_URL + "/api/open", {
-                      method: "POST",
-                      body: JSON.stringify({
-                        title: "location",
-                        content: result.rectangle,
-                        points: 1,
-                        identity: location.hash.replace("#", ""),
-                        type: 0,
-                      }),
-                      headers: {
-                        "Content-Type": "application/json",
-                        Accept: "application/json",
-                      },
-                      cache: "no-store",
+                    AMap.plugin("AMap.Weather", function () {
+                      //创建天气查询实例
+                      var weather = new AMap.Weather();
+                      //执行实时天气信息查询
+                      weather.getLive(
+                        result.adcode,
+                        function (err: any, data: any) {
+                          //err 正确时返回 null
+                          //data 返回实时天气数据，返回数据见下表
+                          console.log(err, data);
+                          const {
+                            province,
+                            city,
+                            temperature,
+                            humidity,
+                            weather,
+                            windDirection,
+                            windPower,
+                          } = data;
+                          set_address(
+                            `${province} ${city} ${weather} 温:${temperature}℃ 湿:${humidity}% 风:${windDirection}${windPower}级`
+                          );
+                        }
+                      );
                     });
+                    // fetch(BASE_URL + "/api/open", {
+                    //   method: "POST",
+                    //   body: JSON.stringify({
+                    //     title: "location",
+                    //     content: result.rectangle,
+                    //     points: 1,
+                    //     identity: location.hash.replace("#", ""),
+                    //     type: 0,
+                    //   }),
+                    //   headers: {
+                    //     "Content-Type": "application/json",
+                    //     Accept: "application/json",
+                    //   },
+                    //   cache: "no-store",
+                    // });
                   }
                 });
               });
