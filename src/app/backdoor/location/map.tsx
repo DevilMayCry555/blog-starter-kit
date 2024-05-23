@@ -31,30 +31,13 @@ export default function AMapContainer({ locations }: Prop) {
               // center: [+lo + 0.006, +la + 0.0001], // 初始化地图中心点位置
             }); //"map-container"为 <div> 容器的 id
             // 绘制坐标点
-            const counter: { [k: string]: number } = {};
+            const counter: { [k: string]: String[] } = {};
             locations.forEach((item) => {
               const { user_id, content, create_time } = item;
-              // const [Latitude, Longitude] = String(content)
-              //   .split(",")
-              //   .map((it) => Number(String(it).split(":")[1]));
-              // const index = locations
-              //   .filter((it) => it["user_id"] === user_id)
-              //   .indexOf(item);
-              // const position = new AMap.LngLat(
-              //   Longitude + 0.006,
-              //   Latitude + 0.0001
-              // ); //Marker 经纬度
-              // const marker = new AMap.Marker({
-              //   position: position,
-              //   content: `<div class="custom-content-marker">
-              //   <div class="custom-content-marker-banner" title="${create_time}">${user_id}(${index})</div>
-              //   <img src="/assets/map-marker.png">
-              //   </div>`, //将 html 传给 content
-              //   offset: new AMap.Pixel(-13, -30), //以 icon 的 [center bottom] 为原点
-              // });
-              // map.add(marker);
               const isNew = counter[content] === undefined;
-              counter[content] = isNew ? 0 : counter[content] + 1;
+              counter[content] = isNew
+                ? [`${create_time}@${user_id}`]
+                : [...counter[content], `${create_time}@${user_id}`];
               if (isNew) {
                 const [southWest, northEast] = String(content).split(";");
                 const [swlo, swla] = southWest.split(",");
@@ -78,7 +61,26 @@ export default function AMapContainer({ locations }: Prop) {
                 map.add(rectangle);
               }
             });
-            console.log(counter);
+            // console.log(counter);
+            Object.keys(counter).forEach((item) => {
+              const [southWest, northEast] = String(item).split(";");
+              const [swlo, swla] = southWest.split(",");
+              const [nelo, nela] = northEast.split(",");
+              const index = counter[item].length;
+              const position = new AMap.LngLat(
+                ((+swlo + +nelo) / 2).toFixed(4),
+                ((+swla + +nela) / 2).toFixed(4)
+              ); //Marker 经纬度
+              const marker = new AMap.Marker({
+                position: position,
+                content: `<div class="custom-content-marker">
+                <div class="custom-content-marker-banner">(${index})</div>
+                <img src="/assets/map-marker.png">
+                </div>`, //将 html 传给 content
+                offset: new AMap.Pixel(-13, -30), //以 icon 的 [center bottom] 为原点
+              });
+              map.add(marker);
+            });
           })
           .catch((e) => {
             console.log(e);
