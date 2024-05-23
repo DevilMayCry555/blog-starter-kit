@@ -73,9 +73,11 @@ export default function AMapContainer({ locations }: Prop) {
               ); //Marker 经纬度
               const marker = new AMap.Marker({
                 position: position,
-                content: `<div class="custom-content-marker">
-                <div class="custom-content-marker-banner">(${index})</div>
-                <img src="/assets/map-marker.png">
+                content: `<div class="custom-content-marker" title="${index}">
+                <div class="custom-content-marker-animate">
+                <img src="/assets/map-marker-current.png">
+                </div>
+                <img src="/assets/map-marker-current.png">
                 </div>`, //将 html 传给 content
                 offset: new AMap.Pixel(-13, -30), //以 icon 的 [center bottom] 为原点
               });
