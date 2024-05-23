@@ -104,6 +104,7 @@ export default function AMapContainer() {
                 citySearch.getLocalCity(function (status: string, result: any) {
                   if (status === "complete" && result.info === "OK") {
                     // 查询成功，result即为当前所在城市信息
+                    return;
                     console.log("result", result);
                     const { bounds, province, city, adcode } = result;
                     //创建矩形 Rectangle 实例
@@ -194,6 +195,7 @@ export default function AMapContainer() {
           })
           .catch((e) => {
             console.log(e);
+            set_area(JSON.stringify(e));
           });
       });
     }
