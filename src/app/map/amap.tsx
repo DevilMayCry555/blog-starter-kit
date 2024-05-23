@@ -124,7 +124,7 @@ export default function AMapContainer() {
                     //根据覆盖物范围调整视野
                     map.setFitView([rectangle]);
                     set_address(`${province} ${city}`);
-                    onWeather(adcode);
+                    // onWeather(adcode);
                     // fetch(BASE_URL + "/api/open", {
                     //   method: "POST",
                     //   body: JSON.stringify({
