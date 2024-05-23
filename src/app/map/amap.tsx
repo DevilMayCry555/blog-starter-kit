@@ -8,6 +8,8 @@ export default function AMapContainer() {
   let map: any = null;
   let prev: any = null;
   const [address, set_address] = useState("");
+  const [area, set_area] = useState("");
+
   useEffect(() => {
     if (typeof window === "undefined") {
       console.log("miss");
@@ -28,6 +30,34 @@ export default function AMapContainer() {
               // viewMode: "3D", // 是否为3D地图模式
               zoom: 16, // 初始化地图级别
             }); //"map-container"为 <div> 容器的 id
+
+            // 天气
+            const onWeather = (adcode: string) => {
+              AMap.plugin("AMap.Weather", function () {
+                //创建天气查询实例
+                var weather = new AMap.Weather();
+                //执行实时天气信息查询
+                weather.getLive(adcode, function (err: any, data: any) {
+                  //err 正确时返回 null
+                  //data 返回实时天气数据，返回数据见下表
+                  console.log(err, data);
+                  const {
+                    temperature,
+                    humidity,
+                    weather,
+                    windDirection,
+                    windPower,
+                  } = data;
+                  if (err) {
+                    set_area(JSON.stringify(err));
+                  } else {
+                    set_area(
+                      `${weather} 温:${temperature}℃ 湿:${humidity}% 风:${windDirection}${windPower}级`
+                    );
+                  }
+                });
+              });
+            };
             // 定位
             const onGeo = () => {
               // 精确定位
@@ -75,9 +105,10 @@ export default function AMapContainer() {
                   if (status === "complete" && result.info === "OK") {
                     // 查询成功，result即为当前所在城市信息
                     console.log("result", result);
+                    const { bounds, province, city, adcode } = result;
                     //创建矩形 Rectangle 实例
                     var rectangle = new AMap.Rectangle({
-                      bounds: result.bounds, //矩形的范围
+                      bounds, //矩形的范围
                       strokeColor: "red", //轮廓线颜色
                       strokeWeight: 6, //轮廓线宽度
                       strokeOpacity: 0.5, //轮廓线透明度
@@ -92,31 +123,8 @@ export default function AMapContainer() {
                     map.add(rectangle);
                     //根据覆盖物范围调整视野
                     map.setFitView([rectangle]);
-                    AMap.plugin("AMap.Weather", function () {
-                      //创建天气查询实例
-                      var weather = new AMap.Weather();
-                      //执行实时天气信息查询
-                      weather.getLive(
-                        result.adcode,
-                        function (err: any, data: any) {
-                          //err 正确时返回 null
-                          //data 返回实时天气数据，返回数据见下表
-                          console.log(err, data);
-                          const {
-                            province,
-                            city,
-                            temperature,
-                            humidity,
-                            weather,
-                            windDirection,
-                            windPower,
-                          } = data;
-                          set_address(
-                            `${province} ${city} ${weather} 温:${temperature}℃ 湿:${humidity}% 风:${windDirection}${windPower}级`
-                          );
-                        }
-                      );
-                    });
+                    set_address(`${province} ${city}`);
+                    onWeather(adcode);
                     // fetch(BASE_URL + "/api/open", {
                     //   method: "POST",
                     //   body: JSON.stringify({
@@ -199,6 +207,7 @@ export default function AMapContainer() {
       <div id="map-container" className=" min-h-screen -my-14"></div>
       <div className=" absolute top-0 left-0 right-0 bg-slate-500 text-white text-center">
         {address}
+        <div>{area}</div>
       </div>
     </div>
   );
