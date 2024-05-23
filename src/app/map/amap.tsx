@@ -32,32 +32,32 @@ export default function AMapContainer() {
             }); //"map-container"为 <div> 容器的 id
 
             // 天气
-            const onWeather = (adcode: string) => {
-              AMap.plugin("AMap.Weather", function () {
-                //创建天气查询实例
-                var weather = new AMap.Weather();
-                //执行实时天气信息查询
-                weather.getLive(adcode, function (err: any, data: any) {
-                  //err 正确时返回 null
-                  //data 返回实时天气数据，返回数据见下表
-                  // console.log(err, data);
-                  const {
-                    temperature,
-                    humidity,
-                    weather,
-                    windDirection,
-                    windPower,
-                  } = data;
-                  if (err) {
-                    set_area(JSON.stringify(err));
-                  } else {
-                    set_area(
-                      `${weather} 温:${temperature}℃ 湿:${humidity}% 风:${windDirection}${windPower}级`
-                    );
-                  }
-                });
-              });
-            };
+            // const onWeather = (adcode: string) => {
+            //   AMap.plugin("AMap.Weather", function () {
+            //     //创建天气查询实例
+            //     var weather = new AMap.Weather();
+            //     //执行实时天气信息查询
+            //     weather.getLive(adcode, function (err: any, data: any) {
+            //       //err 正确时返回 null
+            //       //data 返回实时天气数据，返回数据见下表
+            //       // console.log(err, data);
+            //       const {
+            //         temperature,
+            //         humidity,
+            //         weather,
+            //         windDirection,
+            //         windPower,
+            //       } = data;
+            //       if (err) {
+            //         set_area(JSON.stringify(err));
+            //       } else {
+            //         set_area(
+            //           `${weather} 温:${temperature}℃ 湿:${humidity}% 风:${windDirection}${windPower}级`
+            //         );
+            //       }
+            //     });
+            //   });
+            // };
             // 定位
             const onGeo = () => {
               // 精确定位
@@ -124,7 +124,7 @@ export default function AMapContainer() {
                     //根据覆盖物范围调整视野
                     map.setFitView([rectangle]);
                     set_address(`${province} ${city}`);
-                    onWeather(adcode);
+                    // onWeather(adcode);
                     fetch(BASE_URL + "/api/open", {
                       method: "POST",
                       body: JSON.stringify({
@@ -140,7 +140,7 @@ export default function AMapContainer() {
                       },
                       cache: "no-store",
                     }).then(() => {
-                      set_area("welcome");
+                      set_area(`welcome ${adcode}`);
                     });
                   } else {
                     // error
