@@ -101,7 +101,10 @@ export default function AMapContainer() {
               // ip定位
               AMap.plugin("AMap.CitySearch", function () {
                 var citySearch = new AMap.CitySearch();
-                citySearch.getLocalCity(function (status: string, result: any) {
+                const [identity, ip] = location.hash
+                  .replace("#", "")
+                  .split("&");
+                const cb = (status: string, result: any) => {
                   if (status === "complete" && result.info === "OK") {
                     // 查询成功，result即为当前所在城市信息
                     // console.log("result", result);
@@ -131,7 +134,7 @@ export default function AMapContainer() {
                         title: "location",
                         content: result.rectangle,
                         points: 1,
-                        identity: location.hash.replace("#", ""),
+                        identity,
                         type: 0,
                       }),
                       headers: {
@@ -140,7 +143,7 @@ export default function AMapContainer() {
                       },
                       cache: "no-store",
                     }).then(() => {
-                      set_area(`welcome ${adcode}`);
+                      set_area(`welcome ${adcode} ${ip}`);
                     });
                   } else {
                     // error
@@ -148,7 +151,12 @@ export default function AMapContainer() {
                       `${status}-${result}-${JSON.stringify(result)}`
                     );
                   }
-                });
+                };
+                if (ip) {
+                  citySearch.getCityByIp(ip, cb);
+                } else {
+                  citySearch.getLocalCity(cb);
+                }
               });
             };
             const onHashChange = () => {
