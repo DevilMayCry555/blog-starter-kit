@@ -28,9 +28,11 @@ export default function AMapContainer() {
   useEffect(() => {
     fetch(ip_api)
       .then((res) => res.json())
-      .then((res) =>
-        fetch(`${amap_ip_api}&ip=${res.ip}`).then((resp) => resp.json())
-      )
+      .then((res) => {
+        const { longitude, latitude } = res;
+        set_err(`${longitude} ${latitude}`);
+        return fetch(`${amap_ip_api}&ip=${res.ip}`).then((resp) => resp.json());
+      })
       .then((res) => {
         console.log(res);
         if (!!location.hash.replace("#", "")) {
@@ -51,9 +53,6 @@ export default function AMapContainer() {
           });
         }
         set_info(res);
-      })
-      .catch((e) => {
-        set_err("error");
       });
   }, []);
 
@@ -233,7 +232,7 @@ export default function AMapContainer() {
     <div className=" relative">
       <div id="map-container" className=" min-h-screen -my-14"></div>
       <div className=" absolute top-0 left-0 right-0 bg-slate-500 text-white text-center">
-        {address}
+        {address} {err}
         <div>{area}</div>
       </div>
     </div>
