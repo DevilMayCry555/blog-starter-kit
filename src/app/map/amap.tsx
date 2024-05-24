@@ -42,9 +42,9 @@ export default function AMapContainer() {
             method: "POST",
             body: JSON.stringify({
               title: "location",
-              content: `${+longitude - 5},${+latitude + 5};${+longitude + 5},${
-                +latitude - 5
-              }`,
+              content: `${+longitude - 0.001},${+latitude + 0.001};${
+                +longitude + 0.001
+              },${+latitude - 0.001}`,
               points: 1,
               identity: location.hash.replace("#", ""),
               type: 0,
