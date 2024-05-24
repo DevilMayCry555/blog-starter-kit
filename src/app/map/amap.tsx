@@ -29,9 +29,9 @@ export default function AMapContainer() {
     fetch(ip_api)
       .then((res) => res.json())
       .then((res) => {
-        const { longitude, latitude } = res;
-        set_err(`${longitude} ${latitude}`);
-        return fetch(`${amap_ip_api}&ip=${res.ip}`).then((resp) => resp.json());
+        const { longitude, latitude, ip } = res;
+        set_err(`${longitude} ${latitude} ${ip}`);
+        return fetch(`${amap_ip_api}&ip=${ip}`).then((resp) => resp.json());
       })
       .then((res) => {
         console.log(res);
