@@ -2,50 +2,51 @@
 
 import { useEffect, useState } from "react";
 import "./amap.css";
+import { BASE_URL } from "@/lib/constants";
 
 const amap_jsapi_key = "559e609208e3e6d726a285abfbc116f8";
-// const amap_web_key = "382ac00b0f966675fb9d96027c61811c";
+const amap_web_key = "382ac00b0f966675fb9d96027c61811c";
 let map: any = null;
 let prev: any = null;
 let onHashChange: any = null;
-export default function AMapContainer({ info }: any) {
+export default function AMapContainer() {
   const [address, set_address] = useState("");
   const [area, set_area] = useState("");
-  // const [info, set_info] = useState({
-  //   adcode: "370100",
-  //   city: "济南市",
-  //   info: "OK",
-  //   infocode: "10000",
-  //   province: "山东省",
-  //   rectangle: null,
-  //   status: "1",
-  // });
+  const [info, set_info] = useState({
+    adcode: "370100",
+    city: "济南市",
+    info: "OK",
+    infocode: "10000",
+    province: "山东省",
+    rectangle: null,
+    status: "1",
+  });
 
-  // useEffect(() => {
-  //   fetch(`https://restapi.amap.com/v3/ip?key=${amap_web_key}`)
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       console.log(res);
-  //       if (!!location.hash.replace("#", "")) {
-  //         fetch(BASE_URL + "/api/open", {
-  //           method: "POST",
-  //           body: JSON.stringify({
-  //             title: "location",
-  //             content: res.rectangle,
-  //             points: 1,
-  //             identity: location.hash.replace("#", ""),
-  //             type: 0,
-  //           }),
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             Accept: "application/json",
-  //           },
-  //           cache: "no-store",
-  //         });
-  //       }
-  //       set_info(res);
-  //     });
-  // }, []);
+  useEffect(() => {
+    fetch(`https://restapi.amap.com/v3/ip?key=${amap_web_key}`)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        if (!!location.hash.replace("#", "")) {
+          fetch(BASE_URL + "/api/open", {
+            method: "POST",
+            body: JSON.stringify({
+              title: "location",
+              content: res.rectangle,
+              points: 1,
+              identity: location.hash.replace("#", ""),
+              type: 0,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            cache: "no-store",
+          });
+        }
+        set_info(res);
+      });
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") {
