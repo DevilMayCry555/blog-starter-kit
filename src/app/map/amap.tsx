@@ -14,6 +14,7 @@ let onHashChange: any = null;
 export default function AMapContainer() {
   const [address, set_address] = useState("");
   const [area, set_area] = useState("");
+  const [err, set_err] = useState("");
   const [info, set_info] = useState({
     as: "AS4837 CHINA UNICOM China169 Backbone",
     city: "济南市",
@@ -59,7 +60,7 @@ export default function AMapContainer() {
         set_info(res);
       })
       .catch((e) => {
-        set_area(e);
+        set_err("error");
       });
   }, []);
 
@@ -214,6 +215,7 @@ export default function AMapContainer() {
         {address}
         <div>{area}</div>
         <div>{info.query}</div>
+        <div>{err}</div>
       </div>
     </div>
   );
