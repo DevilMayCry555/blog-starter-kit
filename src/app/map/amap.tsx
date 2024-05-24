@@ -33,11 +33,7 @@ export default function AMapContainer() {
   });
 
   useEffect(() => {
-    fetch(ip_api, {
-      headers: {
-        "Content-Security-Policy": "upgrade-insecure-requests",
-      },
-    })
+    fetch(ip_api)
       .then((res) => res.json())
       // .then((res) =>
       //   fetch(`${amap_ip_api}&ip=${res.query}`).then((resp) => resp.json())

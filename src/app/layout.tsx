@@ -59,6 +59,10 @@ export default function RootLayout({
           name="msapplication-config"
           content="/favicon/browserconfig.xml"
         />
+        <meta
+          http-equiv="Content-Security-Policy"
+          content="upgrade-insecure-requests"
+        />
         <meta name="theme-color" content="#000" />
         <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       </head>
