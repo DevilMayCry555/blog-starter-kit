@@ -210,7 +210,7 @@ export default function AMapContainer() {
       <div className=" absolute top-0 left-0 right-0 bg-slate-500 text-white text-center">
         {address}
         <div>{area}</div>
-        <div>{JSON.stringify(info)}</div>
+        <div>{info.query}</div>
       </div>
     </div>
   );
