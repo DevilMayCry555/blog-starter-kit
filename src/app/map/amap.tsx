@@ -7,7 +7,7 @@ import { BASE_URL } from "@/lib/constants";
 const amap_jsapi_key = "559e609208e3e6d726a285abfbc116f8";
 const amap_ip_api =
   "https://restapi.amap.com/v3/ip?key=382ac00b0f966675fb9d96027c61811c";
-const ip_api = "http://ip-api.com/json/?lang=zh-CN";
+const ip_api = "//ip-api.com/json/?lang=zh-CN";
 let map: any = null;
 let prev: any = null;
 let onHashChange: any = null;
