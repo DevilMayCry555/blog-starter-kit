@@ -3,9 +3,16 @@ import { qs } from "@/lib/utils";
 import { sql } from "@vercel/postgres";
 import { format } from "date-fns";
 const decoder = new TextDecoder();
+const ip_location_api = "https://ipapi.com/ip_api.php";
 export async function GET(request) {
   const { search } = request.nextUrl;
-  const { type, identity } = qs(search);
+  const { type, identity, ipify } = qs(search);
+  if (ipify) {
+    const info = await fetch(`${ip_location_api}?ip=${ipify}`).then((resp) =>
+      resp.json()
+    );
+    return NextResponse.json({ ...info }, { status: 200 });
+  }
   if (!identity) {
     return NextResponse.json({ error: "identity error" }, { status: 500 });
   }
