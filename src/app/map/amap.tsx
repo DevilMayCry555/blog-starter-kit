@@ -57,6 +57,9 @@ export default function AMapContainer() {
           });
         }
         set_info(res);
+      })
+      .catch((e) => {
+        set_area(e);
       });
   }, []);
 
