@@ -5,29 +5,38 @@ import "./amap.css";
 import { BASE_URL } from "@/lib/constants";
 
 const amap_jsapi_key = "559e609208e3e6d726a285abfbc116f8";
-const amap_web_key = "382ac00b0f966675fb9d96027c61811c";
+const amap_ip_api =
+  "https://restapi.amap.com/v3/ip?key=382ac00b0f966675fb9d96027c61811c";
+const ip_api = "http://ip-api.com/json/?lang=zh-CN";
 let map: any = null;
 let prev: any = null;
 let onHashChange: any = null;
-export default function AMapContainer({ ipify }: any) {
+export default function AMapContainer() {
   const [address, set_address] = useState("");
   const [area, set_area] = useState("");
   const [info, set_info] = useState({
-    adcode: "370100",
+    as: "AS4837 CHINA UNICOM China169 Backbone",
     city: "济南市",
-    info: "OK",
-    infocode: "10000",
-    province: "山东省",
-    rectangle: null,
-    status: "1",
+    country: "中国",
+    countryCode: "CN",
+    isp: "CHINA UNICOM China169 Backbone",
+    lat: 36.6756,
+    lon: 117.0211,
+    org: "Jnrgnb",
+    query: "124.128.69.126",
+    region: "SD",
+    regionName: "山东省",
+    status: "success",
+    timezone: "Asia/Shanghai",
+    zip: "",
   });
 
   useEffect(() => {
-    console.log(ipify);
-    fetch(
-      `https://restapi.amap.com/v3/ip?key=${amap_web_key}&ip=${"10.27.124.195"}`
-    )
+    fetch(ip_api)
       .then((res) => res.json())
+      // .then((res) =>
+      //   fetch(`${amap_ip_api}&ip=${res.query}`).then((resp) => resp.json())
+      // )
       .then((res) => {
         console.log(res);
         if (!!location.hash.replace("#", "")) {
@@ -77,7 +86,7 @@ export default function AMapContainer({ ipify }: any) {
               //创建天气查询实例
               var weather = new AMap.Weather();
               //执行实时天气信息查询
-              weather.getLive(info.adcode, function (err: any, data: any) {
+              weather.getLive(info.city, function (err: any, data: any) {
                 //err 正确时返回 null
                 //data 返回实时天气数据，返回数据见下表
                 // console.log(err, data);
@@ -138,17 +147,11 @@ export default function AMapContainer({ ipify }: any) {
               //   return;
               // }
               // const [Longitude, Latitude] = config;
-              if (!info.rectangle) {
+              if (info.status !== "success") {
                 return;
               }
-              const [southWest, northEast] = String(info.rectangle).split(";");
-              const [swlo, swla] = southWest.split(",");
-              const [nelo, nela] = northEast.split(",");
-              const [Longitude, Latitude] = [
-                ((+swlo + +nelo) / 2).toFixed(4),
-                ((+swla + +nela) / 2).toFixed(4),
-              ];
-              const position = new AMap.LngLat(Longitude, Latitude);
+              const { lon, lat } = info;
+              const position = new AMap.LngLat(lon, lat);
               if (prev) {
                 map.remove(prev);
               }
@@ -183,7 +186,7 @@ export default function AMapContainer({ ipify }: any) {
               //     }
               //   );
               // });
-              set_address(info.province + " " + info.city);
+              set_address(info.regionName + " " + info.city);
             };
             onHashChange();
             window.addEventListener("hashchange", onHashChange);
