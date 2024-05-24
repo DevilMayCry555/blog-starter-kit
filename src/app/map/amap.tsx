@@ -9,7 +9,7 @@ const amap_web_key = "382ac00b0f966675fb9d96027c61811c";
 let map: any = null;
 let prev: any = null;
 let onHashChange: any = null;
-export default function AMapContainer() {
+export default function AMapContainer({ ipify }: any) {
   const [address, set_address] = useState("");
   const [area, set_area] = useState("");
   const [info, set_info] = useState({
@@ -23,7 +23,10 @@ export default function AMapContainer() {
   });
 
   useEffect(() => {
-    fetch(`https://restapi.amap.com/v3/ip?key=${amap_web_key}`)
+    console.log(ipify);
+    fetch(
+      `https://restapi.amap.com/v3/ip?key=${amap_web_key}&ip=${"10.27.124.195"}`
+    )
       .then((res) => res.json())
       .then((res) => {
         console.log(res);
