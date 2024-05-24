@@ -7,7 +7,7 @@ import { BASE_URL } from "@/lib/constants";
 const amap_jsapi_key = "559e609208e3e6d726a285abfbc116f8";
 const amap_ip_api =
   "https://restapi.amap.com/v3/ip?key=382ac00b0f966675fb9d96027c61811c";
-const ip_api = "//ip-api.com/json/?lang=zh-CN";
+const ip_api = "https://ip-api.io/json";
 let map: any = null;
 let prev: any = null;
 let onHashChange: any = null;
@@ -16,28 +16,21 @@ export default function AMapContainer() {
   const [area, set_area] = useState("");
   const [err, set_err] = useState("");
   const [info, set_info] = useState({
-    as: "AS4837 CHINA UNICOM China169 Backbone",
+    adcode: "370100",
     city: "济南市",
-    country: "中国",
-    countryCode: "CN",
-    isp: "CHINA UNICOM China169 Backbone",
-    lat: 36.6756,
-    lon: 117.0211,
-    org: "Jnrgnb",
-    query: "124.128.69.126",
-    region: "SD",
-    regionName: "山东省",
-    status: "success",
-    timezone: "Asia/Shanghai",
-    zip: "",
+    info: "OK",
+    infocode: "10000",
+    province: "山东省",
+    rectangle: "",
+    status: "1",
   });
 
   useEffect(() => {
     fetch(ip_api)
       .then((res) => res.json())
-      // .then((res) =>
-      //   fetch(`${amap_ip_api}&ip=${res.query}`).then((resp) => resp.json())
-      // )
+      .then((res) =>
+        fetch(`${amap_ip_api}&ip=${res.ip}`).then((resp) => resp.json())
+      )
       .then((res) => {
         console.log(res);
         if (!!location.hash.replace("#", "")) {
@@ -110,6 +103,35 @@ export default function AMapContainer() {
                 }
               });
             });
+            if (!!info.rectangle) {
+              //设置矩形范围，由西南和东北的经纬度坐标组成的范围
+              const [sw, ne] = info.rectangle.split(";");
+              const southWest = new AMap.LngLat(
+                ...sw.split(",").map((it) => +it)
+              ); //西南角的经纬度坐标
+              const northEast = new AMap.LngLat(
+                ...ne.split(",").map((it) => +it)
+              ); //东北角的经纬度坐标
+              const bounds = new AMap.Bounds(southWest, northEast); //创建一个地物对象的经纬度矩形范围
+              //创建矩形 Rectangle 实例
+              const rectangle = new AMap.Rectangle({
+                bounds: bounds, //矩形的范围
+                strokeColor: "red", //轮廓线颜色
+                strokeWeight: 6, //轮廓线宽度
+                strokeOpacity: 0.5, //轮廓线透明度
+                strokeStyle: "dashed", //轮廓线样式，dashed 虚线，还支持 solid 实线
+                strokeDasharray: [30, 10], //勾勒形状轮廓的虚线和间隙的样式，30代表线段长度 10代表间隙长度
+                fillColor: "blue", //矩形填充颜色
+                fillOpacity: 0.5, //矩形填充透明度
+                cursor: "pointer", //指定鼠标悬停时的鼠标样式
+                zIndex: 50, //矩形在地图上的层级
+              });
+              //矩形 Rectangle 对象添加到 Map
+              map.add(rectangle);
+              //根据覆盖物范围调整视野
+              map.setFitView([rectangle]);
+              set_address(info.province + " " + info.city);
+            }
             // 定位
             // AMap.plugin("AMap.CitySearch", function () {
             //   var citySearch = new AMap.CitySearch();
@@ -144,18 +166,18 @@ export default function AMapContainer() {
             // });
             // 点标记
             onHashChange = () => {
-              // const [lo, la] = location.hash.replace("#", "").split("/");
-              // const config = !Number.isNaN(+lo) &&
-              //   !Number.isNaN(+la) && [+lo + 0.006, +la + 0.0001];
-              // if (!config) {
-              //   return;
-              // }
-              // const [Longitude, Latitude] = config;
-              if (info.status !== "success") {
+              const [lo, la] = location.hash.replace("#", "").split("/");
+              const config = !Number.isNaN(+lo) &&
+                !Number.isNaN(+la) && [+lo + 0.006, +la + 0.0001];
+              if (!config) {
                 return;
               }
-              const { lon, lat } = info;
-              const position = new AMap.LngLat(lon, lat);
+              const [Longitude, Latitude] = config;
+              // if (info.status !== "success") {
+              //   return;
+              // }
+              // const { lon:Longitude, lat:Latitude } = info;
+              const position = new AMap.LngLat(Longitude, Latitude);
               if (prev) {
                 map.remove(prev);
               }
@@ -172,25 +194,24 @@ export default function AMapContainer() {
               map.add(prev);
               map.setCenter(position);
               // 逆地理编码
-              // AMap.plugin("AMap.Geocoder", function () {
-              //   var geocoder = new AMap.Geocoder({
-              //     city: "010", // city 指定进行编码查询的城市，支持传入城市名、adcode 和 citycode
-              //   });
+              AMap.plugin("AMap.Geocoder", function () {
+                var geocoder = new AMap.Geocoder({
+                  city: "010", // city 指定进行编码查询的城市，支持传入城市名、adcode 和 citycode
+                });
 
-              //   var lnglat = [Longitude, Latitude];
+                var lnglat = [Longitude, Latitude];
 
-              //   geocoder.getAddress(
-              //     lnglat,
-              //     function (status: string, result: any) {
-              //       if (status === "complete" && result.info === "OK") {
-              //         // result为对应的地理位置详细信息
-              //         // console.log("result", result);
-              //         set_address(result.regeocode.formattedAddress);
-              //       }
-              //     }
-              //   );
-              // });
-              set_address(info.regionName + " " + info.city);
+                geocoder.getAddress(
+                  lnglat,
+                  function (status: string, result: any) {
+                    if (status === "complete" && result.info === "OK") {
+                      // result为对应的地理位置详细信息
+                      // console.log("result", result);
+                      set_address(result.regeocode.formattedAddress);
+                    }
+                  }
+                );
+              });
             };
             onHashChange();
             window.addEventListener("hashchange", onHashChange);
@@ -214,8 +235,6 @@ export default function AMapContainer() {
       <div className=" absolute top-0 left-0 right-0 bg-slate-500 text-white text-center">
         {address}
         <div>{area}</div>
-        <div>{info.query}</div>
-        <div>{err}</div>
       </div>
     </div>
   );
