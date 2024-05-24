@@ -61,28 +61,7 @@ export default function AMapContainer({ locations }: Prop) {
                 map.add(rectangle);
               }
             });
-            // console.log(counter);
-            Object.keys(counter).forEach((item) => {
-              const [southWest, northEast] = String(item).split(";");
-              const [swlo, swla] = southWest.split(",");
-              const [nelo, nela] = northEast.split(",");
-              const index = counter[item].length;
-              const position = new AMap.LngLat(
-                ((+swlo + +nelo) / 2).toFixed(4),
-                ((+swla + +nela) / 2).toFixed(4)
-              ); //Marker 经纬度
-              const marker = new AMap.Marker({
-                position: position,
-                content: `<div class="custom-content-marker" title="${index}">
-                <div class="custom-content-marker-animate">
-                <img src="/assets/map-marker-current.png">
-                </div>
-                <img src="/assets/map-marker-current.png">
-                </div>`, //将 html 传给 content
-                offset: new AMap.Pixel(-13, -30), //以 icon 的 [center bottom] 为原点
-              });
-              map.add(marker);
-            });
+            console.log(counter);
           })
           .catch((e) => {
             console.log(e);
