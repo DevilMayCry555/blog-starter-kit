@@ -37,7 +37,7 @@ export default function AMapContainer() {
       .then((res) => {
         console.log(res);
         const { region_name: province, city, longitude, latitude } = res;
-        if (!!location.hash.replace("#", "")) {
+        if (location.hash.replace("#", "").indexOf(".") < 0) {
           fetch(BASE_URL + "/api/open", {
             method: "POST",
             body: JSON.stringify({
