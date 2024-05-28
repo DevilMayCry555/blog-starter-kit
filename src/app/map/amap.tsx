@@ -3,19 +3,18 @@
 import { useEffect, useState } from "react";
 import "./amap.css";
 import { BASE_URL } from "@/lib/constants";
+import { Spinner } from "react-bootstrap";
 
 const amap_jsapi_key = "559e609208e3e6d726a285abfbc116f8";
-const amap_ip_api =
-  "https://restapi.amap.com/v3/ip?key=382ac00b0f966675fb9d96027c61811c";
+// const amap_ip_api =
+//   "https://restapi.amap.com/v3/ip?key=382ac00b0f966675fb9d96027c61811c";
 const ip_api = "https://ip-api.io/json";
 
 let map: any = null;
 let prev: any = null;
-let onHashChange: any = null;
 export default function AMapContainer() {
   const [address, set_address] = useState("");
   const [area, set_area] = useState("");
-  const [err, set_err] = useState("");
   const [info, set_info] = useState({
     adcode: "370100",
     city: "",
@@ -35,7 +34,7 @@ export default function AMapContainer() {
         )
       )
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         const { region_name: province, city, longitude, latitude } = res;
         if (location.hash.replace("#", "").indexOf(".") < 0) {
           fetch(BASE_URL + "/api/open", {
@@ -184,7 +183,7 @@ export default function AMapContainer() {
             //   });
             // });
             // 点标记
-            onHashChange = () => {
+            const onHashChange = () => {
               const [lo, la] = location.hash.replace("#", "").split("/");
               const config = !Number.isNaN(+lo) &&
                 !Number.isNaN(+la) && [+lo + 0.006, +la + 0.0001];
@@ -243,17 +242,15 @@ export default function AMapContainer() {
 
     return () => {
       map?.destroy();
-      if (!!onHashChange) {
-        window.removeEventListener("hashchange", onHashChange);
-      }
     };
   }, [info]);
   return (
     <div className=" relative">
       <div id="map-container" className=" min-h-screen -my-14"></div>
       <div className=" absolute top-0 left-0 right-0 bg-slate-500 text-white text-center">
-        {address} {err}
+        {address}
         <div>{area}</div>
+        {!info.rectangle && <Spinner animation="grow" />}
       </div>
     </div>
   );
