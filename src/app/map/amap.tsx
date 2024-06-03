@@ -28,33 +28,11 @@ export default function AMapContainer() {
   useEffect(() => {
     fetch(ip_api)
       .then((res) => res.json())
-      .then((res) =>
-        fetch(BASE_URL + "/api/open?ipify=" + res.ip).then((resp) =>
-          resp.json()
-        )
-      )
+      .then((res) => fetch(BASE_URL + "/api/open?ipify=" + res.ip))
+      .then((res) => res.json())
       .then((res) => {
         // console.log(res);
         const { region_name: province, city, longitude, latitude } = res;
-        if (location.hash.replace("#", "").indexOf(".") < 0) {
-          fetch(BASE_URL + "/api/open", {
-            method: "POST",
-            body: JSON.stringify({
-              title: "location",
-              content: `${+longitude - 0.001},${+latitude + 0.001};${
-                +longitude + 0.001
-              },${+latitude - 0.001}`,
-              points: 1,
-              identity: location.hash.replace("#", ""),
-              type: 0,
-            }),
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-            cache: "no-store",
-          });
-        }
         set_info((info) => {
           return {
             ...info,
@@ -226,6 +204,7 @@ export default function AMapContainer() {
                       // result为对应的地理位置详细信息
                       // console.log("result", result);
                       set_address(result.regeocode.formattedAddress);
+                      console.log(result);
                     }
                   }
                 );

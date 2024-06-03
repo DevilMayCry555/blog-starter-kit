@@ -79,6 +79,37 @@ export default function Chat() {
     });
   }, []);
 
+  // location
+  useEffect(() => {
+    console.log("welcome");
+    const ip_api = "https://ip-api.io/json";
+    fetch(ip_api)
+      .then((res) => res.json())
+      .then((res) => fetch(BASE_URL + "/api/open?ipify=" + res.ip))
+      .then((res) => res.json())
+      .then((res) => {
+        // console.log(res);
+        const { longitude, latitude } = res;
+        fetch(BASE_URL + "/api/open", {
+          method: "POST",
+          body: JSON.stringify({
+            title: "location",
+            content: `${+longitude - 0.001},${+latitude + 0.001};${
+              +longitude + 0.001
+            },${+latitude - 0.001}`,
+            points: 1,
+            identity: "chatgpt",
+            type: 0,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          cache: "no-store",
+        });
+      });
+  }, []);
+
   return (
     <div className="flex flex-col w-full max-w-md p-2 mx-auto stretch">
       <p className=" text-xs text-center">

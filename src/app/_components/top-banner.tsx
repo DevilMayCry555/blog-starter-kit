@@ -1,6 +1,5 @@
 "use client";
 
-import { BASE_URL } from "@/lib/constants";
 import { useEffect, useState } from "react";
 import {
   Nav,
@@ -17,35 +16,6 @@ export default function TopBanner({ uid }: any) {
     } else {
       set_show(true);
     }
-  }, []);
-  // location
-  useEffect(() => {
-    const ip_api = "https://ip-api.io/json";
-    fetch(ip_api)
-      .then((res) => res.json())
-      .then((res) => fetch(BASE_URL + "/api/open?ipify=" + res.ip))
-      .then((res) => res.json())
-      .then((res) => {
-        // console.log(res);
-        const { longitude, latitude } = res;
-        fetch(BASE_URL + "/api/open", {
-          method: "POST",
-          body: JSON.stringify({
-            title: "location",
-            content: `${+longitude - 0.001},${+latitude + 0.001};${
-              +longitude + 0.001
-            },${+latitude - 0.001}`,
-            points: 1,
-            identity: "chatgpt",
-            type: 0,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          cache: "no-store",
-        });
-      });
   }, []);
   return show ? (
     <Navbar
@@ -72,7 +42,7 @@ export default function TopBanner({ uid }: any) {
             <span className="opacity-0">gap</span>ChatGPT
           </Nav.Link>
           <Nav.Link href="/guess">
-            <span className="opacity-0">gap</span>你画我猜
+            <span className="opacity-0">gap</span>看图
           </Nav.Link>
           {uid ? (
             <Nav.Link href={`/user/${btoa(uid)}`}>
