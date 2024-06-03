@@ -45,7 +45,7 @@ export default function AMapContainer() {
   }, []);
 
   useEffect(() => {
-    if (typeof window === "undefined" || !info.rectangle) {
+    if (typeof window === "undefined") {
       console.log("miss");
     } else {
       (window as any)._AMapSecurityConfig = {
@@ -65,69 +65,69 @@ export default function AMapContainer() {
               zoom: 8, // 初始化地图级别
             }); //"map-container"为 <div> 容器的 id
             // 坐标
-            // if (!!info.rectangle) {
-            const [Longitude, Latitude] = info.rectangle.split(",");
-            const position = new AMap.LngLat(Longitude, Latitude);
-            if (prev) {
-              map.remove(prev);
-            }
-            prev = new AMap.Marker({
-              position: position,
-              content: `<div class="custom-content-marker">
+            if (!!info.rectangle) {
+              const [Longitude, Latitude] = info.rectangle.split(",");
+              const position = new AMap.LngLat(Longitude, Latitude);
+              if (prev) {
+                map.remove(prev);
+              }
+              prev = new AMap.Marker({
+                position: position,
+                content: `<div class="custom-content-marker">
                   <div class="custom-content-marker-animate">
                   <img src="/assets/map-marker-current.png">
                   </div>
                   <img src="/assets/map-marker-current.png">
                   </div>`,
-              offset: new AMap.Pixel(-13, -30),
-            });
-            map.add(prev);
-            map.setCenter(position);
-            AMap.plugin("AMap.Geocoder", function () {
-              var geocoder = new AMap.Geocoder({
-                city: "010", // city 指定进行编码查询的城市，支持传入城市名、adcode 和 citycode
+                offset: new AMap.Pixel(-13, -30),
               });
+              map.add(prev);
+              map.setCenter(position);
+              AMap.plugin("AMap.Geocoder", function () {
+                var geocoder = new AMap.Geocoder({
+                  city: "010", // city 指定进行编码查询的城市，支持传入城市名、adcode 和 citycode
+                });
 
-              var lnglat = [Longitude, Latitude];
+                var lnglat = [Longitude, Latitude];
 
-              geocoder.getAddress(
-                lnglat,
-                function (status: string, result: any) {
-                  if (status === "complete" && result.info === "OK") {
-                    // result为对应的地理位置详细信息
-                    console.log("result", result);
-                    const { province, city, adcode } =
-                      result.regeocode.addressComponent;
-                    set_address(province + " " + city);
-                    AMap.plugin("AMap.Weather", function () {
-                      //创建天气查询实例
-                      var weather = new AMap.Weather();
-                      //执行实时天气信息查询
-                      weather.getLive(adcode, function (err: any, data: any) {
-                        //err 正确时返回 null
-                        //data 返回实时天气数据，返回数据见下表
-                        // console.log(err, data);
-                        const {
-                          temperature,
-                          humidity,
-                          weather,
-                          windDirection,
-                          windPower,
-                        } = data;
-                        if (err) {
-                          set_area(JSON.stringify(err));
-                        } else {
-                          set_area(
-                            `${weather} 温:${temperature}℃ 湿:${humidity}% 风:${windDirection}${windPower}级`
-                          );
-                        }
+                geocoder.getAddress(
+                  lnglat,
+                  function (status: string, result: any) {
+                    if (status === "complete" && result.info === "OK") {
+                      // result为对应的地理位置详细信息
+                      console.log("result", result);
+                      const { province, city, adcode } =
+                        result.regeocode.addressComponent;
+                      set_address(province + " " + city);
+                      AMap.plugin("AMap.Weather", function () {
+                        //创建天气查询实例
+                        var weather = new AMap.Weather();
+                        //执行实时天气信息查询
+                        weather.getLive(adcode, function (err: any, data: any) {
+                          //err 正确时返回 null
+                          //data 返回实时天气数据，返回数据见下表
+                          // console.log(err, data);
+                          const {
+                            temperature,
+                            humidity,
+                            weather,
+                            windDirection,
+                            windPower,
+                          } = data;
+                          if (err) {
+                            set_area(JSON.stringify(err));
+                          } else {
+                            set_area(
+                              `${weather} 温:${temperature}℃ 湿:${humidity}% 风:${windDirection}${windPower}级`
+                            );
+                          }
+                        });
                       });
-                    });
+                    }
                   }
-                }
-              );
-            });
-            // }
+                );
+              });
+            }
             // 定位
             // AMap.plugin("AMap.CitySearch", function () {
             //   var citySearch = new AMap.CitySearch();
