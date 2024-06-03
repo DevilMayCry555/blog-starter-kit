@@ -1,7 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import {
+  Nav,
+  Navbar,
+  // NavDropdown
+} from "react-bootstrap";
 
 export default function TopBanner({ uid }: any) {
   const [show, set_show] = useState(false);
@@ -50,13 +54,13 @@ export default function TopBanner({ uid }: any) {
               <span className="opacity-0">gap</span>登录
             </Nav.Link>
           )}
-          <NavDropdown className="px-4" title="安卓app" id="basic-nav-dropdown">
+          {/* <NavDropdown className="px-4" title="安卓app" id="basic-nav-dropdown">
             <NavDropdown.Item href="/assets/jianfei.apk">
               Deep 2024.05.23
             </NavDropdown.Item>
-            {/* <NavDropdown.Divider />
-            <NavDropdown.Item href="/backdoor/room">团建</NavDropdown.Item> */}
-          </NavDropdown>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="/backdoor/room">团建</NavDropdown.Item>
+          </NavDropdown> */}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
