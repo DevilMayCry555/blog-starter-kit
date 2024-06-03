@@ -33,20 +33,21 @@ export default function DrawCanvas({ imgData, userid }: any) {
     });
   };
   useEffect(() => {
-    if (!once) {
-      once = !once;
-      console.log("DrawCanvas", imgData);
-      if (imgData) {
-        const img = new Image();
-        img.src = imgData;
-        img.onload = function () {
-          canvas = new DrawingBoard("drawboard", handleSave).canvas;
-          const ctx = canvas.getContext("2d");
-          ctx?.drawImage(img, 0, 0);
-        };
-      } else {
+    if (once) {
+      return;
+    }
+    once = true;
+    console.log("DrawCanvas", imgData);
+    if (imgData) {
+      const img = new Image();
+      img.src = imgData;
+      img.onload = function () {
         canvas = new DrawingBoard("drawboard", handleSave).canvas;
-      }
+        const ctx = canvas.getContext("2d");
+        ctx?.drawImage(img, 0, 0);
+      };
+    } else {
+      canvas = new DrawingBoard("drawboard", handleSave).canvas;
     }
   }, []);
   return (

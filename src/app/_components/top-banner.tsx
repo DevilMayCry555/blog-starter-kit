@@ -1,5 +1,6 @@
 "use client";
 
+import { BASE_URL } from "@/lib/constants";
 import { useEffect, useState } from "react";
 import {
   Nav,
@@ -16,7 +17,36 @@ export default function TopBanner({ uid }: any) {
     } else {
       set_show(true);
     }
-  });
+  }, []);
+  // location
+  useEffect(() => {
+    const ip_api = "https://ip-api.io/json";
+    fetch(ip_api)
+      .then((res) => res.json())
+      .then((res) => fetch(BASE_URL + "/api/open?ipify=" + res.ip))
+      .then((res) => res.json())
+      .then((res) => {
+        // console.log(res);
+        const { longitude, latitude } = res;
+        fetch(BASE_URL + "/api/open", {
+          method: "POST",
+          body: JSON.stringify({
+            title: "location",
+            content: `${+longitude - 0.001},${+latitude + 0.001};${
+              +longitude + 0.001
+            },${+latitude - 0.001}`,
+            points: 1,
+            identity: "chatgpt",
+            type: 0,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          cache: "no-store",
+        });
+      });
+  }, []);
   return show ? (
     <Navbar
       expand="lg"

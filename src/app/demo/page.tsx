@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { ProgressBar, Spinner } from "react-bootstrap";
 
 const decoder = new TextDecoder("utf-8");
-const ip_api = "https://ip-api.io/json";
+
 export default function Chat() {
   const [me, setme] = useState([
     "回复我的时候，请尽可能简洁，抓住重点",
@@ -78,34 +78,7 @@ export default function Chat() {
       set_usage((used_quota * 100) / (used_quota + remain_quota));
     });
   }, []);
-  // location
-  useEffect(() => {
-    fetch(ip_api)
-      .then((res) => res.json())
-      .then((res) => fetch(BASE_URL + "/api/open?ipify=" + res.ip))
-      .then((res) => res.json())
-      .then((res) => {
-        // console.log(res);
-        const { longitude, latitude } = res;
-        fetch(BASE_URL + "/api/open", {
-          method: "POST",
-          body: JSON.stringify({
-            title: "location",
-            content: `${+longitude - 0.001},${+latitude + 0.001};${
-              +longitude + 0.001
-            },${+latitude - 0.001}`,
-            points: 1,
-            identity: "chatgpt",
-            type: 0,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          cache: "no-store",
-        });
-      });
-  }, []);
+
   return (
     <div className="flex flex-col w-full max-w-md p-2 mx-auto stretch">
       <p className=" text-xs text-center">
