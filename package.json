@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
+    "@types/three": "^0.165.0",
     "@vercel/edge-config": "^1.1.0",
     "@vercel/postgres": "^0.7.2",
     "bootstrap": "^5.3.3",
