@@ -1,41 +1,68 @@
 "use client";
 
-import { useEffect } from "react";
-import * as THREE from "three";
+import { createRoot } from "react-dom/client";
+import { useEffect, useRef, useState } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
 
 let once = false;
+function Box(props: any) {
+  // This reference gives us direct access to the THREE.Mesh object
+  const ref = useRef();
+  // Hold state for hovered and clicked events
+  const [hovered, hover] = useState(false);
+  const [clicked, click] = useState(false);
+  // Subscribe this component to the render-loop, rotate the mesh every frame
+  useFrame((state, delta) => {
+    const current: any = ref.current;
+    current.rotation.x += delta;
+  });
+  // Return the view, these are regular Threejs elements expressed in JSX
+  return (
+    <mesh
+      {...props}
+      ref={ref}
+      scale={clicked ? 1.5 : 1}
+      onClick={(event) => click(!clicked)}
+      onPointerOver={(event) => hover(true)}
+      onPointerOut={(event) => hover(false)}
+    >
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial color={hovered ? "hotpink" : "orange"} />
+    </mesh>
+  );
+}
 export default function ThreeDemo() {
   useEffect(() => {
     if (once) {
       return;
     }
     once = true;
-    const innerWidth = 800;
-    const innerHeight = 600;
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      innerWidth / innerHeight,
-      0.1,
-      1000
-    );
-
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(innerWidth, innerHeight);
-    document.getElementById("tydly")?.appendChild(renderer.domElement);
-    // 正方体
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    const cube = new THREE.Mesh(geometry, material);
-    console.log(cube);
-    scene.add(cube);
-    camera.position.z = 5;
+    const node = document.getElementById("tydly");
+    if (node) {
+      createRoot(node).render(
+        <Canvas>
+          <ambientLight intensity={Math.PI / 2} />
+          <spotLight
+            position={[10, 10, 10]}
+            angle={0.15}
+            penumbra={1}
+            decay={0}
+            intensity={Math.PI}
+          />
+          <pointLight
+            position={[-10, -10, -10]}
+            decay={0}
+            intensity={Math.PI}
+          />
+          <Box position={[-1.2, 0, 0]} />
+          <Box position={[1.2, 0, 0]} />
+        </Canvas>
+      );
+    }
   }, []);
   return (
     <main>
-      <div className=" flex justify-center p-8">
-        <div id="tydly" className=" shadow-red-300 shadow-md"></div>
-      </div>
+      <div id="tydly"></div>
     </main>
   );
 }
