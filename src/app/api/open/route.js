@@ -9,10 +9,10 @@ export async function GET(request) {
   const { type, identity, ipify } = qs(search);
   if (ipify) {
     const xff = request.headers.get("x-forwarded-for");
-    const info = await fetch(`${ip_location_api}?ip=${ipify}`).then((resp) =>
+    const info = await fetch(`${ip_location_api}?ip=${xff}`).then((resp) =>
       resp.json()
     );
-    return NextResponse.json({ ...info, xff }, { status: 200 });
+    return NextResponse.json({ ...info }, { status: 200 });
   }
   if (!identity) {
     return NextResponse.json({ error: "identity error" }, { status: 500 });

@@ -82,10 +82,11 @@ export default function Chat() {
   // location
   useEffect(() => {
     console.log("welcome");
-    const ip_api = "https://ip-api.io/json";
-    fetch(ip_api)
-      .then((res) => res.json())
-      .then((res) => fetch(BASE_URL + "/api/open?ipify=" + res.ip))
+    // const ip_api = "https://ip-api.io/json";
+    // fetch(ip_api)
+    //   .then((res) => res.json())
+    //   .then((res) => fetch(BASE_URL + "/api/open?ipify=" + res.ip))
+    fetch(BASE_URL + "/api/open?ipify=2333")
       .then((res) => res.json())
       .then((res) => {
         // console.log(res);
