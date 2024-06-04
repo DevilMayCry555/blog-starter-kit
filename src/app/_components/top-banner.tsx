@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import {
   Nav,
   Navbar,
@@ -8,16 +7,7 @@ import {
 } from "react-bootstrap";
 
 export default function TopBanner({ uid }: any) {
-  const [show, set_show] = useState(false);
-
-  useEffect(() => {
-    if (location.pathname === "/map") {
-      set_show(false);
-    } else {
-      set_show(true);
-    }
-  }, []);
-  return show ? (
+  return (
     <Navbar
       expand="lg"
       className="bg-body-tertiary"
@@ -33,25 +23,26 @@ export default function TopBanner({ uid }: any) {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
           <Nav.Link href="/meeting/public">
-            <span className="opacity-0">gap</span>广场
+            <span className="opacity-0">gap</span>Playground
           </Nav.Link>
           <Nav.Link href="/draw">
-            <span className="opacity-0">gap</span>画板
+            <span className="opacity-0">gap</span>Draw
           </Nav.Link>
           <Nav.Link href="/demo">
             <span className="opacity-0">gap</span>ChatGPT
           </Nav.Link>
           <Nav.Link href="/guess">
-            <span className="opacity-0">gap</span>看图
+            <span className="opacity-0">gap</span>Guess
           </Nav.Link>
           {uid ? (
             <Nav.Link href={`/user/${btoa(uid)}`}>
               <span className="opacity-0">gap</span>
-              我的
+              Mine
             </Nav.Link>
           ) : (
             <Nav.Link href="/api/login">
-              <span className="opacity-0">gap</span>登录
+              <span className="opacity-0">gap</span>
+              Login
             </Nav.Link>
           )}
           {/* <NavDropdown className="px-4" title="安卓app" id="basic-nav-dropdown">
@@ -64,5 +55,5 @@ export default function TopBanner({ uid }: any) {
         </Nav>
       </Navbar.Collapse>
     </Navbar>
-  ) : null;
+  );
 }
