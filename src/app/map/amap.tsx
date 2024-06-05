@@ -26,9 +26,15 @@ export default function AMapContainer() {
   });
 
   useEffect(() => {
-    fetch(ip_api)
-      .then((res) => res.json())
-      .then((res) => fetch(BASE_URL + "/api/open?ipify=" + res.ip))
+    fetch(BASE_URL + "/api/open", {
+      method: "POST",
+      body: "2333",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      cache: "no-store",
+    })
       .then((res) => res.json())
       .then((res) => {
         // console.log(res);
@@ -175,7 +181,7 @@ export default function AMapContainer() {
   return (
     <div className=" relative">
       <div id="map-container" className=" min-h-screen -my-14"></div>
-      <div className=" absolute top-0 left-0 right-0 bg-slate-500 text-white text-center">
+      <div className=" absolute bottom-0 left-0 right-0 bg-slate-500 text-white text-center">
         {address}
         <div>{area}</div>
         {!info.rectangle && <Spinner animation="grow" />}

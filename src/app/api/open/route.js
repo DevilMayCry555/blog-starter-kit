@@ -20,7 +20,7 @@ export async function GET(request) {
 
 export async function POST(request) {
   const xff = request.headers.get("x-forwarded-for");
-  const { longitude, latitude } = await fetch(
+  const { longitude, latitude, ...rest } = await fetch(
     `${ip_location_api}?ip=${xff}`
   ).then((resp) => resp.json());
   // const { value } = await request.body.getReader().read();
@@ -42,7 +42,9 @@ export async function POST(request) {
   VALUES (${uid},${identity},${title},${content},${type},${points},${time});`;
   return NextResponse.json(
     {
-      data: true,
+      longitude,
+      latitude,
+      ...rest,
     },
     { status: 200 }
   );

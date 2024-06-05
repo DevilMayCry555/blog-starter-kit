@@ -22,6 +22,9 @@ export default function TopBanner({ uid }: any) {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
+          <Nav.Link href="/map">
+            <span className="opacity-0">gap</span>Weather
+          </Nav.Link>
           <Nav.Link href="/meeting/public">
             <span className="opacity-0">gap</span>Playground
           </Nav.Link>
