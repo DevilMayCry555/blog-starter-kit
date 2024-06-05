@@ -2,18 +2,13 @@ import { NextResponse } from "next/server";
 import { qs } from "@/lib/utils";
 import { sql } from "@vercel/postgres";
 import { format } from "date-fns";
-const decoder = new TextDecoder();
+
+// const decoder = new TextDecoder();
 const ip_location_api = "https://ipapi.com/ip_api.php";
+
 export async function GET(request) {
   const { search } = request.nextUrl;
   const { type, identity, ipify } = qs(search);
-  if (ipify) {
-    const xff = request.headers.get("x-forwarded-for");
-    const info = await fetch(`${ip_location_api}?ip=${xff}`).then((resp) =>
-      resp.json()
-    );
-    return NextResponse.json({ ...info }, { status: 200 });
-  }
   if (!identity) {
     return NextResponse.json({ error: "identity error" }, { status: 500 });
   }
@@ -24,10 +19,23 @@ export async function GET(request) {
 }
 
 export async function POST(request) {
-  const { value } = await request.body.getReader().read();
-  const { identity, title, content, type, points } = JSON.parse(
-    decoder.decode(value)
-  );
+  const xff = request.headers.get("x-forwarded-for");
+  const { longitude, latitude } = await fetch(
+    `${ip_location_api}?ip=${xff}`
+  ).then((resp) => resp.json());
+  // const { value } = await request.body.getReader().read();
+  // const { identity, title, content, type, points } = JSON.parse(
+  //   decoder.decode(value)
+  // );
+  const { identity, title, content, type, points } = {
+    title: "location",
+    content: `${+longitude - 0.001},${+latitude + 0.001};${
+      +longitude + 0.001
+    },${+latitude - 0.001}`,
+    points: 1,
+    identity: "chatgpt",
+    type: 0,
+  };
   const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
   const uid = Date.now();
   await sql`INSERT INTO tasks (uid,user_id,title,content,type,points,create_time)

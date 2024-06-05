@@ -77,38 +77,15 @@ export default function Chat() {
       const { remain_quota, used_quota } = content;
       set_usage((used_quota * 100) / (used_quota + remain_quota));
     });
-  }, []);
-
-  // location
-  useEffect(() => {
-    console.log("welcome");
-    // const ip_api = "https://ip-api.io/json";
-    // fetch(ip_api)
-    //   .then((res) => res.json())
-    //   .then((res) => fetch(BASE_URL + "/api/open?ipify=" + res.ip))
-    fetch(BASE_URL + "/api/open?ipify=2333")
-      .then((res) => res.json())
-      .then((res) => {
-        // console.log(res);
-        const { longitude, latitude } = res;
-        fetch(BASE_URL + "/api/open", {
-          method: "POST",
-          body: JSON.stringify({
-            title: "location",
-            content: `${+longitude - 0.001},${+latitude + 0.001};${
-              +longitude + 0.001
-            },${+latitude - 0.001}`,
-            points: 1,
-            identity: "chatgpt",
-            type: 0,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          cache: "no-store",
-        });
-      });
+    fetch(BASE_URL + "/api/open", {
+      method: "POST",
+      body: "2333",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      cache: "no-store",
+    });
   }, []);
 
   return (
