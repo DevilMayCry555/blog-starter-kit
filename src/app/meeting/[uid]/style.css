@@ -4,6 +4,8 @@
   /* border: 1px solid #ccc;
   border-radius: 5px; */
   overflow: hidden;
+  max-width: 800px;
+  margin: auto;
 }
 
 .chat-box {

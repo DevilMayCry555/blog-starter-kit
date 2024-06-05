@@ -8,7 +8,7 @@ const ip_location_api = "https://ipapi.com/ip_api.php";
 
 export async function GET(request) {
   const { search } = request.nextUrl;
-  const { type, identity, ipify } = qs(search);
+  const { type, identity } = qs(search);
   if (!identity) {
     return NextResponse.json({ error: "identity error" }, { status: 500 });
   }
