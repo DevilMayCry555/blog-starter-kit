@@ -8,7 +8,7 @@ import { Spinner } from "react-bootstrap";
 const amap_jsapi_key = "559e609208e3e6d726a285abfbc116f8";
 // const amap_ip_api =
 //   "https://restapi.amap.com/v3/ip?key=382ac00b0f966675fb9d96027c61811c";
-const ip_api = "https://ip-api.io/json";
+// const ip_api = "https://ip-api.io/json";
 
 let map: any = null;
 let prev: any = null;

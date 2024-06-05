@@ -37,6 +37,9 @@ export default function TopBanner({ uid }: any) {
           <Nav.Link href="/guess">
             <span className="opacity-0">gap</span>Guess
           </Nav.Link>
+          <Nav.Link href="/three">
+            <span className="opacity-0">gap</span>Three
+          </Nav.Link>
           {uid ? (
             <Nav.Link href={`/user/${btoa(uid)}`}>
               <span className="opacity-0">gap</span>

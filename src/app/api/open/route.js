@@ -3,7 +3,7 @@ import { qs } from "@/lib/utils";
 import { sql } from "@vercel/postgres";
 import { format } from "date-fns";
 
-// const decoder = new TextDecoder();
+const decoder = new TextDecoder();
 const ip_location_api = "https://ipapi.com/ip_api.php";
 
 export async function GET(request) {
@@ -23,7 +23,7 @@ export async function POST(request) {
   const { longitude, latitude, ...rest } = await fetch(
     `${ip_location_api}?ip=${xff}`
   ).then((resp) => resp.json());
-  // const { value } = await request.body.getReader().read();
+  const { value } = await request.body.getReader().read();
   // const { identity, title, content, type, points } = JSON.parse(
   //   decoder.decode(value)
   // );
@@ -33,7 +33,7 @@ export async function POST(request) {
       +longitude + 0.001
     },${+latitude - 0.001}`,
     points: 1,
-    identity: "chatgpt",
+    identity: `${decoder.decode(value)}`,
     type: 0,
   };
   const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
