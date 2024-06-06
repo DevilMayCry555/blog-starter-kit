@@ -59,7 +59,7 @@ export default function AMapContainer() {
                         set_area(JSON.stringify(err));
                       } else {
                         set_area(
-                          `${weather} 温:${temperature}℃ 湿:${humidity}% 风:${windDirection}${windPower}级`
+                          `${weather}、${temperature}℃、${humidity}%、${windDirection}风${windPower}级`
                         );
                       }
                     });
@@ -105,8 +105,8 @@ export default function AMapContainer() {
         <Spinner animation="grow" className=" fixed top-1/2 left-1/2" />
       </div>
       <div className=" absolute bottom-0 left-0 right-0 bg-slate-500 text-white text-right">
-        {address}
         <div>{area}</div>
+        {address}
       </div>
     </div>
   );
