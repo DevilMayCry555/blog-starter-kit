@@ -20,7 +20,7 @@ export async function GET(request) {
 
 export async function POST(request) {
   const xff = request.headers.get("x-forwarded-for");
-  const { longitude, latitude, ...rest } = await fetch(
+  const { longitude, latitude } = await fetch(
     `${ip_location_api}?ip=${xff}`
   ).then((resp) => resp.json());
   const { value } = await request.body.getReader().read();
