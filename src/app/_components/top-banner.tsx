@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  Nav,
-  Navbar,
-  // NavDropdown
-} from "react-bootstrap";
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 export default function TopBanner({ uid }: any) {
   return (
@@ -51,13 +47,11 @@ export default function TopBanner({ uid }: any) {
               Login
             </Nav.Link>
           )}
-          {/* <NavDropdown className="px-4" title="安卓app" id="basic-nav-dropdown">
-            <NavDropdown.Item href="/assets/jianfei.apk">
-              Deep 2024.05.23
-            </NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="/backdoor/room">团建</NavDropdown.Item>
-          </NavDropdown> */}
+          <NavDropdown className="px-4" title="安卓app" id="basic-nav-dropdown">
+            <NavDropdown.Item href="/deep.apk">Deep 2024.06</NavDropdown.Item>
+            {/* <NavDropdown.Divider />
+            <NavDropdown.Item href="/backdoor/room">团建</NavDropdown.Item> */}
+          </NavDropdown>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
