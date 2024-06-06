@@ -6,7 +6,7 @@ import { format } from "date-fns";
 const decoder = new TextDecoder();
 const ip_location_api = "https://ipapi.com/ip_api.php";
 const amap_web_key = "382ac00b0f966675fb9d96027c61811c";
-const regeo_api = `https://restapi.amap.com/v3/geocode/regeo?key=${amap_web_key}`;
+const regeo_api = "https://restapi.amap.com/v3/geocode/regeo";
 
 export async function GET(request) {
   const { search } = request.nextUrl;
@@ -30,8 +30,8 @@ export async function POST(request) {
   //   decoder.decode(value)
   // );
   const { info, regeocode } = await fetch(
-    `${regeo_api}&location=${longitude},${latitude}`
-  );
+    `${regeo_api}?key=${amap_web_key}&location=${longitude},${latitude}`
+  ).then((res) => res.json());
   if (info === "OK") {
     const { addressComponent } = regeocode;
     const { identity, title, content, type, points } = {
