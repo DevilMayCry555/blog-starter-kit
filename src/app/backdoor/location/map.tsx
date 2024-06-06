@@ -1,13 +1,20 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./map.css";
 
 interface Prop {
   locations: any[];
 }
+let map: any = null;
+const arrow = `<div class="custom-content-marker">
+              <div class="custom-content-marker-animate">
+              <img src="/assets/map-marker-current.png">
+              </div>
+              <img src="/assets/map-marker-current.png">
+              </div>`;
 export default function AMapContainer({ locations }: Prop) {
-  let map: any = null;
+  const [lts, set_lts] = useState([]);
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -30,6 +37,7 @@ export default function AMapContainer({ locations }: Prop) {
               zoom: 3, // 初始化地图级别
               // center: [+lo + 0.006, +la + 0.0001], // 初始化地图中心点位置
             }); //"map-container"为 <div> 容器的 id
+            const set = [];
             // 绘制坐标点
             locations.forEach((item) => {
               const { content } = item;
@@ -45,7 +53,7 @@ export default function AMapContainer({ locations }: Prop) {
                     if (status === "complete" && result.info === "OK") {
                       const { districtList } = result;
                       [].concat(districtList).forEach((item: any) => {
-                        const bounds = item.boundaries;
+                        const { boundaries: bounds, center } = item;
                         if (bounds) {
                           for (let i = 0; i < bounds.length; i++) {
                             //生成行政区划 polygon
@@ -58,6 +66,14 @@ export default function AMapContainer({ locations }: Prop) {
                               strokeColor: "#CC66CC", //线条颜色
                             });
                           }
+                        }
+                        if (center) {
+                          const marker = new AMap.Marker({
+                            position: center,
+                            content: arrow,
+                            offset: new AMap.Pixel(-13, -30),
+                          });
+                          map.add(marker);
                         }
                       });
                     }
