@@ -29,23 +29,27 @@ export async function POST(request) {
   // const { identity, title, content, type, points } = JSON.parse(
   //   decoder.decode(value)
   // );
-  const {
-    regeocode: { addressComponent },
-  } = await fetch(`${regeo_api}&location=${longitude},${latitude}`);
-  const { identity, title, content, type, points } = {
-    title: "location",
-    content: addressComponent.adcode,
-    points: 1,
-    identity: `${decoder.decode(value)}`,
-    type: 0,
-  };
-  const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
-  const uid = Date.now();
-  await sql`INSERT INTO tasks (uid,user_id,title,content,type,points,create_time)
-  VALUES (${uid},${identity},${title},${content},${type},${points},${time});`;
+  const { info, regeocode } = await fetch(
+    `${regeo_api}&location=${longitude},${latitude}`
+  );
+  if (info === "OK") {
+    const { addressComponent } = regeocode;
+    const { identity, title, content, type, points } = {
+      title: "location",
+      content: addressComponent.adcode,
+      points: 1,
+      identity: `${decoder.decode(value)}`,
+      type: 0,
+    };
+    const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
+    const uid = Date.now();
+    await sql`INSERT INTO tasks (uid,user_id,title,content,type,points,create_time)
+      VALUES (${uid},${identity},${title},${content},${type},${points},${time});`;
+  }
   return NextResponse.json(
     {
-      data: true,
+      info,
+      regeocode,
     },
     { status: 200 }
   );
