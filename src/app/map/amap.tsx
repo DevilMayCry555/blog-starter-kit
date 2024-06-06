@@ -5,7 +5,7 @@ import "./amap.css";
 import { Spinner } from "react-bootstrap";
 
 const amap_jsapi_key = "559e609208e3e6d726a285abfbc116f8";
-// const amap_web_key = "382ac00b0f966675fb9d96027c61811c";
+
 let map: any = null;
 export default function AMapContainer() {
   const [address, set_address] = useState("");

@@ -31,37 +31,40 @@ export default function AMapContainer({ locations }: Prop) {
               // center: [+lo + 0.006, +la + 0.0001], // 初始化地图中心点位置
             }); //"map-container"为 <div> 容器的 id
             // 绘制坐标点
-            const counter: { [k: string]: String[] } = {};
             locations.forEach((item) => {
-              const { user_id, content, create_time } = item;
-              const isNew = counter[content] === undefined;
-              counter[content] = isNew
-                ? [`${create_time}@${user_id}`]
-                : [...counter[content], `${create_time}@${user_id}`];
-              if (isNew) {
-                const [southWest, northEast] = String(content).split(";");
-                const [swlo, swla] = southWest.split(",");
-                const [nelo, nela] = northEast.split(",");
-                const bounds = new AMap.Bounds(
-                  new AMap.LngLat(+swlo, +swla),
-                  new AMap.LngLat(+nelo, +nela)
-                );
-                var rectangle = new AMap.Rectangle({
-                  bounds, //矩形的范围
-                  strokeColor: "red", //轮廓线颜色
-                  strokeWeight: 6, //轮廓线宽度
-                  strokeOpacity: 0.5, //轮廓线透明度
-                  strokeStyle: "solid", //轮廓线样式，dashed 虚线，还支持 solid 实线
-                  strokeDasharray: [30, 10], //勾勒形状轮廓的虚线和间隙的样式，30代表线段长度 10代表间隙长度
-                  fillColor: "transparent", //矩形填充颜色
-                  fillOpacity: 0.5, //矩形填充透明度
-                  cursor: "pointer", //指定鼠标悬停时的鼠标样式
-                  zIndex: 50, //矩形在地图上的层级
+              const { content } = item;
+              AMap.plugin("AMap.DistrictSearch", function () {
+                const district = new AMap.DistrictSearch({
+                  extensions: "all", //返回行政区边界坐标等具体信息
+                  level: "district", //设置查询行政区级别为区
                 });
-                map.add(rectangle);
-              }
+                district.search(
+                  content,
+                  function (status: string, result: any) {
+                    console.log("DistrictSearch", status, result);
+                    if (status === "complete" && result.info === "OK") {
+                      const { districtList } = result;
+                      [].concat(districtList).forEach((item: any) => {
+                        const bounds = item.boundaries;
+                        if (bounds) {
+                          for (let i = 0; i < bounds.length; i++) {
+                            //生成行政区划 polygon
+                            new AMap.Polygon({
+                              map: map, //显示该覆盖物的地图对象
+                              strokeWeight: 1, //轮廓线宽度
+                              path: bounds[i], //多边形轮廓线的节点坐标数组
+                              fillOpacity: 0.2, //多边形填充透明度
+                              fillColor: "#FF0000", //多边形填充颜色
+                              strokeColor: "#CC66CC", //线条颜色
+                            });
+                          }
+                        }
+                      });
+                    }
+                  }
+                );
+              });
             });
-            console.log(counter);
           })
           .catch((e) => {
             console.log(e);
