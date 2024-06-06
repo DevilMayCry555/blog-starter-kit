@@ -31,7 +31,7 @@ export async function POST(request) {
   // );
   const {
     regeocode: { addressComponent },
-  } = await fetch(`${regeo_api}?location=${longitude},${latitude}`);
+  } = await fetch(`${regeo_api}&location=${longitude},${latitude}`);
   const { identity, title, content, type, points } = {
     title: "location",
     content: addressComponent.adcode,
