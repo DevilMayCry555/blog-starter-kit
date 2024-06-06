@@ -85,7 +85,7 @@ export default function Solar() {
     if (node) {
       console.log("上帝视角 太阳系");
       const camera = new THREE.PerspectiveCamera();
-      camera.position.set(0, 40, 0);
+      camera.position.set(0, 50, 0);
       camera.up.set(0, 0, 1);
       camera.lookAt(0, 0, 0);
       createRoot(node).render(
