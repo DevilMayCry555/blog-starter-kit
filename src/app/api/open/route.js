@@ -50,6 +50,8 @@ export async function POST(request) {
     {
       info,
       regeocode,
+      longitude,
+      latitude,
     },
     { status: 200 }
   );
