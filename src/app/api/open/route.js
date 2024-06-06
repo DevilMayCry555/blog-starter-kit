@@ -42,9 +42,7 @@ export async function POST(request) {
   VALUES (${uid},${identity},${title},${content},${type},${points},${time});`;
   return NextResponse.json(
     {
-      longitude,
-      latitude,
-      ...rest,
+      data: true,
     },
     { status: 200 }
   );
