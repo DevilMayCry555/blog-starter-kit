@@ -33,11 +33,6 @@ export default function TopBanner({ uid }: any) {
           <Nav.Link href="/guess">
             <span className="opacity-0">gap</span>Guess
           </Nav.Link>
-          <NavDropdown className="px-4" title="App" id="basic-nav-dropdown">
-            <NavDropdown.Item href="/three/solar">Solar</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="/three/tank">Tank</NavDropdown.Item>
-          </NavDropdown>
           {uid ? (
             <Nav.Link href={`/user/${btoa(uid)}`}>
               <span className="opacity-0">gap</span>
@@ -53,6 +48,11 @@ export default function TopBanner({ uid }: any) {
             <NavDropdown.Item href="/deep.apk">Deep@2024.06</NavDropdown.Item>
             {/* <NavDropdown.Divider />
             <NavDropdown.Item href="/backdoor/room">团建</NavDropdown.Item> */}
+          </NavDropdown>
+          <NavDropdown className="px-4" title="Three" id="basic-nav-dropdown">
+            <NavDropdown.Item href="/three/solar">Solar</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="/three/tank">Tank</NavDropdown.Item>
           </NavDropdown>
         </Nav>
       </Navbar.Collapse>
