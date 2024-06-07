@@ -114,9 +114,10 @@ export default function Solar() {
       style={{
         height: 600,
         backgroundColor: "#000000",
+        color: "#fff",
       }}
     >
-      <span style={{ color: "#fff" }}>抱歉，浏览器不支持画布。</span>
+      <span>抱歉，浏览器不支持画布。</span>
     </div>
   );
 }

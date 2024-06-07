@@ -1,9 +1,12 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
+import { createRoot } from "react-dom/client";
+
+let once = false;
 
 const Train = ({ curve, ...rest }: any) => {
   const trainRef = useRef<THREE.Mesh>();
@@ -55,12 +58,20 @@ const Scene = () => {
   );
 };
 
-const Tank = () => {
+export default function Tank() {
+  useEffect(() => {
+    if (once) {
+      return;
+    }
+    once = true;
+    const node = document.getElementById("tank");
+    if (node) {
+      createRoot(node).render(<Scene />);
+    }
+  }, []);
   return (
-    <div style={{ height: 600, boxShadow: "inset 0 0 5px red" }}>
-      <Scene />
+    <div id="tank" style={{ height: 600, boxShadow: "inset 0 0 5px red" }}>
+      <span>抱歉，浏览器不支持画布。</span>
     </div>
   );
-};
-
-export default Tank;
+}
