@@ -8,10 +8,10 @@ import { createRoot } from "react-dom/client";
 
 let once = false;
 
-const Train = ({ curve: Curve, ...rest }: any) => {
+const Train = ({ curve: Curve, order, ...rest }: any) => {
   const curve: THREE.CatmullRomCurve3 = Curve;
   const trainRef = useRef<THREE.Mesh>();
-  const [t, setT] = useState(0);
+  const [t, setT] = useState(Number(order));
 
   useFrame(() => {
     setT((t) => (t + 0.001) % 1);
@@ -36,7 +36,7 @@ const Train = ({ curve: Curve, ...rest }: any) => {
     }
   });
   return (
-    <mesh {...rest} ref={trainRef} position={[0, 0, 0]}>
+    <mesh {...rest} ref={trainRef}>
       <boxGeometry args={[1, 1, 1]} />
       <meshStandardMaterial color={"red"} />
     </mesh>
@@ -53,12 +53,22 @@ const Scene = () => {
     new THREE.Vector3(10, 0, 10),
     new THREE.Vector3(20, 0, -10),
   ]);
-
+  const camera = new THREE.PerspectiveCamera(50);
+  camera.position.set(0, 50, 0);
+  // camera.up.set(0, 0, 1);
+  camera.lookAt(0, 0, 0);
+  const [t, setT] = useState(
+    Array(4)
+      .fill(0)
+      .map((it, idx) => it + (idx * 2) / 100)
+  );
   return (
-    <Canvas camera={{ position: [0, 10, 20], fov: 50 }}>
+    <Canvas camera={camera}>
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
-      <Train curve={curve} />
+      {t.map((it) => {
+        return <Train curve={curve} position={[0, 0, 0]} order={it} />;
+      })}
       <OrbitControls />
       <mesh>
         {/* path — Curve - 一个由基类Curve继承而来的3D路径。 Default is a quadratic bezier curve.
