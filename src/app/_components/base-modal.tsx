@@ -19,6 +19,7 @@ export default function BaseModal({
   const handleShow = () => setShow(true);
   return (
     <>
+      {/* @ts-ignore */}
       <Button
         variant="outline-primary"
         className="mx-2 my-4"

@@ -31,6 +31,7 @@ export default function BaseTable({ fields, rows, actions = () => [] }: Props) {
                 if (method === "router") {
                   return (
                     <Link key={idx} href={action}>
+                      {/* @ts-ignore */}
                       <Button variant="link">{text}</Button>
                     </Link>
                   );
@@ -49,6 +50,7 @@ export default function BaseTable({ fields, rows, actions = () => [] }: Props) {
                         />
                       );
                     })}
+                    {/* @ts-ignore */}
                     <Button type="submit" variant="link">
                       {text}
                     </Button>

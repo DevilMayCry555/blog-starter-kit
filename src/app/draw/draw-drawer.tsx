@@ -11,6 +11,7 @@ export default function DrawDrawer() {
   const handleShow = () => setShow(true);
   return (
     <div>
+      {/* @ts-ignore */}
       <Button
         variant="outline-primary"
         className="mx-2 my-4"

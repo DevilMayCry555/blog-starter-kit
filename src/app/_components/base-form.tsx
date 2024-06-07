@@ -77,6 +77,7 @@ export default function BaseForm({
           </Form.Group>
         );
       })}
+      {/* @ts-ignore */}
       <Button variant="outline-primary" type="submit">
         {text}
       </Button>

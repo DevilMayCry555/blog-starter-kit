@@ -76,6 +76,7 @@ export default function DrawCanvas({ imgData, userid }: any) {
             required
             placeholder="请输入标题"
           />
+          {/* @ts-ignore */}
           <Button
             type="submit"
             variant="outline-secondary"
@@ -104,6 +105,7 @@ export default function DrawCanvas({ imgData, userid }: any) {
         当前浏览器不支持canvas元素，请升级或更换浏览器！
       </canvas>
       <div className="mt-4 flex justify-around">
+        {/* @ts-ignore */}
         <Button id="clear" variant="outline-secondary">
           清空
         </Button>
@@ -119,6 +121,7 @@ export default function DrawCanvas({ imgData, userid }: any) {
             e.preventDefault();
           }}
         >
+          {/* @ts-ignore */}
           <Button
             type="submit"
             variant="outline-secondary"
