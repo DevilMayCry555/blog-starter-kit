@@ -53,6 +53,8 @@ export default function TopBanner({ uid }: any) {
             <NavDropdown.Item href="/three/solar">Solar</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item href="/three/tank">Tank</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="/three/g">Gravity</NavDropdown.Item>
           </NavDropdown>
         </Nav>
       </Navbar.Collapse>
