@@ -8,11 +8,11 @@ interface Prop {
 }
 let map: any = null;
 const arrow = `<div class="custom-content-marker">
-              <div class="custom-content-marker-animate">
-              <img src="/assets/map-marker-current.png">
-              </div>
-              <img src="/assets/map-marker-current.png">
-              </div>`;
+  <div class="custom-content-marker-animate">
+    <img src="/assets/map-marker-current.png">
+  </div>
+  <img src="/assets/map-marker-current.png">
+</div>`;
 export default function AMapContainer({ locations }: Prop) {
   const [lts, set_lts] = useState([]);
 
@@ -37,48 +37,44 @@ export default function AMapContainer({ locations }: Prop) {
               zoom: 3, // 初始化地图级别
               // center: [+lo + 0.006, +la + 0.0001], // 初始化地图中心点位置
             }); //"map-container"为 <div> 容器的 id
-            const set = [];
             // 绘制坐标点
             locations.forEach((item) => {
-              const { content } = item;
+              const { content: adcode } = item;
               AMap.plugin("AMap.DistrictSearch", function () {
                 const district = new AMap.DistrictSearch({
                   extensions: "all", //返回行政区边界坐标等具体信息
                   level: "district", //设置查询行政区级别为区
                 });
-                district.search(
-                  content,
-                  function (status: string, result: any) {
-                    console.log("DistrictSearch", status, result);
-                    if (status === "complete" && result.info === "OK") {
-                      const { districtList } = result;
-                      [].concat(districtList).forEach((item: any) => {
-                        const { boundaries: bounds, center } = item;
-                        if (bounds) {
-                          for (let i = 0; i < bounds.length; i++) {
-                            //生成行政区划 polygon
-                            new AMap.Polygon({
-                              map: map, //显示该覆盖物的地图对象
-                              strokeWeight: 1, //轮廓线宽度
-                              path: bounds[i], //多边形轮廓线的节点坐标数组
-                              fillOpacity: 0.2, //多边形填充透明度
-                              fillColor: "#FF0000", //多边形填充颜色
-                              strokeColor: "#CC66CC", //线条颜色
-                            });
-                          }
-                        }
-                        if (center) {
-                          const marker = new AMap.Marker({
-                            position: center,
-                            content: arrow,
-                            offset: new AMap.Pixel(-13, -30),
+                district.search(adcode, function (status: string, result: any) {
+                  console.log("DistrictSearch", status, result);
+                  if (status === "complete" && result.info === "OK") {
+                    const { districtList } = result;
+                    [].concat(districtList).forEach((item: any) => {
+                      const { boundaries: bounds, center } = item;
+                      if (bounds) {
+                        for (let i = 0; i < bounds.length; i++) {
+                          //生成行政区划 polygon
+                          new AMap.Polygon({
+                            map: map, //显示该覆盖物的地图对象
+                            strokeWeight: 1, //轮廓线宽度
+                            path: bounds[i], //多边形轮廓线的节点坐标数组
+                            fillOpacity: 0.2, //多边形填充透明度
+                            fillColor: "#FF0000", //多边形填充颜色
+                            strokeColor: "#CC66CC", //线条颜色
                           });
-                          map.add(marker);
                         }
-                      });
-                    }
+                      }
+                      if (center) {
+                        const marker = new AMap.Marker({
+                          position: center,
+                          content: arrow,
+                          offset: new AMap.Pixel(-13, -30),
+                        });
+                        map.add(marker);
+                      }
+                    });
                   }
-                );
+                });
               });
             });
           })
