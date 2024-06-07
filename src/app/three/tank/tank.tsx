@@ -8,28 +8,36 @@ import { createRoot } from "react-dom/client";
 
 let once = false;
 
-const Train = ({ curve, ...rest }: any) => {
+const Train = ({ curve: Curve, ...rest }: any) => {
+  const curve: THREE.CatmullRomCurve3 = Curve;
   const trainRef = useRef<THREE.Mesh>();
   const [t, setT] = useState(0);
 
   useFrame(() => {
     setT((t) => (t + 0.001) % 1);
+    // 根据弧长返回曲线上给定位置的点
     const point = curve.getPointAt(t);
+    // 返回一个点处的切线s
     const tangent = curve.getTangentAt(t).normalize();
     const current = trainRef.current;
     if (current) {
       // Adjust the train's position and orientation
       current.position.set(point.x, point.y, point.z);
-      const up = new THREE.Vector3(0, 1, 0);
+      const up = new THREE.Vector3(1, 0, 0);
+      // crossVectors(a,b) a与b的叉积 即与a，b都垂直
       const axis = new THREE.Vector3().crossVectors(up, tangent).normalize();
+      // dot 返回该v与参v的点积
+      // 计算机图形学常用来判断方向，如两向量点积大于0，则它们的方向朝向相近；如果小于0，则方向相反
+      // Math.acos 返回一个数的反余弦值（单位为弧度）
       const radians = Math.acos(up.dot(tangent));
+      // quaternion 四元数在three.js中用于表示 rotation （旋转）
       current.quaternion.setFromAxisAngle(axis, radians);
+      // up指向x正轴，则它与切线的叉积指向y正轴，点积指向两向量的同向
     }
   });
-
   return (
     <mesh {...rest} ref={trainRef} position={[0, 0, 0]}>
-      <boxGeometry args={[1, 1, 2]} />
+      <boxGeometry args={[1, 1, 1]} />
       <meshStandardMaterial color={"red"} />
     </mesh>
   );
@@ -37,11 +45,13 @@ const Train = ({ curve, ...rest }: any) => {
 
 const Scene = () => {
   const curve = new THREE.CatmullRomCurve3([
-    new THREE.Vector3(-10, 0, 10),
-    new THREE.Vector3(-5, 5, 5),
+    new THREE.Vector3(-20, 0, 10),
+    new THREE.Vector3(-10, 0, -10),
+    new THREE.Vector3(-5, 0, 5),
     new THREE.Vector3(0, 0, 0),
-    new THREE.Vector3(5, -5, 5),
+    new THREE.Vector3(5, 0, -5),
     new THREE.Vector3(10, 0, 10),
+    new THREE.Vector3(20, 0, -10),
   ]);
 
   return (
@@ -51,8 +61,18 @@ const Scene = () => {
       <Train curve={curve} />
       <OrbitControls />
       <mesh>
-        <tubeGeometry args={[curve, 100, 0.2, 8, false]} />
+        {/* path — Curve - 一个由基类Curve继承而来的3D路径。 Default is a quadratic bezier curve.
+            tubularSegments — Integer - 组成这一管道的分段数，默认值为64。
+            radius — Float - 管道的半径，默认值为1。
+            radialSegments — Integer - 管道横截面的分段数目，默认值为8。
+            closed — Boolean 管道的两端是否闭合，默认值为false。 */}
+        <tubeGeometry args={[curve, 200, 0.2, 8, false]} />
         <meshStandardMaterial color={"blue"} />
+      </mesh>
+      {/* 原点 */}
+      <mesh position={[0, 0, 0]} scale={0.5}>
+        <boxGeometry args={[1, 1, 1]} />
+        <meshStandardMaterial color={"red"} />
       </mesh>
     </Canvas>
   );
