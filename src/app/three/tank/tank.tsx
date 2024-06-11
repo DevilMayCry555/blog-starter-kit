@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
@@ -8,7 +8,7 @@ import { createRoot } from "react-dom/client";
 
 let once = false;
 
-const Train = ({ curve: Curve, order, init, ...rest }: any) => {
+const Train = ({ curve: Curve, order, init, onMove, ...rest }: any) => {
   const curve: THREE.CatmullRomCurve3 = Curve;
   const trainRef = useRef<THREE.Mesh>();
   const [t, setT] = useState(Number(init));
@@ -38,6 +38,7 @@ const Train = ({ curve: Curve, order, init, ...rest }: any) => {
       current.quaternion.setFromAxisAngle(axis, radians);
       // up指向x正轴，则它与切线的叉积指向y正轴，点积指向两向量的同向
       // console.log(axis, radians);
+      onMove?.(order, t);
     }
   });
   return (
@@ -68,6 +69,16 @@ const Scene = () => {
 
   const [c, setC] = useState(3);
   const [f, setF] = useState([{ x: 0, y: 0, z: 0 }]);
+  const onMove = useCallback((order: number, t: number) => {
+    if (order !== 0) {
+      return false;
+    }
+    const r = t + 0.002;
+    if (r < 1) {
+      return false;
+    }
+    setC((state) => state + 1);
+  }, []);
   return (
     <Canvas camera={camera}>
       <ambientLight />
@@ -75,7 +86,13 @@ const Scene = () => {
       {Array(c)
         .fill(0)
         .map((it, idx) => (
-          <Train curve={curve} init={it - (idx * 2) / 100} order={idx} />
+          <Train
+            key={idx}
+            curve={curve}
+            init={it - (idx * 2) / 100}
+            order={idx}
+            onMove={onMove}
+          />
         ))}
       <OrbitControls />
       <mesh>
@@ -87,10 +104,10 @@ const Scene = () => {
         <tubeGeometry args={[curve, 200, 0.2, 8, false]} />
         <meshStandardMaterial color={"blue"} />
       </mesh>
-      {f.map((it) => {
+      {f.map((it, idx) => {
         const { x, y, z } = it;
         return (
-          <mesh position={[x, y, z]} scale={0.5}>
+          <mesh position={[x, y, z]} scale={0.5} key={idx}>
             <sphereGeometry args={[1, 12, 12]} />
             <meshStandardMaterial color={"red"} />
           </mesh>
