@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
@@ -11,10 +11,10 @@ let once = false;
 const Train = ({ curve: Curve, order, ...rest }: any) => {
   const curve: THREE.CatmullRomCurve3 = Curve;
   const trainRef = useRef<THREE.Mesh>();
-  const [t, setT] = useState(Number(order));
+  const [t, setT] = useState((Number(order) * 2) / 100);
 
   useFrame(() => {
-    setT((t) => (t + 0.001) % 1);
+    setT((t) => (t + 0.002) % 1);
     // 根据弧长返回曲线上给定位置的点
     const point = curve.getPointAt(t);
     // 返回一个点处的切线s
@@ -33,12 +33,13 @@ const Train = ({ curve: Curve, order, ...rest }: any) => {
       // quaternion 四元数在three.js中用于表示 rotation （旋转）
       current.quaternion.setFromAxisAngle(axis, radians);
       // up指向x正轴，则它与切线的叉积指向y正轴，点积指向两向量的同向
+      // console.log(axis, radians);
     }
   });
   return (
     <mesh {...rest} ref={trainRef}>
       <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={"red"} />
+      <meshStandardMaterial color={order === 4 ? "red" : "green"} />
     </mesh>
   );
 };
@@ -53,22 +54,25 @@ const Scene = () => {
     new THREE.Vector3(10, 0, 10),
     new THREE.Vector3(20, 0, -10),
   ]);
-  const camera = new THREE.PerspectiveCamera(50);
-  camera.position.set(0, 50, 0);
-  // camera.up.set(0, 0, 1);
-  camera.lookAt(0, 0, 0);
-  const [t, setT] = useState(
-    Array(4)
-      .fill(0)
-      .map((it, idx) => it + (idx * 2) / 100)
-  );
+  const camera = useMemo(() => {
+    const camera = new THREE.PerspectiveCamera(50);
+    camera.position.set(0, 50, 0);
+    // camera.up.set(0, 0, 1);
+    camera.lookAt(0, 0, 0);
+    return camera;
+  }, []);
+
+  const [t, setT] = useState(5);
+  const [f, setF] = useState([{ x: 0, y: 0, z: 0 }]);
   return (
     <Canvas camera={camera}>
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
-      {t.map((it) => {
-        return <Train curve={curve} position={[0, 0, 0]} order={it} />;
-      })}
+      {Array(t)
+        .fill(0)
+        .map((it, idx) => {
+          return <Train curve={curve} position={[0, 0, 0]} order={it + idx} />;
+        })}
       <OrbitControls />
       <mesh>
         {/* path — Curve - 一个由基类Curve继承而来的3D路径。 Default is a quadratic bezier curve.
@@ -79,11 +83,15 @@ const Scene = () => {
         <tubeGeometry args={[curve, 200, 0.2, 8, false]} />
         <meshStandardMaterial color={"blue"} />
       </mesh>
-      {/* 原点 */}
-      <mesh position={[0, 0, 0]} scale={0.5}>
-        <boxGeometry args={[1, 1, 1]} />
-        <meshStandardMaterial color={"red"} />
-      </mesh>
+      {f.map((it) => {
+        const { x, y, z } = it;
+        return (
+          <mesh position={[x, y, z]} scale={0.5}>
+            <sphereGeometry args={[1, 12, 12]} />
+            <meshStandardMaterial color={"red"} />
+          </mesh>
+        );
+      })}
     </Canvas>
   );
 };
