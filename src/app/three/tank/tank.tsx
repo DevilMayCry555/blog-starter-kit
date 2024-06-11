@@ -8,13 +8,17 @@ import { createRoot } from "react-dom/client";
 
 let once = false;
 
-const Train = ({ curve: Curve, order, ...rest }: any) => {
+const Train = ({ curve: Curve, order, init, ...rest }: any) => {
   const curve: THREE.CatmullRomCurve3 = Curve;
   const trainRef = useRef<THREE.Mesh>();
-  const [t, setT] = useState((Number(order) * 2) / 100);
+  const [t, setT] = useState(Number(init));
 
   useFrame(() => {
     setT((t) => (t + 0.002) % 1);
+    // t小于0会报错
+    if (t < 0) {
+      return;
+    }
     // 根据弧长返回曲线上给定位置的点
     const point = curve.getPointAt(t);
     // 返回一个点处的切线s
@@ -39,7 +43,7 @@ const Train = ({ curve: Curve, order, ...rest }: any) => {
   return (
     <mesh {...rest} ref={trainRef}>
       <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={order === 4 ? "red" : "green"} />
+      <meshStandardMaterial color={order === 0 ? "red" : "green"} />
     </mesh>
   );
 };
@@ -56,23 +60,23 @@ const Scene = () => {
   ]);
   const camera = useMemo(() => {
     const camera = new THREE.PerspectiveCamera(50);
-    camera.position.set(0, 50, 0);
+    camera.position.set(50, 20, 0);
     // camera.up.set(0, 0, 1);
     camera.lookAt(0, 0, 0);
     return camera;
   }, []);
 
-  const [t, setT] = useState(5);
+  const [c, setC] = useState(3);
   const [f, setF] = useState([{ x: 0, y: 0, z: 0 }]);
   return (
     <Canvas camera={camera}>
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
-      {Array(t)
+      {Array(c)
         .fill(0)
-        .map((it, idx) => {
-          return <Train curve={curve} position={[0, 0, 0]} order={it + idx} />;
-        })}
+        .map((it, idx) => (
+          <Train curve={curve} init={it - (idx * 2) / 100} order={idx} />
+        ))}
       <OrbitControls />
       <mesh>
         {/* path — Curve - 一个由基类Curve继承而来的3D路径。 Default is a quadratic bezier curve.
