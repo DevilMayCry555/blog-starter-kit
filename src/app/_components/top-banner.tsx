@@ -27,7 +27,7 @@ export default function TopBanner({ uid }: any) {
           <Nav.Link href="/draw">
             <span className="opacity-0">gap</span>Draw
           </Nav.Link>
-          <Nav.Link href="/demo">
+          <Nav.Link href="/ace/index.html">
             <span className="opacity-0">gap</span>ChatGPT
           </Nav.Link>
           <Nav.Link href="/guess">
