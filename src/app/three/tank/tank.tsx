@@ -69,7 +69,11 @@ const Scene = () => {
 
   const [c, setC] = useState(3);
   const [f, setF] = useState([{ x: 0, y: 0, z: 0 }]);
+  const qwer = {};
   const onMove = useCallback((order: number, t: number) => {
+    Object.assign(qwer, {
+      [order]: t,
+    });
     if (order !== 0) {
       return false;
     }
