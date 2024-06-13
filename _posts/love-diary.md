@@ -2,7 +2,7 @@
 title: "Love Diary"
 excerpt: "Sharing our daily lives, trips, and sweet moments."
 coverImage: "/assets/blog/love-diary/cover.jpg"
-date: "2024-05-31"
+# date: "2024-06-09"
 author:
   name: L.D.T
   picture: "/assets/blog/authors/ly.jpg"
@@ -14,7 +14,7 @@ ogImage:
 最近宝宝烦心事比较多  
 大头没有好好的关心  
 公主很失望，都怪大头  
-帮公主清空了 618 购物车
+清空了公主的 618 购物车
 
 **_2024/05/31 周五_**  
 连续两周没有组会，好耶  

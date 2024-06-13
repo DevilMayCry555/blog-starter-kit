@@ -2,7 +2,7 @@
 title: "Photo Wall"
 excerpt: "Portrait and artistic photos of the princess."
 coverImage: "/assets/blog/photo-wall/cover.png"
-date: "2024-05-19"
+# date: "2024-05-19"
 author:
   name: L.D.T
   picture: "/assets/blog/authors/ly.jpg"
