@@ -21,9 +21,9 @@ export default async function User({ params }: Params) {
           {Number(admin) ? (
             <>
               <a href="/backdoor/user">用户</a>
-              <span className=" opacity-0">gap</span>
+              <span className=" opacity-0">空白</span>
               <a href="/backdoor/room">会议</a>
-              <span className=" opacity-0">gap</span>
+              <span className=" opacity-0">空白</span>
               <a href="/backdoor/location">足迹</a>
             </>
           ) : null}

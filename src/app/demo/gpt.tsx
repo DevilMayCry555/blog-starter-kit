@@ -70,17 +70,17 @@ export default function Chat({ usage }: Prop) {
     });
     return response;
   };
-  useEffect(() => {
-    fetch(BASE_URL + "/api/open", {
-      method: "POST",
-      body: "chatgpt",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      cache: "no-store",
-    });
-  }, []);
+  // useEffect(() => {
+  //   fetch(BASE_URL + "/api/open", {
+  //     method: "POST",
+  //     body: "chatgpt",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Accept: "application/json",
+  //     },
+  //     cache: "no-store",
+  //   });
+  // }, []);
   return (
     <div className="flex flex-col w-full max-w-md p-2 mx-auto stretch">
       <p className=" text-xs text-center">
