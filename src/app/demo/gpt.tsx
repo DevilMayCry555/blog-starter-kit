@@ -82,7 +82,7 @@ export default function Chat({ usage }: Prop) {
   //   });
   // }, []);
   return (
-    <div className="flex flex-col w-full max-w-md p-2 mx-auto stretch">
+    <div className="flex flex-col w-full max-w-md p-2 mx-auto stretch shadow-inner shadow-slate-700">
       <p className=" text-xs text-center">
         {/* 模型：GPT-3.5，知识库于2022年1月停止更新，流量使用情况： */}
         模型：GPT-4，单次回复不会超过10s，流量使用情况：
