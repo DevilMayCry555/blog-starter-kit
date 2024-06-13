@@ -9,10 +9,8 @@ interface Prop {
   usage: number;
 }
 export default function Chat({ usage }: Prop) {
-  const [me, set_me] = useState([
-    "回复我的时候，请尽可能简洁，抓住重点",
-  ] as string[]);
-  const [text, set_text] = useState("好的");
+  const [me, set_me] = useState(["你好"] as string[]);
+  const [text, set_text] = useState("你好");
   const [input, set_input] = useState("");
   const [ai, set_ai] = useState([] as string[]);
   const [loading, set_loading] = useState(false);
