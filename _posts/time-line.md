@@ -11,19 +11,19 @@ ogImage:
 ---
 
 tl**_2024/06/03_**  
-A false alarm
+虚惊一场
 
 tl**_2024/05/04_**  
-May Day
+欢度五一
 
 tl**_2024/04/04_**  
-Painful
+不会再让你伤心了
 
 tl**_2024/03/08_**  
-Couples weekend
+情侣周末
 
 tl**_2024/02/27_**  
-Omit 10,000 words
+此处省略一万字
 
 tl**_2023/11/22_**  
-Nice to meet you !
+很高兴认识你
