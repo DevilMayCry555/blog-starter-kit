@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 export default function HomeList() {
   const router = useRouter();
   return (
-    <div className=" w-4/5">
+    <div className=" w-4/5 flex flex-col">
       <Card className=" mt-4">
         <CardHeader>Pages</CardHeader>
         <Divider />
@@ -36,7 +36,7 @@ export default function HomeList() {
         <Divider />
         <CardBody>
           <Listbox
-            aria-label="AndroidApp"
+            aria-label="Android"
             onAction={(key) => router.push(`${key}`, { scroll: false })}
           >
             <ListboxItem key="/deep.apk">Deep@2024.06</ListboxItem>
@@ -48,12 +48,26 @@ export default function HomeList() {
         <Divider />
         <CardBody>
           <Listbox
-            aria-label="ThreeJs"
+            aria-label="Three"
             onAction={(key) => router.push(`${key}`, { scroll: false })}
           >
             <ListboxItem key="/three/solar">solar</ListboxItem>
             <ListboxItem key="/three/tank">tank</ListboxItem>
             <ListboxItem key="/three/g">g</ListboxItem>
+          </Listbox>
+        </CardBody>
+      </Card>
+      <Card className=" mt-4">
+        <CardHeader>Control</CardHeader>
+        <Divider />
+        <CardBody>
+          <Listbox
+            aria-label="Three"
+            onAction={(key) => router.push(`${key}`, { scroll: false })}
+          >
+            <ListboxItem key="/backdoor/user">user</ListboxItem>
+            <ListboxItem key="/backdoor/room">room</ListboxItem>
+            <ListboxItem key="/backdoor/location">clue</ListboxItem>
           </Listbox>
         </CardBody>
       </Card>

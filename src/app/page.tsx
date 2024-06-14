@@ -4,7 +4,7 @@ import HomeList from "./_components/home-list";
 
 export default async function Index() {
   // 未登录
-  const userinfo = await fetchUser();
+  const userinfo = await fetchUser("", { draw: false });
   if (!userinfo) {
     return notFound();
   }

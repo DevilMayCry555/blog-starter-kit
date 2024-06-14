@@ -7,7 +7,7 @@ import {
   NavbarItem,
   NavbarMenuToggle,
   NavbarMenu,
-  NavbarMenuItem,
+  // NavbarMenuItem,
 } from "@nextui-org/navbar";
 import { Link } from "@nextui-org/react";
 import { useState } from "react";

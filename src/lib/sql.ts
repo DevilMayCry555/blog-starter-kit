@@ -33,9 +33,17 @@ export const fetchUser = async (uid?: string, others?: any) => {
   if (!token) {
     return null;
   }
-  const { art = false } = { ...others };
+  const { art = false, draw = true } = { ...others };
   const { rows } = await sql`SELECT * FROM users WHERE uid = ${token.value};`;
-  const [data] = rows;
+  const [data] = rows.map((it) => {
+    if (!draw) {
+      return {
+        ...it,
+        draw: null,
+      };
+    }
+    return it;
+  });
   if (art) {
     const { rows: user_arts } =
       await sql`SELECT uid,title FROM arts WHERE user_id = ${token.value};`;

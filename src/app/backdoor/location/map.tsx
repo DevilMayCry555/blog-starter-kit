@@ -88,5 +88,9 @@ export default function AMapContainer({ locations }: Prop) {
       map?.destroy();
     };
   }, []);
-  return <div id="map-container" className=" min-h-screen -my-14"></div>;
+  return (
+    <div className=" flex-1">
+      <div id="map-container" className=" h-full w-full"></div>
+    </div>
+  );
 }

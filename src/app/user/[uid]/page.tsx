@@ -18,18 +18,7 @@ export default async function User({ params }: Params) {
         <div>生日：{birthday}</div>
         <div>管理员权限：{Number(admin) ? "开" : "关"}</div>
         <div className=" text-blue-500">
-          {Number(admin) ? (
-            <>
-              <a href="/backdoor/user">用户</a>
-              <span className=" opacity-0">空白</span>
-              <a href="/backdoor/room">会议</a>
-              <span className=" opacity-0">空白</span>
-              <a href="/backdoor/location">足迹</a>
-            </>
-          ) : null}
-          <div>
-            <a href="/api/logout">退出登录</a>
-          </div>
+          <a href="/api/logout">退出登录</a>
         </div>
 
         <div className=" text-2xl pt-4">你画我猜</div>
