@@ -11,10 +11,5 @@
 //   return <Chat usage={usage} />;
 // }
 export default async function Demo() {
-  return (
-    <iframe
-      src="https://gpt4o.so/zh-CN"
-      className=" min-h-screen min-w-full -my-14 py-14"
-    ></iframe>
-  );
+  return <iframe src="https://gpt4o.so/zh-CN" className=" flex-1"></iframe>;
 }

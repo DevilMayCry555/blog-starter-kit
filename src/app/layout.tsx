@@ -70,7 +70,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <NextUIProvider>
           <TopBanner uid={token} />
-          <div className="min-h-screen overflow-hidden">{children}</div>
+          <div id="root-container">{children}</div>
           {/* <Footer /> */}
         </NextUIProvider>
       </body>
