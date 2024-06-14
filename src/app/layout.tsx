@@ -1,9 +1,10 @@
 import { CMS_NAME, HOME_OG_IMAGE_URL } from "@/lib/constants";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { NextUIProvider } from "@nextui-org/react";
 
 import "./globals.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 // import Footer from "@/app/_components/footer";
 import TopBanner from "./_components/top-banner";
 
@@ -67,9 +68,11 @@ export default function RootLayout({
         <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       </head>
       <body className={inter.className}>
-        <TopBanner uid={token} />
-        <div className="min-h-screen py-14">{children}</div>
-        {/* <Footer /> */}
+        <NextUIProvider>
+          <TopBanner uid={token} />
+          <div className="min-h-screen overflow-hidden">{children}</div>
+          {/* <Footer /> */}
+        </NextUIProvider>
       </body>
     </html>
   );
