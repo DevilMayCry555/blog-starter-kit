@@ -101,7 +101,7 @@ export default function AMapContainer() {
   }, []);
   return (
     <div className=" relative">
-      <div id="map-container" className=" min-h-screen -my-14">
+      <div id="map-container" className=" min-h-screen -my-14 py-14">
         <Spinner animation="grow" className=" fixed top-1/2 left-1/2" />
       </div>
       <div className=" absolute bottom-0 left-0 right-0 bg-slate-500 text-white text-right">
