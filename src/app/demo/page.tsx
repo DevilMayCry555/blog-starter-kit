@@ -1,12 +1,20 @@
-import { BASE_URL } from "@/lib/constants";
-import Chat from "./gpt";
+// import { BASE_URL } from "@/lib/constants";
+// import Chat from "./gpt";
 
+// export default async function Demo() {
+//   const { content } = await fetch(BASE_URL + "/api/stream").then((res) =>
+//     res.json()
+//   );
+//   const { remain_quota, used_quota } = content;
+//   const usage = 100 - (used_quota * 100) / (used_quota + remain_quota);
+
+//   return <Chat usage={usage} />;
+// }
 export default async function Demo() {
-  const { content } = await fetch(BASE_URL + "/api/stream").then((res) =>
-    res.json()
+  return (
+    <iframe
+      src="https://gpt4o.so/zh-CN"
+      className=" min-h-screen min-w-full -my-14"
+    ></iframe>
   );
-  const { remain_quota, used_quota } = content;
-  const usage = 100 - (used_quota * 100) / (used_quota + remain_quota);
-
-  return <Chat usage={usage} />;
 }
