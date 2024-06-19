@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { DrawingBoard } from "../../lib/canvas";
-import { Button, Spinner } from "react-bootstrap";
 import "./style.css";
 import { BASE_URL } from "@/lib/constants";
+import { Button } from "@nextui-org/react";
 
 let once = false;
 let canvas: HTMLCanvasElement | undefined = undefined;
@@ -76,23 +76,12 @@ export default function DrawCanvas({ imgData, userid }: any) {
             required
             placeholder="请输入标题"
           />
-          {/* @ts-ignore */}
           <Button
             type="submit"
-            variant="outline-secondary"
             disabled={!can_pb || loading}
+            isLoading={loading}
           >
-            {loading ? (
-              <Spinner
-                as="span"
-                animation="border"
-                size="sm"
-                role="status"
-                aria-hidden="true"
-              />
-            ) : (
-              "发布"
-            )}
+            发布
           </Button>
         </div>
       </form>
@@ -105,10 +94,7 @@ export default function DrawCanvas({ imgData, userid }: any) {
         当前浏览器不支持canvas元素，请升级或更换浏览器！
       </canvas>
       <div className="mt-4 flex justify-around">
-        {/* @ts-ignore */}
-        <Button id="clear" variant="outline-secondary">
-          清空
-        </Button>
+        <Button id="clear">清空</Button>
         <form
           action="/api/draw"
           method="GET"
@@ -121,23 +107,12 @@ export default function DrawCanvas({ imgData, userid }: any) {
             e.preventDefault();
           }}
         >
-          {/* @ts-ignore */}
           <Button
             type="submit"
-            variant="outline-secondary"
             disabled={!can_pb || loading}
+            isLoading={loading}
           >
-            {loading ? (
-              <Spinner
-                as="span"
-                animation="border"
-                size="sm"
-                role="status"
-                aria-hidden="true"
-              />
-            ) : (
-              "保存"
-            )}
+            保存
           </Button>
         </form>
       </div>
