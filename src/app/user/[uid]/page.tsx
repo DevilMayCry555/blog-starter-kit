@@ -2,6 +2,7 @@ import Container from "@/app/_components/container";
 import { fetchUser } from "@/lib/sql";
 import { notFound } from "next/navigation";
 import UserArts from "@/app/_components/user-arts";
+import { User as MyUser } from "@nextui-org/react";
 
 export default async function User({ params }: Params) {
   const uid = decodeURIComponent(params.uid);
@@ -11,17 +12,18 @@ export default async function User({ params }: Params) {
   }
   const { username, birthday, admin, arts } = info;
   return (
-    <main>
+    <main className=" flex-1">
       <Container>
-        <div className=" text-2xl pt-4">基本信息</div>
-        <div>昵称：{username}</div>
-        <div>生日：{birthday}</div>
-        <div>管理员权限：{Number(admin) ? "开" : "关"}</div>
-        <div className=" text-blue-500">
-          <a href="/api/logout">退出登录</a>
-        </div>
+        <div className=" text-2xl py-4">基本信息</div>
+        <MyUser
+          name={username}
+          description={`${birthday} ${Number(admin) && "管理员"}`}
+          // avatarProps={{
+          //   src: "https://i.pravatar.cc/150?u=a04258114e29026702d"
+          // }}
+        />
 
-        <div className=" text-2xl pt-4">你画我猜</div>
+        <div className=" text-2xl py-4">你画我猜</div>
         <UserArts listData={arts} />
       </Container>
     </main>

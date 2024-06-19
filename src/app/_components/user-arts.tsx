@@ -1,23 +1,23 @@
 "use client";
 
-import { ListGroup } from "react-bootstrap";
+import { Listbox, ListboxItem } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 
 export default function UserArts({ listData = [] }: any) {
+  const router = useRouter();
   return (
-    <ListGroup variant="flush" as="ul" numbered>
+    <Listbox
+      aria-label="Pages"
+      onAction={(key) => router.push(`${key}`, { scroll: false })}
+    >
       {[].concat(listData).map((it) => {
         const { uid, title } = it;
         return (
-          <ListGroup.Item
-            as="a"
-            key={uid}
-            href={`/guess/${uid}`}
-            className="mb-2"
-          >
+          <ListboxItem showDivider key={`/guess/${uid}`}>
             {title}
-          </ListGroup.Item>
+          </ListboxItem>
         );
       })}
-    </ListGroup>
+    </Listbox>
   );
 }
