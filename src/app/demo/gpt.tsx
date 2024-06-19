@@ -1,8 +1,8 @@
 "use client";
 
 import { BASE_URL } from "@/lib/constants";
+import { Progress, Spinner } from "@nextui-org/react";
 import { useEffect, useState } from "react";
-import { ProgressBar, Spinner } from "react-bootstrap";
 
 const decoder = new TextDecoder("utf-8");
 interface Prop {
@@ -70,24 +70,24 @@ export default function Chat({ usage }: Prop) {
     });
     return response;
   };
-  // useEffect(() => {
-  //   fetch(BASE_URL + "/api/open", {
-  //     method: "POST",
-  //     body: "chatgpt",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Accept: "application/json",
-  //     },
-  //     cache: "no-store",
-  //   });
-  // }, []);
+  useEffect(() => {
+    fetch(BASE_URL + "/api/open", {
+      method: "POST",
+      body: "chatgpt",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      cache: "no-store",
+    });
+  }, []);
   return (
     <div className="flex flex-col w-full max-w-md p-2 mx-auto stretch shadow-inner shadow-slate-700">
       <p className=" text-xs text-center">
         {/* 模型：GPT-3.5，知识库于2022年1月停止更新，流量使用情况： */}
         模型：GPT-4，单次回复不会超过10s，流量使用情况：
       </p>
-      <ProgressBar now={usage} label={`${usage.toFixed(0)}%`} />
+      <Progress value={usage} label={`${usage.toFixed(0)}%`} />
       {me.map((it, idx) => {
         return (
           <div key={idx}>
@@ -110,7 +110,7 @@ export default function Chat({ usage }: Prop) {
           <p>{text}</p>
         </div>
       )}
-      {loading && <Spinner animation="grow" size="sm" />}
+      {loading && <Spinner />}
       <div id="chat_bottom"></div>
       <form
         className="fixed bottom-2 left-0 right-0 text-center"
