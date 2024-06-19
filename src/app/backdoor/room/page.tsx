@@ -55,7 +55,7 @@ export default async function Backdoor({ searchParams }: any) {
     };
   };
   return (
-    <main>
+    <main className=" flex-1">
       <Container>
         <BaseModal action="create" title="create user">
           <BaseForm {...createProps} />
