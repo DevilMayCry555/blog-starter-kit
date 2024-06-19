@@ -1,7 +1,18 @@
 "use client";
 
+import {
+  Button,
+  Input,
+  Textarea,
+  Checkbox,
+  SelectItem,
+  Select,
+  DateInput,
+  TimeInput,
+  Spacer,
+} from "@nextui-org/react";
+
 // import { getuuid } from "@/lib/utils";
-import { Button, Form } from "react-bootstrap";
 
 interface Column {
   field: string;
@@ -26,11 +37,8 @@ export default function BaseForm({
   text = "submit",
 }: Props) {
   return (
-    <Form action={action} method="GET" encType="text/plain">
-      <Form.Group className="hidden">
-        <Form.Label>method</Form.Label>
-        <Form.Control name="method" defaultValue={method} />
-      </Form.Group>
+    <form action={action} method="GET" encType="text/plain">
+      <input type="text" name="method" defaultValue={method} hidden />
       {columns.map((it) => {
         const {
           field,
@@ -43,44 +51,44 @@ export default function BaseForm({
         } = it;
         // const uuid = getuuid(field);
         return (
-          <Form.Group hidden={hidden} key={field} className="mb-3">
-            <Form.Label className=" inline-block">{label}</Form.Label>
+          <div style={hidden ? { display: "none" } : undefined} key={field}>
             {type === "input" && (
-              <Form.Control
+              <Input
+                label={label}
                 name={field}
                 required={required}
                 defaultValue={init}
               />
             )}
             {type === "textarea" && (
-              <Form.Control as="textarea" name={field} rows={3} />
-            )}
-            {type === "checkbox" && (
-              <Form.Check
-                className="inline-block mx-2"
-                type="checkbox"
+              <Textarea
+                label={label}
                 name={field}
+                required={required}
+                defaultValue={init}
               />
             )}
             {type === "select" && (
-              <Form.Select required={required}>
+              <Select label={label} name={field} required={required}>
                 {options.map((it) => (
-                  <option key={it.value} value={it.value}>
+                  <SelectItem key={it.value} value={it.value}>
                     {it.value}
-                  </option>
+                  </SelectItem>
                 ))}
-              </Form.Select>
+              </Select>
             )}
-            {["date", "time"].includes(type) && (
-              <Form.Control type={type} name={field} required={required} />
+            {type === "checkbox" && (
+              <Checkbox defaultSelected name={field}>
+                {label}
+              </Checkbox>
             )}
-          </Form.Group>
+            {type === "date" && <DateInput label={label} name={field} />}
+            {type === "time" && <TimeInput label={label} name={field} />}
+            <Spacer y={4} />
+          </div>
         );
       })}
-      {/* @ts-ignore */}
-      <Button variant="outline-primary" type="submit">
-        {text}
-      </Button>
-    </Form>
+      <Button type="submit">{text}</Button>
+    </form>
   );
 }

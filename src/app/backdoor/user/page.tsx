@@ -48,28 +48,31 @@ export default async function Backdoor({ searchParams }: any) {
   };
   const actions = (row: any) => {
     const { admin } = row;
-    return [
-      {
-        text: "删除",
-        action: "/api/user",
-        method: "delete",
-        params: {
-          uid: row.uid,
+    return {
+      ...row,
+      actions: [
+        {
+          text: "删除",
+          action: "/api/user",
+          method: "delete",
+          params: {
+            uid: row.uid,
+          },
         },
-      },
-      {
-        text: Number(admin) ? "管理 关" : "管理 开",
-        action: "/api/user",
-        method: "admin",
-        params: {
-          uid: row.uid,
-          admin,
+        {
+          text: Number(admin) ? "管理 关" : "管理 开",
+          action: "/api/user",
+          method: "admin",
+          params: {
+            uid: row.uid,
+            admin,
+          },
         },
-      },
-    ];
+      ],
+    };
   };
   return (
-    <main>
+    <main className=" flex-1">
       <Container>
         <BaseModal action="create" title="create user">
           <BaseForm {...createProps} />
@@ -77,7 +80,7 @@ export default async function Backdoor({ searchParams }: any) {
         <BaseModal action="update" title="update user">
           <BaseForm {...updateProps} />
         </BaseModal>
-        <BaseTable fields={fields} rows={rows} actions={actions} />
+        <BaseTable fields={fields} rows={rows.map(actions)} />
         <BasePagination
           current={current}
           pageSize={pageSize}

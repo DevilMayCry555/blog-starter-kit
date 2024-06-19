@@ -27,29 +27,32 @@ export default async function Backdoor({ searchParams }: any) {
     ],
   };
   const actions = (row: any) => {
-    return [
-      {
-        text: "删除",
-        action: "/api/room",
-        method: "delete",
-        params: {
-          uid: row.uid,
+    return {
+      ...row,
+      actions: [
+        {
+          text: "删除",
+          action: "/api/room",
+          method: "delete",
+          params: {
+            uid: row.uid,
+          },
         },
-      },
-      {
-        text: "清空",
-        action: "/api/room",
-        method: "clear",
-        params: {
-          uid: row.uid,
+        {
+          text: "清空",
+          action: "/api/room",
+          method: "clear",
+          params: {
+            uid: row.uid,
+          },
         },
-      },
-      {
-        text: "查看",
-        action: "/meeting/" + row.uid,
-        method: "router",
-      },
-    ];
+        {
+          text: "查看",
+          action: "/meeting/" + row.uid,
+          method: "router",
+        },
+      ],
+    };
   };
   return (
     <main>
@@ -57,7 +60,7 @@ export default async function Backdoor({ searchParams }: any) {
         <BaseModal action="create" title="create user">
           <BaseForm {...createProps} />
         </BaseModal>
-        <BaseTable fields={fields} rows={rows} actions={actions} />
+        <BaseTable fields={fields} rows={rows.map(actions)} />
         <BasePagination
           current={current}
           pageSize={pageSize}

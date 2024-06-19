@@ -1,71 +1,79 @@
+"use client";
+
 import Link from "next/link";
-import { Button, Table } from "react-bootstrap";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableColumn,
+  TableRow,
+  TableCell,
+  Button,
+} from "@nextui-org/react";
+
+interface RowProps {
+  actions: any[];
+  [k: string]: any;
+}
 interface Props {
   fields: any[];
-  rows: any[];
-  actions: (...args: any[]) => any[];
+  rows: RowProps[];
 }
-export default function BaseTable({ fields, rows, actions = () => [] }: Props) {
+export default function BaseTable({ fields, rows }: Props) {
   // 取消uid行的显示
-  const columns: any[] = fields.map((it) => it.name);
+  const columns: any[] = ["actions"]
+    .concat(fields.map((it) => it.name))
+    .filter((it) => it !== "draw");
   return (
-    <Table striped bordered hover responsive>
-      <thead>
-        <tr>
-          <th>actions</th>
-          {columns.map((it, idx) => (
-            <th className="min-w-40" key={idx}>
-              {it}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
+    <Table aria-label="Example static collection table">
+      <TableHeader columns={columns}>
+        {columns.map((it, idx) => (
+          <TableColumn key={idx}>{it}</TableColumn>
+        ))}
+      </TableHeader>
+      <TableBody items={rows}>
         {rows.map((row) => (
-          <tr key={row.uid}>
-            {/* actions */}
-            <td>
-              {actions(row).map((it, idx) => {
-                const { text, action, method, params } = it;
-                const items = Object.entries({ ...params, method });
-                if (method === "router") {
-                  return (
-                    <Link key={idx} href={action}>
-                      {/* @ts-ignore */}
-                      <Button variant="link">{text}</Button>
-                    </Link>
-                  );
-                }
+          <TableRow key={row.uid}>
+            {columns.map((it, idx) => {
+              if (idx === 0) {
                 return (
-                  <form key={idx} action={action} method="GET">
-                    {items.map((it) => {
-                      const [key, val] = it;
+                  <TableCell key={idx}>
+                    {row.actions.map((it, idx) => {
+                      const { text, action, method, params } = it;
+                      const items = Object.entries({ ...params, method });
+                      if (method === "router") {
+                        return (
+                          <Link key={idx} href={action}>
+                            <Button>{text}</Button>
+                          </Link>
+                        );
+                      }
                       return (
-                        <input
-                          key={key}
-                          type="text"
-                          className="hidden"
-                          name={key}
-                          defaultValue={String(val)}
-                        />
+                        <form key={idx} action={action} method="GET">
+                          {items.map((it) => {
+                            const [key, val] = it;
+                            return (
+                              <input
+                                key={key}
+                                type="text"
+                                className="hidden"
+                                name={key}
+                                defaultValue={String(val)}
+                              />
+                            );
+                          })}
+                          <Button type="submit">{text}</Button>
+                        </form>
                       );
                     })}
-                    {/* @ts-ignore */}
-                    <Button type="submit" variant="link">
-                      {text}
-                    </Button>
-                  </form>
+                  </TableCell>
                 );
-              })}
-            </td>
-            {columns.map((it, idx) => (
-              <td key={idx} style={{ verticalAlign: "middle" }}>
-                {row[it]}
-              </td>
-            ))}
-          </tr>
+              }
+              return <TableCell key={idx}>{row[it]}</TableCell>;
+            })}
+          </TableRow>
         ))}
-      </tbody>
+      </TableBody>
     </Table>
   );
 }

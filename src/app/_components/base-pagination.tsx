@@ -1,6 +1,6 @@
 "use client";
 
-import { Pagination } from "react-bootstrap";
+import { Pagination, Spacer } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 interface Props {
   current: string;
@@ -18,17 +18,14 @@ export default function BasePagination({
   const onPageChange = (num: number) => {
     router.push(`${path}?current=${num}`);
   };
-  const items = [];
-  for (let number = 1; number <= Math.ceil(+total / +pageSize); number++) {
-    items.push(
-      <Pagination.Item
-        key={number}
-        active={number === +current}
-        onClick={() => onPageChange(number)}
-      >
-        {number}
-      </Pagination.Item>
-    );
-  }
-  return <Pagination className="my-4">{items}</Pagination>;
+  return (
+    <div>
+      <Spacer y={4} />
+      <Pagination
+        total={Math.ceil(+total / +pageSize)}
+        initialPage={+current}
+        onChange={onPageChange}
+      />
+    </div>
+  );
 }

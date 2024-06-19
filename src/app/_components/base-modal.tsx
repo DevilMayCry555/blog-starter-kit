@@ -1,7 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalContent,
+  // ModalFooter,
+  ModalHeader,
+  useDisclosure,
+} from "@nextui-org/react";
 
 interface Props {
   action: string;
@@ -13,34 +20,29 @@ export default function BaseModal({
   title = "--",
   children,
 }: Props) {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   return (
     <>
-      {/* @ts-ignore */}
-      <Button
-        variant="outline-primary"
-        className="mx-2 my-4"
-        onClick={handleShow}
-      >
+      <Button onPress={onOpen} className=" m-2">
         {action}
       </Button>
-
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>{title}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{children}</Modal.Body>
-        {/* <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer> */}
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">{title}</ModalHeader>
+              <ModalBody>{children}</ModalBody>
+              {/* <ModalFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Close
+                </Button>
+                <Button color="primary" onPress={onClose}>
+                  Action
+                </Button>
+              </ModalFooter> */}
+            </>
+          )}
+        </ModalContent>
       </Modal>
     </>
   );
