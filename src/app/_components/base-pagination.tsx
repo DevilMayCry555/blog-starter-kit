@@ -26,6 +26,7 @@ export default function BasePagination({
         initialPage={+current}
         onChange={onPageChange}
       />
+      <Spacer y={4} />
     </div>
   );
 }

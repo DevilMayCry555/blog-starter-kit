@@ -1,76 +1,55 @@
 "use client";
 
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Divider,
-  Listbox,
-  ListboxItem,
-} from "@nextui-org/react";
-import { useRouter } from "next/navigation";
+import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
+import BaseList from "./base-list";
+
+const transfer = (obj: { [k: string]: any }) =>
+  Object.entries({ ...obj }).map(([value, label]) => ({ value, label }));
+
+const Pages = transfer({
+  "/posts": "他她",
+  "/map": "天气",
+  "/meeting/public": "广场",
+  "/draw": "画板",
+  "/guess": "竞猜",
+  "/demo": "GPT",
+});
+
+const Android = transfer({
+  "/deep.apk": "Deep@2024.06",
+});
+
+const Three = transfer({
+  "/three/solar": "solar",
+  "/three/tank": "tank",
+  "/three/g": "g",
+});
+
+const Control = transfer({
+  "/backdoor/user": "user",
+  "/backdoor/room": "room",
+  "/backdoor/location": "location",
+});
 
 export default function HomeList() {
-  const router = useRouter();
   return (
     <div className=" w-4/5 flex flex-col">
-      <Card className=" mt-4">
-        <CardHeader>Pages</CardHeader>
-        <Divider />
-        <CardBody>
-          <Listbox
-            aria-label="Pages"
-            onAction={(key) => router.push(`${key}`, { scroll: false })}
-          >
-            <ListboxItem key="/posts">他她</ListboxItem>
-            <ListboxItem key="/map">天气</ListboxItem>
-            <ListboxItem key="/meeting/public">广场</ListboxItem>
-            <ListboxItem key="/draw">画板</ListboxItem>
-            <ListboxItem key="/guess">竞猜</ListboxItem>
-            <ListboxItem key="/demo">GPT</ListboxItem>
-          </Listbox>
-        </CardBody>
-      </Card>
-      <Card className=" mt-4">
-        <CardHeader>Android</CardHeader>
-        <Divider />
-        <CardBody>
-          <Listbox
-            aria-label="Android"
-            onAction={(key) => router.push(`${key}`, { scroll: false })}
-          >
-            <ListboxItem key="/deep.apk">Deep@2024.06</ListboxItem>
-          </Listbox>
-        </CardBody>
-      </Card>
-      <Card className=" mt-4">
-        <CardHeader>Three</CardHeader>
-        <Divider />
-        <CardBody>
-          <Listbox
-            aria-label="Three"
-            onAction={(key) => router.push(`${key}`, { scroll: false })}
-          >
-            <ListboxItem key="/three/solar">solar</ListboxItem>
-            <ListboxItem key="/three/tank">tank</ListboxItem>
-            <ListboxItem key="/three/g">g</ListboxItem>
-          </Listbox>
-        </CardBody>
-      </Card>
-      <Card className=" mt-4">
-        <CardHeader>Control</CardHeader>
-        <Divider />
-        <CardBody>
-          <Listbox
-            aria-label="Three"
-            onAction={(key) => router.push(`${key}`, { scroll: false })}
-          >
-            <ListboxItem key="/backdoor/user">user</ListboxItem>
-            <ListboxItem key="/backdoor/room">room</ListboxItem>
-            <ListboxItem key="/backdoor/location">clue</ListboxItem>
-          </Listbox>
-        </CardBody>
-      </Card>
+      {transfer({
+        Pages,
+        Android,
+        Three,
+        Control,
+      }).map((it) => {
+        return (
+          <Card className=" mt-4" key={it.value}>
+            <CardHeader>{it.value}</CardHeader>
+            <Divider />
+            <CardBody>
+              <BaseList list={it.label} />
+            </CardBody>
+          </Card>
+        );
+      })}
     </div>
   );
 }
