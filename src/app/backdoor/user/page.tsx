@@ -47,16 +47,25 @@ export default async function Backdoor({ searchParams }: any) {
     ],
   };
   const actions = (row: any) => {
-    const { admin, uid } = row;
+    const { admin, uid, draw } = row;
     return {
       ...row,
       actions: [
         {
-          text: "查看",
+          text: "详情",
           action: "detail",
           method: "modal",
           params: {
-            uid: atob(uid),
+            uid,
+            atob: atob(uid),
+          },
+        },
+        {
+          text: "画板",
+          action: "draw",
+          method: "image",
+          params: {
+            data: draw,
           },
         },
         {

@@ -10,6 +10,7 @@ import {
   TableCell,
   Button,
   Snippet,
+  Image,
 } from "@nextui-org/react";
 import BaseModal from "./base-modal";
 
@@ -39,11 +40,18 @@ const getActions = (actions: any[]) => {
           {items.map((it) => {
             const [key, val] = it;
             return (
-              <div>
+              <div key={key}>
                 {key}：<Snippet>{`${val}`}</Snippet>
               </div>
             );
           })}
+        </BaseModal>
+      );
+    }
+    if (method === "image") {
+      return (
+        <BaseModal action={action} title={text}>
+          <Image width={150} src={`${params.data}`} />
         </BaseModal>
       );
     }
@@ -84,7 +92,9 @@ export default function BaseTable({ fields, rows }: Props) {
             {columns.map((it, idx) => {
               if (idx === 0) {
                 return (
-                  <TableCell key={idx}>{getActions(row.actions)}</TableCell>
+                  <TableCell key={idx} className=" flex justify-around">
+                    {getActions(row.actions)}
+                  </TableCell>
                 );
               }
               return <TableCell key={idx}>{row[it]}</TableCell>;
