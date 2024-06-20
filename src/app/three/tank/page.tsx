@@ -7,7 +7,7 @@ import Tank from "./tank";
  */
 export default async function ThreeDemo() {
   return (
-    <main>
+    <main className=" flex-1">
       <Tank />
     </main>
   );

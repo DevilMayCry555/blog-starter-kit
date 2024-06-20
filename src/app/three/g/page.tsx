@@ -7,7 +7,7 @@ import G from "./g";
  */
 export default async function ThreeDemo() {
   return (
-    <main>
+    <main className=" flex-1">
       <G />
     </main>
   );

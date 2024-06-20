@@ -10,7 +10,7 @@ import Solar from "./solar";
  */
 export default async function ThreeDemo() {
   return (
-    <main>
+    <main className=" flex-1">
       <Solar />
     </main>
   );
