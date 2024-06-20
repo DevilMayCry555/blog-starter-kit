@@ -25,7 +25,7 @@ export default function TopBanner({ uid }: any) {
         </NavbarBrand>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="sm:hidden"
+          className="lg:hidden"
         />
       </NavbarContent>
 
