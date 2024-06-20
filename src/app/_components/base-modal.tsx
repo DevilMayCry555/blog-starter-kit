@@ -23,9 +23,7 @@ export default function BaseModal({
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   return (
     <>
-      <Button onPress={onOpen} className=" m-2">
-        {action}
-      </Button>
+      <Button onPress={onOpen}>{action}</Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
