@@ -10,18 +10,21 @@ export async function middleware(request) {
     return;
   }
   const access = cookies().get("auth-token");
-  // console.log("access", access);
   // 未登录
   if (!access) {
     return NextResponse.redirect(new URL("/login", request.url));
+  }
+  // console.log("access", access);
+  // 仅管理员可见
+  if (!admin_routes.some((it) => pathname.includes(it))) {
+    return;
   }
   const info = await fetchUser(access.value);
   if (!info) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
-  // 仅管理员可见 admin 0 or 1
   const { admin } = info;
-  if (admin_routes.some((it) => pathname.includes(it)) && !Number(admin)) {
+  if (!Number(admin)) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 }
