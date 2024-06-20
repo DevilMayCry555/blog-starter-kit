@@ -25,27 +25,6 @@ export default async function Backdoor({ searchParams }: any) {
       },
     ],
   };
-  const updateProps = {
-    action: "/api/user",
-    method: "update",
-    columns: [
-      {
-        field: "uid",
-        label: "uid",
-        type: "input",
-      },
-      // {
-      //   field: "username",
-      //   label: "用户名",
-      //   type: "input",
-      // },
-      {
-        field: "birthday",
-        label: "生日",
-        type: "date",
-      },
-    ],
-  };
   const actions = (row: any) => {
     const { admin, uid, draw } = row;
     return {
@@ -56,8 +35,7 @@ export default async function Backdoor({ searchParams }: any) {
           action: "detail",
           method: "modal",
           params: {
-            uid,
-            atob: atob(uid),
+            k: atob(uid),
           },
         },
         {
@@ -77,7 +55,7 @@ export default async function Backdoor({ searchParams }: any) {
           },
         },
         {
-          text: Number(admin) ? "管理 关" : "管理 开",
+          text: Number(admin) ? "off" : "on",
           action: "/api/user",
           method: "admin",
           params: {
@@ -93,9 +71,6 @@ export default async function Backdoor({ searchParams }: any) {
       <Container>
         <BaseModal action="create" title="create user">
           <BaseForm {...createProps} />
-        </BaseModal>
-        <BaseModal action="update" title="update user">
-          <BaseForm {...updateProps} />
         </BaseModal>
         <BaseTable
           fields={fields.filter((it) => !["uid", "draw"].includes(it.name))}

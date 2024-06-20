@@ -36,7 +36,7 @@ const getActions = (actions: any[]) => {
     }
     if (method === "modal") {
       return (
-        <BaseModal action={action} title={text}>
+        <BaseModal key={idx} action={action} title={text}>
           {items.map((it) => {
             const [key, val] = it;
             return (
@@ -50,7 +50,7 @@ const getActions = (actions: any[]) => {
     }
     if (method === "image") {
       return (
-        <BaseModal action={action} title={text}>
+        <BaseModal key={idx} action={action} title={text}>
           <Image width={150} src={`${params.data}`} />
         </BaseModal>
       );
@@ -92,12 +92,15 @@ export default function BaseTable({ fields, rows }: Props) {
             {columns.map((it, idx) => {
               if (idx === 0) {
                 return (
-                  <TableCell key={idx} className=" flex justify-around">
+                  <TableCell
+                    key={`${row.uid}-${idx}`}
+                    className=" flex justify-around"
+                  >
                     {getActions(row.actions)}
                   </TableCell>
                 );
               }
-              return <TableCell key={idx}>{row[it]}</TableCell>;
+              return <TableCell key={`${row.uid}-${idx}`}>{row[it]}</TableCell>;
             })}
           </TableRow>
         ))}

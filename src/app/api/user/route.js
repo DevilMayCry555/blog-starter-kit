@@ -21,6 +21,7 @@ export async function GET(request) {
     await sql`UPDATE users SET
     birthday = ${birthday}
     WHERE uid = ${uid};`;
+    return NextResponse.redirect(new URL("/", request.url));
   }
   // 切换管理员状态
   if (method === "admin") {
