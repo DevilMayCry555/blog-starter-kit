@@ -16,14 +16,12 @@ export default async function Guess({ searchParams }: any) {
             </div>
           );
         })}
-        <div className=" absolute left-1/2 -translate-x-1/2 bottom-0">
-          <BasePagination
-            current={current}
-            pageSize={pageSize}
-            total={total}
-            path="/guess"
-          />
-        </div>
+        <BasePagination
+          current={current}
+          pageSize={pageSize}
+          total={total}
+          path="/guess"
+        />
       </Container>
     </main>
   );

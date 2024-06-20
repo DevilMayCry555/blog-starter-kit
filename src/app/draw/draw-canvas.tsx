@@ -10,7 +10,6 @@ let once = false;
 let canvas: HTMLCanvasElement | undefined = undefined;
 export default function DrawCanvas({ imgData, userid }: any) {
   const [cas_data, set_cas_data] = useState<string | undefined>("");
-  const [title, set_title] = useState<string | undefined>("");
   const [can_pb, set_can_pb] = useState(false);
   const [loading, setLoading] = useState(false);
   const handleSave = (data: string) => {
@@ -53,43 +52,11 @@ export default function DrawCanvas({ imgData, userid }: any) {
   return (
     <main>
       {/* <Container> */}
-      <form
-        action="/api/draw"
-        method="POST"
-        encType="text/plain"
-        onSubmit={(e) => {
-          handleClick({
-            method: "publish",
-            userid,
-            title,
-            canvas: cas_data,
-          });
-          e.preventDefault();
-        }}
-      >
-        <div className="input-box">
-          <input
-            type="text"
-            name="title"
-            value={title}
-            onChange={(e) => set_title(e.target.value)}
-            required
-            placeholder="请输入标题"
-          />
-          <Button
-            type="submit"
-            disabled={!can_pb || loading}
-            isLoading={loading}
-          >
-            发布
-          </Button>
-        </div>
-      </form>
       <canvas
         id="drawboard"
         className="shadow-md m-auto"
-        width={309}
-        height={500}
+        width={360}
+        height={360}
       >
         当前浏览器不支持canvas元素，请升级或更换浏览器！
       </canvas>
@@ -113,6 +80,29 @@ export default function DrawCanvas({ imgData, userid }: any) {
             isLoading={loading}
           >
             保存
+          </Button>
+        </form>
+        <form
+          action="/api/draw"
+          method="POST"
+          encType="text/plain"
+          onSubmit={(e) => {
+            const current = new Date();
+            handleClick({
+              method: "publish",
+              userid,
+              title: `${current.toLocaleDateString()} ${current.toLocaleTimeString()}`,
+              canvas: cas_data,
+            });
+            e.preventDefault();
+          }}
+        >
+          <Button
+            type="submit"
+            disabled={!can_pb || loading}
+            isLoading={loading}
+          >
+            发布
           </Button>
         </form>
       </div>

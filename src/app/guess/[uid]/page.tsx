@@ -21,9 +21,13 @@ export default async function Draw({ params }: any) {
   return (
     <main>
       <Container>
-        <Image src={src} alt="tyd" width={309} height={500} />
-        <hr />
-        <br />
+        <Image
+          className=" shadow-red-500 shadow-md m-4"
+          src={src}
+          alt="tyd"
+          width={360}
+          height={360}
+        />
         <Bottom
           finish={answer}
           done={isDone}

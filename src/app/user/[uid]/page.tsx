@@ -12,7 +12,7 @@ export default async function User({ params }: Params) {
   if (!info) {
     return notFound();
   }
-  const { username, birthday, admin, arts } = info;
+  const { username, birthday, admin, arts, draw } = info;
   const updateProps = {
     action: "/api/user",
     method: "update",
@@ -40,9 +40,15 @@ export default async function User({ params }: Params) {
           <MyUser
             name={username}
             description={`${birthday} ${Number(admin) && "管理员"}`}
-            // avatarProps={{
-            //   src: "https://i.pravatar.cc/150?u=a04258114e29026702d"
-            // }}
+            avatarProps={{
+              src: draw,
+              isBordered: true,
+              imgProps: {
+                style: {
+                  backgroundColor: "#fff",
+                },
+              },
+            }}
           />
           <BaseModal action="update" title="update user">
             <BaseForm {...updateProps} />
