@@ -22,6 +22,12 @@ export const fetchRooms = async (current: number, pageSize: number) => {
   };
   return data;
 };
+// 查找某房间
+export const fetchRoom = async (uid: string, k: string) => {
+  const data =
+    await sql`SELECT * FROM rooms WHERE uid = ${uid} AND password = ${k};`;
+  return data;
+};
 // 某个房间的所有聊天
 export const fetchChats = async (uid: string) => {
   const data = await sql`SELECT * FROM chats WHERE uid = ${uid};`;

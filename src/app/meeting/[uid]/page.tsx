@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
-import { fetchChats, fetchUser } from "@/lib/sql";
+import { fetchChats, fetchRoom, fetchUser } from "@/lib/sql";
 
 import "./style.css";
+import AuthError from "./auth-error";
 // import { WSClient } from "@/app/_components/ws-client";
 const format_name = (name = "robot") =>
   name
@@ -29,13 +30,18 @@ const Send = ({ formData }: { formData: { [k: string]: any } }) => {
     </form>
   );
 };
-export default async function Meeting({ params }: Params) {
+export default async function Meeting({ params, searchParams }: Params) {
   // 未登录
   const userinfo = await fetchUser();
   if (!userinfo) {
     return notFound();
   }
   const roomid = decodeURIComponent(params.uid);
+  const { k } = searchParams;
+  const room = await fetchRoom(roomid, k);
+  if (room.rows.length === 0) {
+    return <AuthError uid={roomid} />;
+  }
   const { rows } = await fetchChats(roomid);
   const { uid: userid, username } = userinfo;
   const formData = {
@@ -70,4 +76,5 @@ type Params = {
   params: {
     uid: string;
   };
+  searchParams: any;
 };

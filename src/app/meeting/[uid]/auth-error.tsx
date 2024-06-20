@@ -1,19 +1,13 @@
 import BaseForm from "@/app/_components/base-form";
-import BaseModal from "@/app/_components/base-modal";
 
 async function AuthError({ uid }: any) {
   const joinProps = {
-    action: "/api/room",
-    method: "join",
+    action: `/meeting/${uid}`,
+    method: "get",
+    text: "芝麻开门",
     columns: [
       {
-        field: "uid",
-        label: "代号",
-        type: "input",
-        init: uid,
-      },
-      {
-        field: "password",
+        field: "k",
         label: "口令",
         type: "input",
       },
@@ -21,11 +15,9 @@ async function AuthError({ uid }: any) {
   };
 
   return (
-    <div className="min-h-screen w-2/4 m-auto">
-      <BaseModal action="加入房间" title="join">
-        <BaseForm {...joinProps} />
-      </BaseModal>
-    </div>
+    <main className=" w-40 m-auto">
+      <BaseForm {...joinProps} />
+    </main>
   );
 }
 
