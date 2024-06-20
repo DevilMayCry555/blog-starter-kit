@@ -8,8 +8,8 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   // NavbarMenuItem,
-} from "@nextui-org/navbar";
-import { Link } from "@nextui-org/react";
+  Link,
+} from "@nextui-org/react";
 import { useState } from "react";
 
 export default function TopBanner({ uid }: any) {
@@ -30,9 +30,14 @@ export default function TopBanner({ uid }: any) {
       </NavbarContent>
 
       <NavbarContent justify="end" className="hidden lg:flex">
+        {uid && (
+          <NavbarItem>
+            <Link href={`/user/${btoa(uid)}`}>User</Link>
+          </NavbarItem>
+        )}
         <NavbarItem>
           {uid ? (
-            <Link href={`/user/${btoa(uid)}`}>User</Link>
+            <Link href="/api/logout">Logout</Link>
           ) : (
             <Link href="/api/login">Login</Link>
           )}
@@ -40,9 +45,14 @@ export default function TopBanner({ uid }: any) {
       </NavbarContent>
       {/* 折叠 */}
       <NavbarMenu>
+        {uid && (
+          <NavbarItem>
+            <Link href={`/user/${btoa(uid)}`}>User</Link>
+          </NavbarItem>
+        )}
         <NavbarItem>
           {uid ? (
-            <Link href={`/user/${btoa(uid)}`}>User</Link>
+            <Link href="/api/logout">Logout</Link>
           ) : (
             <Link href="/api/login">Login</Link>
           )}
