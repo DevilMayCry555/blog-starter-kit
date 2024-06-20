@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import "./amap.css";
-import { Spinner } from "@nextui-org/react";
+// import { Spinner } from "@nextui-org/react";
 
 const amap_jsapi_key = "559e609208e3e6d726a285abfbc116f8";
 
@@ -102,7 +102,7 @@ export default function AMapContainer() {
   return (
     <div className=" flex-1 relative">
       <div id="map-container" className=" h-full w-full">
-        <Spinner className=" fixed top-1/2 left-1/2" />
+        {/* <Spinner className=" fixed top-1/2 left-1/2" /> */}
       </div>
       <div className=" absolute bottom-0 left-0 right-0 bg-slate-500 text-white text-right">
         <div>{area}</div>
