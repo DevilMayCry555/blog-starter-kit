@@ -77,11 +77,7 @@ export default function BaseForm({
                 ))}
               </Select>
             )}
-            {type === "checkbox" && (
-              <Checkbox defaultSelected name={field}>
-                {label}
-              </Checkbox>
-            )}
+            {type === "checkbox" && <Checkbox name={field}>{label}</Checkbox>}
             {type === "date" && <DateInput label={label} name={field} />}
             {type === "time" && <TimeInput label={label} name={field} />}
             <Spacer y={4} />

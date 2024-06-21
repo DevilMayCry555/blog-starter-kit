@@ -30,11 +30,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: [
-    "/posts/:slug*",
-    "/backdoor/:door*",
-    "/api/:api*",
-    // "/meeting/:uid*",
-    // "/guess/:uid*",
-  ],
+  matcher: ["/posts/:slug*", "/backdoor/:door*", "/api/:api*"],
 };

@@ -22,7 +22,7 @@ export default async function Draw({ params }: any) {
     <main>
       <Container>
         <Image
-          className=" shadow-red-500 shadow-md m-4"
+          className=" shadow-slate-500 shadow-md m-4"
           src={src}
           alt="tyd"
           width={360}

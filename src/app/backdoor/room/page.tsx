@@ -48,7 +48,7 @@ export default async function Backdoor({ searchParams }: any) {
         },
         {
           text: "查看",
-          action: "/meeting/" + row.uid,
+          action: `/meeting/${row.uid}?k=${row.password}`,
           method: "router",
         },
       ],

@@ -10,7 +10,7 @@ export default async function Guess({ searchParams }: any) {
       <Container>
         {rows.map((row) => {
           const { uid, title } = row;
-          console.log(row);
+          // console.log(row);
           return (
             <div key={uid} className="py-2 border-b-2 border-red-300">
               <a href={`/guess/${uid}`}>{title}</a>

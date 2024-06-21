@@ -11,6 +11,9 @@ import {
   Button,
   Snippet,
   Image,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
 } from "@nextui-org/react";
 import BaseModal from "./base-modal";
 
@@ -23,56 +26,54 @@ interface Props {
   rows: RowProps[];
 }
 
-const getActions = (actions: any[]) => {
-  return actions.map((it, idx) => {
-    const { text, action, method, params } = it;
-    const items = Object.entries({ ...params, method });
-    if (method === "router") {
-      return (
-        <Link key={idx} href={action}>
-          <Button>{text}</Button>
-        </Link>
-      );
-    }
-    if (method === "modal") {
-      return (
-        <BaseModal key={idx} action={action} title={text}>
-          {items.map((it) => {
-            const [key, val] = it;
-            return (
-              <div key={key}>
-                {key}：<Snippet>{`${val}`}</Snippet>
-              </div>
-            );
-          })}
-        </BaseModal>
-      );
-    }
-    if (method === "image") {
-      return (
-        <BaseModal key={idx} action={action} title={text}>
-          <Image width={150} src={`${params.data}`} />
-        </BaseModal>
-      );
-    }
+const getAction = (item: any) => {
+  const { text, action, method, params } = item;
+  const items = Object.entries({ ...params, method });
+  if (method === "router") {
     return (
-      <form key={idx} action={action} method="GET">
+      <Link href={action}>
+        <Button>{text}</Button>
+      </Link>
+    );
+  }
+  if (method === "modal") {
+    return (
+      <BaseModal action={action} title={text}>
         {items.map((it) => {
           const [key, val] = it;
           return (
-            <input
-              key={key}
-              type="text"
-              className="hidden"
-              name={key}
-              defaultValue={String(val)}
-            />
+            <div key={key}>
+              {key}：<Snippet>{`${val}`}</Snippet>
+            </div>
           );
         })}
-        <Button type="submit">{text}</Button>
-      </form>
+      </BaseModal>
     );
-  });
+  }
+  if (method === "image") {
+    return (
+      <BaseModal action={action} title={text}>
+        <Image width={150} src={`${params.data}`} />
+      </BaseModal>
+    );
+  }
+  return (
+    <form action={action} method="GET">
+      {items.map((it) => {
+        const [key, val] = it;
+        return (
+          <input
+            key={key}
+            type="text"
+            className="hidden"
+            name={key}
+            defaultValue={String(val)}
+          />
+        );
+      })}
+      <Button type="submit">{text}</Button>
+    </form>
+  );
 };
 
 export default function BaseTable({ fields, rows }: Props) {
@@ -92,11 +93,21 @@ export default function BaseTable({ fields, rows }: Props) {
             {columns.map((it, idx) => {
               if (idx === 0) {
                 return (
-                  <TableCell
-                    key={`${row.uid}-${idx}`}
-                    className=" flex justify-around"
-                  >
-                    {getActions(row.actions)}
+                  <TableCell key={it}>
+                    <Popover placement="right">
+                      <PopoverTrigger>
+                        <Button>Actions</Button>
+                      </PopoverTrigger>
+                      <PopoverContent>
+                        {row.actions.map((it, adx) => {
+                          return (
+                            <div key={adx} className=" p-1">
+                              {getAction(it)}
+                            </div>
+                          );
+                        })}
+                      </PopoverContent>
+                    </Popover>
                   </TableCell>
                 );
               }
