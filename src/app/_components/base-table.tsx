@@ -11,9 +11,6 @@ import {
   Button,
   Snippet,
   Image,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
 } from "@nextui-org/react";
 import BaseModal from "./base-modal";
 
@@ -53,7 +50,7 @@ const getAction = (item: any) => {
   if (method === "image") {
     return (
       <BaseModal action={action} title={text}>
-        <Image width={150} src={`${params.data}`} />
+        <Image width={360} height={360} src={`${params.data}`} />
       </BaseModal>
     );
   }
@@ -93,21 +90,14 @@ export default function BaseTable({ fields, rows }: Props) {
             {columns.map((it, idx) => {
               if (idx === 0) {
                 return (
-                  <TableCell key={it}>
-                    <Popover placement="right">
-                      <PopoverTrigger>
-                        <Button>Actions</Button>
-                      </PopoverTrigger>
-                      <PopoverContent>
-                        {row.actions.map((it, adx) => {
-                          return (
-                            <div key={adx} className=" p-1">
-                              {getAction(it)}
-                            </div>
-                          );
-                        })}
-                      </PopoverContent>
-                    </Popover>
+                  <TableCell key={it} className=" flex">
+                    {row.actions.map((it, adx) => {
+                      return (
+                        <div key={adx} className=" p-1">
+                          {getAction(it)}
+                        </div>
+                      );
+                    })}
                   </TableCell>
                 );
               }
