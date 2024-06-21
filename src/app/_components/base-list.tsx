@@ -12,10 +12,10 @@ export default function HomeList({ list }: Prop) {
   return (
     <Listbox
       aria-label="Pages"
-      onAction={(key) => router.push(`${key}`, { scroll: false })}
+      onAction={(key) => router.push(`${key}`, { scroll: true })}
     >
       {list.map((it) => {
-        return <ListboxItem key={it.value}>{it.label}</ListboxItem>;
+        return <ListboxItem key={it.label}>{it.value}</ListboxItem>;
       })}
     </Listbox>
   );

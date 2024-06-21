@@ -4,7 +4,7 @@ import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
 import BaseList from "./base-list";
 
 const transfer = (obj: { [k: string]: any }) =>
-  Object.entries({ ...obj }).map(([value, label]) => ({ value, label }));
+  Object.entries({ ...obj }).map(([label, value]) => ({ value, label }));
 
 const Pages = transfer({
   "/posts": "他她",
@@ -41,11 +41,11 @@ export default function HomeList() {
         Control,
       }).map((it) => {
         return (
-          <Card className=" mt-4" key={it.value}>
-            <CardHeader>{it.value}</CardHeader>
+          <Card className=" mt-4" key={it.label}>
+            <CardHeader>{it.label}</CardHeader>
             <Divider />
             <CardBody>
-              <BaseList list={it.label} />
+              <BaseList list={it.value} />
             </CardBody>
           </Card>
         );
