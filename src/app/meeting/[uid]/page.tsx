@@ -20,16 +20,16 @@ const Send = ({ formData }: { formData: { [k: string]: any } }) => {
   );
 };
 export default async function Meeting({ params, searchParams }: Params) {
-  // 未登录
-  const userinfo = await fetchUser();
-  if (!userinfo) {
-    return notFound();
-  }
   const roomid = decodeURIComponent(params.uid);
   const { k } = searchParams;
   const room = await fetchRoom(roomid, k);
   if (room.rows.length === 0) {
     return <AuthError uid={roomid} />;
+  }
+  // 未登录
+  const userinfo = await fetchUser();
+  if (!userinfo) {
+    return notFound();
   }
   const { rows } = await fetchChats(roomid);
   const { uid: userid, username } = userinfo;
