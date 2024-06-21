@@ -112,7 +112,7 @@ export default function Solar() {
     <div
       id="solar"
       style={{
-        height: 600,
+        height: 300,
         backgroundColor: "#000000",
         color: "#fff",
       }}

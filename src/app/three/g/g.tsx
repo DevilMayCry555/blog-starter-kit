@@ -69,7 +69,7 @@ export default function G() {
     }
   }, []);
   return (
-    <div id="threeg" style={{ height: 600, boxShadow: "inset 0 0 5px red" }}>
+    <div id="threeg" style={{ height: 300, boxShadow: "inset 0 0 5px red" }}>
       <span>抱歉，浏览器不支持画布。</span>
     </div>
   );
