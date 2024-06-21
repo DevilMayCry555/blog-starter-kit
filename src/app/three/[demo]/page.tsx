@@ -11,7 +11,7 @@ export default async function Three({ params }: any) {
   }
 
   return (
-    <main className=" m-auto w-1/2">
+    <main className=" m-auto w-full">
       {demo === "g" && <G />}
       {demo === "solar" && <Solar />}
       {demo === "tank" && <Tank />}
