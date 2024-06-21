@@ -3,8 +3,8 @@ import BaseForm from "@/app/_components/base-form";
 async function AuthError({ uid }: any) {
   const joinProps = {
     action: `/meeting/${uid}`,
-    method: "get",
-    text: "芝麻开门",
+    method: "",
+    text: "进入",
     columns: [
       {
         field: "k",

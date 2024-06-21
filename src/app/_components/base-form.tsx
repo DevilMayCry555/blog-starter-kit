@@ -38,7 +38,10 @@ export default function BaseForm({
 }: Props) {
   return (
     <form action={action} method="GET" encType="text/plain">
-      <input type="text" name="method" defaultValue={method} hidden />
+      {method ? (
+        <input type="text" name="method" defaultValue={method} hidden />
+      ) : null}
+
       {columns.map((it) => {
         const {
           field,

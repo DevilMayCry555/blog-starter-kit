@@ -3,12 +3,6 @@ import { fetchChats, fetchRoom, fetchUser } from "@/lib/sql";
 
 import "./style.css";
 import AuthError from "./auth-error";
-// import { WSClient } from "@/app/_components/ws-client";
-const format_name = (name = "robot") =>
-  name
-    .split("_")
-    .map((it, idx) => (idx > 0 ? "*" : it))
-    .join(" ");
 const Send = ({ formData }: { formData: { [k: string]: any } }) => {
   return (
     <form action="/api/meeting" method="GET" encType="text/plain">
@@ -19,12 +13,7 @@ const Send = ({ formData }: { formData: { [k: string]: any } }) => {
         );
       })}
       <div className="input-box">
-        <input
-          type="text"
-          name="content"
-          required
-          placeholder="请输入消息..."
-        />
+        <input type="text" name="content" required placeholder="不超过20字" />
         <button type="submit">发送</button>
       </div>
     </form>
@@ -59,7 +48,7 @@ export default async function Meeting({ params, searchParams }: Params) {
           const { user_name, content, create_time } = row;
           return (
             <div key={idx} className="chat-message">
-              <div className="user-name">{format_name(user_name)}:</div>
+              <div className="user-name">{user_name}:</div>
               <div className="message-content">{content}</div>
               <div className="text-xs text-slate-400 flex justify-between">
                 <span>{create_time}</span>
