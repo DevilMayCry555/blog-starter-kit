@@ -82,35 +82,33 @@ export default function Chat({ usage }: Prop) {
     });
   }, []);
   return (
-    <div className="flex flex-col w-full max-w-md p-2 mx-auto stretch shadow-inner shadow-slate-700">
-      <p className=" text-xs text-center">
-        {/* 模型：GPT-3.5，知识库于2022年1月停止更新，流量使用情况： */}
-        模型：GPT-4，单次回复不会超过10s，流量使用情况：
-      </p>
-      <Progress value={usage} label={`${usage.toFixed(0)}%`} />
-      {me.map((it, idx) => {
-        return (
-          <div key={idx}>
-            <div className=" text-right">
-              <strong>user: </strong>
-              <p>{it}</p>
-            </div>
-            {ai[idx] && (
-              <div>
-                <strong>AI: </strong>
-                <p>{ai[idx]}</p>
+    <div className=" flex-1 w-full pb-16 max-w-md mx-auto stretch ">
+      <Progress value={usage} label={`流量使用情况：${usage.toFixed(0)}%`} />
+      <div className=" shadow-inner shadow-slate-700">
+        {me.map((it, idx) => {
+          return (
+            <div key={idx}>
+              <div className=" text-right">
+                <strong>user: </strong>
+                <p>{it}</p>
               </div>
-            )}
+              {ai[idx] && (
+                <div>
+                  <strong>AI: </strong>
+                  <p>{ai[idx]}</p>
+                </div>
+              )}
+            </div>
+          );
+        })}
+        {text && (
+          <div>
+            <strong>AI: </strong>
+            <p>{text}</p>
           </div>
-        );
-      })}
-      {text && (
-        <div>
-          <strong>AI: </strong>
-          <p>{text}</p>
-        </div>
-      )}
-      {loading && <Spinner />}
+        )}
+        {loading && <Spinner />}
+      </div>
       <div id="chat_bottom"></div>
       <form
         className="fixed bottom-2 left-0 right-0 text-center"
