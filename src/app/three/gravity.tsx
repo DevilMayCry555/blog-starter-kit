@@ -70,6 +70,7 @@ export default function Gravity() {
   useEffect(() => {
     const node = document.getElementById("gravity");
     if (node) {
+      console.log("Gravity");
       createRoot(node).render(<Scene />);
     }
   }, []);

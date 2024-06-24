@@ -13,16 +13,11 @@ const Pages = transfer({
   "/draw": "画板",
   "/guess": "竞猜",
   "/demo": "GPT",
+  "/three": "3D",
 });
 
 const Android = transfer({
   "/deep.apk": "Deep@2024.06",
-});
-
-const Three = transfer({
-  "/three/solar": "solar",
-  "/three/tank": "tank",
-  "/three/gravity": "gravity",
 });
 
 const Control = transfer({
@@ -37,7 +32,6 @@ export default function HomeList() {
       {transfer({
         Pages,
         Android,
-        Three,
         Control,
       }).map((it) => {
         return (

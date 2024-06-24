@@ -86,7 +86,7 @@ export default function Solar() {
   useEffect(() => {
     const node = document.getElementById("solar");
     if (node) {
-      console.log("上帝视角 太阳系");
+      console.log("Solar");
       createRoot(node).render(
         <Canvas>
           <CustomCamera />
