@@ -2,13 +2,19 @@
 title: "Love Diary"
 excerpt: "Sharing our daily lives, trips, and sweet moments."
 coverImage: "/assets/blog/love-diary/cover.jpg"
-date: "2024-06-11"
+date: "2024-06-24"
 author:
   name: L.D.T
   picture: "/assets/blog/authors/ly.jpg"
 ogImage:
   url: "/assets/blog/love-diary/cover.jpg"
 ---
+
+**_2024/06/16 大连_**  
+情侣周末，大连避暑胜地吖  
+一起玩 ns，去海边散步，看小破球 2  
+请公主实验室的姐妹吃饭  
+拍了第一张合照
 
 **_2024/06/09 端午_**  
 最近宝宝烦心事比较多  
