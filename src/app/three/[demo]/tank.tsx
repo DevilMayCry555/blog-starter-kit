@@ -6,7 +6,17 @@ import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { createRoot } from "react-dom/client";
 
-const Train = ({ curve: Curve, order, init, onMove, ...rest }: any) => {
+const curve = new THREE.CatmullRomCurve3([
+  new THREE.Vector3(-20, 0, 10),
+  new THREE.Vector3(-10, 0, -10),
+  new THREE.Vector3(-5, 0, 5),
+  new THREE.Vector3(0, 0, 0),
+  new THREE.Vector3(5, 0, -5),
+  new THREE.Vector3(10, 0, 10),
+  new THREE.Vector3(20, 0, -10),
+]);
+
+const Train = ({ curve: Curve, order, init, ...rest }: any) => {
   const curve: THREE.CatmullRomCurve3 = Curve;
   const trainRef = useRef<THREE.Mesh>();
   const [t, setT] = useState(Number(init));
@@ -36,7 +46,6 @@ const Train = ({ curve: Curve, order, init, onMove, ...rest }: any) => {
       current.quaternion.setFromAxisAngle(axis, radians);
       // up指向x正轴，则它与切线的叉积指向y正轴，点积指向两向量的同向
       // console.log(axis, radians);
-      onMove?.(order, t);
     }
   });
   return (
@@ -46,7 +55,31 @@ const Train = ({ curve: Curve, order, init, onMove, ...rest }: any) => {
     </mesh>
   );
 };
+const Trains = () => {
+  const [c, setC] = useState(3);
+  const [t, setT] = useState(0); // 检测第一个方块
+  useFrame(() => {
+    setT((t) => (t + 0.002) % 1);
+    if (t + 0.002 > 1) {
+      setC((state) => state + 1);
+    }
+  });
 
+  return (
+    <>
+      {Array(c)
+        .fill(0)
+        .map((it, idx) => (
+          <Train
+            key={idx}
+            curve={curve}
+            init={it - (idx * 2) / 100}
+            order={idx}
+          />
+        ))}
+    </>
+  );
+};
 function CustomCamera() {
   const { camera } = useThree();
   useEffect(() => {
@@ -58,50 +91,13 @@ function CustomCamera() {
   return null;
 }
 const Scene = () => {
-  const curve = new THREE.CatmullRomCurve3([
-    new THREE.Vector3(-20, 0, 10),
-    new THREE.Vector3(-10, 0, -10),
-    new THREE.Vector3(-5, 0, 5),
-    new THREE.Vector3(0, 0, 0),
-    new THREE.Vector3(5, 0, -5),
-    new THREE.Vector3(10, 0, 10),
-    new THREE.Vector3(20, 0, -10),
-  ]);
-
-  const [c, setC] = useState(3);
   const [f, setF] = useState([{ x: 0, y: 0, z: 0 }]);
-  const onMove = useMemo(() => {
-    const qwer = {};
-    return (order: number, t: number) => {
-      Object.assign(qwer, {
-        [order]: t,
-      });
-      if (order !== 0) {
-        return false;
-      }
-      const r = t + 0.002;
-      if (r < 1) {
-        return false;
-      }
-      setC((state) => state + 1);
-    };
-  }, []);
   return (
     <Canvas>
       <CustomCamera />
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
-      {Array(c)
-        .fill(0)
-        .map((it, idx) => (
-          <Train
-            key={idx}
-            curve={curve}
-            init={it - (idx * 2) / 100}
-            order={idx}
-            onMove={onMove}
-          />
-        ))}
+      <Trains />
       <OrbitControls />
       <mesh>
         {/* path — Curve - 一个由基类Curve继承而来的3D路径。 Default is a quadratic bezier curve.
