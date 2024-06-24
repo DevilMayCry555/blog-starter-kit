@@ -56,20 +56,15 @@ function Scene() {
     </Canvas>
   );
 }
-let once = false;
-export default function G() {
+export default function Gravity() {
   useEffect(() => {
-    if (once) {
-      return;
-    }
-    once = true;
-    const node = document.getElementById("threeg");
+    const node = document.getElementById("gravity");
     if (node) {
       createRoot(node).render(<Scene />);
     }
   }, []);
   return (
-    <div id="threeg" style={{ height: 300, boxShadow: "inset 0 0 5px red" }}>
+    <div id="gravity" style={{ height: 300, boxShadow: "inset 0 0 5px red" }}>
       <span>抱歉，浏览器不支持画布。</span>
     </div>
   );

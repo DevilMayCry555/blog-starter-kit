@@ -6,8 +6,6 @@ import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { createRoot } from "react-dom/client";
 
-let once = false;
-
 const Train = ({ curve: Curve, order, init, onMove, ...rest }: any) => {
   const curve: THREE.CatmullRomCurve3 = Curve;
   const trainRef = useRef<THREE.Mesh>();
@@ -69,19 +67,21 @@ const Scene = () => {
 
   const [c, setC] = useState(3);
   const [f, setF] = useState([{ x: 0, y: 0, z: 0 }]);
-  const qwer = {};
-  const onMove = useCallback((order: number, t: number) => {
-    Object.assign(qwer, {
-      [order]: t,
-    });
-    if (order !== 0) {
-      return false;
-    }
-    const r = t + 0.002;
-    if (r < 1) {
-      return false;
-    }
-    setC((state) => state + 1);
+  const onMove = useMemo(() => {
+    const qwer = {};
+    return (order: number, t: number) => {
+      Object.assign(qwer, {
+        [order]: t,
+      });
+      if (order !== 0) {
+        return false;
+      }
+      const r = t + 0.002;
+      if (r < 1) {
+        return false;
+      }
+      setC((state) => state + 1);
+    };
   }, []);
   return (
     <Canvas camera={camera}>
@@ -123,10 +123,6 @@ const Scene = () => {
 
 export default function Tank() {
   useEffect(() => {
-    if (once) {
-      return;
-    }
-    once = true;
     const node = document.getElementById("tank");
     if (node) {
       createRoot(node).render(<Scene />);

@@ -5,8 +5,6 @@ import { useEffect, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
-let once = false;
-
 /**
  * 太阳
  * @param props
@@ -77,10 +75,6 @@ function Rotate3D(props: any) {
 
 export default function Solar() {
   useEffect(() => {
-    if (once) {
-      return;
-    }
-    once = true;
     const node = document.getElementById("solar");
     if (node) {
       console.log("上帝视角 太阳系");
