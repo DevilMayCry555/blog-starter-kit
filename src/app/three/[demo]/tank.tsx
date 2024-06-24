@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { createRoot } from "react-dom/client";
@@ -47,6 +47,16 @@ const Train = ({ curve: Curve, order, init, onMove, ...rest }: any) => {
   );
 };
 
+function CustomCamera() {
+  const { camera } = useThree();
+  useEffect(() => {
+    camera.position.set(50, 20, 0);
+    // camera.up.set(0, 0, 1);
+    camera.lookAt(0, 0, 0);
+  }, [camera]);
+
+  return null;
+}
 const Scene = () => {
   const curve = new THREE.CatmullRomCurve3([
     new THREE.Vector3(-20, 0, 10),
@@ -57,13 +67,6 @@ const Scene = () => {
     new THREE.Vector3(10, 0, 10),
     new THREE.Vector3(20, 0, -10),
   ]);
-  const camera = useMemo(() => {
-    const camera = new THREE.PerspectiveCamera(50);
-    camera.position.set(50, 20, 0);
-    // camera.up.set(0, 0, 1);
-    camera.lookAt(0, 0, 0);
-    return camera;
-  }, []);
 
   const [c, setC] = useState(3);
   const [f, setF] = useState([{ x: 0, y: 0, z: 0 }]);
@@ -84,7 +87,8 @@ const Scene = () => {
     };
   }, []);
   return (
-    <Canvas camera={camera}>
+    <Canvas>
+      <CustomCamera />
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
       {Array(c)
