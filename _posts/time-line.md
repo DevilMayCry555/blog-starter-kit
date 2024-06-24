@@ -2,7 +2,7 @@
 title: "Time Line"
 excerpt: "A timeline of love between Big Tiger and little bull."
 coverImage: "/assets/blog/time-line/cover.jpeg"
-date: "2024-06-03 10:00"
+date: "2024-06-24"
 author:
   name: L.D.T
   picture: "/assets/blog/authors/ly.jpg"
@@ -10,8 +10,11 @@ ogImage:
   url: "/assets/blog/time-line/cover.jpeg"
 ---
 
+tl**_2024/06/24_**  
+ym
+
 tl**_2024/06/03_**  
-虚惊一场
+ym
 
 tl**_2024/05/04_**  
 欢度五一
