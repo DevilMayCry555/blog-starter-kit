@@ -10,7 +10,7 @@ export async function middleware(request) {
   }
   const { admin } = info;
   if (!Number(admin)) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL("/404", request.url));
   }
 }
 
