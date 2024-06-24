@@ -22,7 +22,7 @@ const Android = transfer({
 const Three = transfer({
   "/three/solar": "solar",
   "/three/tank": "tank",
-  "/three/g": "g",
+  "/three/gravity": "gravity",
 });
 
 const Control = transfer({
