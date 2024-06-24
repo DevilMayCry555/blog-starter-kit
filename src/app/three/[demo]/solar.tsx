@@ -2,7 +2,7 @@
 
 import { createRoot } from "react-dom/client";
 import { useEffect, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
 /**
@@ -72,18 +72,24 @@ function Rotate3D(props: any) {
   });
   return <object3D {...props} ref={ref} />;
 }
+function CustomCamera() {
+  const { camera } = useThree();
+  useEffect(() => {
+    camera.position.set(0, 50, 0);
+    camera.up.set(0, 0, 1);
+    camera.lookAt(0, 0, 0);
+  }, [camera]);
 
+  return null;
+}
 export default function Solar() {
   useEffect(() => {
     const node = document.getElementById("solar");
     if (node) {
       console.log("上帝视角 太阳系");
-      const camera = new THREE.PerspectiveCamera();
-      camera.position.set(0, 50, 0);
-      camera.up.set(0, 0, 1);
-      camera.lookAt(0, 0, 0);
       createRoot(node).render(
-        <Canvas camera={camera}>
+        <Canvas>
+          <CustomCamera />
           <Rotate3D>
             <Sun />
             <Rotate3D position={[15, 0, 0]}>

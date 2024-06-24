@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Sphere } from "@react-three/drei";
 import { createRoot } from "react-dom/client";
 import * as THREE from "three";
@@ -41,10 +41,20 @@ function Ball(props: any) {
     </mesh>
   );
 }
+function CustomCamera() {
+  const { camera } = useThree();
+  useEffect(() => {
+    camera.position.set(0, 0, 20);
+    // camera.up.set(0, 0, 1);
+    camera.lookAt(0, 0, 0);
+  }, [camera]);
 
+  return null;
+}
 function Scene() {
   return (
     <Canvas>
+      <CustomCamera />
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
       <Ball />
