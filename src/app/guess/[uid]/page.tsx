@@ -1,8 +1,8 @@
 import Container from "@/app/_components/container";
 import { fetchArt, fetchGuesses, fetchUser } from "@/lib/sql";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import BaseForm from "@/app/_components/base-form";
+import { Image, Divider } from "@nextui-org/react";
 
 export default async function Draw({ params }: any) {
   // 未登录
@@ -19,15 +19,10 @@ export default async function Draw({ params }: any) {
   const { content: src, answer, isOwn, isDone } = detail;
   // console.log(isOwn, isDone);
   return (
-    <main>
+    <main className=" flex-1">
       <Container>
-        <Image
-          className=" shadow-slate-500 shadow-md m-4"
-          src={src}
-          alt="tyd"
-          width={360}
-          height={360}
-        />
+        <Image src={src} alt="tyd" width={360} />
+        <Divider />
         <Bottom
           finish={answer}
           done={isDone}
