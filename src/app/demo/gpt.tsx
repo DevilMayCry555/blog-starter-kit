@@ -34,7 +34,6 @@ export default function Chat({ usage }: Prop) {
       if (done) {
         console.log("Stream finished");
         set_loading(false);
-        document.getElementById("chat_bottom")?.scrollIntoView();
         return;
       }
       const slice = decoder.decode(value);
@@ -81,24 +80,8 @@ export default function Chat({ usage }: Prop) {
     });
   }, []);
   return (
-    <div className=" flex-1 pb-20 max-w-md mx-auto relative">
+    <div className=" flex-1 pt-20 max-w-md mx-auto relative">
       <div className=" shadow-inner shadow-slate-700 px-2">
-        {me.map((it, idx) => {
-          return (
-            <div key={idx}>
-              <div className=" text-right">
-                <strong>user: </strong>
-                <p>{it}</p>
-              </div>
-              {ai[idx] && (
-                <div>
-                  <strong>AI: </strong>
-                  <p>{ai[idx]}</p>
-                </div>
-              )}
-            </div>
-          );
-        })}
         {text && (
           <div>
             <strong>AI: </strong>
@@ -106,10 +89,27 @@ export default function Chat({ usage }: Prop) {
           </div>
         )}
         {loading && <Spinner />}
+        {me
+          .map((it, idx) => {
+            return (
+              <div key={idx}>
+                {ai[idx] && (
+                  <div>
+                    <strong>AI: </strong>
+                    <p>{ai[idx]}</p>
+                  </div>
+                )}
+                <div className=" text-right">
+                  <strong>user: </strong>
+                  <p>{it}</p>
+                </div>
+              </div>
+            );
+          })
+          .reverse()}
       </div>
-      <div id="chat_bottom"></div>
       <form
-        className=" absolute bottom-2 left-0 right-0 text-center"
+        className=" absolute top-2 left-0 right-0 text-center"
         onSubmit={handleSubmit}
       >
         <Progress value={usage} size="sm" />
