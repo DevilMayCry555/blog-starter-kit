@@ -34,6 +34,7 @@ export default function Chat({ usage }: Prop) {
       if (done) {
         console.log("Stream finished");
         set_loading(false);
+        document.getElementById("chat_bottom")?.scrollIntoView();
         return;
       }
       const slice = decoder.decode(value);
@@ -42,8 +43,6 @@ export default function Chat({ usage }: Prop) {
       set_text((value) => {
         return value + slice;
       });
-      const bottom = document.getElementById("chat_bottom");
-      bottom!.scrollIntoView();
 
       return reader.read().then(process);
     });
@@ -82,9 +81,8 @@ export default function Chat({ usage }: Prop) {
     });
   }, []);
   return (
-    <div className=" flex-1 w-full pb-16 max-w-md mx-auto stretch ">
-      <Progress value={usage} label={`流量使用情况：${usage.toFixed(0)}%`} />
-      <div className=" shadow-inner shadow-slate-700">
+    <div className=" flex-1 pb-20 max-w-md mx-auto relative">
+      <div className=" shadow-inner shadow-slate-700 px-2">
         {me.map((it, idx) => {
           return (
             <div key={idx}>
@@ -111,9 +109,10 @@ export default function Chat({ usage }: Prop) {
       </div>
       <div id="chat_bottom"></div>
       <form
-        className="fixed bottom-2 left-0 right-0 text-center"
+        className=" absolute bottom-2 left-0 right-0 text-center"
         onSubmit={handleSubmit}
       >
+        <Progress value={usage} size="sm" />
         <input
           className="w-full max-w-md p-2 border border-gray-300 rounded shadow-xl"
           value={input}
