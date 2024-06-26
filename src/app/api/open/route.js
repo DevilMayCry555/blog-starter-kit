@@ -7,15 +7,10 @@ const decoder = new TextDecoder();
 const ip_api = "https://ipapi.com/ip_api.php";
 const amap_web_key = "382ac00b0f966675fb9d96027c61811c";
 const regeo_api = "https://restapi.amap.com/v3/geocode/regeo";
-const private_api = "https://privacy.aiuys.com/api/query";
 
 export async function GET(request) {
   const { search } = request.nextUrl;
-  const { type, identity, code } = qs(search);
-  if (code) {
-    const info = await fetch(`${private_api}?value=${code}`);
-    return NextResponse.json({ info }, { status: 200 });
-  }
+  const { type, identity } = qs(search);
   if (!identity) {
     return NextResponse.json({ error: "identity error" }, { status: 500 });
   }
