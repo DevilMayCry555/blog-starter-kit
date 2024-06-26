@@ -4,13 +4,20 @@ import { sql } from "@vercel/postgres";
 import { format } from "date-fns";
 
 const decoder = new TextDecoder();
-const ip_location_api = "https://ipapi.com/ip_api.php";
+const ip_api = "https://ipapi.com/ip_api.php";
 const amap_web_key = "382ac00b0f966675fb9d96027c61811c";
 const regeo_api = "https://restapi.amap.com/v3/geocode/regeo";
+const private_api = "https://privacy.aiuys.com/api/query";
 
 export async function GET(request) {
   const { search } = request.nextUrl;
-  const { type, identity } = qs(search);
+  const { type, identity, code } = qs(search);
+  if (code) {
+    const info = await fetch(`${private_api}?value=${code}`).then((res) =>
+      res.json()
+    );
+    return NextResponse.json({ info }, { status: 200 });
+  }
   if (!identity) {
     return NextResponse.json({ error: "identity error" }, { status: 500 });
   }
@@ -33,9 +40,9 @@ export async function POST(request) {
   } catch (e) {
     const xff = request.headers.get("x-forwarded-for");
     // 获取经纬度
-    const { longitude, latitude } = await fetch(
-      `${ip_location_api}?ip=${xff}`
-    ).then((res) => res.json());
+    const { longitude, latitude } = await fetch(`${ip_api}?ip=${xff}`).then(
+      (res) => res.json()
+    );
     // 查询区域
     const { info, regeocode } = await fetch(
       `${regeo_api}?key=${amap_web_key}&location=${longitude},${latitude}`
