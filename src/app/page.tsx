@@ -1,13 +1,16 @@
-// import { fetchUser } from "@/lib/sql";
-// import { notFound } from "next/navigation";
 import HomeList from "./_components/home-list";
+import NewsList from "./_components/news-list";
+
+const getNewsApi = (size: number) =>
+  `https://www.gcores.com/gapi/v1/articles?page[limit]=${size}&page[offset]=0&sort=-published-at`;
 
 export default async function Index() {
-  // 未登录
-  // const userinfo = await fetchUser("", { draw: false });
-  // if (!userinfo) {
-  //   return notFound();
-  // }
-
-  return <HomeList />;
+  const info = await fetch(getNewsApi(20)).then((res) => res.json());
+  return (
+    <main className=" flex-1 flex flex-col items-center overflow-hidden">
+      <HomeList />
+      <p>---</p>
+      <NewsList data={info.data} />
+    </main>
+  );
 }
