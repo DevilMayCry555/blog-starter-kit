@@ -13,9 +13,7 @@ export async function GET(request) {
   const { search } = request.nextUrl;
   const { type, identity, code } = qs(search);
   if (code) {
-    const info = await fetch(`${private_api}?value=${code}`).then((res) =>
-      res.json()
-    );
+    const info = await fetch(`${private_api}?value=${code}`);
     return NextResponse.json({ info }, { status: 200 });
   }
   if (!identity) {
