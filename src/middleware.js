@@ -4,6 +4,9 @@ export async function middleware(request) {
   // 所有api 除了登录
   const { pathname } = request.nextUrl;
   console.log(pathname);
+  if (pathname === "/posts") {
+    return;
+  }
   const info = await fetchUser();
   if (!info) {
     return NextResponse.redirect(new URL("/login", request.url));
