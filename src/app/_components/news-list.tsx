@@ -2,6 +2,8 @@
 
 import { Accordion, AccordionItem, Link } from "@nextui-org/react";
 import DateFormatter from "./date-formatter";
+import BaseRadioPlayer from "./base-radio-player";
+// import BaseModal from "./base-modal";
 
 const imagePath = "https://image.gcores.com/";
 
@@ -22,7 +24,9 @@ interface article {
   attributes: attr;
 }
 const getImages = (obj: { [k: string]: fileMap }) =>
-  Object.values({ ...obj }).map((value) => `${imagePath}${value.data.path}`);
+  Object.values({ ...obj })
+    .filter((value) => value.type === "IMAGE")
+    .map((value) => `${imagePath}${value.data.path}`);
 
 const getContent = (parts: any[]) =>
   parts.filter((it) => it.type === "unstyled").map((it) => it.text);
@@ -52,17 +56,21 @@ const transData = (news: article[]) =>
     }
   });
 
-export default function NewsList({ data }: any) {
+export default function NewsList({ data, paths = [] }: any) {
+  // type radios articles
   const news = transData(data);
+  console.log(paths);
+  const isRadios = paths.length > 0;
   return (
     <Accordion>
-      {news.map((it) => (
+      {news.map((it, idx) => (
         <AccordionItem
           key={it.id}
           aria-label={it.title}
           title={it.title}
           subtitle={it.desc}
         >
+          <div>{isRadios && <BaseRadioPlayer url={paths[idx]} />}</div>
           <DateFormatter dateString={it.time} />
           {it.blocks.map((it, idx) => (
             <div key={idx}>{it}</div>

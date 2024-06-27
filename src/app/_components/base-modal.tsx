@@ -24,7 +24,7 @@ export default function BaseModal({
   return (
     <>
       <Button onPress={onOpen}>{action}</Button>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false}>
         <ModalContent>
           {(onClose) => (
             <>
