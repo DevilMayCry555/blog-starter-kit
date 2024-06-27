@@ -1,6 +1,7 @@
 "use client";
 
-import { Accordion, AccordionItem } from "@nextui-org/react";
+import { Accordion, AccordionItem, Link } from "@nextui-org/react";
+import DateFormatter from "./date-formatter";
 
 const imagePath = "https://image.gcores.com/";
 
@@ -62,13 +63,14 @@ export default function NewsList({ data }: any) {
           title={it.title}
           subtitle={it.desc}
         >
+          <DateFormatter dateString={it.time} />
           {it.blocks.map((it, idx) => (
             <div key={idx}>{it}</div>
           ))}
           {it.imgs.map((it, idx) => (
-            <a key={idx} href={it} target="_blank">
-              {it}
-            </a>
+            <Link className=" mx-2" key={idx} href={it} target="_blank">
+              Image-{idx}
+            </Link>
           ))}
         </AccordionItem>
       ))}
