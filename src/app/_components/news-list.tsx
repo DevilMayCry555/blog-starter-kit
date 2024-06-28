@@ -1,6 +1,14 @@
 "use client";
 
-import { Accordion, AccordionItem, Link } from "@nextui-org/react";
+import {
+  Accordion,
+  AccordionItem,
+  Card,
+  CardBody,
+  CardHeader,
+  Divider,
+  Link,
+} from "@nextui-org/react";
 import DateFormatter from "./date-formatter";
 import BaseRadioPlayer from "./base-radio-player";
 // import BaseModal from "./base-modal";
@@ -56,32 +64,37 @@ const transData = (news: article[]) =>
     }
   });
 
-export default function NewsList({ data, paths = [] }: any) {
+export default function NewsList({ data, paths = [], label = "--" }: any) {
   // type radios articles
   const news = transData(data);
-  console.log(paths);
-  const isRadios = paths.length > 0;
+  // console.log(paths);
   return (
-    <Accordion>
-      {news.map((it, idx) => (
-        <AccordionItem
-          key={it.id}
-          aria-label={it.title}
-          title={it.title}
-          subtitle={it.desc}
-        >
-          <div>{isRadios && <BaseRadioPlayer url={paths[idx]} />}</div>
-          <DateFormatter dateString={it.time} />
-          {it.blocks.map((it, idx) => (
-            <div key={idx}>{it}</div>
+    <Card className=" w-4/5 mt-4" key={label}>
+      <CardHeader>{label}</CardHeader>
+      <Divider />
+      <CardBody>
+        <Accordion>
+          {news.map((it, idx) => (
+            <AccordionItem
+              key={it.id}
+              aria-label={it.title}
+              title={it.title}
+              subtitle={it.desc}
+            >
+              <div>{paths[idx] && <BaseRadioPlayer url={paths[idx]} />}</div>
+              <DateFormatter dateString={it.time} />
+              {it.blocks.map((it, idx) => (
+                <div key={idx}>{it}</div>
+              ))}
+              {it.imgs.map((it, idx) => (
+                <Link className=" mx-2" key={idx} href={it} target="_blank">
+                  Image-{idx}
+                </Link>
+              ))}
+            </AccordionItem>
           ))}
-          {it.imgs.map((it, idx) => (
-            <Link className=" mx-2" key={idx} href={it} target="_blank">
-              Image-{idx}
-            </Link>
-          ))}
-        </AccordionItem>
-      ))}
-    </Accordion>
+        </Accordion>
+      </CardBody>
+    </Card>
   );
 }

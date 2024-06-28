@@ -30,10 +30,8 @@ export default async function Index() {
   return (
     <main className=" flex-1 flex flex-col items-center overflow-hidden">
       <HomeList />
-      <p>news</p>
-      <NewsList data={info.data} />
-      <p>radios</p>
-      <NewsList data={radios.data} paths={paths} />
+      <NewsList data={info.data} label="News" />
+      <NewsList data={radios.data} paths={paths} label="Radios" />
     </main>
   );
 }

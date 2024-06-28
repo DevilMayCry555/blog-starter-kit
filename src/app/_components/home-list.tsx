@@ -28,14 +28,14 @@ const Control = transfer({
 
 export default function HomeList() {
   return (
-    <div className=" w-4/5 flex flex-col">
+    <div className=" w-4/5 flex flex-col lg:flex-row">
       {transfer({
         Pages,
         Android,
         Control,
       }).map((it) => {
         return (
-          <Card className=" mt-4" key={it.label}>
+          <Card className=" mt-4 lg:flex-1 lg:mx-4" key={it.label}>
             <CardHeader>{it.label}</CardHeader>
             <Divider />
             <CardBody>
