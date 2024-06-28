@@ -58,9 +58,11 @@ const Train = ({ curve: Curve, order, init, ...rest }: any) => {
 const Trains = () => {
   const [c, setC] = useState(3);
   const [t, setT] = useState(0); // 检测第一个方块
+  // 时间总线
   useFrame(() => {
     setT((t) => (t + 0.002) % 1);
-    if (t + 0.002 > 1) {
+    // 过中心点时长度+1
+    if (t + 0.002 > 0.499 && t + 0.002 < 0.501) {
       setC((state) => state + 1);
     }
   });
@@ -68,7 +70,7 @@ const Trains = () => {
   return (
     <>
       {Array(c)
-        .fill(0)
+        .fill(t)
         .map((it, idx) => (
           <Train
             key={idx}
@@ -83,7 +85,7 @@ const Trains = () => {
 function CustomCamera() {
   const { camera } = useThree();
   useEffect(() => {
-    camera.position.set(50, 20, 0);
+    camera.position.set(0, 20, 0);
     // camera.up.set(0, 0, 1);
     camera.lookAt(0, 0, 0);
   }, [camera]);

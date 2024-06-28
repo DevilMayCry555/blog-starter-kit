@@ -6,7 +6,7 @@ import Tank from "./tank";
 import { Tab, Tabs } from "@nextui-org/react";
 export default function Main() {
   return (
-    <Tabs aria-label="Options">
+    <Tabs aria-label="Options" defaultSelectedKey={"Tank"}>
       <Tab key="Solar" title="Solar">
         <Solar />
       </Tab>
