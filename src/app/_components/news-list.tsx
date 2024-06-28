@@ -11,6 +11,7 @@ import {
 } from "@nextui-org/react";
 import DateFormatter from "./date-formatter";
 import BaseRadioPlayer from "./base-radio-player";
+import BaseSwiper from "./base-swiper";
 // import BaseModal from "./base-modal";
 
 const imagePath = "https://image.gcores.com/";
@@ -82,14 +83,10 @@ export default function NewsList({ data, paths = [], label = "--" }: any) {
               subtitle={it.desc}
             >
               <div>{paths[idx] && <BaseRadioPlayer url={paths[idx]} />}</div>
+              <div>{it.imgs.length > 0 && <BaseSwiper urls={it.imgs} />}</div>
               <DateFormatter dateString={it.time} />
               {it.blocks.map((it, idx) => (
                 <div key={idx}>{it}</div>
-              ))}
-              {it.imgs.map((it, idx) => (
-                <Link className=" mx-2" key={idx} href={it} target="_blank">
-                  Image-{idx}
-                </Link>
               ))}
             </AccordionItem>
           ))}
