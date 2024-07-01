@@ -70,7 +70,7 @@ export default function NewsList({ data, paths = [], label = "--" }: any) {
   const news = transData(data);
   // console.log(paths);
   return (
-    <Card className=" w-4/5 my-2" key={label}>
+    <Card className=" w-full m-2" key={label}>
       <CardHeader>{label}</CardHeader>
       <Divider />
       <CardBody>
@@ -82,8 +82,10 @@ export default function NewsList({ data, paths = [], label = "--" }: any) {
               title={it.title}
               subtitle={it.desc}
             >
-              <div>{paths[idx] && <BaseRadioPlayer url={paths[idx]} />}</div>
-              <div>{it.imgs.length > 0 && <BaseSwiper urls={it.imgs} />}</div>
+              <div className=" flex justify-between">
+                {paths[idx] && <BaseRadioPlayer url={paths[idx]} />}
+                {it.imgs.length > 0 && <BaseSwiper urls={it.imgs} />}
+              </div>
               <DateFormatter dateString={it.time} />
               {it.blocks.map((it, idx) => (
                 <div key={idx}>{it}</div>
