@@ -11,5 +11,14 @@ export const qs = (str = "") => {
     };
   }, {} as { [k: string]: any });
 };
+export const qstr = (url: string, obj: Object) =>
+  url +
+  "?" +
+  Object.entries(obj)
+    .map((it) => {
+      const [key, val] = it;
+      return `${key}=${val}`;
+    })
+    .join("&");
 export const getuuid = (spec: number | string = Date.now()) =>
   btoa(`${spec}${Math.random()}`);

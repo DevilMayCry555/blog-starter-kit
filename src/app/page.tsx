@@ -1,3 +1,4 @@
+import { qstr } from "@/lib/utils";
 import HomeList from "./_components/home-list";
 import NewsList from "./_components/news-list";
 
@@ -5,9 +6,17 @@ const ff = (url: string) =>
   fetch(url, { cache: "no-store" }).then((res) => res.json());
 
 const getNews = (size: number) =>
-  `https://www.gcores.com/gapi/v1/articles?page[limit]=${size}&page[offset]=0&sort=-published-at`;
+  qstr("https://www.gcores.com/gapi/v1/articles", {
+    "page[limit]": size,
+    "page[offset]": 0,
+    sort: "-published-at",
+  });
 const getRadios = (size: number) =>
-  `https://www.gcores.com/gapi/v1/categories/89/radios?page[limit]=${size}&page[offset]=0&sort=-published-at`;
+  qstr("https://www.gcores.com/gapi/v1/categories/89/radios", {
+    "page[limit]": size,
+    "page[offset]": 0,
+    sort: "-published-at",
+  });
 // 音频路径
 const getPaths = (ids: string[]) =>
   Promise.all(
