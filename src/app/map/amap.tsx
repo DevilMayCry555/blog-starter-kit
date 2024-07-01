@@ -7,6 +7,7 @@ import "./amap.css";
 const amap_jsapi_key = "559e609208e3e6d726a285abfbc116f8";
 
 let map: any = null;
+const districts = ["济南市", "大连市"];
 export default function AMapContainer() {
   const [address, set_address] = useState("");
   const [area, set_area] = useState("");
@@ -86,6 +87,26 @@ export default function AMapContainer() {
                   // error
                   set_address(`${status}`);
                 }
+              });
+            });
+            districts.map((it) => {
+              document.getElementById(it)?.addEventListener("click", () => {
+                AMap.plugin("AMap.DistrictSearch", function () {
+                  var districtSearch = new AMap.DistrictSearch({
+                    level: "district", //关键字对应的行政区级别，country 表示国家
+                    subdistrict: 1, //显示下级行政区级数，1表示返回下一级行政区
+                    extensions: "all", //返回行政区边界坐标组等具体信息
+                  });
+                  //搜索所有省、直辖市信息
+                  districtSearch.search(
+                    it,
+                    function (status: string, result: any) {
+                      console.log(status, result);
+                      //status：complete 表示查询成功，no_data 为查询无结果，error 代表查询错误
+                      //查询成功时，result 即为对应的行政区信息
+                    }
+                  );
+                });
               });
             });
           })
