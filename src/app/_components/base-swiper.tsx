@@ -10,13 +10,24 @@ interface Props {
 export default function BaseSwiper({ urls }: Props) {
   const [current, set] = useState(0);
   return (
-    <BaseModal action={`${urls.length}`} title="">
-      <div className=" h-52 overflow-auto flex justify-center">
+    <BaseModal action={urls.length} title="" type="image">
+      <div className=" h-80 overflow-auto flex justify-center">
         <Image width={300} src={urls[current]} />
       </div>
-      <Button onClick={() => set((state) => (state + 1) % urls.length)}>
-        next
-      </Button>
+      <div className=" flex">
+        <Button
+          className=" flex-1"
+          onClick={() => set((state) => (state ? state : urls.length) - 1)}
+        >
+          prev
+        </Button>
+        <Button
+          className=" flex-1"
+          onClick={() => set((state) => (state + 1) % urls.length)}
+        >
+          next
+        </Button>
+      </div>
     </BaseModal>
   );
 }

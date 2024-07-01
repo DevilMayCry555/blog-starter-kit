@@ -11,7 +11,8 @@ import {
 } from "@nextui-org/react";
 
 interface Props {
-  action: string;
+  type?: string;
+  action: string | number;
   title: string;
   children: React.ReactNode;
 }
@@ -19,11 +20,22 @@ export default function BaseModal({
   action = "--",
   title = "--",
   children,
+  type = "modal",
 }: Props) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   return (
     <>
-      <Button onPress={onOpen}>{action}</Button>
+      {type === "modal" && (
+        <Button color="primary" onPress={onOpen}>
+          {action}
+        </Button>
+      )}
+      {type === "image" && (
+        <Button color="secondary" onPress={onOpen}>
+          {action}
+        </Button>
+      )}
+
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false}>
         <ModalContent>
           {(onClose) => (
