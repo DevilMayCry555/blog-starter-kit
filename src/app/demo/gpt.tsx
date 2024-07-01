@@ -68,13 +68,13 @@ export default function Chat({ usage }: Prop) {
     });
     return response;
   };
-  // useEffect(() => {
-  //   fetch(BASE_URL + "/api/open", {
-  //     method: "POST",
-  //     body: "chatgpt",
-  //     cache: "no-store",
-  //   });
-  // }, []);
+  useEffect(() => {
+    fetch(BASE_URL + "/api/open", {
+      method: "POST",
+      body: "chatgpt",
+      cache: "no-store",
+    });
+  }, []);
   return (
     <div className=" flex-1 pt-20 max-w-md mx-auto relative">
       <div className=" shadow-inner shadow-slate-700 px-2">

@@ -2,11 +2,6 @@ import { BASE_URL } from "@/lib/constants";
 import Chat from "./gpt";
 
 export default async function Demo() {
-  await fetch(BASE_URL + "/api/open", {
-    method: "POST",
-    body: "chatgpt",
-    cache: "no-store",
-  });
   const { content } = await fetch(BASE_URL + "/api/stream").then((res) =>
     res.json()
   );
