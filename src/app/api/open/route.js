@@ -31,12 +31,11 @@ export async function POST(request) {
     await sql`INSERT INTO tasks (uid,user_id,title,content,type,points,create_time)
       VALUES (${uid},${identity},${title},${content},${type},${points},${time});`;
   } catch (e) {
+    // 获取ip
     const xff = request.headers.get("x-forwarded-for");
-    // 获取经纬度
     const { longitude, latitude } = await fetch(`${ip_api}?ip=${xff}`).then(
       (res) => res.json()
     );
-    // 查询区域
     const { info, regeocode } = await fetch(
       `${regeo_api}?key=${amap_web_key}&location=${longitude},${latitude}`
     ).then((res) => res.json());

@@ -35,7 +35,7 @@ export default function HomeList() {
         Control,
       }).map((it) => {
         return (
-          <Card className=" mt-4 lg:flex-1 lg:mx-4" key={it.label}>
+          <Card className=" my-2 lg:flex-1 lg:mx-4" key={it.label}>
             <CardHeader>{it.label}</CardHeader>
             <Divider />
             <CardBody>
