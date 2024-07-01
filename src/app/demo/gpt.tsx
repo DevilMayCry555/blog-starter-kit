@@ -69,6 +69,9 @@ export default function Chat({ usage }: Prop) {
     return response;
   };
   useEffect(() => {
+    if (process.env.NODE_ENV === "development") {
+      return;
+    }
     fetch(BASE_URL + "/api/open", {
       method: "POST",
       body: "chatgpt",
