@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { DrawingBoard } from "../../lib/canvas";
-import "./style.css";
 import { BASE_URL } from "@/lib/constants";
 import { Button } from "@nextui-org/react";
 
