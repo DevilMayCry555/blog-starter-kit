@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./map.css";
 
 interface Prop {
@@ -13,9 +13,9 @@ const arrow = `<div class="custom-content-marker">
   </div>
   <img src="/assets/map-marker-current.png">
 </div>`;
-export default function AMapContainer({ locations }: Prop) {
-  const [lts, set_lts] = useState([]);
+const locals = [""];
 
+export default function AMapContainer({ locations }: Prop) {
   useEffect(() => {
     if (typeof window === "undefined") {
       console.log("miss");
@@ -23,7 +23,6 @@ export default function AMapContainer({ locations }: Prop) {
       (window as any)._AMapSecurityConfig = {
         securityJsCode: "a6475c5f871996a8a1e544251b263822",
       };
-
       import("@amap/amap-jsapi-loader").then((AMapLoader) => {
         AMapLoader.load({
           key: "559e609208e3e6d726a285abfbc116f8", //申请好的 Web 端开发者 Key，首次调用 load 时必填
@@ -35,11 +34,16 @@ export default function AMapContainer({ locations }: Prop) {
               // 设置地图容器id
               // viewMode: "3D", // 是否为3D地图模式
               zoom: 3, // 初始化地图级别
-              // center: [+lo + 0.006, +la + 0.0001], // 初始化地图中心点位置
+              center: [108.932092, 34.329593], // 初始化地图中心点位置
             }); //"map-container"为 <div> 容器的 id
             // 绘制坐标点
             locations.forEach((item) => {
               const { content: adcode } = item;
+              if (locals.includes(adcode)) {
+                return false;
+              } else {
+                locals.push(adcode);
+              }
               AMap.plugin("AMap.DistrictSearch", function () {
                 const district = new AMap.DistrictSearch({
                   extensions: "all", //返回行政区边界坐标等具体信息

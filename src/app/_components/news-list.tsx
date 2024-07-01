@@ -70,7 +70,7 @@ export default function NewsList({ data, paths = [], label = "--" }: any) {
   const news = transData(data);
   // console.log(paths);
   return (
-    <Card className=" w-full m-2" key={label}>
+    <Card className=" w-4/5 my-2" key={label}>
       <CardHeader>{label}</CardHeader>
       <Divider />
       <CardBody>
