@@ -11,9 +11,7 @@ export default function BaseSwiper({ urls }: Props) {
   const [current, set] = useState(0);
   return (
     <BaseModal action={urls.length} title="" type="image">
-      <div className=" h-80 overflow-auto flex justify-center">
-        <Image width={300} src={urls[current]} />
-      </div>
+      <Image width={300} src={urls[current]} />
       <div className=" flex">
         <Button
           className=" flex-1"

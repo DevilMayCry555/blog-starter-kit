@@ -36,7 +36,12 @@ export default function BaseModal({
         </Button>
       )}
 
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false}>
+      <Modal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        isDismissable={false}
+        scrollBehavior="inside"
+      >
         <ModalContent>
           {(onClose) => (
             <>
