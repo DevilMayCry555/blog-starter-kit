@@ -23,7 +23,7 @@ const Android = transfer({
 const Control = transfer({
   "/backdoor/user": "user",
   "/backdoor/room": "room",
-  "/backdoor/location": "location",
+  // "/backdoor/location": "location",
 });
 
 export default function HomeList() {
