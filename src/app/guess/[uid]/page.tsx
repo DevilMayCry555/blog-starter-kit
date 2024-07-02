@@ -2,7 +2,7 @@ import Container from "@/app/_components/container";
 import { fetchArt, fetchGuesses, fetchUser } from "@/lib/sql";
 import { notFound } from "next/navigation";
 import BaseForm from "@/app/_components/base-form";
-import { Image, Divider } from "@nextui-org/react";
+import { Image } from "@nextui-org/react";
 
 export default async function Draw({ params }: any) {
   // 未登录
@@ -21,8 +21,7 @@ export default async function Draw({ params }: any) {
   return (
     <main className=" flex-1">
       <Container>
-        <Image src={src} alt="tyd" width={360} />
-        <Divider />
+        <Image src={src} alt="tyd" width={360} shadow="sm" />
         <Bottom
           finish={answer}
           done={isDone}
@@ -52,10 +51,12 @@ const Bottom = async ({
         参与：
         {rows.map((row) => {
           const { user_id, content, win } = row;
-          return (
-            <div key={user_id}>
-              {content} {!!win && "√"}
+          return !!win ? (
+            <div key={user_id} className=" bg-green-100">
+              {content}
             </div>
+          ) : (
+            <div key={user_id}>{content}</div>
           );
         })}
       </div>
