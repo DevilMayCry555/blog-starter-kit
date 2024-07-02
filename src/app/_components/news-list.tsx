@@ -7,7 +7,6 @@ import {
   CardBody,
   CardHeader,
   Divider,
-  Link,
 } from "@nextui-org/react";
 import DateFormatter from "./date-formatter";
 import BaseRadioPlayer from "./base-radio-player";
