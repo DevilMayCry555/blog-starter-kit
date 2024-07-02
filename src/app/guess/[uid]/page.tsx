@@ -41,9 +41,10 @@ const Bottom = async ({
   roomid = "",
   userid = "",
 }) => {
+  const { rows } = await fetchGuesses(roomid);
+  // console.log(rows);
   if (finish) {
     // 公布答案后
-    const { rows } = await fetchGuesses(roomid);
     return (
       <div>
         答案：
@@ -61,7 +62,6 @@ const Bottom = async ({
     );
   } else if (mine) {
     // 作者侧
-    const { rows } = await fetchGuesses(roomid);
     const columns = rows.map((row) => {
       const { user_id, content } = row;
       return {
@@ -92,7 +92,7 @@ const Bottom = async ({
     };
     return <BaseForm {...formProps} />;
   } else if (done) {
-    const { rows } = await fetchGuesses(roomid);
+    // 参与后
     return (
       <div>
         {rows.map((row) => {
@@ -102,7 +102,7 @@ const Bottom = async ({
       </div>
     );
   } else {
-    // 观者侧
+    // 未参与
     const createProps = {
       action: "/api/draw",
       method: "guess",
