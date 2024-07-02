@@ -36,7 +36,7 @@ export default function AMapContainer() {
             AMap.plugin("AMap.DistrictSearch", function () {
               const districtSearch = new AMap.DistrictSearch({
                 level: "country", //关键字对应的行政区级别，country 表示国家
-                subdistrict: 2, //显示下级行政区级数，1表示返回下一级行政区
+                subdistrict: 3, //显示下级行政区级数，1表示返回下一级行政区
                 extensions: "all", //返回行政区边界坐标组等具体信息
               });
               //搜索所有省、直辖市信息
