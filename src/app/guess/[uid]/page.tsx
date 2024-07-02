@@ -44,7 +44,7 @@ const Bottom = async ({
   const { rows } = await fetchGuesses(roomid);
   // console.log(rows);
   if (finish) {
-    // 公布答案后
+    // 已结束
     return (
       <div>
         答案：
@@ -61,7 +61,7 @@ const Bottom = async ({
       </div>
     );
   } else if (mine) {
-    // 作者侧
+    // 公布答案
     const columns = rows.map((row) => {
       const { user_id, content } = row;
       return {
