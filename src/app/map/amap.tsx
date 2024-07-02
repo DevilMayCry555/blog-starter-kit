@@ -8,6 +8,7 @@ import Dictree from "./dictree";
 const amap_jsapi_key = "559e609208e3e6d726a285abfbc116f8";
 
 let map: any = null;
+const prev: any[] = [];
 export default function AMapContainer() {
   const [area, set_area] = useState("");
   // 区划树
@@ -59,7 +60,7 @@ export default function AMapContainer() {
                 extensions: "all", //返回行政区边界坐标等具体信息
                 level: "district", //设置查询行政区级别为区
               });
-              const prev: any[] = [];
+
               document
                 .getElementById("weather-dict-select")
                 ?.addEventListener("click", (e) => {
@@ -118,7 +119,7 @@ export default function AMapContainer() {
                         set_area(JSON.stringify(err));
                       } else {
                         set_area(
-                          `${weather}、${temperature}℃、${humidity}%、${windDirection}风${windPower}级`
+                          `${weather}、${temperature}℃、${humidity}%、${windDirection} ${windPower}`
                         );
                       }
                     });
@@ -143,13 +144,13 @@ export default function AMapContainer() {
       </div>
       <div className=" absolute bottom-0 left-0 right-0 bg-slate-500 text-white text-right">
         <div>{area}</div>
-        当前天气
+        天气
       </div>
       <div
         id="weather-dict-select"
         className=" absolute top-0 right-0 p-4 bg-white h-1/2  overflow-auto w-80 scale-80"
       >
-        <Dictree treeData={dict} />
+        {dict && <Dictree treeData={dict} />}
       </div>
     </div>
   );
