@@ -3,7 +3,6 @@
 import {
   Accordion,
   AccordionItem,
-  Button,
   Listbox,
   ListboxItem,
 } from "@nextui-org/react";
@@ -27,7 +26,7 @@ export default function Dictree({ treeData }: any) {
     <Listbox aria-label="Pages">
       {tree.map((it) => {
         return (
-          <ListboxItem key={it.adcode}>
+          <ListboxItem key={it.adcode} textValue={it.adcode}>
             <div id={`tyd-${it.adcode}`}>{it.name}</div>
           </ListboxItem>
         );
