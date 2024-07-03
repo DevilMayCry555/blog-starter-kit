@@ -11,6 +11,7 @@ import {
 import DateFormatter from "./date-formatter";
 import BaseRadioPlayer from "./base-radio-player";
 import BaseSwiper from "./base-swiper";
+import BaseModal from "./base-modal";
 
 const imagePath = "https://image.gcores.com/";
 
@@ -83,11 +84,13 @@ export default function NewsList({ data, paths = [], label = "--" }: any) {
               <div className=" flex justify-between">
                 {paths[idx] && <BaseRadioPlayer url={paths[idx]} />}
                 {it.imgs.length > 0 && <BaseSwiper urls={it.imgs} />}
+                <BaseModal action="..." title="">
+                  {it.blocks.map((it, idx) => (
+                    <div key={idx}>{it}</div>
+                  ))}
+                </BaseModal>
               </div>
               <DateFormatter dateString={it.time} />
-              {it.blocks.map((it, idx) => (
-                <div key={idx}>{it}</div>
-              ))}
             </AccordionItem>
           ))}
         </Accordion>
