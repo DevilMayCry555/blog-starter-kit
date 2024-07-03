@@ -119,7 +119,7 @@ export default function AMapContainer() {
                         set_area(JSON.stringify(err));
                       } else {
                         set_area(
-                          `${weather}、${temperature}℃、${humidity}%、${windDirection} ${windPower}`
+                          `${weather}、${temperature}℃、${humidity}%、${windDirection}、${windPower}`
                         );
                       }
                     });
@@ -142,8 +142,10 @@ export default function AMapContainer() {
       <div id="map-container" className=" h-full w-full">
         {/* <Spinner className=" fixed top-1/2 left-1/2" /> */}
       </div>
-      <div className=" absolute top-0 left-0 bg-slate-500 text-white text-right">
-        {area}
+      <div className=" absolute top-0 left-0 bg-slate-500 text-white text-center">
+        {area.split("、").map((it) => (
+          <p>{it}</p>
+        ))}
       </div>
       <div
         id="weather-dict-select"
