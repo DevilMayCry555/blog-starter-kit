@@ -4,8 +4,6 @@ import { Inter } from "next/font/google";
 import { NextUIProvider } from "@nextui-org/react";
 
 import "./globals.css";
-// import "bootstrap/dist/css/bootstrap.min.css";
-// import Footer from "@/app/_components/footer";
 import TopBanner from "./_components/top-banner";
 
 import { cookies } from "next/headers";
