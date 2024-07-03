@@ -14,8 +14,16 @@ const { sql } = require("@vercel/postgres");
 // CREATE TABLE tasks (uid VARCHAR(20),user_id VARCHAR(20),title VARCHAR(20),content VARCHAR(1000),points CHAR(4),type CHAR(1),create_time VARCHAR(20),perfect_time VARCHAR(20));
 const actions = async () => {
   // return sql`DROP TABLE rooms;`;
-  return await sql`CREATE TABLE tasks (uid VARCHAR(20),user_id VARCHAR(20),title VARCHAR(20),content VARCHAR(1000),points CHAR(4),type CHAR(1),create_time VARCHAR(20),perfect_time VARCHAR(20));`;
+  const res = await Promise.all([
+    sql`CREATE TABLE food (uid VARCHAR(4) PRIMARY KEY,name VARCHAR(20),type CHAR(1),calorie CHAR(10));`,
+    sql`CREATE TABLE dish (uid VARCHAR(4) PRIMARY KEY,name VARCHAR(20),type CHAR(1),calorie CHAR(10),foods CHAR(500));`,
+  ]);
+  return res;
 };
 // actions().then((res) => {
 //   console.log(res);
 // });
+// 食材
+// CREATE TABLE food (uid VARCHAR(4) PRIMARY KEY,name VARCHAR(20),type CHAR(1),calorie CHAR(10));
+// 做菜
+// CREATE TABLE dish (uid VARCHAR(4) PRIMARY KEY,name VARCHAR(20),type CHAR(1),calorie CHAR(10),foods CHAR(500));

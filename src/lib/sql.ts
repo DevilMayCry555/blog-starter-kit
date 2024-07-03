@@ -1,9 +1,10 @@
 import { sql } from "@vercel/postgres";
 import { cookies } from "next/headers";
 
+const noStore = () => !cookies().get("auth-token");
 // 所有用户
 export const fetchUsers = async (current: number, pageSize: number) => {
-  if (cookies().get("auth-token")) {
+  if (noStore()) {
     //
   }
   const offset = (current - 1) * pageSize;
@@ -17,7 +18,7 @@ export const fetchUsers = async (current: number, pageSize: number) => {
 };
 // 所有房间
 export const fetchRooms = async (current: number, pageSize: number) => {
-  if (cookies().get("auth-token")) {
+  if (noStore()) {
     //
   }
   const offset = (current - 1) * pageSize;
@@ -69,7 +70,7 @@ export const fetchUser = async (uid?: string, others?: any) => {
 };
 // 你画我猜 列表
 export const fetchArts = async (current: number, pageSize: number) => {
-  if (cookies().get("auth-token")) {
+  if (noStore()) {
     //
   }
   const offset = (current - 1) * pageSize;
@@ -105,8 +106,20 @@ export const fetchGuesses = async (uid: string) => {
   const data = await sql`SELECT * FROM guess WHERE uid = ${uid};`;
   return data;
 };
+// 定位分布
 export const fetchLocations = async () => {
+  if (noStore()) {
+    //
+  }
   const type = "0";
   const data = await sql`SELECT * FROM tasks WHERE type = ${type};`;
+  return data;
+};
+// 定位分布
+export const fetchFoods = async () => {
+  if (noStore()) {
+    //
+  }
+  const data = await sql`SELECT * FROM food;`;
   return data;
 };
