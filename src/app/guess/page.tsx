@@ -27,3 +27,4 @@ export default async function Guess({ searchParams }: any) {
     </main>
   );
 }
+export const dynamic = "force-dynamic";
