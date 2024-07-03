@@ -61,6 +61,58 @@ export default function AMapContainer() {
                 level: "district", //设置查询行政区级别为区
               });
 
+              const handle = (code = "") => {
+                district.search(code, function (status: string, result: any) {
+                  console.log("DistrictSearch", status, result);
+                  if (status === "complete" && result.info === "OK") {
+                    const { districtList } = result;
+                    [].concat(districtList).forEach((item: any) => {
+                      const { boundaries, center } = item;
+                      if (boundaries) {
+                        for (let i = 0; i < boundaries.length; i++) {
+                          //生成行政区划 polygon
+                          prev.push(
+                            new AMap.Polygon({
+                              map: map, //显示该覆盖物的地图对象
+                              strokeWeight: 1, //轮廓线宽度
+                              path: boundaries[i], //多边形轮廓线的节点坐标数组
+                              fillOpacity: 0.2, //多边形填充透明度
+                              fillColor: "#FF0000", //多边形填充颜色
+                              strokeColor: "#CC66CC", //线条颜色
+                            })
+                          );
+                        }
+                        map.setCenter(center);
+                      }
+                    });
+                  }
+                });
+                // 天气
+                AMap.plugin("AMap.Weather", function () {
+                  //创建天气查询实例
+                  var weather = new AMap.Weather();
+                  //执行实时天气信息查询
+                  weather.getLive(code, function (err: any, data: any) {
+                    //err 正确时返回 null
+                    //data 返回实时天气数据，返回数据见下表
+                    console.log(err, data);
+                    const {
+                      temperature,
+                      humidity,
+                      weather,
+                      windDirection,
+                      windPower,
+                    } = data;
+                    if (err) {
+                      set_area(JSON.stringify(err));
+                    } else {
+                      set_area(
+                        `${weather}、${temperature}℃、${humidity}%、${windDirection}、${windPower}`
+                      );
+                    }
+                  });
+                });
+              };
               document
                 .getElementById("weather-dict-select")
                 ?.addEventListener("click", (e) => {
@@ -74,57 +126,9 @@ export default function AMapContainer() {
                     prev.splice(0, 0);
                   }
                   const code = `${id}`.replace("tyd-", "");
-                  district.search(code, function (status: string, result: any) {
-                    console.log("DistrictSearch", status, result);
-                    if (status === "complete" && result.info === "OK") {
-                      const { districtList } = result;
-                      [].concat(districtList).forEach((item: any) => {
-                        const { boundaries, center } = item;
-                        if (boundaries) {
-                          for (let i = 0; i < boundaries.length; i++) {
-                            //生成行政区划 polygon
-                            prev.push(
-                              new AMap.Polygon({
-                                map: map, //显示该覆盖物的地图对象
-                                strokeWeight: 1, //轮廓线宽度
-                                path: boundaries[i], //多边形轮廓线的节点坐标数组
-                                fillOpacity: 0.2, //多边形填充透明度
-                                fillColor: "#FF0000", //多边形填充颜色
-                                strokeColor: "#CC66CC", //线条颜色
-                              })
-                            );
-                          }
-                          map.setCenter(center);
-                        }
-                      });
-                    }
-                  });
-                  // 天气
-                  AMap.plugin("AMap.Weather", function () {
-                    //创建天气查询实例
-                    var weather = new AMap.Weather();
-                    //执行实时天气信息查询
-                    weather.getLive(code, function (err: any, data: any) {
-                      //err 正确时返回 null
-                      //data 返回实时天气数据，返回数据见下表
-                      console.log(err, data);
-                      const {
-                        temperature,
-                        humidity,
-                        weather,
-                        windDirection,
-                        windPower,
-                      } = data;
-                      if (err) {
-                        set_area(JSON.stringify(err));
-                      } else {
-                        set_area(
-                          `${weather}、${temperature}℃、${humidity}%、${windDirection}、${windPower}`
-                        );
-                      }
-                    });
-                  });
+                  handle(code);
                 });
+              handle("210211");
             });
           })
           .catch((e) => {
