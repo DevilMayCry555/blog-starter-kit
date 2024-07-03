@@ -9,6 +9,7 @@ import {
   ModalHeader,
   useDisclosure,
 } from "@nextui-org/react";
+import { Flash } from "./icons";
 
 interface Props {
   type?: string;
@@ -31,7 +32,13 @@ export default function BaseModal({
         </Button>
       )}
       {type === "image" && (
-        <Button color="secondary" onPress={onOpen}>
+        <Button
+          color="secondary"
+          onPress={onOpen}
+          startContent={
+            <Flash size={20} width={""} height={""} fill={"#fff"} />
+          }
+        >
           {action}
         </Button>
       )}
