@@ -4,7 +4,7 @@ import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
 import BaseList from "./base-list";
 
 const transfer = (obj: { [k: string]: any }) =>
-  Object.entries({ ...obj }).map(([label, value]) => ({ value, label }));
+  Object.entries({ ...obj }).map(([label, value]) => ({ label, value }));
 
 const Pages = transfer({
   "/posts": "他她",

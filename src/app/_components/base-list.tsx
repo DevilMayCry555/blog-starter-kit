@@ -7,7 +7,7 @@ interface Prop {
   list: any[];
 }
 
-export default function HomeList({ list }: Prop) {
+export default function BaseList({ list }: Prop) {
   const router = useRouter();
   return (
     <Listbox
