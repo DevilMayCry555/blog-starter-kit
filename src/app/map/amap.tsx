@@ -142,13 +142,12 @@ export default function AMapContainer() {
       <div id="map-container" className=" h-full w-full">
         {/* <Spinner className=" fixed top-1/2 left-1/2" /> */}
       </div>
-      <div className=" absolute bottom-0 left-0 right-0 bg-slate-500 text-white text-right">
-        <div>{area}</div>
-        天气
+      <div className=" absolute top-0 left-0 bg-slate-500 text-white text-right">
+        {area}
       </div>
       <div
         id="weather-dict-select"
-        className=" absolute top-0 right-0 p-4 bg-white h-1/2  overflow-auto w-80 scale-80"
+        className=" absolute top-0 right-0 bottom-0 w-48 overflow-auto bg-white opacity-70"
       >
         {dict && <Dictree treeData={dict} />}
       </div>

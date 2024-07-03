@@ -17,7 +17,12 @@ export default function Dictree({ treeData }: any) {
   return tree.some((it) => !!it.districtList) ? (
     <Accordion>
       {tree.map((it, idx) => (
-        <AccordionItem key={idx} aria-label={it.name} title={it.name}>
+        <AccordionItem
+          key={idx}
+          aria-label={it.name}
+          title={it.name}
+          className=" bg-transparent"
+        >
           <Dictree treeData={it.districtList} />
         </AccordionItem>
       ))}
