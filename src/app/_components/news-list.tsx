@@ -11,7 +11,6 @@ import {
 import DateFormatter from "./date-formatter";
 import BaseRadioPlayer from "./base-radio-player";
 import BaseSwiper from "./base-swiper";
-// import BaseModal from "./base-modal";
 
 const imagePath = "https://image.gcores.com/";
 
