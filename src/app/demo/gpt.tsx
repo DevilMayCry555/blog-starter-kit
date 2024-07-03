@@ -1,6 +1,6 @@
 "use client";
 
-import { BASE_URL } from "@/lib/constants";
+import { BASE_URL, isDEV } from "@/lib/constants";
 import { Progress, Spinner } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 
@@ -69,7 +69,7 @@ export default function Chat({ usage }: Prop) {
     return response;
   };
   useEffect(() => {
-    if (process.env.NODE_ENV === "development") {
+    if (isDEV) {
       return;
     }
     fetch(BASE_URL + "/api/open", {

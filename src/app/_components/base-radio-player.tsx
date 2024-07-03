@@ -8,7 +8,7 @@ interface Props {
 }
 export default function BaseRadioPlayer({ url }: Props) {
   return (
-    <BaseModal action="on" title="radio">
+    <BaseModal action="on" title="radio" dismiss={false}>
       <ReactPlayer url={url} controls width={320} height={50} />
     </BaseModal>
   );

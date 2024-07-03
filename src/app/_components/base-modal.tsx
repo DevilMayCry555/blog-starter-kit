@@ -15,6 +15,7 @@ interface Props {
   type?: string;
   action: string | number;
   title: string;
+  dismiss?: boolean;
   children: React.ReactNode;
 }
 export default function BaseModal({
@@ -22,6 +23,7 @@ export default function BaseModal({
   title = "--",
   children,
   type = "modal",
+  dismiss = true,
 }: Props) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   return (
@@ -46,7 +48,7 @@ export default function BaseModal({
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        isDismissable={false}
+        isDismissable={dismiss}
         scrollBehavior="inside"
       >
         <ModalContent>

@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import { fetchUser } from "./lib/sql";
+import { isDEV } from "./lib/constants";
 export async function middleware(request) {
   // 所有api 除了登录
   const { pathname } = request.nextUrl;
   console.log(pathname);
-  if (pathname === "/posts") {
+  if (pathname === "/posts" || isDEV) {
     return;
   }
   const info = await fetchUser();
