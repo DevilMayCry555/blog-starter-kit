@@ -1,9 +1,11 @@
 import { sql } from "@vercel/postgres";
 import { cookies } from "next/headers";
 
-console.log();
 // 所有用户
 export const fetchUsers = async (current: number, pageSize: number) => {
+  if (cookies().get("auth-token")) {
+    //
+  }
   const offset = (current - 1) * pageSize;
   const { rows, fields } = await sql`SELECT * FROM users;`;
   const data = {
@@ -15,6 +17,9 @@ export const fetchUsers = async (current: number, pageSize: number) => {
 };
 // 所有房间
 export const fetchRooms = async (current: number, pageSize: number) => {
+  if (cookies().get("auth-token")) {
+    //
+  }
   const offset = (current - 1) * pageSize;
   const { rows, fields } = await sql`SELECT * FROM rooms;`;
   const data = {
@@ -64,14 +69,15 @@ export const fetchUser = async (uid?: string, others?: any) => {
 };
 // 你画我猜 列表
 export const fetchArts = async (current: number, pageSize: number) => {
-  const user = cookies().get("auth-token");
+  if (cookies().get("auth-token")) {
+    //
+  }
   const offset = (current - 1) * pageSize;
   const { rows, fields } = await sql`SELECT uid,title FROM arts;`;
   const data = {
     fields,
     rows: rows.slice(offset, offset + pageSize),
     total: rows.length,
-    user,
   };
   return data;
 };
