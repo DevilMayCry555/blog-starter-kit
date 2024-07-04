@@ -14,6 +14,7 @@ const Pages = transfer({
   "/guess": "竞猜",
   "/demo": "GPT",
   "/three": "3D",
+  "/food": "卡路里",
 });
 
 const Android = transfer({
@@ -23,7 +24,7 @@ const Android = transfer({
 const Control = transfer({
   "/backdoor/user": "user",
   "/backdoor/room": "room",
-  "/backdoor/food": "food",
+  // "/backdoor/food": "food",
 });
 
 export default function HomeList() {
