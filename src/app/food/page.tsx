@@ -1,10 +1,10 @@
 import { fetchFoods } from "@/lib/sql";
-import Container from "../../_components/container";
 import BaseTab from "@/app/_components/base-tab";
 import BaseModal from "@/app/_components/base-modal";
 import BaseForm from "@/app/_components/base-form";
+import Container from "../_components/container";
 
-const types = ["其他", "肉类", "蔬菜", "水果", "五谷", "蛋奶", "面食"];
+const types = ["其他", "肉类", "蔬菜", "水果", "主食", "蛋奶"];
 
 export default async function Backdoor() {
   const { rows } = await fetchFoods();
@@ -97,13 +97,15 @@ export default async function Backdoor() {
   return (
     <main className=" flex-1 relative">
       <Container>
-        <BaseModal action="create" title="create food" dismiss={false}>
-          <BaseForm {...createProps} />
-        </BaseModal>
-        <BaseModal action="update" title="update food" dismiss={false}>
-          <BaseForm {...updateProps} />
-        </BaseModal>
-        <BaseTab group={group} vertical={true} defaultKey="2" />
+        <div className=" my-4">
+          <BaseModal action="create" title="create food" dismiss={false}>
+            <BaseForm {...createProps} />
+          </BaseModal>
+          <BaseModal action="update" title="update food" dismiss={false}>
+            <BaseForm {...updateProps} />
+          </BaseModal>
+        </div>
+        <BaseTab group={group} vertical={true} defaultKey="0" />
       </Container>
     </main>
   );
