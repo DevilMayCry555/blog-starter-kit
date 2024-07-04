@@ -11,6 +11,14 @@ export async function GET(request) {
     await sql`INSERT INTO food (uid,name,type,calorie)
     VALUES (${uid},${name},${type},${calorie}});`;
   }
+  if (method === "update") {
+    const { uid, name, type, calorie } = rest;
+    await sql`UPDATE food SET
+    name = ${name}
+    type = ${type}
+    calorie = ${calorie}
+    WHERE uid = ${uid};`;
+  }
   return NextResponse.redirect(new URL("/backdoor/food", request.url));
 }
 

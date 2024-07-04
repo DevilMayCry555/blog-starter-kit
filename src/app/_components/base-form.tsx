@@ -63,6 +63,15 @@ export default function BaseForm({
                 defaultValue={init}
               />
             )}
+            {type === "number" && (
+              <Input
+                type="number"
+                label={label}
+                name={field}
+                required={required}
+                defaultValue={init}
+              />
+            )}
             {type === "textarea" && (
               <Textarea
                 label={label}
@@ -75,7 +84,7 @@ export default function BaseForm({
               <Select label={label} name={field} required={required}>
                 {options.map((it) => (
                   <SelectItem key={it.value} value={it.value}>
-                    {it.value}
+                    {it.label ?? it.value}
                   </SelectItem>
                 ))}
               </Select>
