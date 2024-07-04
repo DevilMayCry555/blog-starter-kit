@@ -98,7 +98,7 @@ export default async function Eat() {
   return (
     <main className=" flex-1 relative">
       <Container>
-        {isDEV && (
+        {isDEV ? (
           <div className=" my-4">
             <BaseModal action="create" title="create food" dismiss={false}>
               <BaseForm {...createProps} />
@@ -107,6 +107,8 @@ export default async function Eat() {
               <BaseForm {...updateProps} />
             </BaseModal>
           </div>
+        ) : (
+          <div className=" h-4"></div>
         )}
 
         <BaseTab group={group} vertical={true} defaultKey="0" />
