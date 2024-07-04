@@ -1,4 +1,5 @@
 import BaseCard from "./_components/base-card";
+import BaseCharts from "./_components/base-charts";
 import BaseList from "./_components/base-list";
 
 const transfer = (obj: { [k: string]: any }) =>
@@ -38,6 +39,8 @@ export default async function Index() {
           <BaseList list={it.value} />
         </BaseCard>
       ))}
+      <div id="qwer"></div>
+      <BaseCharts />
     </main>
   );
 }
