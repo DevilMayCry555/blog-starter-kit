@@ -22,7 +22,7 @@ export async function GET(request) {
     calorie = ${calorie}
     WHERE uid = ${uid};`;
   }
-  return NextResponse.redirect(new URL("/food", request.url));
+  return NextResponse.redirect(new URL("/eat", request.url));
 }
 
 export async function HEAD(request) {}

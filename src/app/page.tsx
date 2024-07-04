@@ -16,8 +16,8 @@ const Tools = transfer({
   "/meeting": "贴吧",
   "/map": "天气",
   "/demo": "GPT",
-  "/food": "卡路里",
-  "/deep.apk": "Deep@2024.06",
+  "/eat": "卡路里",
+  // "/deep.apk": "Deep@2024.06",
 });
 
 const Control = transfer({

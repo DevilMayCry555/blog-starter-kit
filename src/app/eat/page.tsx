@@ -7,7 +7,7 @@ import { isDEV } from "@/lib/constants";
 
 const types = ["其他", "肉类", "蔬菜", "水果", "主食", "蛋奶"];
 
-export default async function Backdoor() {
+export default async function Eat() {
   const { rows } = await fetchFoods();
   // console.log(rows);
   const deleteProps = (uid: string) => ({
