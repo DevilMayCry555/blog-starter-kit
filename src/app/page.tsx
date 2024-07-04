@@ -33,13 +33,11 @@ export default async function Index() {
         Pages,
         Android,
         Control,
-      }).map((it) => {
-        return (
-          <BaseCard title={it.label}>
-            <BaseList list={it.value} />
-          </BaseCard>
-        );
-      })}
+      }).map((it, idx) => (
+        <BaseCard title={it.label} key={idx}>
+          <BaseList list={it.value} />
+        </BaseCard>
+      ))}
     </main>
   );
 }
