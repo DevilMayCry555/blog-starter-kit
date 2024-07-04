@@ -6,6 +6,9 @@ export async function GET(request) {
   const { search } = request.nextUrl;
   const { method, ...rest } = qs(search);
 
+  if (method === "delete") {
+    await sql`DELETE FROM food WHERE uid = ${rest.uid};`;
+  }
   if (method === "create") {
     const { uid, name, type, calorie } = rest;
     await sql`INSERT INTO food (uid,name,type,calorie)
@@ -14,8 +17,8 @@ export async function GET(request) {
   if (method === "update") {
     const { uid, name, type, calorie } = rest;
     await sql`UPDATE food SET
-    name = ${name}
-    type = ${type}
+    name = ${name},
+    type = ${type},
     calorie = ${calorie}
     WHERE uid = ${uid};`;
   }

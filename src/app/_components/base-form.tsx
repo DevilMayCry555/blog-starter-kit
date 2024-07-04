@@ -28,6 +28,7 @@ interface Props {
   method: string;
   text?: string;
   form?: { [k: string]: any };
+  size?: "md" | "sm" | "lg" | undefined;
 }
 
 export default function BaseForm({
@@ -36,6 +37,7 @@ export default function BaseForm({
   method,
   text = "submit",
   form,
+  size = "md",
 }: Props) {
   return (
     <form action={action} method="GET" encType="text/plain">
@@ -96,7 +98,9 @@ export default function BaseForm({
           </div>
         );
       })}
-      <Button type="submit">{text}</Button>
+      <Button type="submit" size={size}>
+        {text}
+      </Button>
     </form>
   );
 }

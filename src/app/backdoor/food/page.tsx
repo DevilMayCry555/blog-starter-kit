@@ -9,34 +9,39 @@ const types = ["其他", "肉类", "蔬菜", "水果", "五谷", "蛋奶", "面�
 export default async function Backdoor() {
   const { rows } = await fetchFoods();
   // console.log(rows);
+  const deleteProps = (uid: string) => ({
+    action: "/api/food",
+    method: "delete",
+    text: "del",
+    form: { uid },
+    columns: [],
+  });
   const group = types.map((name, type) => {
     return {
       title: name,
       content: rows
         .filter((it) => +it.type === type)
-        .map((item, idx) =>
-          idx ? (
-            <div className=" flex justify-between">
-              <span>
-                {item.uid}-{item.name}
-              </span>
-              <span>{item.calorie}</span>
-            </div>
-          ) : (
-            <div>
+        .sort((a, b) => +b.calorie - +a.calorie)
+        .map((item, idx) => (
+          <div className=" mb-2 border-b-1">
+            {idx === 0 && (
               <div className=" flex justify-between">
-                <span>name</span>
+                <span className=" w-16">uid</span>
+                <span className=" flex-1">name</span>
                 <span>kcal/100g</span>
+                <span className=" w-20 text-right">action</span>
               </div>
-              <div className=" flex justify-between">
-                <span>
-                  {item.uid}-{item.name}
-                </span>
-                <span>{item.calorie}</span>
-              </div>
+            )}
+            <div className=" flex justify-between">
+              <span className=" w-16">{item.uid}</span>
+              <span className=" flex-1">{item.name}</span>
+              <span>{item.calorie}</span>
+              <span className=" w-20 text-right">
+                <BaseForm {...deleteProps(item.uid)} size="sm" />
+              </span>
             </div>
-          )
-        ),
+          </div>
+        )),
     };
   });
   const createProps = {
@@ -98,7 +103,7 @@ export default async function Backdoor() {
         <BaseModal action="update" title="update food" dismiss={false}>
           <BaseForm {...updateProps} />
         </BaseModal>
-        <BaseTab group={group} vertical={true} defaultKey="3" />
+        <BaseTab group={group} vertical={true} defaultKey="2" />
       </Container>
     </main>
   );
