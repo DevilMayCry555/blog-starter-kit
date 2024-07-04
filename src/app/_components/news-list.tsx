@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Accordion,
-  AccordionItem,
-  Card,
-  CardBody,
-  CardHeader,
-  Divider,
-} from "@nextui-org/react";
+import { Accordion, AccordionItem } from "@nextui-org/react";
 import DateFormatter from "./date-formatter";
 import BaseRadioPlayer from "./base-radio-player";
 import BaseSwiper from "./base-swiper";
@@ -69,32 +62,26 @@ export default function NewsList({ data, paths = [], label = "--" }: any) {
   const news = transData(data);
   // console.log(paths);
   return (
-    <Card className=" w-4/5 my-2" key={label}>
-      <CardHeader>{label}</CardHeader>
-      <Divider />
-      <CardBody>
-        <Accordion>
-          {news.map((it, idx) => (
-            <AccordionItem
-              key={it.id}
-              aria-label={it.title}
-              title={it.title}
-              subtitle={it.desc}
-            >
-              <div className=" flex justify-between">
-                {paths[idx] && <BaseRadioPlayer url={paths[idx]} />}
-                {it.imgs.length > 0 && <BaseSwiper urls={it.imgs} />}
-                <BaseModal action="..." title="">
-                  {it.blocks.map((it, idx) => (
-                    <div key={idx}>{it}</div>
-                  ))}
-                </BaseModal>
-              </div>
-              <DateFormatter dateString={it.time} />
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </CardBody>
-    </Card>
+    <Accordion>
+      {news.map((it, idx) => (
+        <AccordionItem
+          key={it.id}
+          aria-label={it.title}
+          title={it.title}
+          subtitle={it.desc}
+        >
+          <div className=" flex justify-between">
+            {paths[idx] && <BaseRadioPlayer url={paths[idx]} />}
+            {it.imgs.length > 0 && <BaseSwiper urls={it.imgs} />}
+            <BaseModal action="..." title="">
+              {it.blocks.map((it, idx) => (
+                <div key={idx}>{it}</div>
+              ))}
+            </BaseModal>
+          </div>
+          <DateFormatter dateString={it.time} />
+        </AccordionItem>
+      ))}
+    </Accordion>
   );
 }

@@ -1,46 +1,45 @@
-import { qstr } from "@/lib/utils";
-import HomeList from "./_components/home-list";
-import NewsList from "./_components/news-list";
+import BaseCard from "./_components/base-card";
+import BaseList from "./_components/base-list";
 
-const ff = (url: string) =>
-  fetch(url, { cache: "no-store" }).then((res) => res.json());
+const transfer = (obj: { [k: string]: any }) =>
+  Object.entries({ ...obj }).map(([label, value]) => ({ label, value }));
 
-const getNews = (size: number) =>
-  qstr("https://www.gcores.com/gapi/v1/articles", {
-    "page[limit]": size,
-    "page[offset]": 0,
-    sort: "-published-at",
-  });
-const getRadios = (size: number) =>
-  qstr("https://www.gcores.com/gapi/v1/categories/89/radios", {
-    "page[limit]": size,
-    "page[offset]": 0,
-    sort: "-published-at",
-  });
-// 音频路径
-const getPaths = (ids: string[]) =>
-  Promise.all(
-    ids.map((id) =>
-      ff(`https://www.gcores.com/gapi/v1/radios/${id}?include=media`)
-    )
-  ).then((res) =>
-    res.map((it) => {
-      const [media] = it.included;
-      const { audio } = { ...media.attributes } as any;
-      return `https://alioss.gcores.com/uploads/audio/${audio}`;
-    })
-  );
+const Pages = transfer({
+  "/posts": "他她",
+  "/map": "天气",
+  "/meeting": "贴吧",
+  "/draw": "画板",
+  "/guess": "竞猜",
+  "/demo": "GPT",
+  "/three": "3D",
+  "/food": "卡路里",
+  "/gcores": "Gcores",
+});
+
+const Android = transfer({
+  "/deep.apk": "Deep@2024.06",
+});
+
+const Control = transfer({
+  "/backdoor/user": "user",
+  "/backdoor/room": "room",
+});
 
 export default async function Index() {
-  const info = await ff(getNews(5));
-  const radios = await ff(getRadios(3));
-  const paths = await getPaths([].concat(radios.data).map((it: any) => it.id));
   // console.log(paths);
   return (
-    <main className=" flex-1 flex flex-col items-center overflow-hidden">
-      <HomeList />
-      <NewsList data={info.data} label="News" />
-      <NewsList data={radios.data} paths={paths} label="Radios" />
+    <main className=" m-auto w-4/5 flex flex-col lg:flex-row">
+      {transfer({
+        Pages,
+        Android,
+        Control,
+      }).map((it) => {
+        return (
+          <BaseCard title={it.label}>
+            <BaseList list={it.value} />
+          </BaseCard>
+        );
+      })}
     </main>
   );
 }
