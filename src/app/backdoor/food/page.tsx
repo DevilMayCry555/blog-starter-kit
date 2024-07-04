@@ -8,18 +8,35 @@ const types = ["其他", "肉类", "蔬菜", "水果", "五谷", "蛋奶", "面�
 
 export default async function Backdoor() {
   const { rows } = await fetchFoods();
+  // console.log(rows);
   const group = types.map((name, type) => {
     return {
       title: name,
       content: rows
-        .filter((it) => it.type === type)
-        .map((item) => (
-          <div>
-            <span>{item.uid}</span>
-            <span>{item.name}</span>
-            <span>{item.calorie}</span>
-          </div>
-        )),
+        .filter((it) => +it.type === type)
+        .map((item, idx) =>
+          idx ? (
+            <div className=" flex justify-between">
+              <span>
+                {item.uid}-{item.name}
+              </span>
+              <span>{item.calorie}</span>
+            </div>
+          ) : (
+            <div>
+              <div className=" flex justify-between">
+                <span>name</span>
+                <span>kcal/100g</span>
+              </div>
+              <div className=" flex justify-between">
+                <span>
+                  {item.uid}-{item.name}
+                </span>
+                <span>{item.calorie}</span>
+              </div>
+            </div>
+          )
+        ),
     };
   });
   const createProps = {
@@ -40,7 +57,7 @@ export default async function Backdoor() {
       },
       {
         field: "calorie",
-        label: "calorie",
+        label: "kcal / 100g",
         type: "number",
       },
     ],
@@ -67,7 +84,7 @@ export default async function Backdoor() {
       },
       {
         field: "calorie",
-        label: "calorie",
+        label: "kcal / 100g",
         type: "number",
       },
     ],
@@ -81,7 +98,7 @@ export default async function Backdoor() {
         <BaseModal action="update" title="update food" dismiss={false}>
           <BaseForm {...updateProps} />
         </BaseModal>
-        <BaseTab group={group} vertical={true} />
+        <BaseTab group={group} vertical={true} defaultKey="3" />
       </Container>
     </main>
   );

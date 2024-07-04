@@ -9,7 +9,7 @@ export async function GET(request) {
   if (method === "create") {
     const { uid, name, type, calorie } = rest;
     await sql`INSERT INTO food (uid,name,type,calorie)
-    VALUES (${uid},${name},${type},${calorie}});`;
+    VALUES (${uid},${name},${type},${calorie});`;
   }
   if (method === "update") {
     const { uid, name, type, calorie } = rest;
