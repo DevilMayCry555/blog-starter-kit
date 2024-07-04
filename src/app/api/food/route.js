@@ -11,7 +11,7 @@ export async function GET(request) {
     await sql`INSERT INTO food (uid,name,type,calorie)
     VALUES (${uid},${name},${type},${calorie}});`;
   }
-  return NextResponse.redirect(new URL("/food", request.url));
+  return NextResponse.redirect(new URL("/backdoor/food", request.url));
 }
 
 export async function HEAD(request) {}

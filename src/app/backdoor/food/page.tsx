@@ -2,16 +2,7 @@ import { fetchFoods } from "@/lib/sql";
 import Container from "../../_components/container";
 import BaseTab from "@/app/_components/base-tab";
 
-const types = [
-  "其他",
-  "肉类",
-  "蔬菜",
-  "水果",
-  "豆类&pro",
-  "奶类&pro",
-  "米&pro",
-  "面&pro",
-];
+const types = ["其他", "肉类", "蔬菜", "水果", "五谷", "蛋奶", "面食"];
 export default async function Backdoor() {
   const { rows } = await fetchFoods();
   const group = types.map((name, type) => {

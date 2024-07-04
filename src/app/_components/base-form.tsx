@@ -19,7 +19,6 @@ interface Column {
   label: string;
   type: string;
   required?: boolean;
-  hidden?: boolean;
   options?: any[];
   init?: string;
 }
@@ -28,6 +27,7 @@ interface Props {
   action: string;
   method: string;
   text?: string;
+  form?: { [k: string]: any };
 }
 
 export default function BaseForm({
@@ -35,26 +35,26 @@ export default function BaseForm({
   action,
   method,
   text = "submit",
+  form,
 }: Props) {
   return (
     <form action={action} method="GET" encType="text/plain">
-      {method ? (
-        <input type="text" name="method" defaultValue={method} hidden />
-      ) : null}
+      {Object.entries({ ...form, method }).map(([key, val]) =>
+        val ? <input type="text" name={key} defaultValue={val} hidden /> : null
+      )}
 
       {columns.map((it) => {
         const {
           field,
           label,
           type = "input",
-          hidden = false,
           required = true,
           options = [],
           init,
         } = it;
         // const uuid = getuuid(field);
         return (
-          <div style={hidden ? { display: "none" } : undefined} key={field}>
+          <div key={field}>
             {type === "input" && (
               <Input
                 label={label}

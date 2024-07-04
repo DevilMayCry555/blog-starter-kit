@@ -74,19 +74,13 @@ const Bottom = async ({
     const formProps = {
       action: "/api/draw",
       method: "finish",
+      form: { uid: roomid },
       columns: [
         ...columns,
         {
           field: "answer",
           label: "正确答案",
           type: "input",
-        },
-        {
-          field: "uid",
-          label: "uid",
-          type: "input",
-          init: roomid,
-          hidden: true,
         },
       ],
       text: "公布答案",
@@ -107,25 +101,12 @@ const Bottom = async ({
     const createProps = {
       action: "/api/draw",
       method: "guess",
+      form: { uid: roomid, userid },
       columns: [
         {
           field: "content",
           label: "你猜",
           type: "input",
-        },
-        {
-          field: "uid",
-          label: "uid",
-          type: "input",
-          init: roomid,
-          hidden: true,
-        },
-        {
-          field: "userid",
-          label: "userid",
-          type: "input",
-          init: userid,
-          hidden: true,
         },
       ],
     };

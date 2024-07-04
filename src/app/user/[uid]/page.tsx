@@ -16,14 +16,8 @@ export default async function User({ params }: Params) {
   const updateProps = {
     action: "/api/user",
     method: "update",
+    form: { uid: info.uid },
     columns: [
-      {
-        field: "uid",
-        label: "uid",
-        type: "input",
-        init: info.uid,
-        hidden: true,
-      },
       {
         field: "birthday",
         label: "生日",
