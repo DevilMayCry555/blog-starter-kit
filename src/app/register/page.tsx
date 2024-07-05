@@ -1,5 +1,4 @@
 import BaseForm from "../_components/base-form";
-import BaseModal from "../_components/base-modal";
 
 export default function Login() {
   const reProps = {
@@ -8,12 +7,12 @@ export default function Login() {
     columns: [
       {
         field: "username",
-        label: "邮箱(生日会发专属祝福)",
+        label: "邮箱",
         type: "email",
       },
       {
         field: "password",
-        label: "密码(由数字和字母组成)",
+        label: "密码",
         type: "input",
       },
       {
@@ -25,9 +24,13 @@ export default function Login() {
   };
   return (
     <main className=" m-auto">
-      <BaseModal action="register" title="register">
-        <BaseForm {...reProps} />
-      </BaseModal>
+      <b>邮箱 建议填常用的，生日有专属祝福</b>
+      <hr />
+      <b>密码 建议复杂点，注册后不可更改</b>
+      <hr />
+      <b>注册后，可前往个人信息页面编辑生日</b>
+      <hr />
+      <BaseForm {...reProps} />
     </main>
   );
 }
