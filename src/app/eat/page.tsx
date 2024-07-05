@@ -30,16 +30,18 @@ export default async function Eat() {
                 <span className=" w-16">uid</span>
                 <span className=" flex-1">name</span>
                 <span>kcal/100g</span>
-                <span className=" w-20 text-right">action</span>
+                {isDEV && <span className=" w-20 text-right">action</span>}
               </div>
             )}
             <div className=" flex justify-between">
               <span className=" w-16">{item.uid}</span>
               <span className=" flex-1">{item.name}</span>
               <span>{item.calorie}</span>
-              <span className=" w-20 text-right">
-                {isDEV && <BaseForm {...deleteProps(item.uid)} size="sm" />}
-              </span>
+              {isDEV && (
+                <span className=" w-20 text-right">
+                  <BaseForm {...deleteProps(item.uid)} size="sm" />
+                </span>
+              )}
             </div>
           </div>
         )),
@@ -92,6 +94,41 @@ export default async function Eat() {
         field: "calorie",
         label: "kcal / 100g",
         type: "number",
+      },
+    ],
+  };
+  const opt = {
+    title: {
+      text: "Referer of a Website",
+      subtext: "Fake Data",
+      left: "center",
+    },
+    tooltip: {
+      trigger: "item",
+    },
+    legend: {
+      orient: "vertical",
+      left: "left",
+    },
+    series: [
+      {
+        name: "Access From",
+        type: "pie",
+        radius: "50%",
+        data: [
+          { value: 1048, name: "Search Engine" },
+          { value: 735, name: "Direct" },
+          { value: 580, name: "Email" },
+          { value: 484, name: "Union Ads" },
+          { value: 300, name: "Video Ads" },
+        ],
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: "rgba(0, 0, 0, 0.5)",
+          },
+        },
       },
     ],
   };

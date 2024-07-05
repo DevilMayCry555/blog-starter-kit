@@ -41,8 +41,10 @@ export default function BaseForm({
 }: Props) {
   return (
     <form action={action} method="GET" encType="text/plain">
-      {Object.entries({ ...form, method }).map(([key, val]) =>
-        val ? <input type="text" name={key} defaultValue={val} hidden /> : null
+      {Object.entries({ ...form, method }).map(([key, val], idx) =>
+        val ? (
+          <input type="text" key={idx} name={key} defaultValue={val} hidden />
+        ) : null
       )}
 
       {columns.map((it) => {

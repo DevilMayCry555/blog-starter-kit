@@ -1,52 +1,27 @@
 "use client";
 
 import * as echarts from "echarts";
+import { ECBasicOption } from "echarts/types/src/util/types.js";
 import { useEffect } from "react";
 
-export default function BaseCharts() {
-  const id = "qwer";
+export default function BaseCharts({
+  id,
+  className,
+  config,
+}: {
+  id: string;
+  className: string;
+  config: ECBasicOption;
+}) {
+  const eid = id ? id : "eid";
   useEffect(() => {
-    const node = document.getElementById(id);
+    const node = document.getElementById(eid);
     console.log("node", node);
     if (node) {
       // Create the echarts instance
       const myChart = echarts.init(node);
-      myChart.setOption({
-        title: {
-          text: "Referer of a Website",
-          subtext: "Fake Data",
-          left: "center",
-        },
-        tooltip: {
-          trigger: "item",
-        },
-        legend: {
-          orient: "vertical",
-          left: "left",
-        },
-        series: [
-          {
-            name: "Access From",
-            type: "pie",
-            radius: "50%",
-            data: [
-              { value: 1048, name: "Search Engine" },
-              { value: 735, name: "Direct" },
-              { value: 580, name: "Email" },
-              { value: 484, name: "Union Ads" },
-              { value: 300, name: "Video Ads" },
-            ],
-            emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: "rgba(0, 0, 0, 0.5)",
-              },
-            },
-          },
-        ],
-      });
+      myChart.setOption(config);
     }
   }, []);
-  return null;
+  return <div id={eid} className={className}></div>;
 }
