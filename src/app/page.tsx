@@ -6,14 +6,14 @@ const transfer = (obj: { [k: string]: any }) =>
 
 const Pages = transfer({
   "/posts": "他她",
+  "/meeting": "贴吧",
   "/draw": "画板",
   "/guess": "竞猜",
-  "/three": "3D",
   "/gcores": "Gcores",
 });
 
 const Tools = transfer({
-  "/meeting": "贴吧",
+  "/three": "3D",
   "/map": "天气",
   "/demo": "GPT",
   "/eat": "卡路里",
