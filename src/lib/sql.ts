@@ -43,7 +43,8 @@ export const fetchChats = async (uid: string) => {
 };
 // 用户信息 不填参数将查询当前用户
 export const fetchUser = async (uid?: string, others?: any) => {
-  const token = uid ? { value: uid } : cookies().get("auth-token");
+  const user = cookies().get("auth-token");
+  const token = uid ? { value: uid } : user;
   if (!token) {
     return null;
   }
