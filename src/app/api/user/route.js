@@ -32,7 +32,7 @@ export async function GET(request) {
     }
     const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
     await sql`INSERT INTO users (uid,username,create_time,admin)
-    VALUES (${password},${username},${time},${0});`;
+    VALUES (${btoa(password)},${username},${time},${0});`;
   }
   if (method === "create") {
     const { username, admin } = rest;
