@@ -18,7 +18,7 @@ export async function GET(request) {
       name: "auth-token",
       value: password,
       httpOnly: true,
-      maxAge: 3 * 24 * 3600,
+      maxAge: 24 * 3600,
     });
     return NextResponse.redirect(new URL("/", request.url));
   }

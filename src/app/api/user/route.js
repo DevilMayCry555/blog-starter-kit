@@ -3,6 +3,8 @@ import { sql } from "@vercel/postgres";
 import { qs, getuuid } from "@/lib/utils";
 import { format } from "date-fns";
 
+const testPassword = new RegExp(/^[A-Za-z0-9]+$/);
+
 export async function GET(request) {
   const { search } = request.nextUrl;
   const { method, ...rest } = qs(search);
@@ -17,13 +19,20 @@ export async function GET(request) {
         {
           msg: "授权码错误",
         },
-        { status: 401 }
+        { status: 400 }
+      );
+    }
+    if (!testPassword.test(password)) {
+      return NextResponse.json(
+        {
+          msg: "密码只能由数字和字母组成",
+        },
+        { status: 400 }
       );
     }
     const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
     await sql`INSERT INTO users (uid,username,create_time,admin)
     VALUES (${password},${username},${time},${0});`;
-    return NextResponse.redirect(new URL("/login", request.url));
   }
   if (method === "create") {
     const { username, admin } = rest;

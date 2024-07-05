@@ -11,7 +11,6 @@ import {
   Link,
 } from "@nextui-org/react";
 import { useState } from "react";
-
 export default function TopBanner({ uid }: any) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
@@ -42,6 +41,11 @@ export default function TopBanner({ uid }: any) {
             <Link href="/api/login">Login</Link>
           )}
         </NavbarItem>
+        {!uid && (
+          <NavbarItem>
+            <Link href="register">Register</Link>
+          </NavbarItem>
+        )}
       </NavbarContent>
       {/* 折叠 */}
       <NavbarMenu>
@@ -57,6 +61,11 @@ export default function TopBanner({ uid }: any) {
             <Link href="/api/login">Login</Link>
           )}
         </NavbarItem>
+        {!uid && (
+          <NavbarItem>
+            <Link href="register">Register</Link>
+          </NavbarItem>
+        )}
       </NavbarMenu>
     </Navbar>
   );
