@@ -76,6 +76,15 @@ export default function BaseForm({
                 defaultValue={init}
               />
             )}
+            {type === "email" && (
+              <Input
+                type="email"
+                label={label}
+                name={field}
+                required={required}
+                defaultValue={init}
+              />
+            )}
             {type === "textarea" && (
               <Textarea
                 label={label}

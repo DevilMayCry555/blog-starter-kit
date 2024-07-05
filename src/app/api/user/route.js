@@ -17,9 +17,10 @@ export async function GET(request) {
     VALUES (${getuuid()},${username},${time},${admin ? 1 : 0});`;
   }
   if (method === "update") {
-    const { uid, birthday } = rest;
+    const { uid, birthday, username } = rest;
     await sql`UPDATE users SET
-    birthday = ${birthday}
+    birthday = ${birthday},
+    username= ${username}
     WHERE uid = ${uid};`;
     return NextResponse.redirect(new URL("/", request.url));
   }

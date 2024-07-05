@@ -17,6 +17,9 @@ dependencies:
   '@react-three/fiber':
     specifier: ^8.16.8
     version: 8.16.8(react-dom@18.3.1)(react@18.3.1)(three@0.165.0)
+  '@types/nodemailer':
+    specifier: ^6.4.15
+    version: 6.4.15
   '@types/three':
     specifier: ^0.165.0
     version: 0.165.0
@@ -44,6 +47,9 @@ dependencies:
   next:
     specifier: 14.2.3
     version: 14.2.3(react-dom@18.3.1)(react@18.3.1)
+  nodemailer:
+    specifier: ^6.9.14
+    version: 6.9.14
   openai:
     specifier: ^4.49.0
     version: 4.49.0
@@ -3310,6 +3316,12 @@ packages:
     dependencies:
       undici-types: 5.26.5
 
+  /@types/nodemailer@6.4.15:
+    resolution: {integrity: sha512-0EBJxawVNjPkng1zm2vopRctuWVCxk34JcIlRuXSf54habUWdz1FB7wHDqOqvDa8Mtpt0Q3LTXQkAs2LNyK5jQ==}
+    dependencies:
+      '@types/node': 20.14.2
+    dev: false
+
   /@types/offscreencanvas@2019.7.3:
     resolution: {integrity: sha512-ieXiYmgSRXUDeOntE1InxjWyvEelZGP63M+cGuquuRLuIKKT1osnkXjxev9B7d1nXSug5vpunx+gNlbVxMlC9A==}
     dev: false
@@ -4604,6 +4616,11 @@ packages:
   /node-releases@2.0.14:
     resolution: {integrity: sha512-y10wOWt8yZpqXmOgRo77WaHEmhYQYGNA6y421PKsKYWEK8aW+cqAphborZDhqfyKrbZEN92CN1X2KbafY2s7Yw==}
     dev: true
+
+  /nodemailer@6.9.14:
+    resolution: {integrity: sha512-Dobp/ebDKBvz91sbtRKhcznLThrKxKt97GI2FAlAyy+fk19j73Uz3sBXolVtmcXjaorivqsbbbjDY+Jkt4/bQA==}
+    engines: {node: '>=6.0.0'}
+    dev: false
 
   /normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}

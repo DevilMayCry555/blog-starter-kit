@@ -22,10 +22,20 @@ export default async function User({ params }: Params) {
         field: "birthday",
         label: "生日",
         type: "date",
-        init: birthday,
+      },
+      {
+        field: "username",
+        label: "email",
+        type: "email",
       },
     ],
   };
+  // const sendProps = {
+  //   action: "/api/email",
+  //   method: "",
+  //   text: "",
+  //   columns: [],
+  // };
   return (
     <main className=" flex-1">
       <Container>
