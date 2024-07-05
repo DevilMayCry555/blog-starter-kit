@@ -38,7 +38,7 @@ export default async function User({ params }: Params) {
         <div className=" flex justify-between items-center">
           <MyUser
             name={username}
-            description={`${birthday} ${Number(admin) && "管理员"}`}
+            description={`${birthday} ${Number(admin) ? "管理员" : "会员"}`}
             avatarProps={{
               src: draw,
               isBordered: true,
