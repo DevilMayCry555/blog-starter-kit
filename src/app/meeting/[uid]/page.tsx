@@ -4,22 +4,6 @@ import { fetchChats, fetchRoom, fetchUser } from "@/lib/sql";
 import "./style.css";
 import AuthError from "./auth-error";
 import Send from "./send";
-// const Send = ({ formData }: { formData: { [k: string]: any } }) => {
-//   return (
-//     <form action="/api/meeting" method="GET" encType="text/plain">
-//       {Object.entries({ ...formData }).map((it) => {
-//         const [key, val] = it;
-//         return (
-//           <input key={key} type="text" name={key} defaultValue={val} hidden />
-//         );
-//       })}
-//       <div className="input-box">
-//         <input type="text" name="content" required placeholder="不超过20字" />
-//         <button type="submit">发送</button>
-//       </div>
-//     </form>
-//   );
-// };
 export default async function Meeting({ params, searchParams }: Params) {
   // 未登录
   const userinfo = await fetchUser();

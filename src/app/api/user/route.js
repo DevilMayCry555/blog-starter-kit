@@ -21,8 +21,8 @@ export async function GET(request) {
       );
     }
     const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
-    await sql`INSERT INTO users (uid,username,create_time)
-    VALUES (${password},${username},${time});`;
+    await sql`INSERT INTO users (uid,username,create_time,admin)
+    VALUES (${password},${username},${time},${0});`;
     return NextResponse.redirect(new URL("/login", request.url));
   }
   if (method === "create") {

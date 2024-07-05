@@ -16,7 +16,10 @@ export async function GET(request) {
     await sql`INSERT INTO chats (uid,user_id,user_name,content,create_time)
     VALUES (${uid},${userid},${username},${content},${time});`;
   }
-  return NextResponse.redirect(new URL("/meeting/" + uid, request.url));
+  const [info] = rows;
+  return NextResponse.redirect(
+    new URL(`/meeting/${uid}?k=${info.password}`, request.url)
+  );
 }
 
 export async function HEAD(request) {}

@@ -11,6 +11,7 @@ import {
   TimeInput,
   Spacer,
 } from "@nextui-org/react";
+import { useState } from "react";
 
 // import { getuuid } from "@/lib/utils";
 
@@ -39,8 +40,14 @@ export default function BaseForm({
   form,
   size = "md",
 }: Props) {
+  const [loading, set] = useState(false);
   return (
-    <form action={action} method="GET" encType="text/plain">
+    <form
+      action={action}
+      method="GET"
+      encType="text/plain"
+      onSubmit={() => set(true)}
+    >
       {Object.entries({ ...form, method }).map(([key, val], idx) =>
         val ? (
           <input type="text" key={idx} name={key} defaultValue={val} hidden />
@@ -109,7 +116,7 @@ export default function BaseForm({
           </div>
         );
       })}
-      <Button type="submit" size={size}>
+      <Button type="submit" size={size} isLoading={loading}>
         {text}
       </Button>
     </form>
