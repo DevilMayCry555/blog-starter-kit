@@ -17,6 +17,7 @@ const Tools = transfer({
   "/map": "天气",
   "/demo": "GPT",
   "/eat": "卡路里",
+  "/charts": "图表",
   // "/deep.apk": "Deep@2024.06",
 });
 
