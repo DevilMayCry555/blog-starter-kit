@@ -27,15 +27,10 @@ export default async function User({ params }: Params) {
         field: "username",
         label: "email",
         type: "email",
+        init: username,
       },
     ],
   };
-  // const sendProps = {
-  //   action: "/api/email",
-  //   method: "",
-  //   text: "",
-  //   columns: [],
-  // };
   return (
     <main className=" flex-1">
       <Container>

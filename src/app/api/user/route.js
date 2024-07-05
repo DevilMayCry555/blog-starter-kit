@@ -10,6 +10,21 @@ export async function GET(request) {
   if (method === "delete") {
     await sql`DELETE FROM users WHERE uid = ${rest.uid};`;
   }
+  if (method === "register") {
+    const { username, password, authcode } = rest;
+    if (authcode !== "221b") {
+      return NextResponse.json(
+        {
+          msg: "授权码错误",
+        },
+        { status: 401 }
+      );
+    }
+    const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
+    await sql`INSERT INTO users (uid,username,create_time)
+    VALUES (${password},${username},${time});`;
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
   if (method === "create") {
     const { username, admin } = rest;
     const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
