@@ -12,7 +12,13 @@ export default async function User({ params }: Params) {
   if (!info) {
     return notFound();
   }
-  const { username, birthday, admin, arts, draw } = info;
+  const { username, birthday, admin, arts, draw, url: email } = info;
+  const Desc = () => (
+    <>
+      <div>{birthday ?? "未设置生日"}</div>
+      <div>{email ?? "未设置邮箱"}</div>
+    </>
+  );
   const updateProps = {
     action: "/api/user",
     method: "update",
@@ -33,6 +39,7 @@ export default async function User({ params }: Params) {
         field: "email",
         label: "邮箱",
         type: "email",
+        init: email,
       },
     ],
   };
@@ -42,8 +49,8 @@ export default async function User({ params }: Params) {
         <div className=" text-2xl py-4">基本信息</div>
         <div className=" flex justify-between items-center">
           <MyUser
-            name={username}
-            description={`${birthday} ${Number(admin) ? "管理员" : "会员"}`}
+            name={`${username}（${admin === "1" ? "管理" : "会员"}）`}
+            description={<Desc />}
             avatarProps={{
               src: draw,
               isBordered: true,
