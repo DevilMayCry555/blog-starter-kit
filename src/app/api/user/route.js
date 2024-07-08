@@ -13,7 +13,7 @@ export async function GET(request) {
     await sql`DELETE FROM users WHERE uid = ${rest.uid};`;
   }
   if (method === "register") {
-    const { username, password, authcode } = rest;
+    const { username, email, password, authcode } = rest;
     if (authcode !== "221b") {
       return NextResponse.json(
         {
@@ -33,6 +33,8 @@ export async function GET(request) {
     const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
     await sql`INSERT INTO users (uid,username,create_time,admin)
     VALUES (${btoa(password)},${username},${time},${0});`;
+    await sql`INSERT INTO email (uid,url)
+    VALUES (${btoa(password)},${email});`;
   }
   if (method === "create") {
     const { username, admin } = rest;

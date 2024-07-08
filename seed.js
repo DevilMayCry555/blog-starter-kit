@@ -15,8 +15,7 @@ const { sql } = require("@vercel/postgres");
 const actions = async () => {
   // return sql`DROP TABLE rooms;`;
   const res = await Promise.all([
-    sql`CREATE TABLE food (uid VARCHAR(4) PRIMARY KEY,name VARCHAR(20),type CHAR(1),calorie CHAR(10));`,
-    sql`CREATE TABLE dish (uid VARCHAR(4) PRIMARY KEY,name VARCHAR(20),type CHAR(1),calorie CHAR(10),foods CHAR(500));`,
+    sql`CREATE TABLE email (uid VARCHAR(50) PRIMARY KEY,url VARCHAR(50));`,
   ]);
   return res;
 };
@@ -27,3 +26,5 @@ const actions = async () => {
 // CREATE TABLE food (uid VARCHAR(4) PRIMARY KEY,name VARCHAR(20),type CHAR(1),calorie CHAR(10));
 // 做菜
 // CREATE TABLE dish (uid VARCHAR(4) PRIMARY KEY,name VARCHAR(20),type CHAR(1),calorie CHAR(10),foods CHAR(500));
+// email
+// CREATE TABLE email (uid VARCHAR(50) PRIMARY KEY,url VARCHAR(50));

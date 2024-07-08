@@ -26,7 +26,7 @@ export default async function User({ params }: Params) {
       {
         field: "username",
         label: "email",
-        type: "email",
+        type: "input",
         init: username,
       },
     ],

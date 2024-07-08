@@ -7,6 +7,11 @@ export default function Login() {
     columns: [
       {
         field: "username",
+        label: "昵称",
+        type: "input",
+      },
+      {
+        field: "email",
         label: "邮箱",
         type: "email",
       },
