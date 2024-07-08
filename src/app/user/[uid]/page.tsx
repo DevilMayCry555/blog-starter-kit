@@ -25,9 +25,14 @@ export default async function User({ params }: Params) {
       },
       {
         field: "username",
-        label: "email",
+        label: "昵称",
         type: "input",
         init: username,
+      },
+      {
+        field: "email",
+        label: "邮箱",
+        type: "email",
       },
     ],
   };

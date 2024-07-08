@@ -48,16 +48,16 @@ export const fetchUser = async (uid?: string, others?: any) => {
   if (!token) {
     return null;
   }
-  const { art = false, draw = true } = { ...others };
+  const { art = false } = { ...others };
   const { rows } = await sql`SELECT * FROM users WHERE uid = ${token.value};`;
+  const {
+    rows: [email],
+  } = await sql`SELECT * FROM email WHERE uid = ${token.value};`;
   const [data] = rows.map((it) => {
-    if (!draw) {
-      return {
-        ...it,
-        draw: null,
-      };
-    }
-    return it;
+    return {
+      ...email,
+      ...it,
+    };
   });
   if (art) {
     const { rows: user_arts } =

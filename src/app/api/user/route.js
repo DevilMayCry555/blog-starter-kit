@@ -31,10 +31,20 @@ export async function GET(request) {
       );
     }
     const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
-    await sql`INSERT INTO users (uid,username,create_time,admin)
-    VALUES (${btoa(password)},${username},${time},${0});`;
-    await sql`INSERT INTO email (uid,url)
-    VALUES (${btoa(password)},${email});`;
+    const uid = btoa(password);
+    try {
+      await sql`INSERT INTO users (uid,username,create_time,admin)
+      VALUES (${uid},${username},${time},${0});`;
+      await sql`INSERT INTO email (uid,url)
+      VALUES (${uid},${email});`;
+    } catch (e) {
+      return NextResponse.json(
+        {
+          msg: "密码过于简单，请重新注册",
+        },
+        { status: 400 }
+      );
+    }
   }
   if (method === "create") {
     const { username, admin } = rest;
@@ -43,11 +53,19 @@ export async function GET(request) {
     VALUES (${getuuid()},${username},${time},${admin ? 1 : 0});`;
   }
   if (method === "update") {
-    const { uid, birthday, username } = rest;
+    const { uid, birthday, username, email } = rest;
     await sql`UPDATE users SET
     birthday = ${birthday},
     username= ${username}
     WHERE uid = ${uid};`;
+    try {
+      await sql`INSERT INTO email (uid,url)
+      VALUES (${uid},${email});`;
+    } catch (e) {
+      await sql`UPDATE email SET
+      url= ${email}
+      WHERE uid = ${uid};`;
+    }
     return NextResponse.redirect(new URL("/", request.url));
   }
   // 切换管理员状态
