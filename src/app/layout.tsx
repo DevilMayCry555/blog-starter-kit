@@ -1,12 +1,12 @@
 import { CMS_NAME, HOME_OG_IMAGE_URL } from "@/lib/constants";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { NextUIProvider } from "@nextui-org/react";
 
 import "./globals.css";
 import TopBanner from "./_components/top-banner";
 
 import { cookies } from "next/headers";
+import { Providers } from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -66,11 +66,11 @@ export default function RootLayout({
         <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       </head>
       <body className={inter.className}>
-        <NextUIProvider>
+        <Providers>
           <TopBanner uid={token} />
           <div id="root-container">{children}</div>
           {/* <Footer /> */}
-        </NextUIProvider>
+        </Providers>
       </body>
     </html>
   );

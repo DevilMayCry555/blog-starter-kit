@@ -11,6 +11,7 @@ import {
   Link,
 } from "@nextui-org/react";
 import { useState } from "react";
+import { ThemeSwitcher } from "./theme-switch";
 export default function TopBanner({ uid }: any) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
@@ -22,6 +23,7 @@ export default function TopBanner({ uid }: any) {
             <span className="font-bold">T.Y.D.L.Y</span>
           </Link>
         </NavbarBrand>
+        <ThemeSwitcher />
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="lg:hidden"
