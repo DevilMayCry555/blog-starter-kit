@@ -44,15 +44,13 @@ export default function AMapContainer() {
               districtSearch.search(
                 "中国",
                 function (status: string, result: any) {
-                  console.log(status, result);
                   //status：complete 表示查询成功，no_data 为查询无结果，error 代表查询错误
                   //查询成功时，result 即为对应的行政区信息
-                  const [china] = result.districtList;
-                  set_dict(
-                    china.districtList.filter((it: any) =>
-                      ["370000", "210000"].includes(it.adcode)
-                    )
-                  );
+                  // console.log(status, result);
+                  if (status === "complete") {
+                    const [china] = result.districtList;
+                    set_dict(china.districtList);
+                  }
                 }
               );
               // 点击查询
@@ -95,7 +93,7 @@ export default function AMapContainer() {
                   weather.getLive(code, function (err: any, data: any) {
                     //err 正确时返回 null
                     //data 返回实时天气数据，返回数据见下表
-                    console.log(err, data);
+                    // console.log(err, data);
                     const {
                       temperature,
                       humidity,
@@ -111,6 +109,9 @@ export default function AMapContainer() {
                       );
                     }
                   });
+                  // weather.getForecast(code, function (err: any, data: any) {
+                  //   console.log(err, data);
+                  // });
                 });
               };
               document
@@ -128,7 +129,7 @@ export default function AMapContainer() {
                   const code = `${id}`.replace("tyd-", "");
                   handle(code);
                 });
-              handle("210211");
+              handle("210211"); // 甘井子区
             });
           })
           .catch((e) => {
@@ -147,8 +148,8 @@ export default function AMapContainer() {
         {/* <Spinner className=" fixed top-1/2 left-1/2" /> */}
       </div>
       <div className=" absolute top-0 left-0 bg-slate-500 text-white text-center">
-        {area.split("、").map((it) => (
-          <p>{it}</p>
+        {area.split("、").map((it, idx) => (
+          <p key={idx}>{it}</p>
         ))}
       </div>
       <div
