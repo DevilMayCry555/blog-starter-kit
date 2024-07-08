@@ -4,7 +4,7 @@ import { fetchChats, fetchRoom, fetchUser } from "@/lib/sql";
 import "./style.css";
 import AuthError from "./auth-error";
 import Send from "./send";
-export default async function Meeting({ params, searchParams }: Params) {
+export default async function Page({ params, searchParams }: Params) {
   // 未登录
   const userinfo = await fetchUser();
   if (!userinfo) {

@@ -2,7 +2,7 @@ import { fetchArts } from "@/lib/sql";
 import Container from "../_components/container";
 import BasePagination from "../_components/base-pagination";
 
-export default async function Guess({ searchParams }: any) {
+export default async function Page({ searchParams }: any) {
   const { current = 1, pageSize = 10 } = searchParams;
   const { rows, total } = await fetchArts(current, pageSize);
   return (

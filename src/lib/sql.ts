@@ -116,11 +116,33 @@ export const fetchLocations = async () => {
   const data = await sql`SELECT * FROM tasks WHERE type = ${type};`;
   return data;
 };
-// 定位分布
+// 食材
 export const fetchFoods = async () => {
   if (noStore()) {
     //
   }
   const data = await sql`SELECT * FROM food;`;
   return data;
+};
+// 所有菜品
+export const fetchCooks = async () => {
+  if (noStore()) {
+    //
+  }
+  const data = await sql`SELECT * FROM dish;`;
+  return data;
+};
+// 菜品详情
+export const fetchCook = async (id: string) => {
+  if (noStore()) {
+    //
+  }
+  const {
+    rows: [info],
+  } = await sql`SELECT * FROM dish WHERE uid = ${id};`;
+  const { rows } = await sql`SELECT * FROM recipe WHERE uid = ${id};`;
+  return {
+    info,
+    rows,
+  };
 };

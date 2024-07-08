@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import BaseForm from "@/app/_components/base-form";
 import { Image } from "@nextui-org/react";
 
-export default async function Draw({ params }: any) {
+export default async function Page({ params }: any) {
   // 未登录
   const userinfo = await fetchUser();
   if (!userinfo) {
