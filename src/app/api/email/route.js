@@ -16,9 +16,9 @@ const sendAsync = (mail) =>
   new Promise((resolve) => {
     transporter.sendMail(mail, (err, info) => {
       if (!err) {
-        resolve({ msg: "验证码发送成功" });
+        resolve({ msg: "发送成功" });
       } else {
-        resolve({ msg: "验证码发送失败，请稍后重试" });
+        resolve({ msg: "发送失败，请稍后重试" });
       }
     });
   });
