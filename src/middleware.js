@@ -22,5 +22,6 @@ export const config = {
     "/posts/:slug*",
     "/backdoor/:door*",
     // "/api/:api*"
+    "/eat",
   ],
 };
