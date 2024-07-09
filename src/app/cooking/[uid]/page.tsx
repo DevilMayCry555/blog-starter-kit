@@ -38,11 +38,20 @@ export default async function Page({ params }: Params) {
       },
     ],
   };
+  const backProps = {
+    action: "/cooking",
+    method: "",
+    text: "back",
+    columns: [],
+  };
   return (
     <main className=" flex-1 p-4">
-      <BaseModal action="add" title="添加原料" dismiss={false}>
-        <BaseForm {...addProps} />
-      </BaseModal>
+      <div className=" flex">
+        <BaseForm {...backProps} />
+        <BaseModal action="add" title="添加原料" dismiss={false}>
+          <BaseForm {...addProps} />
+        </BaseModal>
+      </div>
       <div>{info.name}</div>
       <div className=" flex justify-between">
         <span>名称</span>
