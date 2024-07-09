@@ -13,7 +13,7 @@ const arrow = `<div class="custom-content-marker">
   </div>
   <img src="/assets/map-marker-current.png">
 </div>`;
-const locals = [""];
+const locals = ["100000"];
 
 export default function AMapContainer({ locations }: Prop) {
   useEffect(() => {
@@ -75,6 +75,11 @@ export default function AMapContainer({ locations }: Prop) {
                           offset: new AMap.Pixel(-13, -30),
                         });
                         map.add(marker);
+                        const text = new AMap.Marker({
+                          position: center,
+                          content: `<div style="color:#000;font-size:0.5em">${adcode}</div>`,
+                        });
+                        map.add(text);
                       }
                     });
                   }
