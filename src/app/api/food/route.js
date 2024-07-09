@@ -14,6 +14,12 @@ export async function GET(request) {
     await sql`INSERT INTO food (uid,name,type,calorie,intro)
     VALUES (${uid},${name},${type},${calorie},${intro});`;
   }
+  if (method === "update") {
+    const { uid, calorie } = rest;
+    await sql`UPDATE food SET
+    calorie = ${calorie}
+    WHERE uid = ${uid};`;
+  }
   return NextResponse.redirect(new URL("/eat", request.url));
 }
 
