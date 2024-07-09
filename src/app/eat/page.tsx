@@ -27,14 +27,14 @@ export default async function Eat() {
           <div className=" mb-2 border-b-1">
             {idx === 0 && (
               <div className=" flex justify-between">
-                <span className=" w-16">uid</span>
+                {/* <span className=" w-16">uid</span> */}
                 <span className=" flex-1">name</span>
                 <span>kcal</span>
                 {isDEV && <span className=" w-20 text-right">action</span>}
               </div>
             )}
             <div className=" flex justify-between">
-              <span className=" w-16">{item.uid}</span>
+              {/* <span className=" w-16">{item.uid}</span> */}
               <span className=" flex-1">{item.name}</span>
               <span>{item.calorie}</span>
               {isDEV && (
@@ -73,6 +73,8 @@ export default async function Eat() {
   return (
     <main className=" flex-1 relative">
       <Container>
+        <div>葱10g、蒜10g、姜末5g，约25kcal</div>
+        <div>花生油30g，约270kcal</div>
         {isDEV ? (
           <div className=" my-4">
             <BaseModal action="create" title="create food" dismiss={false}>
