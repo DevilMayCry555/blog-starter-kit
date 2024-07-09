@@ -75,15 +75,12 @@ export default async function Eat() {
       <Container>
         <div>葱10g、蒜10g、姜末5g，约25kcal</div>
         <div>花生油30g，约270kcal</div>
-        {isDEV ? (
-          <div className=" my-4">
-            <BaseModal action="create" title="create food" dismiss={false}>
-              <BaseForm {...createProps} />
-            </BaseModal>
-          </div>
-        ) : (
-          <div className=" h-4"></div>
-        )}
+        <div>以上不参与计算</div>
+        <div className=" my-4">
+          <BaseModal action="create" title="create food" dismiss={false}>
+            <BaseForm {...createProps} />
+          </BaseModal>
+        </div>
 
         <BaseTab group={group} vertical={true} defaultKey="0" />
       </Container>
