@@ -29,8 +29,6 @@ export default function Login() {
   };
   return (
     <main className=" m-auto">
-      <b>邮箱 建议填常用的，生日有专属祝福</b>
-      <hr />
       <b>密码 建议复杂点，注册后不可更改</b>
       <hr />
       <b>注册后，可前往个人信息页面编辑生日</b>
