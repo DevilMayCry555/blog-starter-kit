@@ -28,6 +28,7 @@ export default async function Eat() {
         field: "calorie",
         label: "kcal",
         type: "number",
+        init: +info.calorie,
       },
       {
         field: "intro",
