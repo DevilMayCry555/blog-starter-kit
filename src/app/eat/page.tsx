@@ -35,7 +35,11 @@ export default async function Eat() {
             )}
             <div className=" flex justify-between">
               {/* <span className=" w-16">{item.uid}</span> */}
-              <span className=" flex-1">{item.name}</span>
+              <span className=" flex-1">
+                <BaseModal action={item.name} title="intro" type="a">
+                  {item.intro}
+                </BaseModal>
+              </span>
               <span>{item.calorie}</span>
               {isDEV && (
                 <span className=" w-20 text-right">
@@ -68,14 +72,21 @@ export default async function Eat() {
         label: "kcal",
         type: "number",
       },
+      {
+        field: "intro",
+        label: "intro",
+        type: "textarea",
+      },
     ],
   };
   return (
     <main className=" flex-1 relative">
       <Container>
-        <div>葱10g、蒜10g、姜末5g，约25kcal</div>
-        <div>花生油30g，约270kcal</div>
-        <div>以上不参与计算</div>
+        <div className=" text-sm">
+          <div>葱末10g、蒜片10g、姜末5g，约25kcal</div>
+          <div>花生油30g，约270kcal</div>
+          <div>以上不参与计算</div>
+        </div>
         <div className=" my-4">
           <BaseModal action="create" title="create food" dismiss={false}>
             <BaseForm {...createProps} />

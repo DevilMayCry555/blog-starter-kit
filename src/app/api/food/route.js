@@ -10,17 +10,9 @@ export async function GET(request) {
     await sql`DELETE FROM food WHERE uid = ${rest.uid};`;
   }
   if (method === "create") {
-    const { uid, name, type, calorie } = rest;
-    await sql`INSERT INTO food (uid,name,type,calorie)
-    VALUES (${uid},${name},${type},${calorie});`;
-  }
-  if (method === "update") {
-    const { uid, name, type, calorie } = rest;
-    await sql`UPDATE food SET
-    name = ${name},
-    type = ${type},
-    calorie = ${calorie}
-    WHERE uid = ${uid};`;
+    const { uid, name, type, calorie, intro } = rest;
+    await sql`INSERT INTO food (uid,name,type,calorie,intro)
+    VALUES (${uid},${name},${type},${calorie},${intro});`;
   }
   return NextResponse.redirect(new URL("/eat", request.url));
 }

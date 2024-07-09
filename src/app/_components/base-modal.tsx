@@ -44,6 +44,11 @@ export default function BaseModal({
           {action}
         </Button>
       )}
+      {type === "a" && (
+        <a className=" cursor-pointer" onClick={onOpen}>
+          {action}
+        </a>
+      )}
 
       <Modal
         isOpen={isOpen}

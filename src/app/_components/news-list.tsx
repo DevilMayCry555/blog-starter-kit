@@ -57,7 +57,7 @@ const transData = (news: article[]) =>
     }
   });
 
-export default function NewsList({ data, paths = [], label = "--" }: any) {
+export default function NewsList({ data, paths = [] }: any) {
   // type radios articles
   const news = transData(data);
   // console.log(paths);
