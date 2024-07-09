@@ -18,16 +18,22 @@ export default async function Eat() {
     form: { uid },
     columns: [],
   });
-  const updateProps = (uid: string) => ({
+  const updateProps = (info: any) => ({
     action: "/api/food",
     method: "update",
     text: "update",
-    form: { uid },
+    form: { uid: info.uid },
     columns: [
       {
         field: "calorie",
         label: "kcal",
         type: "number",
+      },
+      {
+        field: "intro",
+        label: "intro",
+        type: "textarea",
+        init: info.intro,
       },
     ],
   });
@@ -50,7 +56,7 @@ export default async function Eat() {
             <div>{item.intro}</div>
             <div className=" flex justify-end">
               <BaseModal action="update" title="" dismiss={false}>
-                <BaseForm {...updateProps(item.uid)} />
+                <BaseForm {...updateProps(item)} />
               </BaseModal>
               {isDEV && <BaseForm {...deleteProps(item.uid)} />}
             </div>

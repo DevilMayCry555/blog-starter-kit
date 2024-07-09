@@ -15,9 +15,10 @@ export async function GET(request) {
     VALUES (${uid},${name},${type},${calorie},${intro});`;
   }
   if (method === "update") {
-    const { uid, calorie } = rest;
+    const { uid, calorie, intro } = rest;
     await sql`UPDATE food SET
-    calorie = ${calorie}
+    calorie = ${calorie},
+    intro = ${intro}
     WHERE uid = ${uid};`;
   }
   return NextResponse.redirect(new URL("/eat", request.url));
