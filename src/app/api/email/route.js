@@ -25,13 +25,13 @@ const sendAsync = (mail) =>
 // 1904591839
 export async function GET(request) {
   const { search } = request.nextUrl;
-  const { type = "love" } = qs(search);
+  const { method = "test", content } = qs(search);
   //发送邮件
   const mail = {
     to: "1061471799@qq.com", //收件人，这里由post请求传递过来
   };
   // 邮件内容，用html格式编写
-  if (type === "love") {
+  if (method === "test") {
     Object.assign(mail, {
       from: `"溜溜洋"<1061471799@qq.com>`, // 发件人
       subject: "open the door", //邮箱主题
@@ -40,6 +40,13 @@ export async function GET(request) {
         <p>您的验证码是：<strong style="color:orangered;">2333</strong></p>
         <p>如果不是您本人操作，请无视此邮件</p>
     `,
+    });
+  }
+  if (method === "order") {
+    Object.assign(mail, {
+      from: `"溜溜洋"<1061471799@qq.com>`, // 发件人
+      subject: "饿饿，饭饭", //邮箱主题
+      html: `<p>${content}</p>`,
     });
   }
   const res = await sendAsync(mail);
