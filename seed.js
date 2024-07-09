@@ -22,11 +22,7 @@ const actions = async () => {
 // actions().then((res) => {
 //   console.log(res);
 // });
-// 食材
+// 烹饪
 // CREATE TABLE food (uid VARCHAR(4) PRIMARY KEY,name VARCHAR(20),type CHAR(1),calorie CHAR(10));
-// 菜色
-// CREATE TABLE dish (uid VARCHAR(4) PRIMARY KEY,name VARCHAR(20),type CHAR(1));
-// 配方
-// CREATE TABLE recipe (uid VARCHAR(4),foodid VARCHAR(4),g CHAR(9));
 // email
 // CREATE TABLE email (uid VARCHAR(50) PRIMARY KEY,url VARCHAR(50));
