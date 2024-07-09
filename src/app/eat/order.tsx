@@ -50,6 +50,9 @@ export default function Order({
     }
   };
   const orderForm = useMemo(() => {
+    if (select.length === 0) {
+      return null;
+    }
     const orderProps = {
       action: "/api/email",
       method: "order",
