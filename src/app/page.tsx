@@ -16,9 +16,8 @@ const Tools = transfer({
   "/three": "3D",
   "/map": "天气",
   "/demo": "GPT",
-  "/eat": "卡路里",
+  "/eat": "烹饪",
   "/charts": "图表",
-  "/cooking": "饭饭",
   // "/deep.apk": "Deep@2024.06",
 });
 

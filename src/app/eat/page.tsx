@@ -5,7 +5,7 @@ import BaseForm from "@/app/_components/base-form";
 import Container from "../_components/container";
 import { isDEV } from "@/lib/constants";
 
-const types = ["其他", "肉类", "蔬菜", "水果", "主食", "蛋奶"];
+const types = ["烹", "炒", "煎", "炸", "蒸", "煮", "炖"];
 
 export default async function Eat() {
   const { rows } = await fetchFoods();
@@ -29,7 +29,7 @@ export default async function Eat() {
               <div className=" flex justify-between">
                 <span className=" w-16">uid</span>
                 <span className=" flex-1">name</span>
-                <span>kcal/100g</span>
+                <span>kcal</span>
                 {isDEV && <span className=" w-20 text-right">action</span>}
               </div>
             )}
@@ -65,34 +65,7 @@ export default async function Eat() {
       },
       {
         field: "calorie",
-        label: "kcal / 100g",
-        type: "number",
-      },
-    ],
-  };
-  const updateProps = {
-    action: "/api/food",
-    method: "update",
-    columns: [
-      {
-        field: "uid",
-        label: "uid",
-        type: "input",
-      },
-      {
-        field: "name",
-        label: "name",
-        type: "input",
-      },
-      {
-        field: "type",
-        label: "type",
-        type: "select",
-        options: types.map((label, value) => ({ label, value })),
-      },
-      {
-        field: "calorie",
-        label: "kcal / 100g",
+        label: "kcal",
         type: "number",
       },
     ],
@@ -104,9 +77,6 @@ export default async function Eat() {
           <div className=" my-4">
             <BaseModal action="create" title="create food" dismiss={false}>
               <BaseForm {...createProps} />
-            </BaseModal>
-            <BaseModal action="update" title="update food" dismiss={false}>
-              <BaseForm {...updateProps} />
             </BaseModal>
           </div>
         ) : (
