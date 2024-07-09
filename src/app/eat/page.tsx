@@ -36,7 +36,7 @@ export default async function Eat() {
             <div className=" flex justify-between">
               {/* <span className=" w-16">{item.uid}</span> */}
               <span className=" flex-1">
-                <BaseModal action={item.name} title="intro" type="a">
+                <BaseModal action={item.name} title={item.name} type="a">
                   {item.intro}
                 </BaseModal>
               </span>
