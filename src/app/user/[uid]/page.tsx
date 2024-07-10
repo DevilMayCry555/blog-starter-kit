@@ -12,7 +12,7 @@ export default async function User({ params }: Params) {
   if (!info) {
     return notFound();
   }
-  const { username, birthday, admin, arts, draw, url: email } = info;
+  const { username, birthday, arts, draw, url: email } = info;
   const Desc = () => (
     <>
       <div>{birthday ?? "未设置生日"}</div>
@@ -28,6 +28,7 @@ export default async function User({ params }: Params) {
         field: "birthday",
         label: "生日",
         type: "date",
+        init: new Date("1997-08-12"),
       },
       {
         field: "username",
@@ -49,7 +50,7 @@ export default async function User({ params }: Params) {
         <div className=" text-2xl py-4">基本信息</div>
         <div className=" flex justify-between items-center">
           <MyUser
-            name={`${username}（${admin === "1" ? "管理" : "会员"}）`}
+            name={username}
             description={<Desc />}
             avatarProps={{
               src: draw,
@@ -61,7 +62,7 @@ export default async function User({ params }: Params) {
               },
             }}
           />
-          <BaseModal action="update" title="update user">
+          <BaseModal action="编辑" title="update user">
             <BaseForm {...updateProps} />
           </BaseModal>
         </div>

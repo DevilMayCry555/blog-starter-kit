@@ -75,7 +75,7 @@ const getAction = (item: any) => {
 
 export default function BaseTable({ fields, rows }: Props) {
   // 取消uid行的显示
-  const columns: any[] = ["actions"].concat(fields.map((it) => it.name));
+  const columns: string[] = ["actions"].concat(fields.map((it) => it.name));
 
   return (
     <Table aria-label="Example static collection table">
