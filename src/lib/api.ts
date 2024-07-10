@@ -2,6 +2,7 @@ import { Post } from "@/interfaces/post";
 import fs from "fs";
 import matter from "gray-matter";
 import { join } from "path";
+import { qstr } from "./utils";
 
 const postsDirectory = join(process.cwd(), "_posts");
 
@@ -32,3 +33,7 @@ export function getAllPosts(): Post[] {
     .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
   return posts;
 }
+export const ff = (url: string, search?: { [k: string]: any }) =>
+  fetch(qstr(url, { ...search }), { cache: "no-store" }).then((res) =>
+    res.json()
+  );

@@ -18,6 +18,7 @@ const Tools = transfer({
   "/demo": "GPT",
   "/eat": "烹饪",
   "/charts": "图表",
+  "/watch": "资源",
   // "/deep.apk": "Deep@2024.06",
 });
 

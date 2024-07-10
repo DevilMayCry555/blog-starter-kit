@@ -2,14 +2,19 @@
 
 import BaseModal from "./base-modal";
 import ReactPlayer from "react-player";
+import "./base-radio-player.css";
 
 interface Props {
   url: string;
+  action?: string;
 }
-export default function BaseRadioPlayer({ url }: Props) {
+export default function BaseRadioPlayer({ url, action = "on" }: Props) {
   return (
-    <BaseModal action="on" title="radio" dismiss={false}>
-      <ReactPlayer url={url} controls width={320} height={50} />
+    <BaseModal action={action} title="radio" dismiss={false}>
+      {/* 16：9 */}
+      <div className="base-radio-player-wrap">
+        <ReactPlayer url={url} controls width={"100%"} height={"100%"} />
+      </div>
     </BaseModal>
   );
 }

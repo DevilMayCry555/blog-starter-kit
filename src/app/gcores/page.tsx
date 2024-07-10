@@ -1,8 +1,9 @@
 import { qstr } from "@/lib/utils";
 import NewsList from "../_components/news-list";
+import { ff } from "@/lib/api";
 
-const ff = (url: string) =>
-  fetch(url, { cache: "no-store" }).then((res) => res.json());
+// const ff = (url: string) =>
+//   fetch(url, { cache: "no-store" }).then((res) => res.json());
 
 const getNews = (size: number) =>
   qstr("https://www.gcores.com/gapi/v1/articles", {

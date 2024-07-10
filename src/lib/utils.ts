@@ -13,11 +13,10 @@ export const qs = (str = "") => {
 };
 export const qstr = (url: string, obj: Object) =>
   url +
-  "?" +
   Object.entries(obj)
-    .map((it) => {
+    .map((it, idx) => {
       const [key, val] = it;
-      return `${key}=${val}`;
+      return `${idx === 0 ? "?" : ""}${key}=${val}`;
     })
     .join("&");
 export const getuuid = (spec: number | string = Date.now()) =>
