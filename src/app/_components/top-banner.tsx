@@ -56,6 +56,11 @@ export default function TopBanner({ uid }: any) {
             <Link href={`/user/${btoa(uid)}`}>User</Link>
           </NavbarItem>
         )}
+        {uid && (
+          <NavbarItem>
+            <Link href="/watch">Video</Link>
+          </NavbarItem>
+        )}
         <NavbarItem>
           {uid ? (
             <Link href="/api/logout">Logout</Link>
