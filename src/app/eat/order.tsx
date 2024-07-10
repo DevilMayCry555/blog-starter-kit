@@ -56,14 +56,34 @@ export default function Order({
     const orderProps = {
       action: "/api/email",
       method: "order",
+      text: "点餐",
       form: {
         content: select
           .map((it) => rows.find((r) => r.uid === it)?.name)
           .join(","),
       },
-      columns: [],
+      columns: [
+        {
+          field: "remark",
+          label: "备注",
+          type: "textarea",
+        },
+      ],
     };
-    return <BaseForm {...orderProps} />;
+    return (
+      <BaseModal action={select.length} title="">
+        <div className=" min-h-24">
+          <div className=" my-2">
+            {select.map((it) => (
+              <Chip key={it} onClose={() => handle(it, true)}>
+                {rows.find((r) => r.uid === it)?.name}
+              </Chip>
+            ))}
+          </div>
+          <BaseForm {...orderProps} />
+        </div>
+      </BaseModal>
+    );
   }, [select]);
   const group = types.map((name, type) => {
     return {
@@ -98,18 +118,7 @@ export default function Order({
   return (
     <>
       <BaseTab group={group} vertical={true} defaultKey="0" />
-      <div className=" fixed bottom-4 right-4">
-        <BaseModal action={select.length} title="">
-          <div className=" min-h-24">
-            {select.map((it) => (
-              <Chip key={it} onClose={() => handle(it, true)}>
-                {rows.find((r) => r.uid === it)?.name}
-              </Chip>
-            ))}
-          </div>
-          {orderForm}
-        </BaseModal>
-      </div>
+      <div className=" fixed bottom-4 right-4">{orderForm}</div>
     </>
   );
 }
