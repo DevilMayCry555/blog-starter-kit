@@ -12,7 +12,7 @@ import {
   Spacer,
 } from "@nextui-org/react";
 import { useState } from "react";
-
+import { parseDate } from "@internationalized/date";
 // import { getuuid } from "@/lib/utils";
 
 interface Column {
@@ -114,7 +114,7 @@ export default function BaseForm({
               <DateInput
                 label={label}
                 name={field}
-                defaultValue={init as any}
+                defaultValue={parseDate(init as any)}
               />
             )}
             {type === "time" && (

@@ -28,7 +28,7 @@ export default async function User({ params }: Params) {
         field: "birthday",
         label: "生日",
         type: "date",
-        init: new Date("1997-08-12"),
+        init: birthday,
       },
       {
         field: "username",
