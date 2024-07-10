@@ -10,6 +10,8 @@ const fields: { [k: string]: string } = {
   r746741: "加菲猫的幸福生活S2&18&30fc0a7f06b29a19e125b861e4bf500a",
   r746743: "加菲猫的幸福生活S3&18&249983ee58c172e36d9065320cdf5ffb",
   r746737: "加菲猫的幸福生活S4&18&d0202ab4cf0e9b8edae05942b539c467",
+  r661589: "明星大侦探S3&19&d88c4f5204ad3aa9cf43641283ac8dd7",
+  r591360: "明星大侦探S4&19&14cf892ea66018125f719027f4aa9179",
 };
 
 export default async function Watch({ searchParams }: any) {
@@ -35,7 +37,7 @@ export default async function Watch({ searchParams }: any) {
   });
   //   console.log(res.data);
   const list: { id: number; resData: string }[] = res.data.list;
-  const group = list.slice(0, 1).map((it) => {
+  const group = list.map((it) => {
     const [{ url }] = JSON.parse(it.resData);
     return `${url}`.split("#").filter((it) => !!it);
   });
@@ -44,6 +46,7 @@ export default async function Watch({ searchParams }: any) {
       <h1 className=" text-3xl font-bold tracking-tighter leading-tight">
         {name}
       </h1>
+      <div>明星大侦探系列推荐线路7</div>
       {group.map((g, idx) => (
         <div key={idx}>
           <div>线路{idx + 1}</div>
