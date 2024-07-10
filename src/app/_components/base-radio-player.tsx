@@ -10,7 +10,7 @@ interface Props {
 }
 export default function BaseRadioPlayer({ url, action = "on" }: Props) {
   return (
-    <BaseModal action={action} title="radio" dismiss={false}>
+    <BaseModal action={action} title={action} dismiss={false}>
       {/* 16：9 */}
       <div className="base-radio-player-wrap">
         <ReactPlayer url={url} controls width={"100%"} height={"100%"} />
