@@ -1,7 +1,8 @@
 import { ff } from "@/lib/api";
 import BaseRadioPlayer from "../_components/base-radio-player";
 import BaseList from "../_components/base-list";
-
+//
+// https://v.aikanbot.com/api/getResN?videoId=587092&mtype=2&token=bc16f57d183f499a73dbae85c0354ccd
 const fields: { [k: string]: string } = {
   r855833: "鬼灭之刃：柱训练篇&2&f8dcd522fdd6f6eeb1fe9a7f52915667",
   r387916: "加菲猫2004&1&2c1fe5c78f7737223c9a71443c4dd24d",
@@ -12,6 +13,8 @@ const fields: { [k: string]: string } = {
   r746737: "加菲猫的幸福生活S4&18&d0202ab4cf0e9b8edae05942b539c467",
   r661589: "明星大侦探S3&19&d88c4f5204ad3aa9cf43641283ac8dd7",
   r591360: "明星大侦探S4&19&14cf892ea66018125f719027f4aa9179",
+  r421162: "甄嬛传&2&a49abcd6d66c6479aef6e98cdfdfdbc7",
+  r587092: "知否&2&bc16f57d183f499a73dbae85c0354ccd",
 };
 
 export default async function Watch({ searchParams }: any) {
