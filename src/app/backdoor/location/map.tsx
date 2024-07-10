@@ -37,8 +37,9 @@ export default function AMapContainer({ locations }: Prop) {
               center: [108.932092, 34.329593], // 初始化地图中心点位置
             }); //"map-container"为 <div> 容器的 id
             // 绘制坐标点
-            locations.forEach((item) => {
-              const { content: adcode } = item;
+            locations.forEach((local) => {
+              const { content: adcode } = local;
+              // console.log(item);
               if (locals.includes(adcode)) {
                 return false;
               } else {
@@ -77,7 +78,7 @@ export default function AMapContainer({ locations }: Prop) {
                         map.add(marker);
                         const text = new AMap.Marker({
                           position: center,
-                          content: `<div style="color:#000;font-size:0.5em">${adcode}</div>`,
+                          content: `<div style="color:#000;font-size:0.5em;width:300px">${local["create_time"]}</div>`,
                         });
                         map.add(text);
                       }
