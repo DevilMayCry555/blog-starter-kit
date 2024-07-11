@@ -3,6 +3,7 @@ import fs from "fs";
 import matter from "gray-matter";
 import { join } from "path";
 import { qstr } from "./utils";
+import { accessToken } from "./constants";
 
 const postsDirectory = join(process.cwd(), "_posts");
 
@@ -34,6 +35,7 @@ export function getAllPosts(): Post[] {
   return posts;
 }
 export const ff = (url: string, search?: { [k: string]: any }) =>
-  fetch(qstr(url, { ...search }), { cache: "no-store" }).then((res) =>
-    res.json()
-  );
+  fetch(qstr(url, { ...search }), {
+    cache: "no-store",
+    headers: { "Access-Token": `Bearer ${accessToken}` },
+  }).then((res) => res.json());
