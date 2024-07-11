@@ -16,10 +16,6 @@ const fields: { [k: string]: string } = {
   r587092: "知否&2&bc16f57d183f499a73dbae85c0354ccd",
   r381931: "请回答1988&2&3924fd46af8f266d182f89805910f65c",
 };
-const tips: { [k: string]: string } = {
-  r661589: "推荐线路7",
-  r591360: "推荐线路7",
-};
 
 export default async function Watch({ searchParams }: any) {
   const { id } = searchParams;
@@ -53,7 +49,6 @@ export default async function Watch({ searchParams }: any) {
       <h1 className=" text-3xl font-bold tracking-tighter leading-tight">
         {name}
       </h1>
-      <div className=" text-red-300">{tips[id]}</div>
       {group.map((g, idx) => (
         <div key={idx}>
           <div>线路{idx + 1}</div>
