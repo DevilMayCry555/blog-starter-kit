@@ -16,10 +16,15 @@ const fields: { [k: string]: string } = {
   r587092: "知否&2&bc16f57d183f499a73dbae85c0354ccd",
   r381931: "请回答1988&2&3924fd46af8f266d182f89805910f65c",
 };
-
+// xg-video-container video
 export default async function Watch({ searchParams }: any) {
   const { id } = searchParams;
-
+  const q = await fetch(
+    "https://www.douyin.com/video/7389592603093716251"
+  ).then((res) => res.text());
+  if (q) {
+    console.log(q);
+  }
   if (!id) {
     const list = Object.keys(fields).map((it) => {
       const [value] = fields[it].split("&");
