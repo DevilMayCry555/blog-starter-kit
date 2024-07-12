@@ -33,7 +33,7 @@ export default async function Yami({ searchParams }: any) {
       body: JSON.stringify({
         actor_type: "long",
         age: "ALL",
-        category: 1,
+        category: 2, // 1全部2最热3畅销4最新
         cup: "ALL",
       }),
       headers: {
@@ -52,7 +52,7 @@ export default async function Yami({ searchParams }: any) {
         },
         token
       );
-    console.log(actor);
+    console.log(videos);
     // console.log(img);
     return (
       <div>
