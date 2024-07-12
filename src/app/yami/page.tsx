@@ -1,8 +1,7 @@
 import { ff } from "@/lib/api";
 import BaseRadioPlayer from "../_components/base-radio-player";
-import BaseForm from "../_components/base-form";
 import BaseList from "../_components/base-list";
-import { User as MyUser } from "@nextui-org/react";
+import { Link, User as MyUser } from "@nextui-org/react";
 //
 interface Video {
   code: string;
@@ -15,32 +14,45 @@ interface resProps {
   recommend_videos: Video[];
   video: Video;
 }
-interface actor {
-  actor: {
-    sid: number;
-    birthday: number;
-    cover64: string;
-    cup: string;
-    name: string;
-    video_count: number;
-  };
-  genres: any[];
-  next: number;
-  videos: Video[];
+interface Actor {
+  sid: number;
+  birthday: number;
+  birth: number;
+  cover64: string;
+  cup: string;
+  name: string;
+  video_count: number;
 }
-export default async function Watch({ searchParams }: any) {
+export default async function Yami({ searchParams }: any) {
   const { id = "", sid = "" } = searchParams;
   const { token } = await ff("https://apiw2.eaeja.com/vw3/visitor");
-  if (sid) {
-    const { actor, videos }: actor = await ff(
-      `https://apiw2.eaeja.com/vw3/actor/${sid}/videos`,
-      {
+  const girls: { actors: Actor[]; next: number } = await fetch(
+    "https://apiw2.eaeja.com/vw3/category/actors",
+    {
+      method: "POST",
+      body: JSON.stringify({
         actor_type: "long",
+        age: "ALL",
+        category: 1,
+        cup: "ALL",
+      }),
+      headers: {
+        "Access-Token": `Bearer ${token}`,
+        "Content-Type": "application/json;charset=UTF-8",
       },
-      token
-    );
+    }
+  ).then((res) => res.json());
+  // console.log(girls.actors[0]);
+  if (sid) {
+    const { actor, videos }: { next: number; videos: Video[]; actor: Actor } =
+      await ff(
+        `https://apiw2.eaeja.com/vw3/actor/${sid}/videos`,
+        {
+          actor_type: "long",
+        },
+        token
+      );
     console.log(actor);
-    const img = await fetch(actor.cover64).then((res) => res.text());
     // console.log(img);
     return (
       <div>
@@ -50,7 +62,7 @@ export default async function Watch({ searchParams }: any) {
             Date.now() - actor.birthday * 1000
           ).toLocaleDateString()} ${actor.cup} ${actor.video_count}`}
           avatarProps={{
-            src: `data:image/jpg;base64,${img}`,
+            src: actor.cover64,
             isBordered: true,
             imgProps: {
               style: {
@@ -70,34 +82,24 @@ export default async function Watch({ searchParams }: any) {
     );
   }
   if (!id) {
-    const codeProps = {
-      action: "/yami",
-      method: "",
-      text: "GO",
-      columns: [
-        {
-          field: "id",
-          label: "find",
-          type: "input",
-          init: "270JGAHO-266",
-          required: false,
-        },
-        {
-          field: "sid",
-          label: "actor",
-          type: "input",
-          init: "28560",
-          required: false,
-        },
-      ],
-    };
     return (
-      <main className=" m-auto">
-        <BaseForm {...codeProps} />
+      <main className=" flex-1">
+        <div className=" flex flex-wrap">
+          {girls.actors.map((actor) => (
+            <div className=" w-1/2">
+              <MyUser
+                key={actor.sid}
+                name={<Link href={`/yami?sid=${actor.sid}`}>{actor.name}</Link>}
+                description={`${new Date(
+                  actor.birth * 1000
+                ).toLocaleDateString()} ${actor.cup} ${actor.video_count}`}
+              />
+            </div>
+          ))}
+        </div>
       </main>
     );
   }
-  // https://dmfxh.gkgdgvse.com/result_actor/28560/%E7%BE%8E%E5%9C%92%E5%92%8C%E8%8A%B1?actor_type=long&actor_page_type=0
 
   const res: resProps = await ff(
     `https://apiw2.eaeja.com/vw3/video/${id}`,
@@ -114,7 +116,6 @@ export default async function Watch({ searchParams }: any) {
   // console.log(recommend_videos);
   return (
     <main className=" flex-1 p-4">
-      <a href="/yami">back</a>
       <h1 className=" text-3xl font-bold tracking-tighter leading-tight">
         {id}
       </h1>
