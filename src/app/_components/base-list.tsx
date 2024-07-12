@@ -15,7 +15,11 @@ export default function BaseList({ list }: Prop) {
       onAction={(key) => router.push(`${key}`, { scroll: true })}
     >
       {list.map((it) => {
-        return <ListboxItem key={it.label}>{it.value}</ListboxItem>;
+        return (
+          <ListboxItem key={it.label} description={it.desc}>
+            {it.value}
+          </ListboxItem>
+        );
       })}
     </Listbox>
   );

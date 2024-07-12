@@ -73,11 +73,13 @@ export default function NewsList({ data, paths = [] }: any) {
           <div className=" flex justify-between">
             {paths[idx] && <BaseRadioPlayer url={paths[idx]} />}
             {it.imgs.length > 0 && <BaseSwiper urls={it.imgs} />}
-            <BaseModal action="..." title="">
-              {it.blocks.map((it, idx) => (
-                <div key={idx}>{it}</div>
-              ))}
-            </BaseModal>
+            {it.blocks.length > 0 && (
+              <BaseModal action="..." title="">
+                {it.blocks.map((it, idx) => (
+                  <div key={idx}>{it}</div>
+                ))}
+              </BaseModal>
+            )}
           </div>
           <DateFormatter dateString={it.time} />
         </AccordionItem>

@@ -37,9 +37,14 @@ export default async function Watch({ searchParams }: any) {
       </main>
     );
   }
-  const res: resProps = await ff(`https://apiw2.eaeja.com/vw3/video/${id}`, {
-    cdn: "tc",
-  });
+  const { token } = await ff("https://apiw2.eaeja.com/vw3/visitor");
+  const res: resProps = await ff(
+    `https://apiw2.eaeja.com/vw3/video/${id}`,
+    {
+      cdn: "tc",
+    },
+    token
+  );
   const {
     carousel_videos,
     recommend_videos,
@@ -62,7 +67,8 @@ export default async function Watch({ searchParams }: any) {
       <BaseList
         list={carousel_videos.map((it) => ({
           label: `/yami?id=${it.code}`,
-          value: it.title.slice(0, 8),
+          desc: it.title,
+          value: it.code,
         }))}
       />
       <h1 className=" text-3xl font-bold tracking-tighter leading-tight">
@@ -71,7 +77,8 @@ export default async function Watch({ searchParams }: any) {
       <BaseList
         list={recommend_videos.map((it) => ({
           label: `/yami?id=${it.code}`,
-          value: it.title.slice(0, 8),
+          desc: it.title,
+          value: it.code,
         }))}
       />
     </main>
