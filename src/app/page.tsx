@@ -1,3 +1,4 @@
+import { ff } from "@/lib/api";
 import BaseCard from "./_components/base-card";
 import BaseList from "./_components/base-list";
 
@@ -26,8 +27,17 @@ const Control = transfer({
   "/backdoor/location": "usage",
 });
 
+interface Newinfo {
+  mid: string;
+  category: string;
+  word: string;
+  ad_type: string;
+}
+
 export default async function Index() {
   // console.log(paths);
+  const { data } = await ff("https://weibo.com/ajax/side/hotSearch");
+  const { realtime } = data as { realtime: Newinfo[] };
   return (
     <main className=" m-auto w-4/5 flex flex-col lg:flex-row">
       {transfer({
@@ -39,6 +49,14 @@ export default async function Index() {
           <BaseList list={it.value} />
         </BaseCard>
       ))}
+      <div>
+        {realtime.map((it) => (
+          <div className=" my-2 flex justify-between" key={it.mid}>
+            <span className=" w-20">{it.category ?? it.ad_type}</span>
+            <span className=" flex-1">{it.word}</span>
+          </div>
+        ))}
+      </div>
     </main>
   );
 }
