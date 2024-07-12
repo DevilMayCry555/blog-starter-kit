@@ -29,9 +29,28 @@ const getBase64 = async (url: string) => {
   return `data:image/png;base64,${b64.slice(1)}`;
 };
 export default async function Yami({ searchParams }: any) {
-  const { id = "", sid = "", to = 0 } = searchParams;
+  const { id = "", sid = "", to = 0, sort = "0" } = searchParams;
   const { token } = await ff("https://apiw2.eaeja.com/vw3/visitor");
-
+  if (sort === "0") {
+    const categorys = Array(4)
+      .fill(1)
+      .map((it, idx) => it + idx);
+    const fields: any = {
+      1: "全部",
+      2: "最热",
+      3: "畅销",
+      4: "最新",
+    };
+    return (
+      <main className=" m-auto">
+        {categorys.map((it) => (
+          <Link className=" mx-4" href={`/yami?sort=${it}`}>
+            {fields[it]}
+          </Link>
+        ))}
+      </main>
+    );
+  }
   if (sid) {
     const {
       // actor,
@@ -76,7 +95,7 @@ export default async function Yami({ searchParams }: any) {
         body: JSON.stringify({
           actor_type: "long",
           age: "ALL",
-          category: 2, // 1全部2最热3畅销4最新
+          category: sort, // 1全部2最热3畅销4最新
           cup: "ALL",
         }),
         headers: {
@@ -110,6 +129,7 @@ export default async function Yami({ searchParams }: any) {
                     backgroundColor: "#fff",
                   },
                 },
+                size: "sm",
               }}
             />
           </div>
