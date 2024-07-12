@@ -168,20 +168,21 @@ export default async function Yami({ searchParams }: any) {
   const {
     carousel_videos,
     recommend_videos,
-    video: { sources, actors = [] },
+    video: { sources, actors = [], title },
   } = res;
-  console.log(res.video);
+  // console.log(res.video);
   return (
     <main className=" flex-1 p-4">
       <h1 className=" text-3xl font-bold tracking-tighter leading-tight">
         {id}
       </h1>
-
+      <div>{title}</div>
       {Object.keys({ ...sources })
         .filter((it) => !!sources[it])
         .map((it, idx) => (
           <BaseRadioPlayer key={idx} url={`${sources[it]}`} />
         ))}
+
       <h1 className=" text-3xl font-bold tracking-tighter leading-tight">
         recommend_videos
       </h1>
