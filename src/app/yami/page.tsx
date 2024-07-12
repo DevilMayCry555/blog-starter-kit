@@ -7,6 +7,7 @@ interface Video {
   code: string;
   cover64: string;
   title: string;
+  exclusive: boolean;
   [k: string]: any;
 }
 interface resProps {
@@ -27,7 +28,6 @@ export default async function Yami({ searchParams }: any) {
   const { id = "", sid = "", to = 0 } = searchParams;
   const { token } = await ff("https://apiw2.eaeja.com/vw3/visitor");
 
-  // console.log(girls.actors[0]);
   if (sid) {
     const {
       // actor,
@@ -41,9 +41,9 @@ export default async function Yami({ searchParams }: any) {
       },
       token
     );
-    // console.log(next);
+    // console.log(videos);
     return (
-      <div>
+      <main className=" flex-1">
         {/* <MyUser
           name={actor.name}
           description={`${new Date(
@@ -60,18 +60,22 @@ export default async function Yami({ searchParams }: any) {
           }}
         /> */}
         <BaseList
-          list={videos.map((it) => ({
-            label: `/yami?id=${it.code}`,
-            desc: it.title,
-            value: it.code,
-          }))}
+          list={videos
+            .filter((it) => !it.exclusive)
+            .map((it) => ({
+              label: `/yami?id=${it.code}`,
+              desc: it.title,
+              value: it.code,
+            }))}
         />
-        <div className=" text-center py-2">
-          <a href={`/yami?sid=${sid}&to=${next}`} target="_blank">
-            next page
-          </a>
-        </div>
-      </div>
+        {next > 0 && (
+          <div className=" text-center py-2">
+            <a href={`/yami?sid=${sid}&to=${next}`} target="_blank">
+              after {next}
+            </a>
+          </div>
+        )}
+      </main>
     );
   }
   if (!id) {
