@@ -34,7 +34,7 @@ export default async function Yami({ searchParams }: any) {
 
   if (sid) {
     const {
-      actor,
+      // actor,
       videos,
       next,
     }: { next: number; videos: Video[]; actor: Actor } = await ff(
@@ -46,30 +46,9 @@ export default async function Yami({ searchParams }: any) {
       token
     );
     // console.log(actor);
-    const img = actor ? await getBase64(actor.cover64) : "";
 
     return (
       <main className=" flex-1">
-        {actor && (
-          <div className=" p-2 text-center">
-            <MyUser
-              name={actor.name}
-              description={`${new Date(
-                actor.birthday * 1000
-              ).toLocaleDateString()} ${actor.cup} ${actor.video_count}`}
-              avatarProps={{
-                src: img,
-                isBordered: true,
-                imgProps: {
-                  style: {
-                    backgroundColor: "#fff",
-                  },
-                },
-              }}
-            />
-          </div>
-        )}
-
         <BaseList
           list={videos
             .filter((it) => !it.exclusive)
