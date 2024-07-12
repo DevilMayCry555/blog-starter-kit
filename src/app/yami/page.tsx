@@ -176,12 +176,7 @@ export default async function Yami({ searchParams }: any) {
       <h1 className=" text-3xl font-bold tracking-tighter leading-tight">
         {id}
       </h1>
-      <div>
-        参与：
-        {actors.map((it) => (
-          <BaseForm {...actorProp(it)} />
-        ))}
-      </div>
+
       {Object.keys({ ...sources })
         .filter((it) => !!sources[it])
         .map((it, idx) => (
@@ -211,7 +206,13 @@ export default async function Yami({ searchParams }: any) {
             value: it.code,
           }))}
       />
+
       <div className=" fixed bottom-2 right-2">
+        {actors.map((it, idx) => (
+          <div key={idx} className=" my-2">
+            <BaseForm {...actorProp(it)} />
+          </div>
+        ))}
         <BaseForm {...backProp} />
       </div>
     </main>
