@@ -29,6 +29,12 @@ const getBase64 = async (url: string) => {
   const b64 = await (await fetch(url)).text();
   return `data:image/png;base64,${b64.slice(1)}`;
 };
+const backProp = {
+  action: "/yami",
+  method: "",
+  text: "BACK",
+  columns: [],
+};
 export default async function Yami({ searchParams }: any) {
   const { id = "", sid = "", to = 0, sort = "0" } = searchParams;
   const { token } = await ff("https://apiw2.eaeja.com/vw3/visitor");
@@ -83,6 +89,9 @@ export default async function Yami({ searchParams }: any) {
             </a>
           </div>
         )}
+        <div className=" fixed bottom-2 right-2">
+          <BaseForm {...backProp} />
+        </div>
       </main>
     );
   }
@@ -134,6 +143,9 @@ export default async function Yami({ searchParams }: any) {
             />
           </div>
         ))}
+        <div className=" fixed bottom-2 right-2">
+          <BaseForm {...backProp} />
+        </div>
       </main>
     );
   }
@@ -181,6 +193,9 @@ export default async function Yami({ searchParams }: any) {
           value: it.code,
         }))}
       />
+      <div className=" fixed bottom-2 right-2">
+        <BaseForm {...backProp} />
+      </div>
     </main>
   );
 }
