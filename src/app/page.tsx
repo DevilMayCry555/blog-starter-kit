@@ -1,6 +1,7 @@
 import { ff } from "@/lib/api";
 import BaseCard from "./_components/base-card";
 import BaseList from "./_components/base-list";
+import BaseModal from "./_components/base-modal";
 
 const transfer = (obj: { [k: string]: any }) =>
   Object.entries({ ...obj }).map(([label, value]) => ({ label, value }));
@@ -49,13 +50,15 @@ export default async function Index() {
           <BaseList list={it.value} />
         </BaseCard>
       ))}
-      <div>
-        {realtime.map((it) => (
-          <div className=" my-2 flex justify-between" key={it.mid}>
-            <span className=" w-20">{it.category ?? it.ad_type}</span>
-            <span className=" flex-1">{it.word}</span>
-          </div>
-        ))}
+      <div className=" fixed bottom-4 right-4">
+        <BaseModal action="HOT" title="HOT">
+          {realtime.map((it) => (
+            <div className=" my-2 flex justify-between" key={it.mid}>
+              <span className=" w-20">{it.category ?? it.ad_type}</span>
+              <span className=" flex-1">{it.word}</span>
+            </div>
+          ))}
+        </BaseModal>
       </div>
     </main>
   );
