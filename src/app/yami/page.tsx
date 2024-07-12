@@ -93,7 +93,7 @@ export default async function Yami({ searchParams }: any) {
         {next > 0 && (
           <div className=" text-center py-2">
             <a href={`/yami?sid=${sid}&to=${next}`} target="_blank">
-              after {next}
+              next {next}
             </a>
           </div>
         )}
