@@ -24,13 +24,17 @@ interface Actor {
   name: string;
   video_count: number;
 }
+const getBase64 = async (url: string) => {
+  const b64 = await (await fetch(url)).text();
+  return `data:image/png;base64,${b64.slice(1)}`;
+};
 export default async function Yami({ searchParams }: any) {
   const { id = "", sid = "", to = 0 } = searchParams;
   const { token } = await ff("https://apiw2.eaeja.com/vw3/visitor");
 
   if (sid) {
     const {
-      // actor,
+      actor,
       videos,
       next,
     }: { next: number; videos: Video[]; actor: Actor } = await ff(
@@ -41,24 +45,31 @@ export default async function Yami({ searchParams }: any) {
       },
       token
     );
-    // console.log(videos);
+    // console.log(actor);
+    const img = actor ? await getBase64(actor.cover64) : "";
+
     return (
       <main className=" flex-1">
-        {/* <MyUser
-          name={actor.name}
-          description={`${new Date(
-            actor.birthday * 1000
-          ).toLocaleDateString()} ${actor.cup} ${actor.video_count}`}
-          avatarProps={{
-            src: actor.cover64,
-            isBordered: true,
-            imgProps: {
-              style: {
-                backgroundColor: "#fff",
-              },
-            },
-          }}
-        /> */}
+        {actor && (
+          <div className=" p-2 text-center">
+            <MyUser
+              name={actor.name}
+              description={`${new Date(
+                actor.birthday * 1000
+              ).toLocaleDateString()} ${actor.cup} ${actor.video_count}`}
+              avatarProps={{
+                src: img,
+                isBordered: true,
+                imgProps: {
+                  style: {
+                    backgroundColor: "#fff",
+                  },
+                },
+              }}
+            />
+          </div>
+        )}
+
         <BaseList
           list={videos
             .filter((it) => !it.exclusive)
@@ -96,20 +107,34 @@ export default async function Yami({ searchParams }: any) {
       }
     ).then((res) => res.json());
     // console.log(girls);
+    const imgs = await Promise.all(
+      girls.actors.map((it) => getBase64(it.cover64))
+    );
     return (
-      <main className=" flex-1 p-2">
-        <div className=" flex flex-wrap">
-          {girls.actors.map((actor) => (
-            <div className=" w-1/2" key={actor.sid}>
-              <MyUser
-                name={<Link href={`/yami?sid=${actor.sid}`}>{actor.name}</Link>}
-                description={`${new Date(
-                  actor.birth * 1000
-                ).toLocaleDateString()} ${actor.cup} ${actor.video_count}`}
-              />
-            </div>
-          ))}
-        </div>
+      <main className=" flex-1 p-2 overflow-hidden">
+        {girls.actors.map((actor, idx) => (
+          <div key={actor.sid} className=" float-left m-2">
+            <MyUser
+              name={
+                <Link className=" text-sm" href={`/yami?sid=${actor.sid}`}>
+                  {actor.name}
+                </Link>
+              }
+              description={`${new Date(
+                actor.birth * 1000
+              ).toLocaleDateString()} ${actor.cup} ${actor.video_count}`}
+              avatarProps={{
+                src: imgs[idx],
+                isBordered: true,
+                imgProps: {
+                  style: {
+                    backgroundColor: "#fff",
+                  },
+                },
+              }}
+            />
+          </div>
+        ))}
       </main>
     );
   }
