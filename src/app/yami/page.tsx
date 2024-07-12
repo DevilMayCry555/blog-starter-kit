@@ -2,6 +2,7 @@ import { ff } from "@/lib/api";
 import BaseRadioPlayer from "../_components/base-radio-player";
 import BaseList from "../_components/base-list";
 import { Link, User as MyUser } from "@nextui-org/react";
+import BaseForm from "../_components/base-form";
 //
 interface Video {
   code: string;
@@ -31,26 +32,24 @@ const getBase64 = async (url: string) => {
 export default async function Yami({ searchParams }: any) {
   const { id = "", sid = "", to = 0, sort = "0" } = searchParams;
   const { token } = await ff("https://apiw2.eaeja.com/vw3/visitor");
-  if (sort === "0") {
-    const categorys = Array(4)
-      .fill(1)
-      .map((it, idx) => it + idx);
-    const fields: any = {
-      1: "全部",
-      2: "最热",
-      3: "畅销",
-      4: "最新",
-    };
+  // 1
+  if (!id && !sid && sort === "0") {
+    const categorys = ["全部", "最热", "畅销", "最新"].map((it, idx) => ({
+      action: "/yami",
+      method: "",
+      text: it,
+      form: { sort: idx + 1 },
+      columns: [],
+    }));
     return (
       <main className=" m-auto">
-        {categorys.map((it) => (
-          <Link className=" mx-4" href={`/yami?sort=${it}`}>
-            {fields[it]}
-          </Link>
+        {categorys.map((prp, idx) => (
+          <BaseForm key={idx} {...prp} />
         ))}
       </main>
     );
   }
+  // 3
   if (sid) {
     const {
       // actor,
@@ -87,6 +86,7 @@ export default async function Yami({ searchParams }: any) {
       </main>
     );
   }
+  // 2
   if (!id) {
     const girls: { actors: Actor[]; next: number } = await fetch(
       "https://apiw2.eaeja.com/vw3/category/actors",
@@ -137,7 +137,7 @@ export default async function Yami({ searchParams }: any) {
       </main>
     );
   }
-
+  // 4
   const res: resProps = await ff(
     `https://apiw2.eaeja.com/vw3/video/${id}`,
     {
