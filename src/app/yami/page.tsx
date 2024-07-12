@@ -9,6 +9,7 @@ interface Video {
   cover64: string;
   title: string;
   exclusive: boolean;
+  actors: Actor[];
   [k: string]: any;
 }
 interface resProps {
@@ -35,6 +36,13 @@ const backProp = {
   text: "BACK",
   columns: [],
 };
+const actorProp = ({ name, sid }: any) => ({
+  action: `/yami`,
+  method: "",
+  form: { sid },
+  text: name,
+  columns: [],
+});
 export default async function Yami({ searchParams }: any) {
   const { id = "", sid = "", to = 0, sort = "0" } = searchParams;
   const { token } = await ff("https://apiw2.eaeja.com/vw3/visitor");
@@ -160,14 +168,20 @@ export default async function Yami({ searchParams }: any) {
   const {
     carousel_videos,
     recommend_videos,
-    video: { sources },
+    video: { sources, actors = [] },
   } = res;
-  // console.log(res.video);
+  console.log(res.video);
   return (
     <main className=" flex-1 p-4">
       <h1 className=" text-3xl font-bold tracking-tighter leading-tight">
         {id}
       </h1>
+      <div>
+        参与：
+        {actors.map((it) => (
+          <BaseForm {...actorProp(it)} />
+        ))}
+      </div>
       {Object.keys({ ...sources })
         .filter((it) => !!sources[it])
         .map((it, idx) => (
@@ -177,21 +191,25 @@ export default async function Yami({ searchParams }: any) {
         recommend_videos
       </h1>
       <BaseList
-        list={recommend_videos.map((it) => ({
-          label: `/yami?id=${it.code}`,
-          desc: it.title,
-          value: it.code,
-        }))}
+        list={recommend_videos
+          .filter((it) => !it.exclusive)
+          .map((it) => ({
+            label: `/yami?id=${it.code}`,
+            desc: it.title,
+            value: it.code,
+          }))}
       />
       <h1 className=" text-3xl font-bold tracking-tighter leading-tight">
         carousel_videos
       </h1>
       <BaseList
-        list={carousel_videos.map((it) => ({
-          label: `/yami?id=${it.code}`,
-          desc: it.title,
-          value: it.code,
-        }))}
+        list={carousel_videos
+          .filter((it) => !it.exclusive)
+          .map((it) => ({
+            label: `/yami?id=${it.code}`,
+            desc: it.title,
+            value: it.code,
+          }))}
       />
       <div className=" fixed bottom-2 right-2">
         <BaseForm {...backProp} />
