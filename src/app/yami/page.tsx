@@ -69,10 +69,11 @@ export default async function Yami({ searchParams }: any) {
     }));
     return (
       <main className=" m-auto">
-        {categorys.map((prp, idx) => (
-          <BaseForm key={idx} {...prp} />
-        ))}
-        <div>搜索</div>
+        <div className=" flex pb-10">
+          {categorys.map((prp, idx) => (
+            <BaseForm key={idx} {...prp} />
+          ))}
+        </div>
         <BaseForm {...searchProp} />
       </main>
     );

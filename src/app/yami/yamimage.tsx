@@ -1,14 +1,11 @@
-"use client";
-
 import { Image, User } from "@nextui-org/react";
-import { useEffect, useState } from "react";
 
 const getBase64 = async (url: string) => {
   const b64 = await (await fetch(url)).text();
   return `data:image/png;base64,${b64.slice(1)}`;
 };
 
-export default function Yamimage({
+export default async function Yamimage({
   url,
   name,
   desc,
@@ -17,12 +14,7 @@ export default function Yamimage({
   name?: string;
   desc?: string;
 }) {
-  const [src, set] = useState("");
-  useEffect(() => {
-    getBase64(url).then((res) => {
-      set(res);
-    });
-  }, []);
+  const src = await getBase64(url);
   if (name) {
     return (
       <User
