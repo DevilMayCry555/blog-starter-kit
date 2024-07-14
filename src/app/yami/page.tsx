@@ -1,8 +1,10 @@
 import { ff } from "@/lib/api";
 import BaseRadioPlayer from "../_components/base-radio-player";
 import BaseList from "../_components/base-list";
-import { Link, User as MyUser } from "@nextui-org/react";
+import { Link } from "@nextui-org/react";
 import BaseForm from "../_components/base-form";
+import Yamimage from "./yamimage";
+import BaseModal from "../_components/base-modal";
 //
 interface Video {
   code: string;
@@ -26,10 +28,7 @@ interface Actor {
   name: string;
   video_count: number;
 }
-const getBase64 = async (url: string) => {
-  const b64 = await (await fetch(url)).text();
-  return `data:image/png;base64,${b64.slice(1)}`;
-};
+
 const backProp = {
   action: "/yami",
   method: "",
@@ -86,7 +85,12 @@ export default async function Yami({ searchParams }: any) {
             .filter((it) => !it.exclusive)
             .map((it) => ({
               label: `/yami?id=${it.code}`,
-              desc: it.title,
+              desc: (
+                <>
+                  {it.title}
+                  <Yamimage url={it.cover64} />
+                </>
+              ),
               value: it.code,
             }))}
         />
@@ -122,33 +126,22 @@ export default async function Yami({ searchParams }: any) {
       }
     ).then((res) => res.json());
     // console.log(girls);
-    const imgs = await Promise.all(
-      girls.actors.map((it) => getBase64(it.cover64))
-    );
+    // const imgs = await Promise.all(
+    //   girls.actors.map((it) => getBase64(it.cover64))
+    // );
     return (
       <main className=" flex-1 p-2 overflow-hidden">
-        {girls.actors.map((actor, idx) => (
+        {girls.actors.map((actor) => (
           <div key={actor.sid} className=" float-left m-2">
-            <MyUser
-              name={
-                <Link className=" text-sm" href={`/yami?sid=${actor.sid}`}>
-                  {actor.name}
-                </Link>
-              }
-              description={`${new Date(
-                actor.birth * 1000
-              ).toLocaleDateString()} ${actor.cup} ${actor.video_count}`}
-              avatarProps={{
-                src: imgs[idx],
-                isBordered: true,
-                imgProps: {
-                  style: {
-                    backgroundColor: "#fff",
-                  },
-                },
-                size: "sm",
-              }}
-            />
+            <Link className=" text-sm" href={`/yami?sid=${actor.sid}`}>
+              <Yamimage
+                url={actor.cover64}
+                name={actor.name}
+                desc={`${new Date(actor.birth * 1000).toLocaleDateString()} ${
+                  actor.cup
+                } ${actor.video_count}`}
+              />
+            </Link>
           </div>
         ))}
         <div className=" fixed bottom-2 right-2">
@@ -191,7 +184,12 @@ export default async function Yami({ searchParams }: any) {
           .filter((it) => !it.exclusive)
           .map((it) => ({
             label: `/yami?id=${it.code}`,
-            desc: it.title,
+            desc: (
+              <>
+                {it.title}
+                <Yamimage url={it.cover64} />
+              </>
+            ),
             value: it.code,
           }))}
       />
@@ -203,17 +201,25 @@ export default async function Yami({ searchParams }: any) {
           .filter((it) => !it.exclusive)
           .map((it) => ({
             label: `/yami?id=${it.code}`,
-            desc: it.title,
+            desc: (
+              <>
+                {it.title}
+                <Yamimage url={it.cover64} />
+              </>
+            ),
             value: it.code,
           }))}
       />
 
-      <div className=" fixed bottom-2 right-2">
-        {actors.map((it, idx) => (
-          <div key={idx} className=" my-2">
-            <BaseForm {...actorProp(it)} />
-          </div>
-        ))}
+      <div className=" fixed bottom-2 right-2 z-10">
+        <BaseModal action="JOIN" title="actors">
+          {actors.map((it, idx) => (
+            <div key={idx} className=" my-2 flex ">
+              <Yamimage url={it.cover64} name=" " />
+              <BaseForm {...actorProp(it)} />
+            </div>
+          ))}
+        </BaseModal>
         <BaseForm {...backProp} />
       </div>
     </main>
