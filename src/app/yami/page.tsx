@@ -35,6 +35,18 @@ const backProp = {
   text: "BACK",
   columns: [],
 };
+const searchProp = {
+  action: "/yami",
+  method: "",
+  text: "GO",
+  columns: [
+    {
+      field: "q",
+      label: "关键字",
+      type: "input",
+    },
+  ],
+};
 const actorProp = ({ name, sid }: any) => ({
   action: `/yami`,
   method: "",
@@ -42,11 +54,12 @@ const actorProp = ({ name, sid }: any) => ({
   text: name,
   columns: [],
 });
+//
 export default async function Yami({ searchParams }: any) {
-  const { id = "", sid = "", to = 0, sort = "0" } = searchParams;
+  const { id = "", sid = "", to = 0, sort = "0", q = "" } = searchParams;
   const { token } = await ff("https://apiw2.eaeja.com/vw3/visitor");
   // 1
-  if (!id && !sid && sort === "0") {
+  if (!id && !sid && !q && sort === "0") {
     const categorys = ["全部", "最热", "畅销", "最新"].map((it, idx) => ({
       action: "/yami",
       method: "",
@@ -59,6 +72,53 @@ export default async function Yami({ searchParams }: any) {
         {categorys.map((prp, idx) => (
           <BaseForm key={idx} {...prp} />
         ))}
+        <div>搜索</div>
+        <BaseForm {...searchProp} />
+      </main>
+    );
+  }
+  if (q) {
+    const {
+      // actor,
+      videos,
+      next,
+    }: { next: number; videos: Video[]; actor: Actor } = await ff(
+      "https://apiw2.eaeja.com/vw3/search",
+      {
+        actor_type: "long",
+        next: to,
+        q,
+      },
+      token
+    );
+    // console.log(actor);
+
+    return (
+      <main className=" flex-1">
+        <BaseList
+          list={videos
+            .filter((it) => !it.exclusive)
+            .map((it) => ({
+              label: `/yami?id=${it.code}`,
+              desc: (
+                <>
+                  {it.title}
+                  <Yamimage url={it.cover64} />
+                </>
+              ),
+              value: it.code,
+            }))}
+        />
+        {next > 0 && (
+          <div className=" text-center py-2">
+            <a href={`/yami?q=${q}&to=${next}`} target="_blank">
+              next {next}
+            </a>
+          </div>
+        )}
+        <div className=" fixed bottom-2 right-2">
+          <BaseForm {...backProp} />
+        </div>
       </main>
     );
   }
