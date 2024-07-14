@@ -11,7 +11,7 @@ import {
   TimeInput,
   Spacer,
 } from "@nextui-org/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { parseDate } from "@internationalized/date";
 // import { getuuid } from "@/lib/utils";
 
@@ -41,6 +41,9 @@ export default function BaseForm({
   size = "md",
 }: Props) {
   const [loading, set] = useState(false);
+  useEffect(() => {
+    set(false);
+  }, []);
   return (
     <form
       action={action}
