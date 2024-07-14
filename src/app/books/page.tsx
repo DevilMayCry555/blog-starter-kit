@@ -1,5 +1,11 @@
+import { load } from "cheerio";
+
 export default async function Books() {
-  const res = await fetch("https://www.quanben.io/").then((r) => r.text());
+  const res = await fetch("http://www.xianqihaotianmi.org/", {
+    cache: "no-store",
+  }).then((r) => r.text());
   console.log(res);
-  return <div dangerouslySetInnerHTML={{ __html: res }}></div>;
+  // const res1 = load('https://www.quanben.io')
+  // console.log(res1)
+  return res;
 }
