@@ -16,7 +16,11 @@ export default function BaseList({ list }: Prop) {
     >
       {list.map((it) => {
         return (
-          <ListboxItem key={it.label} description={it.desc}>
+          <ListboxItem
+            key={it.label}
+            textValue={it.label}
+            description={it.desc}
+          >
             {it.value}
           </ListboxItem>
         );

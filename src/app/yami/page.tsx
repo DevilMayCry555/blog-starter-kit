@@ -12,6 +12,7 @@ interface Video {
   title: string;
   exclusive: boolean;
   actors: Actor[];
+  onshelf_tm: number;
   [k: string]: any;
 }
 interface resProps {
@@ -146,13 +147,10 @@ export default async function Yami({ searchParams }: any) {
             .filter((it) => !it.exclusive)
             .map((it) => ({
               label: `/yami?id=${it.code}`,
-              desc: (
-                <>
-                  {it.title}
-                  <Yamimage url={it.cover64} />
-                </>
-              ),
-              value: it.code,
+              desc: `${it.code} ${new Date(
+                it.onshelf_tm * 1000
+              ).toLocaleDateString()} ${it.title}`,
+              value: <Yamimage url={it.cover64} />,
             }))}
         />
         {next > 0 && (
@@ -245,13 +243,9 @@ export default async function Yami({ searchParams }: any) {
           .filter((it) => !it.exclusive)
           .map((it) => ({
             label: `/yami?id=${it.code}`,
-            desc: (
-              <>
-                {it.title}
-                <Yamimage url={it.cover64} />
-              </>
-            ),
-            value: it.code,
+            desc: `${it.code} ${new Date(
+              it.onshelf_tm * 1000
+            ).toLocaleDateString()} ${it.title}`,
           }))}
       />
       <h1 className=" text-3xl font-bold tracking-tighter leading-tight">
@@ -262,13 +256,9 @@ export default async function Yami({ searchParams }: any) {
           .filter((it) => !it.exclusive)
           .map((it) => ({
             label: `/yami?id=${it.code}`,
-            desc: (
-              <>
-                {it.title}
-                <Yamimage url={it.cover64} />
-              </>
-            ),
-            value: it.code,
+            desc: `${it.code} ${new Date(
+              it.onshelf_tm * 1000
+            ).toLocaleDateString()} ${it.title}`,
           }))}
       />
 
