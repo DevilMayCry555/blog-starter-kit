@@ -1,0 +1,7 @@
+.book-charts>li {
+    margin: 16px 0px;
+}
+
+.book-charts>li:first-child {
+    display: none;
+}
