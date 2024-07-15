@@ -65,50 +65,54 @@ const Desc = ({ code, title, cover64, onshelf_tm }: any) => {
     </>
   );
 };
-// login
-const loginProp = {
-  action: "/api/login",
-  method: "yami",
-  text: "login",
-  columns: [
-    {
-      field: "account",
-      label: "email",
-      type: "input",
-      init: "1061471799@qq.com",
-    },
-    {
-      field: "password",
-      label: "password",
-      type: "input",
-      init: "123456",
-    },
-    {
-      field: "imgCode",
-      label: "code",
-      type: "input",
-    },
-  ],
+const loginProp = (ct = "") => {
+  console.log(ct);
+  return {
+    action: "/api/login",
+    method: "yami",
+    text: "login",
+    form: { ct },
+    columns: [
+      {
+        field: "account",
+        label: "email",
+        type: "input",
+        init: "1061471799@qq.com",
+      },
+      {
+        field: "password",
+        label: "password",
+        type: "input",
+        init: "123456",
+      },
+      {
+        field: "imgCode",
+        label: "code",
+        type: "input",
+      },
+    ],
+  };
 };
-// https://apiw5.xn--pssa1886a.com/vw3/code
-// https://apiw5.xn--pssa1886a.com/vw3/login?platform=pwa&version=1.0.0 account imgCode password
-// https://apiw5.xn--pssa1886a.com/vw3/202406/mission/sign
 export default async function Yami({ searchParams }: any) {
   const { id = "", sid = "", to = 0, sort = "0", q = "" } = searchParams;
-  // const { token } = await ff("https://apiw2.eaeja.com/vw3/visitor");
   const token = cookies().get("yami-token")?.value;
   if (!token) {
+    // const visitor = await ff("https://apiw2.eaeja.com/vw3/visitor");
+    let ct = "";
     const tcode = await fetch("https://apiw5.xn--pssa1886a.com/vw3/code", {
       cache: "no-store",
-    }).then((res) => res.text());
+    }).then((res) => {
+      ct = res.headers.get("Cors-Cookie") ?? "";
+      return res.text();
+    });
+
     return (
       <main className=" m-auto">
         <img src={`data:image/png;base64,${tcode}`} alt="code" />
-        <BaseForm {...loginProp} />
+        <BaseForm {...loginProp(ct)} />
       </main>
     );
   }
-
   // 1
   if (!id && !sid && !q && sort === "0") {
     const categorys = ["全部", "最热", "畅销", "最新"].map((it, idx) => ({
@@ -120,12 +124,12 @@ export default async function Yami({ searchParams }: any) {
     }));
     return (
       <main className=" m-auto">
-        <div className=" flex pb-10">
+        <BaseForm {...searchProp} />
+        <div className=" flex pt-10">
           {categorys.map((prp, idx) => (
             <BaseForm key={idx} {...prp} />
           ))}
         </div>
-        <BaseForm {...searchProp} />
       </main>
     );
   }
