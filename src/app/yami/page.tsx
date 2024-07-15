@@ -55,7 +55,15 @@ const actorProp = ({ name, sid }: any) => ({
   text: name,
   columns: [],
 });
-//
+const Desc = ({ code, title, cover64, onshelf_tm }: any) => {
+  return (
+    <>
+      {code} {title}
+      <Yamimage url={cover64} />
+      {new Date(onshelf_tm * 1000).toLocaleDateString()}
+    </>
+  );
+};
 export default async function Yami({ searchParams }: any) {
   const { id = "", sid = "", to = 0, sort = "0", q = "" } = searchParams;
   const { token } = await ff("https://apiw2.eaeja.com/vw3/visitor");
@@ -103,16 +111,7 @@ export default async function Yami({ searchParams }: any) {
             .filter((it) => !it.exclusive)
             .map((it) => ({
               label: `/yami?id=${it.code}`,
-              desc: (
-                <>
-                  <div>{it.code}</div>
-                  <div>{it.title}</div>
-                  <Yamimage url={it.cover64} />
-                  <div>
-                    {new Date(it.onshelf_tm * 1000).toLocaleDateString()}
-                  </div>
-                </>
-              ),
+              desc: <Desc {...it} />,
               // value: it.code,
             }))}
         />
@@ -152,16 +151,7 @@ export default async function Yami({ searchParams }: any) {
             .filter((it) => !it.exclusive)
             .map((it) => ({
               label: `/yami?id=${it.code}`,
-              desc: (
-                <>
-                  <div>{it.code}</div>
-                  <div>{it.title}</div>
-                  <Yamimage url={it.cover64} />
-                  <div>
-                    {new Date(it.onshelf_tm * 1000).toLocaleDateString()}
-                  </div>
-                </>
-              ),
+              desc: <Desc {...it} />,
               // value: it.code,
             }))}
         />
@@ -255,14 +245,7 @@ export default async function Yami({ searchParams }: any) {
           .filter((it) => !it.exclusive)
           .map((it) => ({
             label: `/yami?id=${it.code}`,
-            desc: (
-              <>
-                <div>{it.code}</div>
-                <div>{it.title}</div>
-                <Yamimage url={it.cover64} />
-                <div>{new Date(it.onshelf_tm * 1000).toLocaleDateString()}</div>
-              </>
-            ),
+            desc: <Desc {...it} />,
             // value: it.code,
           }))}
       />
@@ -274,14 +257,7 @@ export default async function Yami({ searchParams }: any) {
           .filter((it) => !it.exclusive)
           .map((it) => ({
             label: `/yami?id=${it.code}`,
-            desc: (
-              <>
-                <div>{it.code}</div>
-                <div>{it.title}</div>
-                <Yamimage url={it.cover64} />
-                <div>{new Date(it.onshelf_tm * 1000).toLocaleDateString()}</div>
-              </>
-            ),
+            desc: <Desc {...it} />,
             // value: it.code,
           }))}
       />
