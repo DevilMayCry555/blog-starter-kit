@@ -6,7 +6,29 @@ import { format } from "date-fns";
 
 export async function GET(request) {
   const { search } = request.nextUrl;
-  const { pwd } = qs(search);
+  const { pwd, method, ...rest } = qs(search);
+  // yami
+  if (method === "yami") {
+    const { account, password, imgCode } = rest;
+    const { token } = await fetch(
+      "https://apiw5.xn--pssa1886a.com/vw3/login?platform=pwa&version=1.0.0",
+      {
+        method: "POST",
+        body: JSON.stringify({ account, password, imgCode }),
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8",
+        },
+      }
+    ).then((r) => r.json());
+    console.log(token);
+    cookies().set({
+      name: "yami-token",
+      value: token,
+      httpOnly: true,
+      maxAge: 12 * 3600,
+    });
+    return NextResponse.redirect(new URL("/yami", request.url));
+  }
   const password = btoa(pwd);
   const { rows } = await sql`SELECT * FROM users WHERE uid = ${password};`;
   if (rows.length) {
