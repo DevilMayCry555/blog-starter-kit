@@ -18,7 +18,7 @@ export default function BaseList({ list }: Prop) {
         return (
           <ListboxItem
             key={it.label}
-            textValue={it.label}
+            // textValue={it.label}
             description={it.desc}
           >
             {it.value}
