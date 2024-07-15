@@ -5,6 +5,7 @@ import { Link } from "@nextui-org/react";
 import BaseForm from "../_components/base-form";
 import Yamimage from "./yamimage";
 import BaseModal from "../_components/base-modal";
+import { cookies } from "next/headers";
 //
 interface Video {
   code: string;
@@ -64,9 +65,50 @@ const Desc = ({ code, title, cover64, onshelf_tm }: any) => {
     </>
   );
 };
+// login
+const loginProp = {
+  action: "/api/open",
+  method: "yami",
+  text: "login",
+  columns: [
+    {
+      field: "account",
+      label: "email",
+      type: "input",
+      init: "1061471799@qq.com",
+    },
+    {
+      field: "password",
+      label: "password",
+      type: "input",
+      init: "123456",
+    },
+    {
+      field: "imgCode",
+      label: "code",
+      type: "input",
+    },
+  ],
+};
+// https://apiw5.xn--pssa1886a.com/vw3/code
+// https://apiw5.xn--pssa1886a.com/vw3/login?platform=pwa&version=1.0.0 account imgCode password
+// https://apiw5.xn--pssa1886a.com/vw3/202406/mission/sign
 export default async function Yami({ searchParams }: any) {
   const { id = "", sid = "", to = 0, sort = "0", q = "" } = searchParams;
-  const { token } = await ff("https://apiw2.eaeja.com/vw3/visitor");
+  // const { token } = await ff("https://apiw2.eaeja.com/vw3/visitor");
+  const token = cookies().get("yami-token")?.value;
+  if (!token) {
+    const tcode = await fetch("https://apiw5.xn--pssa1886a.com/vw3/code", {
+      cache: "no-store",
+    }).then((res) => res.text());
+    return (
+      <main className=" m-auto">
+        <img src={`data:image/png;base64,${tcode}`} alt="code" />
+        <BaseForm {...loginProp} />
+      </main>
+    );
+  }
+
   // 1
   if (!id && !sid && !q && sort === "0") {
     const categorys = ["全部", "最热", "畅销", "最新"].map((it, idx) => ({

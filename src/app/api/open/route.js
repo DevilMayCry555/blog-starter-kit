@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { qs } from "@/lib/utils";
 import { sql } from "@vercel/postgres";
 import { format } from "date-fns";
+import { cookies } from "next/headers";
 
 const decoder = new TextDecoder();
 const ip_api = "https://ipapi.com/ip_api.php";
@@ -10,7 +11,28 @@ const regeo_api = "https://restapi.amap.com/v3/geocode/regeo";
 
 export async function GET(request) {
   const { search } = request.nextUrl;
-  const { type, identity } = qs(search);
+  const { type, identity, method, ...rest } = qs(search);
+  if (method === "yami") {
+    const { account, password, imgCode } = rest;
+    const { token } = await fetch(
+      "https://apiw5.xn--pssa1886a.com/vw3/login?platform=pwa&version=1.0.0",
+      {
+        method: "POST",
+        body: JSON.stringify({ account, password, imgCode }),
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8",
+        },
+      }
+    ).then((r) => r.json());
+    console.log(token);
+    cookies().set({
+      name: "yami-token",
+      value: token,
+      httpOnly: true,
+      maxAge: 12 * 3600,
+    });
+    return NextResponse.redirect(new URL("/yami", request.url));
+  }
   if (!identity) {
     return NextResponse.json({ error: "identity error" }, { status: 500 });
   }
