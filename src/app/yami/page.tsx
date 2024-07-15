@@ -67,7 +67,7 @@ const Desc = ({ code, title, cover64, onshelf_tm }: any) => {
 };
 // login
 const loginProp = {
-  action: "/api/open",
+  action: "/api/login",
   method: "yami",
   text: "login",
   columns: [
