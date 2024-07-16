@@ -98,30 +98,30 @@ const loginProp = (ct = "") => {
 // https://apiw2.eaeja.com/vw3/folder/add post folder_name
 export default async function Yami({ searchParams }: any) {
   const { id = "", sid = "", to = 0, sort = "0", q = "" } = searchParams;
-  const token = cookies().get("yami-token")?.value;
-  if (!token) {
-    // const visitor = await ff("https://apiw2.eaeja.com/vw3/visitor");
-    let ct = "";
-    const tcode = await fetch("https://apiw5.xn--pssa1886a.com/vw3/code", {
-      cache: "no-store",
-    }).then((res) => {
-      ct = res.headers.get("Cors-Cookie") ?? "";
-      return res.text();
-    });
+  const { token } = await ff("https://apiw2.eaeja.com/vw3/visitor");
+  // const token = cookies().get("yami-token")?.value;
+  // if (!token) {
+  //   let ct = "";
+  //   const tcode = await fetch("https://apiw5.xn--pssa1886a.com/vw3/code", {
+  //     cache: "no-store",
+  //   }).then((res) => {
+  //     ct = res.headers.get("Cors-Cookie") ?? "";
+  //     return res.text();
+  //   });
 
-    return (
-      <main className=" m-auto">
-        <img src={`data:image/png;base64,${tcode}`} alt="code" />
-        <br />
-        <BaseForm {...loginProp(ct)} />
-      </main>
-    );
-  }
+  //   return (
+  //     <main className=" m-auto">
+  //       <img src={`data:image/png;base64,${tcode}`} alt="code" />
+  //       <br />
+  //       <BaseForm {...loginProp(ct)} />
+  //     </main>
+  //   );
+  // }
   // 1
   if (!id && !sid && !q && sort === "0") {
-    const {
-      folder: [{ content }],
-    } = await ff("https://apiw2.eaeja.com/vw3/folder/get", {}, token);
+    // const {
+    //   folder: [{ content }],
+    // } = await ff("https://apiw2.eaeja.com/vw3/folder/get", {}, token);
     const categorys = ["全部", "最热", "畅销", "最新"].map((it, idx) => ({
       action: "/yami",
       method: "",
@@ -137,13 +137,13 @@ export default async function Yami({ searchParams }: any) {
             <BaseForm key={idx} {...prp} />
           ))}
         </div>
-        <BaseModal action="folder" title="folder">
+        {/* <BaseModal action="folder" title="folder">
           {[...content].map((it) => (
             <Link className=" mx-2" key={it} href={`/yami?id=${it}`}>
               {it}
             </Link>
           ))}
-        </BaseModal>
+        </BaseModal> */}
       </main>
     );
   }
@@ -285,30 +285,12 @@ export default async function Yami({ searchParams }: any) {
     video: { sources, actors = [], title },
   } = res;
   // console.log(sources);
-  const addProps = {
-    action: "/api/open",
-    method: "add",
-    text: "star",
-    form: { yami: id, ct: token },
-    columns: [],
-  };
-  const delProps = {
-    action: "/api/open",
-    method: "del",
-    text: "unstar",
-    form: { yami: id, ct: token },
-    columns: [],
-  };
   return (
     <main className=" flex-1 p-4">
       <h1 className=" text-3xl font-bold tracking-tighter leading-tight">
         {id}
       </h1>
       <div>{title}</div>
-      <div className=" flex">
-        <BaseForm {...addProps} />
-        <BaseForm {...delProps} />
-      </div>
       {Object.keys({ ...sources })
         .filter((it) => !!sources[it])
         .map((it, idx) => (
