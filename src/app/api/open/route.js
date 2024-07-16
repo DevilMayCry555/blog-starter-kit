@@ -10,7 +10,19 @@ const regeo_api = "https://restapi.amap.com/v3/geocode/regeo";
 
 export async function GET(request) {
   const { search } = request.nextUrl;
-  const { type, identity } = qs(search);
+  const { type, identity, yami, ct: token } = qs(search);
+  if (yami) {
+    const add = await fetch("https://apiw2.eaeja.com/vw3/collection/add", {
+      method: "POST",
+      body: JSON.stringify({ code: yami, folder_id: 3964677 }),
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        "Access-Token": `Bearer ${token}`,
+      },
+    }).then((res) => res.json());
+    console.log(add);
+    return NextResponse.redirect(new URL("/yami", request.url));
+  }
 
   if (!identity) {
     return NextResponse.json({ error: "identity error" }, { status: 500 });

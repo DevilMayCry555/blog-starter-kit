@@ -94,6 +94,9 @@ const loginProp = (ct = "") => {
     ],
   };
 };
+// https://apiw2.eaeja.com/vw3/folder/get
+// https://apiw2.eaeja.com/vw3/collection/add post folder_id code
+// https://apiw2.eaeja.com/vw3/folder/add post folder_name
 export default async function Yami({ searchParams }: any) {
   const { id = "", sid = "", to = 0, sort = "0", q = "" } = searchParams;
   const token = cookies().get("yami-token")?.value;
@@ -115,12 +118,11 @@ export default async function Yami({ searchParams }: any) {
       </main>
     );
   }
-  // https://apiw2.eaeja.com/vw3/drink_draw
-  // https://apiw2.eaeja.com/vw3/folder/get
-  // https://apiw2.eaeja.com/vw3/collection/add post folder_id code
-  // https://apiw2.eaeja.com/vw3/folder/add post folder_name
   // 1
   if (!id && !sid && !q && sort === "0") {
+    const {
+      folder: [{ content }],
+    } = await ff("https://apiw2.eaeja.com/vw3/folder/get", {}, token);
     const categorys = ["全部", "最热", "畅销", "最新"].map((it, idx) => ({
       action: "/yami",
       method: "",
@@ -131,11 +133,18 @@ export default async function Yami({ searchParams }: any) {
     return (
       <main className=" m-auto">
         <BaseForm {...searchProp} />
-        <div className=" flex pt-10">
+        <div className=" flex py-10">
           {categorys.map((prp, idx) => (
             <BaseForm key={idx} {...prp} />
           ))}
         </div>
+        <BaseModal action="folder" title="folder">
+          {[...content].map((it) => (
+            <Link className=" mx-2" key={it} href={`/yami?id=${it}`}>
+              {it}
+            </Link>
+          ))}
+        </BaseModal>
       </main>
     );
   }
@@ -277,8 +286,16 @@ export default async function Yami({ searchParams }: any) {
     video: { sources, actors = [], title },
   } = res;
   // console.log(sources);
+  const addProps = {
+    action: "/api/open",
+    method: "",
+    text: "add",
+    form: { yami: id, ct: token },
+    columns: [],
+  };
   return (
     <main className=" flex-1 p-4">
+      <BaseForm {...addProps} />
       <h1 className=" text-3xl font-bold tracking-tighter leading-tight">
         {id}
       </h1>
