@@ -71,20 +71,20 @@ const loginProp = (ct = "") => {
     action: "/api/login",
     method: "yami",
     text: "login",
-    form: { ct },
+    form: { ct, account: "1061471799@qq.com", password: "123456" },
     columns: [
-      {
-        field: "account",
-        label: "email",
-        type: "input",
-        init: "1061471799@qq.com",
-      },
-      {
-        field: "password",
-        label: "password",
-        type: "input",
-        init: "123456",
-      },
+      // {
+      //   field: "account",
+      //   label: "email",
+      //   type: "input",
+      //   init: "1061471799@qq.com",
+      // },
+      // {
+      //   field: "password",
+      //   label: "password",
+      //   type: "input",
+      //   init: "123456",
+      // },
       {
         field: "imgCode",
         label: "code",
@@ -109,6 +109,7 @@ export default async function Yami({ searchParams }: any) {
     return (
       <main className=" m-auto">
         <img src={`data:image/png;base64,${tcode}`} alt="code" />
+        <br />
         <BaseForm {...loginProp(ct)} />
       </main>
     );

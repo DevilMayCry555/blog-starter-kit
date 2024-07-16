@@ -41,15 +41,21 @@ export default function BaseForm({
   size = "md",
 }: Props) {
   const [loading, set] = useState(false);
+  const handleSubmit = () => {
+    set(true);
+  };
   useEffect(() => {
     set(false);
+    return () => {
+      set(false);
+    };
   }, []);
   return (
     <form
       action={action}
       method="GET"
       encType="text/plain"
-      onSubmit={() => set(true)}
+      onSubmit={handleSubmit}
     >
       {Object.entries({ ...form, method }).map(([key, val], idx) =>
         val ? (
