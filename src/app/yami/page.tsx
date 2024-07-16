@@ -60,7 +60,7 @@ const Desc = ({ code, title, cover64, onshelf_tm }: any) => {
   return (
     <>
       {code} {title}
-      <Yamimage url={cover64} />
+      {/* <Yamimage url={cover64} /> */}
       {new Date(onshelf_tm * 1000).toLocaleDateString()}
     </>
   );
@@ -271,7 +271,7 @@ export default async function Yami({ searchParams }: any) {
     recommend_videos,
     video: { sources, actors = [], title },
   } = res;
-  // console.log(res.video);
+  // console.log(sources);
   return (
     <main className=" flex-1 p-4">
       <h1 className=" text-3xl font-bold tracking-tighter leading-tight">
@@ -281,7 +281,12 @@ export default async function Yami({ searchParams }: any) {
       {Object.keys({ ...sources })
         .filter((it) => !!sources[it])
         .map((it, idx) => (
-          <BaseRadioPlayer key={idx} url={`${sources[it]}`} action={it} />
+          <BaseRadioPlayer
+            key={idx}
+            url={`${sources[it]}`.split("?")[0]}
+            action={it}
+            htype={true}
+          />
         ))}
 
       <h1 className=" text-3xl font-bold tracking-tighter leading-tight">
