@@ -56,13 +56,12 @@ const actorProp = ({ name, sid }: any) => ({
   text: name,
   columns: [],
 });
-const Desc = ({ code, title, cover64, onshelf_tm, exclusive }: any) => {
+const Desc = ({ code, title, cover64, onshelf_tm }: any) => {
   return (
     <>
       {code} {title}
       <Yamimage url={cover64} />
       {new Date(onshelf_tm * 1000).toLocaleDateString()}
-      {exclusive && "VIP"}
     </>
   );
 };
@@ -169,7 +168,7 @@ export default async function Yami({ searchParams }: any) {
       <main className=" flex-1">
         <BaseList
           list={videos
-            // .filter((it) => !it.exclusive)
+            .filter((it) => !it.exclusive)
             .map((it) => ({
               label: `/yami?id=${it.code}`,
               desc: <Desc {...it} />,
@@ -209,7 +208,7 @@ export default async function Yami({ searchParams }: any) {
       <main className=" flex-1">
         <BaseList
           list={videos
-            // .filter((it) => !it.exclusive)
+            .filter((it) => !it.exclusive)
             .map((it) => ({
               label: `/yami?id=${it.code}`,
               desc: <Desc {...it} />,
@@ -302,12 +301,14 @@ export default async function Yami({ searchParams }: any) {
   };
   return (
     <main className=" flex-1 p-4">
-      <BaseForm {...addProps} />
-      <BaseForm {...delProps} />
       <h1 className=" text-3xl font-bold tracking-tighter leading-tight">
         {id}
       </h1>
       <div>{title}</div>
+      <div className=" flex">
+        <BaseForm {...addProps} />
+        <BaseForm {...delProps} />
+      </div>
       {Object.keys({ ...sources })
         .filter((it) => !!sources[it])
         .map((it, idx) => (
@@ -319,7 +320,7 @@ export default async function Yami({ searchParams }: any) {
       </h1>
       <BaseList
         list={recommend_videos
-          // .filter((it) => !it.exclusive)
+          .filter((it) => !it.exclusive)
           .map((it) => ({
             label: `/yami?id=${it.code}`,
             desc: <Desc {...it} />,
@@ -331,7 +332,7 @@ export default async function Yami({ searchParams }: any) {
       </h1>
       <BaseList
         list={carousel_videos
-          // .filter((it) => !it.exclusive)
+          .filter((it) => !it.exclusive)
           .map((it) => ({
             label: `/yami?id=${it.code}`,
             desc: <Desc {...it} />,
