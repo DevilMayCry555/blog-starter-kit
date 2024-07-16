@@ -280,7 +280,7 @@ export default async function Yami({ searchParams }: any) {
       {Object.keys({ ...sources })
         .filter((it) => !!sources[it])
         .map((it, idx) => (
-          <BaseRadioPlayer key={idx} url={`${sources[it]}`} />
+          <BaseRadioPlayer key={idx} url={`${sources[it]}`} action={it} />
         ))}
 
       <h1 className=" text-3xl font-bold tracking-tighter leading-tight">
