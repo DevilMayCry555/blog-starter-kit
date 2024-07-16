@@ -283,7 +283,7 @@ export default async function Yami({ searchParams }: any) {
         .map((it, idx) => (
           <BaseRadioPlayer
             key={idx}
-            url={`${sources[it]}`.split("?")[0]}
+            url={`${sources[it]}`}
             action={it}
             htype={true}
           />

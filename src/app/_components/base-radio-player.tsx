@@ -3,7 +3,7 @@
 import BaseModal from "./base-modal";
 import ReactPlayer from "react-player";
 import "./base-radio-player.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
 
 interface Props {
@@ -17,6 +17,9 @@ export default function BaseRadioPlayer({
   htype = false,
 }: Props) {
   const [green, set] = useState(htype);
+  useEffect(() => {
+    set(htype);
+  }, []);
   const handleClick = () => {
     set((state) => !state);
   };
