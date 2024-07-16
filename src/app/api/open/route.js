@@ -10,17 +10,30 @@ const regeo_api = "https://restapi.amap.com/v3/geocode/regeo";
 
 export async function GET(request) {
   const { search } = request.nextUrl;
-  const { type, identity, yami, ct: token } = qs(search);
+  const { type, identity, yami, ct: token, method = "add" } = qs(search);
   if (yami) {
-    const add = await fetch("https://apiw2.eaeja.com/vw3/collection/add", {
-      method: "POST",
-      body: JSON.stringify({ code: yami, folder_id: 3964677 }),
-      headers: {
-        "Content-Type": "application/json;charset=UTF-8",
-        "Access-Token": `Bearer ${token}`,
-      },
-    }).then((res) => res.json());
-    console.log(add);
+    if (method === "add") {
+      const add = await fetch("https://apiw2.eaeja.com/vw3/collection/add", {
+        method: "POST",
+        body: JSON.stringify({ code: yami, folder_id: 3964677 }),
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8",
+          "Access-Token": `Bearer ${token}`,
+        },
+      }).then((res) => res.json());
+      console.log(add);
+    }
+    if (method === "del") {
+      const del = await fetch("https://apiw2.eaeja.com/vw3/collection/delete", {
+        method: "POST",
+        body: JSON.stringify({ code: yami, folder_id: 3964677 }),
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8",
+          "Access-Token": `Bearer ${token}`,
+        },
+      }).then((res) => res.json());
+      console.log(del);
+    }
     return NextResponse.redirect(new URL("/yami", request.url));
   }
 

@@ -288,14 +288,22 @@ export default async function Yami({ searchParams }: any) {
   // console.log(sources);
   const addProps = {
     action: "/api/open",
-    method: "",
-    text: "add",
+    method: "add",
+    text: "star",
+    form: { yami: id, ct: token },
+    columns: [],
+  };
+  const delProps = {
+    action: "/api/open",
+    method: "del",
+    text: "unstar",
     form: { yami: id, ct: token },
     columns: [],
   };
   return (
     <main className=" flex-1 p-4">
       <BaseForm {...addProps} />
+      <BaseForm {...delProps} />
       <h1 className=" text-3xl font-bold tracking-tighter leading-tight">
         {id}
       </h1>
