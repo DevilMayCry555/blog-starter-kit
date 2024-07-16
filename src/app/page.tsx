@@ -52,8 +52,8 @@ export default async function Index() {
       ))}
       <div className=" fixed bottom-4 right-4">
         <BaseModal action="HOT" title="HOT">
-          {realtime.map((it) => (
-            <div className=" my-2 flex justify-between" key={it.mid}>
+          {realtime.map((it, idx) => (
+            <div className=" my-2 flex justify-between" key={idx}>
               <span className=" w-20">{it.category ?? it.ad_type}</span>
               <span className=" flex-1">{it.word}</span>
             </div>
