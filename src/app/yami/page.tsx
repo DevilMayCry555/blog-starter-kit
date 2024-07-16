@@ -56,12 +56,13 @@ const actorProp = ({ name, sid }: any) => ({
   text: name,
   columns: [],
 });
-const Desc = ({ code, title, cover64, onshelf_tm }: any) => {
+const Desc = ({ code, title, cover64, onshelf_tm, exclusive }: any) => {
   return (
     <>
       {code} {title}
       <Yamimage url={cover64} />
       {new Date(onshelf_tm * 1000).toLocaleDateString()}
+      {exclusive && "VIP"}
     </>
   );
 };
@@ -114,6 +115,10 @@ export default async function Yami({ searchParams }: any) {
       </main>
     );
   }
+  // https://apiw2.eaeja.com/vw3/drink_draw
+  // https://apiw2.eaeja.com/vw3/folder/get
+  // https://apiw2.eaeja.com/vw3/collection/add post folder_id code
+  // https://apiw2.eaeja.com/vw3/folder/add post folder_name
   // 1
   if (!id && !sid && !q && sort === "0") {
     const categorys = ["全部", "最热", "畅销", "最新"].map((it, idx) => ({
@@ -155,7 +160,7 @@ export default async function Yami({ searchParams }: any) {
       <main className=" flex-1">
         <BaseList
           list={videos
-            .filter((it) => !it.exclusive)
+            // .filter((it) => !it.exclusive)
             .map((it) => ({
               label: `/yami?id=${it.code}`,
               desc: <Desc {...it} />,
@@ -195,7 +200,7 @@ export default async function Yami({ searchParams }: any) {
       <main className=" flex-1">
         <BaseList
           list={videos
-            .filter((it) => !it.exclusive)
+            // .filter((it) => !it.exclusive)
             .map((it) => ({
               label: `/yami?id=${it.code}`,
               desc: <Desc {...it} />,
@@ -281,12 +286,7 @@ export default async function Yami({ searchParams }: any) {
       {Object.keys({ ...sources })
         .filter((it) => !!sources[it])
         .map((it, idx) => (
-          <BaseRadioPlayer
-            key={idx}
-            url={`${sources[it]}`}
-            action={it}
-            htype={true}
-          />
+          <BaseRadioPlayer key={idx} url={`${sources[it]}`} action={it} />
         ))}
 
       <h1 className=" text-3xl font-bold tracking-tighter leading-tight">
@@ -294,7 +294,7 @@ export default async function Yami({ searchParams }: any) {
       </h1>
       <BaseList
         list={recommend_videos
-          .filter((it) => !it.exclusive)
+          // .filter((it) => !it.exclusive)
           .map((it) => ({
             label: `/yami?id=${it.code}`,
             desc: <Desc {...it} />,
@@ -306,7 +306,7 @@ export default async function Yami({ searchParams }: any) {
       </h1>
       <BaseList
         list={carousel_videos
-          .filter((it) => !it.exclusive)
+          // .filter((it) => !it.exclusive)
           .map((it) => ({
             label: `/yami?id=${it.code}`,
             desc: <Desc {...it} />,
