@@ -3,7 +3,7 @@ import "./index.css";
 
 export default async function Download({ searchParams }: any) {
   const { src = "" } = searchParams;
-  const res = await fetch(`https://leif0419.github.io/m3u8/`, {
+  const res = await fetch(`https://leif0419.github.io/m3u8`, {
     cache: "no-store",
   }).then((r) => r.text());
   const $ = load(res);

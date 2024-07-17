@@ -1,7 +1,7 @@
 import { ff } from "@/lib/api";
 import BaseRadioPlayer from "../_components/base-radio-player";
 import BaseList from "../_components/base-list";
-import { Link, Snippet } from "@nextui-org/react";
+import { Link } from "@nextui-org/react";
 import BaseForm from "../_components/base-form";
 import Yamimage from "./yamimage";
 import BaseModal from "../_components/base-modal";
@@ -379,7 +379,9 @@ export default async function Yami({ searchParams }: any) {
   const [src] = Object.values({ ...sources }) as string[];
   return (
     <main className=" flex-1 p-4">
-      <Link href={`/m3u8?src=${btoa(src)}`}>{id}</Link>
+      <Link target="_blank" href={`/m3u8?src=${btoa(src)}`}>
+        {id}
+      </Link>
       <div>{title}</div>
       <div className=" my-2">
         {genres.map((it, idx) => (

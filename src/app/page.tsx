@@ -20,7 +20,7 @@ const Tools = transfer({
   "/demo": "GPT",
   "/eat": "烹饪",
   "/charts": "图表",
-  "/m3u8": "m3u8",
+  // "/m3u8": "m3u8",
 });
 
 const Control = transfer({
