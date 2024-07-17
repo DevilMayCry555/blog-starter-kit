@@ -296,7 +296,6 @@ export default async function Yami({ searchParams }: any) {
   // console.log(sources);
   return (
     <main className=" flex-1 p-4">
-      <h1 className=" text-2xl font-bold tracking-tighter leading-tight"></h1>
       <div>
         {id} | {title}
       </div>
