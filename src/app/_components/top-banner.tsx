@@ -23,6 +23,7 @@ export default function TopBanner({ uid }: any) {
             <span className="font-bold">T.Y.D.L.Y</span>
           </Link>
         </NavbarBrand>
+        <label htmlFor="yami-busmode">PRO</label>
         <ThemeSwitcher />
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}

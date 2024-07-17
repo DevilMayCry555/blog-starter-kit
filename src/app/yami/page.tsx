@@ -6,6 +6,7 @@ import BaseForm from "../_components/base-form";
 import Yamimage from "./yamimage";
 import BaseModal from "../_components/base-modal";
 import { cookies } from "next/headers";
+import "./yami.css";
 //
 interface Video {
   code: string;
@@ -66,17 +67,29 @@ const Desc = ({ code, title, cover64, onshelf_tm }: any) => {
   );
 };
 const Avs = ({ videos }: { videos: Video[] }) => {
-  console.log(videos);
+  // console.log(videos);
   return (
-    <BaseList
-      list={videos
-        .filter((it) => !it.exclusive)
-        .map((it) => ({
-          label: `/yami?id=${it.code}`,
-          desc: <Desc {...it} />,
-          // value: it.code,
-        }))}
-    />
+    <>
+      {/* <label htmlFor="yami-busmode">PROTECT</label> */}
+      <input
+        type="checkbox"
+        name="tyd"
+        id="yami-busmode"
+        defaultChecked
+        hidden
+      />
+      <div className=" yami-list">
+        <BaseList
+          list={videos
+            .filter((it) => !it.exclusive)
+            .map((it) => ({
+              label: `/yami?id=${it.code}`,
+              desc: <Desc {...it} />,
+              // value: it.code,
+            }))}
+        />
+      </div>
+    </>
   );
 };
 const loginProp = (ct = "") => {
