@@ -269,9 +269,7 @@ export default async function Yami({ searchParams }: any) {
               <Yamimage
                 url={actor.cover64}
                 name={actor.name}
-                desc={`${new Date(actor.birth * 1000).toLocaleDateString()} ${
-                  actor.cup
-                } ${actor.video_count}`}
+                desc={`${actor.cup} ${actor.video_count}`}
               />
             </Link>
           </div>
@@ -298,7 +296,7 @@ export default async function Yami({ searchParams }: any) {
   // console.log(sources);
   return (
     <main className=" flex-1 p-4">
-      <h1 className=" text-3xl font-bold tracking-tighter leading-tight">
+      <h1 className=" text-2xl font-bold tracking-tighter leading-tight">
         {id}
       </h1>
       <div>{title}</div>
@@ -308,11 +306,11 @@ export default async function Yami({ searchParams }: any) {
           <BaseRadioPlayer key={idx} url={`${sources[it]}`} action={it} />
         ))}
 
-      <h1 className=" text-3xl font-bold tracking-tighter leading-tight">
+      <h1 className=" text-2xl font-bold tracking-tighter leading-tight">
         recommend_videos
       </h1>
       <Avs videos={recommend_videos} />
-      <h1 className=" text-3xl font-bold tracking-tighter leading-tight">
+      <h1 className=" text-2xl font-bold tracking-tighter leading-tight">
         carousel_videos
       </h1>
       <Avs videos={carousel_videos} />
