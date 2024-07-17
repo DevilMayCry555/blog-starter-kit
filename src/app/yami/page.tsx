@@ -60,9 +60,23 @@ const Desc = ({ code, title, cover64, onshelf_tm }: any) => {
   return (
     <>
       {code} {title}
-      <Yamimage url={cover64} />
+      {/* <Yamimage url={cover64} /> */}
       {new Date(onshelf_tm * 1000).toLocaleDateString()}
     </>
+  );
+};
+const Avs = ({ videos }: { videos: Video[] }) => {
+  console.log(videos);
+  return (
+    <BaseList
+      list={videos
+        .filter((it) => !it.exclusive)
+        .map((it) => ({
+          label: `/yami?id=${it.code}`,
+          desc: <Desc {...it} />,
+          // value: it.code,
+        }))}
+    />
   );
 };
 const loginProp = (ct = "") => {
@@ -71,20 +85,20 @@ const loginProp = (ct = "") => {
     action: "/api/login",
     method: "yami",
     text: "login",
-    form: { ct, account: "1061471799@qq.com", password: "123456" },
+    form: { ct },
     columns: [
-      // {
-      //   field: "account",
-      //   label: "email",
-      //   type: "input",
-      //   init: "1061471799@qq.com",
-      // },
-      // {
-      //   field: "password",
-      //   label: "password",
-      //   type: "input",
-      //   init: "123456",
-      // },
+      {
+        field: "account",
+        label: "email",
+        type: "input",
+        // init: "1061471799@qq.com",
+      },
+      {
+        field: "password",
+        label: "password",
+        type: "input",
+        // init: "123456",
+      },
       {
         field: "imgCode",
         label: "code",
@@ -98,25 +112,25 @@ const loginProp = (ct = "") => {
 // https://apiw2.eaeja.com/vw3/folder/add post folder_name
 export default async function Yami({ searchParams }: any) {
   const { id = "", sid = "", to = 0, sort = "0", q = "" } = searchParams;
-  const { token } = await ff("https://apiw2.eaeja.com/vw3/visitor");
-  // const token = cookies().get("yami-token")?.value;
-  // if (!token) {
-  //   let ct = "";
-  //   const tcode = await fetch("https://apiw5.xn--pssa1886a.com/vw3/code", {
-  //     cache: "no-store",
-  //   }).then((res) => {
-  //     ct = res.headers.get("Cors-Cookie") ?? "";
-  //     return res.text();
-  //   });
+  // const { token } = await ff("https://apiw2.eaeja.com/vw3/visitor");
+  const token = cookies().get("yami-token")?.value;
+  if (!token) {
+    let ct = "";
+    const tcode = await fetch("https://apiw5.xn--pssa1886a.com/vw3/code", {
+      cache: "no-store",
+    }).then((res) => {
+      ct = res.headers.get("Cors-Cookie") ?? "";
+      return res.text();
+    });
 
-  //   return (
-  //     <main className=" m-auto">
-  //       <img src={`data:image/png;base64,${tcode}`} alt="code" />
-  //       <br />
-  //       <BaseForm {...loginProp(ct)} />
-  //     </main>
-  //   );
-  // }
+    return (
+      <main className=" m-auto">
+        <img src={`data:image/png;base64,${tcode}`} alt="code" />
+        <br />
+        <BaseForm {...loginProp(ct)} />
+      </main>
+    );
+  }
   // 1
   if (!id && !sid && !q && sort === "0") {
     // const {
@@ -166,15 +180,7 @@ export default async function Yami({ searchParams }: any) {
 
     return (
       <main className=" flex-1">
-        <BaseList
-          list={videos
-            .filter((it) => !it.exclusive)
-            .map((it) => ({
-              label: `/yami?id=${it.code}`,
-              desc: <Desc {...it} />,
-              // value: it.code,
-            }))}
-        />
+        <Avs videos={videos} />
         {next > 0 && (
           <div className=" text-center py-2">
             <a href={`/yami?q=${q}&to=${next}`} target="_blank">
@@ -206,15 +212,7 @@ export default async function Yami({ searchParams }: any) {
 
     return (
       <main className=" flex-1">
-        <BaseList
-          list={videos
-            .filter((it) => !it.exclusive)
-            .map((it) => ({
-              label: `/yami?id=${it.code}`,
-              desc: <Desc {...it} />,
-              // value: it.code,
-            }))}
-        />
+        <Avs videos={videos} />
         {next > 0 && (
           <div className=" text-center py-2">
             <a href={`/yami?sid=${sid}&to=${next}`} target="_blank">
@@ -300,28 +298,11 @@ export default async function Yami({ searchParams }: any) {
       <h1 className=" text-3xl font-bold tracking-tighter leading-tight">
         recommend_videos
       </h1>
-      <BaseList
-        list={recommend_videos
-          .filter((it) => !it.exclusive)
-          .map((it) => ({
-            label: `/yami?id=${it.code}`,
-            desc: <Desc {...it} />,
-            // value: it.code,
-          }))}
-      />
+      <Avs videos={recommend_videos} />
       <h1 className=" text-3xl font-bold tracking-tighter leading-tight">
         carousel_videos
       </h1>
-      <BaseList
-        list={carousel_videos
-          .filter((it) => !it.exclusive)
-          .map((it) => ({
-            label: `/yami?id=${it.code}`,
-            desc: <Desc {...it} />,
-            // value: it.code,
-          }))}
-      />
-
+      <Avs videos={carousel_videos} />
       <div className=" fixed bottom-2 right-2 z-10">
         <BaseModal action="JOIN" title="actors">
           {actors.map((it, idx) => (

@@ -23,6 +23,6 @@ export const config = {
     "/backdoor/:door*",
     // "/api/:api*"
     "/eat",
-    "/yami",
+    // "/yami",
   ],
 };
