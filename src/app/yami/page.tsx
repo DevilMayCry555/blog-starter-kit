@@ -296,10 +296,10 @@ export default async function Yami({ searchParams }: any) {
   // console.log(sources);
   return (
     <main className=" flex-1 p-4">
-      <h1 className=" text-2xl font-bold tracking-tighter leading-tight">
-        {id}
-      </h1>
-      <div>{title}</div>
+      <h1 className=" text-2xl font-bold tracking-tighter leading-tight"></h1>
+      <div>
+        {id} | {title}
+      </div>
       {Object.keys({ ...sources })
         .filter((it) => !!sources[it])
         .map((it, idx) => (
