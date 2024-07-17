@@ -98,7 +98,7 @@ const Avs = ({ videos }: { videos: Video[] }) => {
   );
 };
 const loginProp = (ct = "") => {
-  console.log(ct);
+  console.log("need login", ct);
   return {
     action: "/api/login",
     method: "yami",
@@ -138,15 +138,7 @@ export default async function Yami({ searchParams }: any) {
   } = searchParams;
   // const { token } = await ff("https://apiw2.eaeja.com/vw3/visitor");
   const token = cookies().get("yami-token")?.value;
-  // const qqq = await ff(
-  //   `https://apiw2.eaeja.com/vw3/genre/670/videos`,
-  //   {
-  //     video_type: "long",
-  //     // next: to,
-  //   },
-  //   token
-  // );
-  // console.log(qqq);
+  //
   if (!token) {
     let ct = "";
     const tcode = await fetch("https://apiw5.xn--pssa1886a.com/vw3/code", {
@@ -383,15 +375,19 @@ export default async function Yami({ searchParams }: any) {
     recommend_videos,
     video: { sources, actors = [], title, genres },
   } = res;
-  // console.log(res.video);
+  // console.log(sources);
   return (
     <main className=" flex-1 p-4">
       <div>
         {id} | {title}
       </div>
       <div>
-        {genres.map((it) => (
-          <Link className=" mx-2 underline" href={`/yami?gid=${it.sid}`}>
+        {genres.map((it, idx) => (
+          <Link
+            key={idx}
+            className=" mx-2 underline"
+            href={`/yami?gid=${it.sid}`}
+          >
             {it.name}
           </Link>
         ))}
