@@ -308,11 +308,7 @@ export default async function Yami({ searchParams }: any) {
       <h1 className=" text-2xl font-bold tracking-tighter leading-tight">
         recommend_videos
       </h1>
-      <Avs videos={recommend_videos} />
-      <h1 className=" text-2xl font-bold tracking-tighter leading-tight">
-        carousel_videos
-      </h1>
-      <Avs videos={carousel_videos} />
+      <Avs videos={recommend_videos.concat(carousel_videos)} />
       <div className=" fixed bottom-2 right-2 z-10">
         <BaseModal action="JOIN" title="actors">
           {actors.map((it, idx) => (
