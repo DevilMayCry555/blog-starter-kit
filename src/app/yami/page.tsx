@@ -70,7 +70,6 @@ const Avs = ({ videos }: { videos: Video[] }) => {
   // console.log(videos);
   return (
     <>
-      {/* <label htmlFor="yami-busmode">PROTECT</label> */}
       <input
         type="checkbox"
         name="tyd"
@@ -120,9 +119,7 @@ const loginProp = (ct = "") => {
     ],
   };
 };
-// https://apiw2.eaeja.com/vw3/folder/get
-// https://apiw2.eaeja.com/vw3/collection/add post folder_id code
-// https://apiw2.eaeja.com/vw3/folder/add post folder_name
+//
 export default async function Yami({ searchParams }: any) {
   const { id = "", sid = "", to = 0, sort = "0", q = "" } = searchParams;
   // const { token } = await ff("https://apiw2.eaeja.com/vw3/visitor");
@@ -146,9 +143,6 @@ export default async function Yami({ searchParams }: any) {
   }
   // 1
   if (!id && !sid && !q && sort === "0") {
-    // const {
-    //   folder: [{ content }],
-    // } = await ff("https://apiw2.eaeja.com/vw3/folder/get", {}, token);
     const categorys = ["全部", "最热", "畅销", "最新"].map((it, idx) => ({
       action: "/yami",
       method: "",
@@ -164,13 +158,6 @@ export default async function Yami({ searchParams }: any) {
             <BaseForm key={idx} {...prp} />
           ))}
         </div>
-        {/* <BaseModal action="folder" title="folder">
-          {[...content].map((it) => (
-            <Link className=" mx-2" key={it} href={`/yami?id=${it}`}>
-              {it}
-            </Link>
-          ))}
-        </BaseModal> */}
       </main>
     );
   }
@@ -258,9 +245,6 @@ export default async function Yami({ searchParams }: any) {
       }
     ).then((res) => res.json());
     // console.log(girls);
-    // const imgs = await Promise.all(
-    //   girls.actors.map((it) => getBase64(it.cover64))
-    // );
     return (
       <main className=" flex-1 p-2 overflow-hidden">
         {girls.actors.map((actor) => (
