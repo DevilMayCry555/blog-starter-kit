@@ -179,7 +179,7 @@ export default async function Yami({ searchParams }: any) {
       columns: [],
     }));
     return (
-      <main className=" m-auto w-1/2">
+      <main className=" m-auto">
         <BaseForm {...searchProp} />
         <div className=" flex py-10">
           {sorts.map((prp, idx) => (
