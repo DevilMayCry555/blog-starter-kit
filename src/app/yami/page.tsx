@@ -60,7 +60,7 @@ const Desc = ({ code, title, cover64, onshelf_tm }: any) => {
   return (
     <>
       {code} {title}
-      {/* <Yamimage url={cover64} /> */}
+      <Yamimage url={cover64} />
       {new Date(onshelf_tm * 1000).toLocaleDateString()}
     </>
   );
