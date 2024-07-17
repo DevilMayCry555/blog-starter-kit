@@ -101,6 +101,15 @@ export default function BaseForm({
                 defaultValue={init}
               />
             )}
+            {type === "password" && (
+              <Input
+                type="password"
+                label={label}
+                name={field}
+                required={required}
+                defaultValue={init}
+              />
+            )}
             {type === "textarea" && (
               <Textarea
                 label={label}

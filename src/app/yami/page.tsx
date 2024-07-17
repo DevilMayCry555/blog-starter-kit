@@ -15,6 +15,7 @@ interface Video {
   exclusive: boolean;
   actors: Actor[];
   onshelf_tm: number;
+  genres: Category[];
   [k: string]: any;
 }
 interface resProps {
@@ -31,7 +32,12 @@ interface Actor {
   name: string;
   video_count: number;
 }
-
+interface Category {
+  img64: string;
+  sid: number;
+  title: string;
+  name: string;
+}
 const backProp = {
   action: "/yami",
   method: "",
@@ -108,7 +114,7 @@ const loginProp = (ct = "") => {
       {
         field: "password",
         label: "password",
-        type: "input",
+        type: "password",
         // init: "123456",
       },
       {
@@ -121,9 +127,26 @@ const loginProp = (ct = "") => {
 };
 //
 export default async function Yami({ searchParams }: any) {
-  const { id = "", sid = "", to = 0, sort = "0", q = "" } = searchParams;
+  const {
+    id = "",
+    sid = "",
+    cid = "",
+    gid = "",
+    to = 0,
+    sort = "0",
+    q = "",
+  } = searchParams;
   // const { token } = await ff("https://apiw2.eaeja.com/vw3/visitor");
   const token = cookies().get("yami-token")?.value;
+  // const qqq = await ff(
+  //   `https://apiw2.eaeja.com/vw3/genre/670/videos`,
+  //   {
+  //     video_type: "long",
+  //     // next: to,
+  //   },
+  //   token
+  // );
+  // console.log(qqq);
   if (!token) {
     let ct = "";
     const tcode = await fetch("https://apiw5.xn--pssa1886a.com/vw3/code", {
@@ -142,8 +165,13 @@ export default async function Yami({ searchParams }: any) {
     );
   }
   // 1
-  if (!id && !sid && !q && sort === "0") {
-    const categorys = ["全部", "最热", "畅销", "最新"].map((it, idx) => ({
+  if (!id && !sid && !cid && !gid && !q && sort === "0") {
+    const { categorys }: { categorys: Category[] } = await ff(
+      "https://apiw2.eaeja.com/vw3/categorys",
+      {},
+      token
+    );
+    const sorts = ["全部", "最热", "畅销", "最新"].map((it, idx) => ({
       action: "/yami",
       method: "",
       text: it,
@@ -151,13 +179,27 @@ export default async function Yami({ searchParams }: any) {
       columns: [],
     }));
     return (
-      <main className=" m-auto">
+      <main className=" m-auto w-1/2">
         <BaseForm {...searchProp} />
         <div className=" flex py-10">
-          {categorys.map((prp, idx) => (
+          {sorts.map((prp, idx) => (
             <BaseForm key={idx} {...prp} />
           ))}
         </div>
+        <BaseModal action="CATE" title="CATE">
+          <div className=" grid grid-flow-row grid-cols-4">
+            {categorys.map((it, idx) => (
+              <BaseForm
+                key={idx}
+                action="/yami"
+                method=""
+                text={it.title}
+                form={{ cid: it.sid }}
+                columns={[]}
+              />
+            ))}
+          </div>
+        </BaseModal>
       </main>
     );
   }
@@ -184,6 +226,70 @@ export default async function Yami({ searchParams }: any) {
         {next > 0 && (
           <div className=" text-center py-2">
             <a href={`/yami?q=${q}&to=${next}`} target="_blank">
+              next {next}
+            </a>
+          </div>
+        )}
+        <div className=" fixed bottom-2 right-2">
+          <BaseForm {...backProp} />
+        </div>
+      </main>
+    );
+  }
+  // 3
+  if (cid) {
+    const {
+      // actor,
+      videos,
+      next,
+    }: { next: number; videos: Video[]; actor: Actor } = await ff(
+      `https://apiw2.eaeja.com/vw3/lite/category/${cid}/videos`,
+      {
+        video_type: "long",
+        next: to,
+      },
+      token
+    );
+    // console.log(actor);
+
+    return (
+      <main className=" flex-1">
+        <Avs videos={videos} />
+        {next > 0 && (
+          <div className=" text-center py-2">
+            <a href={`/yami?sid=${sid}&to=${next}`} target="_blank">
+              next {next}
+            </a>
+          </div>
+        )}
+        <div className=" fixed bottom-2 right-2">
+          <BaseForm {...backProp} />
+        </div>
+      </main>
+    );
+  }
+  // 3
+  if (gid) {
+    const {
+      // actor,
+      videos,
+      next,
+    }: { next: number; videos: Video[]; actor: Actor } = await ff(
+      `https://apiw2.eaeja.com/vw3/genre/${gid}/videos`,
+      {
+        video_type: "long",
+        next: to,
+      },
+      token
+    );
+    // console.log(actor);
+
+    return (
+      <main className=" flex-1">
+        <Avs videos={videos} />
+        {next > 0 && (
+          <div className=" text-center py-2">
+            <a href={`/yami?sid=${sid}&to=${next}`} target="_blank">
               next {next}
             </a>
           </div>
@@ -275,13 +381,20 @@ export default async function Yami({ searchParams }: any) {
   const {
     carousel_videos,
     recommend_videos,
-    video: { sources, actors = [], title },
+    video: { sources, actors = [], title, genres },
   } = res;
-  // console.log(sources);
+  // console.log(res.video);
   return (
     <main className=" flex-1 p-4">
       <div>
         {id} | {title}
+      </div>
+      <div>
+        {genres.map((it) => (
+          <Link className=" mx-2 underline" href={`/yami?gid=${it.sid}`}>
+            {it.name}
+          </Link>
+        ))}
       </div>
       {Object.keys({ ...sources })
         .filter((it) => !!sources[it])
