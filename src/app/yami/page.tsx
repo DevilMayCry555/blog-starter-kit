@@ -7,6 +7,7 @@ import Yamimage from "./yamimage";
 import BaseModal from "../_components/base-modal";
 import { cookies } from "next/headers";
 import "./yami.css";
+import { qstr } from "@/lib/utils";
 //
 interface Video {
   code: string;
@@ -70,6 +71,15 @@ const Desc = ({ code, title, cover64, onshelf_tm }: any) => {
       <Yamimage url={cover64} />
       {new Date(onshelf_tm * 1000).toLocaleDateString()}
     </>
+  );
+};
+const Footer = ({ to, ...rest }: any) => {
+  return (
+    <div className=" text-center py-2">
+      <Link href={qstr("/yami", { to, ...rest })} target="_blank">
+        next {to}
+      </Link>
+    </div>
   );
 };
 const Avs = ({ videos }: { videos: Video[] }) => {
@@ -215,13 +225,7 @@ export default async function Yami({ searchParams }: any) {
     return (
       <main className=" flex-1">
         <Avs videos={videos} />
-        {next > 0 && (
-          <div className=" text-center py-2">
-            <a href={`/yami?q=${q}&to=${next}`} target="_blank">
-              next {next}
-            </a>
-          </div>
-        )}
+        {next > 0 && <Footer {...{ to: next, q }} />}
         <div className=" fixed bottom-2 right-2">
           <BaseForm {...backProp} />
         </div>
@@ -247,13 +251,7 @@ export default async function Yami({ searchParams }: any) {
     return (
       <main className=" flex-1">
         <Avs videos={videos} />
-        {next > 0 && (
-          <div className=" text-center py-2">
-            <Link href={`/yami?cid=${cid}&to=${next}`} target="_blank">
-              next {next}
-            </Link>
-          </div>
-        )}
+        {next > 0 && <Footer {...{ to: next, cid }} />}
         <div className=" fixed bottom-2 right-2">
           <BaseForm {...backProp} />
         </div>
@@ -279,13 +277,7 @@ export default async function Yami({ searchParams }: any) {
     return (
       <main className=" flex-1">
         <Avs videos={videos} />
-        {next > 0 && (
-          <div className=" text-center py-2">
-            <Link href={`/yami?gid=${gid}&to=${next}`} target="_blank">
-              next {next}
-            </Link>
-          </div>
-        )}
+        {next > 0 && <Footer {...{ to: next, gid }} />}
         <div className=" fixed bottom-2 right-2">
           <BaseForm {...backProp} />
         </div>
@@ -311,13 +303,7 @@ export default async function Yami({ searchParams }: any) {
     return (
       <main className=" flex-1">
         <Avs videos={videos} />
-        {next > 0 && (
-          <div className=" text-center py-2">
-            <Link href={`/yami?sid=${sid}&to=${next}`} target="_blank">
-              next {next}
-            </Link>
-          </div>
-        )}
+        {next > 0 && <Footer {...{ to: next, sid }} />}
         <div className=" fixed bottom-2 right-2">
           <BaseForm {...backProp} />
         </div>
