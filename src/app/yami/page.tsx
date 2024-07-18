@@ -133,12 +133,12 @@ export default async function Yami({ searchParams }: any) {
     cid = "",
     gid = "",
     to = 0,
-    sort = "0",
+    sort = "",
     q = "",
   } = searchParams;
   // const { token } = await ff("https://apiw2.eaeja.com/vw3/visitor");
   const token = cookies().get("yami-token")?.value;
-  //
+  // 登录
   if (!token) {
     let ct = "";
     const tcode = await fetch("https://apiw5.xn--pssa1886a.com/vw3/code", {
@@ -156,8 +156,8 @@ export default async function Yami({ searchParams }: any) {
       </main>
     );
   }
-  // 1
-  if (!id && !sid && !cid && !gid && !q && sort === "0") {
+  // 主页
+  if (!id && !sid && !cid && !gid && !q && !sort) {
     const { categorys }: { categorys: Category[] } = await ff(
       "https://apiw2.eaeja.com/vw3/categorys",
       {},
@@ -195,7 +195,7 @@ export default async function Yami({ searchParams }: any) {
       </main>
     );
   }
-  // search
+  // 关键字
   if (q) {
     const {
       // actor,
@@ -228,7 +228,7 @@ export default async function Yami({ searchParams }: any) {
       </main>
     );
   }
-  // 3
+  // 大类
   if (cid) {
     const {
       // actor,
@@ -249,9 +249,9 @@ export default async function Yami({ searchParams }: any) {
         <Avs videos={videos} />
         {next > 0 && (
           <div className=" text-center py-2">
-            <a href={`/yami?cid=${cid}&to=${next}`} target="_blank">
+            <Link href={`/yami?cid=${cid}&to=${next}`} target="_blank">
               next {next}
-            </a>
+            </Link>
           </div>
         )}
         <div className=" fixed bottom-2 right-2">
@@ -260,7 +260,7 @@ export default async function Yami({ searchParams }: any) {
       </main>
     );
   }
-  // 3
+  // 小类
   if (gid) {
     const {
       // actor,
@@ -281,9 +281,9 @@ export default async function Yami({ searchParams }: any) {
         <Avs videos={videos} />
         {next > 0 && (
           <div className=" text-center py-2">
-            <a href={`/yami?gid=${gid}&to=${next}`} target="_blank">
+            <Link href={`/yami?gid=${gid}&to=${next}`} target="_blank">
               next {next}
-            </a>
+            </Link>
           </div>
         )}
         <div className=" fixed bottom-2 right-2">
@@ -292,7 +292,7 @@ export default async function Yami({ searchParams }: any) {
       </main>
     );
   }
-  // 3
+  // 演员
   if (sid) {
     const {
       // actor,
@@ -313,9 +313,9 @@ export default async function Yami({ searchParams }: any) {
         <Avs videos={videos} />
         {next > 0 && (
           <div className=" text-center py-2">
-            <a href={`/yami?sid=${sid}&to=${next}`} target="_blank">
+            <Link href={`/yami?sid=${sid}&to=${next}`} target="_blank">
               next {next}
-            </a>
+            </Link>
           </div>
         )}
         <div className=" fixed bottom-2 right-2">
@@ -324,8 +324,8 @@ export default async function Yami({ searchParams }: any) {
       </main>
     );
   }
-  // 2
-  if (!id) {
+  // 演员索引
+  if (sort) {
     const girls: { actors: Actor[]; next: number } = await fetch(
       "https://apiw2.eaeja.com/vw3/category/actors",
       {
@@ -362,7 +362,7 @@ export default async function Yami({ searchParams }: any) {
       </main>
     );
   }
-  // 4
+  // 详情
   const res: resProps = await ff(
     `https://apiw2.eaeja.com/vw3/video/${id}`,
     {
