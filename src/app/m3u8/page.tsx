@@ -11,7 +11,7 @@ export default async function Download({ searchParams }: any) {
   //   console.log(parts);
   return (
     <main className=" flex-1">
-      <div className=" p-2 break-all">{atob(src)}</div>
+      <div className=" p-2 break-all select-all">{atob(src)}</div>
       <div
         className="m3u8-get"
         dangerouslySetInnerHTML={{ __html: parts }}
