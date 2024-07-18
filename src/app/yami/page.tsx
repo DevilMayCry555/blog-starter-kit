@@ -249,7 +249,7 @@ export default async function Yami({ searchParams }: any) {
         <Avs videos={videos} />
         {next > 0 && (
           <div className=" text-center py-2">
-            <a href={`/yami?sid=${sid}&to=${next}`} target="_blank">
+            <a href={`/yami?cid=${cid}&to=${next}`} target="_blank">
               next {next}
             </a>
           </div>
@@ -281,7 +281,7 @@ export default async function Yami({ searchParams }: any) {
         <Avs videos={videos} />
         {next > 0 && (
           <div className=" text-center py-2">
-            <a href={`/yami?sid=${sid}&to=${next}`} target="_blank">
+            <a href={`/yami?gid=${gid}&to=${next}`} target="_blank">
               next {next}
             </a>
           </div>
