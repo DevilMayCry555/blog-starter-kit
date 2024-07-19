@@ -1,18 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
-import "./map.css";
 
 interface Prop {
   locations: any[];
 }
 let map: any = null;
-const arrow = `<div class="custom-content-marker">
-  <div class="custom-content-marker-animate">
-    <img src="/assets/map-marker-current.png">
-  </div>
-  <img src="/assets/map-marker-current.png">
-</div>`;
+
 const locals = ["100000"];
 
 export default function AMapContainer({ locations }: Prop) {
@@ -70,12 +64,6 @@ export default function AMapContainer({ locations }: Prop) {
                         }
                       }
                       if (center) {
-                        const marker = new AMap.Marker({
-                          position: center,
-                          content: arrow,
-                          offset: new AMap.Pixel(-13, -30),
-                        });
-                        map.add(marker);
                         const text = new AMap.Marker({
                           position: center,
                           content: `<div style="color:#000;font-size:0.5em;width:300px">${local["create_time"]}</div>`,
