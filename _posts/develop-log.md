@@ -1,5 +1,5 @@
 ---
-title: "Developer Log"
+title: "Developer"
 excerpt: "Document problems encountered during development."
 coverImage: "/assets/kongdong.jpeg"
 date: "2030-08-12"
