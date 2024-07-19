@@ -22,6 +22,7 @@ interface Column {
   required?: boolean;
   options?: any[];
   init?: string;
+  image?: string;
 }
 interface Props {
   columns: Column[];
@@ -71,6 +72,7 @@ export default function BaseForm({
           required = true,
           options = [],
           init,
+          image,
         } = it;
         // const uuid = getuuid(field);
         return (
@@ -81,6 +83,7 @@ export default function BaseForm({
                 name={field}
                 required={required}
                 defaultValue={init}
+                endContent={image && <img src={image} alt="code" />}
               />
             )}
             {type === "number" && (

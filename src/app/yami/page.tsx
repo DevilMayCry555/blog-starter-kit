@@ -107,17 +107,17 @@ const Avs = ({ videos }: { videos: Video[] }) => {
     </>
   );
 };
-const loginProp = (ct = "") => {
+const loginProp = (ct = "", image = "") => {
   console.log("need login", ct);
   return {
     action: "/api/login",
     method: "yami",
-    text: "login",
+    text: "let me in",
     form: { ct },
     columns: [
       {
         field: "account",
-        label: "email",
+        label: "account",
         type: "input",
         // init: "1061471799@qq.com",
       },
@@ -131,6 +131,7 @@ const loginProp = (ct = "") => {
         field: "imgCode",
         label: "code",
         type: "input",
+        image,
       },
     ],
   };
@@ -160,9 +161,7 @@ export default async function Yami({ searchParams }: any) {
 
     return (
       <main className=" m-auto">
-        <img src={`data:image/png;base64,${tcode}`} alt="code" />
-        <br />
-        <BaseForm {...loginProp(ct)} />
+        <BaseForm {...loginProp(ct, `data:image/png;base64,${tcode}`)} />
       </main>
     );
   }

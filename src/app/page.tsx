@@ -8,26 +8,19 @@ const transfer = (obj: { [k: string]: any }) =>
 
 const Pages = transfer({
   "/posts": "他她",
-  "/meeting": "贴吧",
-  "/draw": "画板",
-  "/guess": "竞猜",
-  "/gcores": "Gcores",
+  "/meeting": "说说",
+  "/draw": "画画",
+  "/guess": "猜猜",
+  "/eat": "饭饭",
 });
 
 const Tools = transfer({
   "/three": "3D",
   "/map": "天气",
   "/demo": "GPT",
-  "/eat": "烹饪",
-  "/charts": "图表",
-  // "/m3u8": "m3u8",
-});
-
-const Control = transfer({
-  "/backdoor/user": "user",
-  "/backdoor/room": "room",
-  "/backdoor/location": "usage",
-  "/yami": "rank",
+  "/yami": "YAYA",
+  "/gcores": "Gcores",
+  // "/charts": "图表",
 });
 
 interface Newinfo {
@@ -46,7 +39,6 @@ export default async function Index() {
       {transfer({
         Pages,
         Tools,
-        Control,
       }).map((it, idx) => (
         <BaseCard title={it.label} key={idx}>
           <BaseList list={it.value} />
