@@ -5,17 +5,11 @@ import { DrawingBoard } from "../../lib/canvas";
 import { BASE_URL } from "@/lib/constants";
 import { Button } from "@nextui-org/react";
 
-let once = false;
 let canvas: HTMLCanvasElement | undefined = undefined;
 export default function DrawCanvas({ imgData, userid }: any) {
   const [cas_data, set_cas_data] = useState<string | undefined>("");
-  const [can_pb, set_can_pb] = useState(false);
   const [loading, setLoading] = useState(false);
-  const handleSave = (data: string) => {
-    // const data = canvas?.toDataURL("image/png", 0.5);
-    set_cas_data(data);
-    set_can_pb(true);
-  };
+  const handleSave = (data: string) => set_cas_data(data);
   const handleClick = (data: any) => {
     setLoading(true);
     fetch(BASE_URL + "/api/draw", {
@@ -30,23 +24,26 @@ export default function DrawCanvas({ imgData, userid }: any) {
       setLoading(false);
     });
   };
-  useEffect(() => {
-    if (once) {
-      return;
-    }
-    once = true;
+  const handleLoad = (imgData: string) => {
     console.log("DrawCanvas", imgData);
+    const img = new Image();
+    img.src = imgData;
+    // img.width = 360;
+    img.onload = function () {
+      canvas = new DrawingBoard("drawboard", handleSave).canvas;
+      const ctx = canvas.getContext("2d");
+      ctx?.drawImage(img, 0, 0);
+    };
+  };
+  useEffect(() => {
     if (imgData) {
-      const img = new Image();
-      img.src = imgData;
-      img.onload = function () {
-        canvas = new DrawingBoard("drawboard", handleSave).canvas;
-        const ctx = canvas.getContext("2d");
-        ctx?.drawImage(img, 0, 0);
-      };
+      handleLoad(imgData);
     } else {
       canvas = new DrawingBoard("drawboard", handleSave).canvas;
     }
+    return () => {
+      canvas = undefined;
+    };
   }, []);
   return (
     <main>
@@ -73,11 +70,7 @@ export default function DrawCanvas({ imgData, userid }: any) {
             e.preventDefault();
           }}
         >
-          <Button
-            type="submit"
-            disabled={!can_pb || loading}
-            isLoading={loading}
-          >
+          <Button type="submit" isLoading={loading}>
             保存
           </Button>
         </form>
@@ -96,15 +89,23 @@ export default function DrawCanvas({ imgData, userid }: any) {
             e.preventDefault();
           }}
         >
-          <Button
-            type="submit"
-            disabled={!can_pb || loading}
-            isLoading={loading}
-          >
+          <Button type="submit" isLoading={loading}>
             发布
           </Button>
         </form>
       </div>
+      {/* <div className="mt-4">
+        <input
+          type="file"
+          name="lalala"
+          id="lalala"
+          accept="image/*"
+          onChange={(e) => {
+            const [file] = Array.from(e.target.files ?? []);
+            handleLoad(URL.createObjectURL(file));
+          }}
+        />
+      </div> */}
       {/* </Container> */}
     </main>
   );
