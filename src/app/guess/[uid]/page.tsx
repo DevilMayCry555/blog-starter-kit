@@ -21,7 +21,13 @@ export default async function Page({ params }: any) {
   return (
     <main className=" flex-1">
       <Container>
-        <Image src={src} alt="tyd" width={360} shadow="sm" />
+        <Image
+          className=" bg-white"
+          src={src}
+          alt="tyd"
+          width={360}
+          shadow="sm"
+        />
         <Bottom
           finish={answer}
           done={isDone}
