@@ -11,5 +11,4 @@ ogImage:
 ---
 
 **_2024/07/03 nextjs_**  
-useRouter 存在缓存策略  
-函数内调用 sql 时，若先调用了 cookie 或者 headers，会将数据更新，避免使用旧数据
+useRouter 存在缓存策略，函数内调用 sql 时，若先调用了 cookie 或者 headers，会将数据更新，避免使用旧数据
