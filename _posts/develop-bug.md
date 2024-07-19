@@ -1,8 +1,8 @@
 ---
 title: "Developer Log"
 excerpt: "Document problems encountered during development."
-coverImage: "/assets/527260.png"
-date: "2024-07-03"
+coverImage: "/assets/kongdong.jpeg"
+date: "2030-08-12"
 author:
   name: L.D.T
   picture: "/assets/blog/authors/ly.jpg"
