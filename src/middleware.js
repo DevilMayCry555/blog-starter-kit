@@ -18,5 +18,9 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/posts/:slug*", "/backdoor/:door*", "/eat"],
+  matcher: [
+    "/posts/:slug*",
+    "/backdoor/:door*",
+    // "/eat"
+  ],
 };
