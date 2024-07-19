@@ -69,10 +69,3 @@ export async function generateStaticParams() {
     slug: post.slug,
   }));
 }
-// async function getData() {
-//   const response = await fetch(
-//     "http://10.67.78.52:5117/api/pm/duty/page?pageSize=10&remark=&pageNum=1"
-//   );
-//   const data = await response.json();
-//   return data;
-// }
