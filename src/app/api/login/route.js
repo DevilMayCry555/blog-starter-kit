@@ -32,6 +32,17 @@ export async function GET(request) {
     }
     return NextResponse.redirect(new URL("/yami", request.url));
   }
+  // room
+  if (method === "room") {
+    const { k, uid } = rest;
+    cookies().set({
+      name: "room-token",
+      value: k,
+      httpOnly: true,
+      maxAge: 3600,
+    });
+    return NextResponse.redirect(new URL(`/meeting/${uid}`, request.url));
+  }
   const password = btoa(pwd);
   const { rows } = await sql`SELECT * FROM users WHERE uid = ${password};`;
   if (rows.length) {

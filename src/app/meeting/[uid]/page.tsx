@@ -1,35 +1,35 @@
-import { notFound } from "next/navigation";
 import { fetchChats, fetchRoom, fetchUser } from "@/lib/sql";
 
 import "./style.css";
 import AuthError from "./auth-error";
 import Send from "./send";
-export default async function Page({ params, searchParams }: Params) {
+export default async function Page({ params }: Params) {
+  const roomid = decodeURIComponent(params.uid);
+  const {
+    rows: [room],
+  } = await fetchRoom(roomid);
+  if (!room) {
+    return <AuthError uid={roomid} />;
+  }
   // 未登录
   const userinfo = await fetchUser();
   // if (!userinfo) {
   //   return notFound();
   // }
   const { uid: userid, username } = userinfo ?? {
-    uid: "tydly2333",
+    uid: "",
     username: "bot",
   };
   const formData = {
     method: "create",
     userid,
     username,
-    uid: params.uid,
+    uid: roomid,
   };
-  const roomid = decodeURIComponent(params.uid);
-  const { k } = searchParams;
-  const room = await fetchRoom(roomid, k);
-  if (room.rows.length === 0) {
-    return <AuthError uid={roomid} />;
-  }
   const { rows } = await fetchChats(roomid);
   return (
     <div className="chat-room">
-      <Send formData={formData} />
+      {userid && <Send formData={formData} />}
 
       <div className="chat-box">
         {rows.reverse().map((row, idx, ary) => {
@@ -53,5 +53,4 @@ type Params = {
   params: {
     uid: string;
   };
-  searchParams: any;
 };

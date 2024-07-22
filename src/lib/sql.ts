@@ -31,9 +31,12 @@ export const fetchRooms = async (current: number, pageSize: number) => {
   return data;
 };
 // 查找某房间
-export const fetchRoom = async (uid: string, k: string) => {
+export const fetchRoom = async (uid: string) => {
+  const k = cookies().get("room-token");
   const data =
-    await sql`SELECT * FROM rooms WHERE uid = ${uid} AND password = ${k};`;
+    await sql`SELECT * FROM rooms WHERE uid = ${uid} AND password = ${
+      k ? k.value : ""
+    };`;
   return data;
 };
 // 某个房间的所有聊天
