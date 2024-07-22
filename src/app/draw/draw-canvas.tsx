@@ -47,7 +47,6 @@ export default function DrawCanvas({ imgData, userid }: any) {
   }, []);
   return (
     <main>
-      {/* <Container> */}
       <canvas
         id="drawboard"
         className="shadow-md m-auto"
@@ -56,57 +55,49 @@ export default function DrawCanvas({ imgData, userid }: any) {
       >
         当前浏览器不支持canvas元素，请升级或更换浏览器！
       </canvas>
+
       <div className="mt-4 flex justify-around">
         <Button id="clear">清空</Button>
-        <form
-          action="/api/draw"
-          method="GET"
-          onSubmit={(e) => {
-            handleClick({
-              method: "draft",
-              userid,
-              canvas: cas_data,
-            });
-            e.preventDefault();
-          }}
-        >
-          <Button type="submit" isLoading={loading}>
-            保存
-          </Button>
-        </form>
-        <form
-          action="/api/draw"
-          method="POST"
-          encType="text/plain"
-          onSubmit={(e) => {
-            const current = new Date();
-            handleClick({
-              method: "publish",
-              userid,
-              title: `${current.toLocaleDateString()} ${current.toLocaleTimeString()}`,
-              canvas: cas_data,
-            });
-            e.preventDefault();
-          }}
-        >
-          <Button type="submit" isLoading={loading}>
-            发布
-          </Button>
-        </form>
+        {userid && (
+          <>
+            <form
+              action="/api/draw"
+              method="GET"
+              onSubmit={(e) => {
+                handleClick({
+                  method: "draft",
+                  userid,
+                  canvas: cas_data,
+                });
+                e.preventDefault();
+              }}
+            >
+              <Button type="submit" isLoading={loading}>
+                保存
+              </Button>
+            </form>
+            <form
+              action="/api/draw"
+              method="POST"
+              encType="text/plain"
+              onSubmit={(e) => {
+                const current = new Date();
+                handleClick({
+                  method: "publish",
+                  userid,
+                  title: `${current.toLocaleDateString()} ${current.toLocaleTimeString()}`,
+                  canvas: cas_data,
+                });
+                e.preventDefault();
+              }}
+            >
+              <Button type="submit" isLoading={loading}>
+                发布
+              </Button>
+            </form>
+          </>
+        )}
       </div>
-      {/* <div className="mt-4">
-        <input
-          type="file"
-          name="lalala"
-          id="lalala"
-          accept="image/*"
-          onChange={(e) => {
-            const [file] = Array.from(e.target.files ?? []);
-            handleLoad(URL.createObjectURL(file));
-          }}
-        />
-      </div> */}
-      {/* </Container> */}
     </main>
   );
 }
