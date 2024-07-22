@@ -49,7 +49,7 @@ export default function DrawCanvas({ imgData, userid }: any) {
     <main>
       <canvas
         id="drawboard"
-        className="shadow-md m-auto"
+        className="shadow-md m-auto bg-white"
         width={360}
         height={360}
       >
