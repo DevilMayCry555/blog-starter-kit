@@ -5,9 +5,6 @@ import { notFound } from "next/navigation";
 export default async function Draw() {
   // 未登录
   const userinfo = await fetchUser();
-  if (!userinfo) {
-    return notFound();
-  }
-  const { draw, uid } = userinfo;
+  const { draw, uid } = userinfo ?? {};
   return <DrawCanvas imgData={draw} userid={uid} />;
 }
