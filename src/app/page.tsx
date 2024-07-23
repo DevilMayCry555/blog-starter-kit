@@ -8,10 +8,10 @@ const transfer = (obj: { [k: string]: any }) =>
 
 const Pages = transfer({
   "/posts": "他她",
-  "/meeting": "说说",
-  "/draw": "画画",
-  "/guess": "猜猜",
-  "/eat": "饭饭",
+  "/meeting": "实时",
+  "/draw": "画话",
+  "/guess": "话画",
+  "/eat": "贩饭",
 });
 
 const Tools = transfer({
