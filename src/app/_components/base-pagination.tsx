@@ -18,6 +18,9 @@ export default function BasePagination({
   const onPageChange = (num: number) => {
     router.push(`${path}?current=${num}`);
   };
+  if (+total <= +pageSize) {
+    return null;
+  }
   return (
     <div>
       <Spacer y={4} />
