@@ -8,7 +8,7 @@ const transfer = (obj: { [k: string]: any }) =>
 
 const Pages = transfer({
   "/posts": "他她",
-  "/meeting": "异议",
+  "/meeting": "议异",
   "/draw": "烩绘",
   "/guess": "话画",
   "/eat": "贩饭",
