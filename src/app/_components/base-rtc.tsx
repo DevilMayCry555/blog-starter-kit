@@ -54,7 +54,7 @@ function AblyPubSub() {
     </div>
   );
 }
-function AblyPubChat({ username }: any) {
+function AblyPubChat({ username, hardcore = "first" }: any) {
   const [messages, setMessages] = useState<Ably.Message[]>([]);
   const [talk, set_talk] = useState("");
 
@@ -63,7 +63,7 @@ function AblyPubChat({ username }: any) {
   });
 
   // Create a channel called 'get-started' and subscribe to all messages with the name 'first' using the useChannel hook
-  const { channel } = useChannel("get-started", "first", (message) => {
+  const { channel } = useChannel("get-started", hardcore, (message) => {
     setMessages((previousMessages) => [...previousMessages, message]);
   });
 
@@ -72,7 +72,7 @@ function AblyPubChat({ username }: any) {
       return;
     }
     channel.publish(
-      "first",
+      hardcore,
       JSON.stringify({
         content: talk,
         user_name: username,

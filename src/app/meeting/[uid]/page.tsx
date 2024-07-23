@@ -22,7 +22,7 @@ export default async function Page({ params }: Params) {
   };
   return (
     <div className="chat-room">
-      <BaseRtc type="chat" username={username} />
+      <BaseRtc type="chat" username={username} hardcore={roomid} />
     </div>
   );
 }
