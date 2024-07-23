@@ -20,7 +20,6 @@ const Tools = transfer({
   "/demo": "GPT",
   "/yami": "YAYA",
   "/gcores": "Gcores",
-  "/noname": "RTC",
 });
 
 interface Newinfo {
