@@ -30,9 +30,11 @@ export default async function Page({ searchParams }: any) {
   const { rows, total } = await fetchRooms(current, pageSize);
   return (
     <main className=" flex-1 relative">
-      <BaseModal action="create" title="create">
-        <BaseForm {...createProps} />
-      </BaseModal>
+      <div className=" fixed bottom-8 right-4">
+        <BaseModal action="create" title="create">
+          <BaseForm {...createProps} />
+        </BaseModal>
+      </div>
       <Container>
         {rows.map((row) => {
           const { uid } = row;
