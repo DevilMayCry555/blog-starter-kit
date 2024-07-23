@@ -9,22 +9,6 @@ import { fetchUsers } from "@/lib/sql";
 export default async function Backdoor({ searchParams }: any) {
   const { current = 1, pageSize = 10 } = searchParams;
   const { fields, rows, total } = await fetchUsers(current, pageSize);
-  const createProps = {
-    action: "/api/user",
-    method: "create",
-    columns: [
-      {
-        field: "username",
-        label: "用户名",
-        type: "input",
-      },
-      {
-        field: "admin",
-        label: "管理员权限",
-        type: "checkbox",
-      },
-    ],
-  };
   const actions = (row: any) => {
     const { admin, uid, draw } = row;
     return {
@@ -69,9 +53,6 @@ export default async function Backdoor({ searchParams }: any) {
   return (
     <main className=" flex-1 overflow-hidden">
       <Container>
-        <BaseModal action="create" title="create user">
-          <BaseForm {...createProps} />
-        </BaseModal>
         <BaseTable
           fields={fields.filter((it) => !["uid", "draw"].includes(it.name))}
           rows={rows.map(actions)}

@@ -46,12 +46,6 @@ export async function GET(request) {
       );
     }
   }
-  if (method === "create") {
-    const { username, admin } = rest;
-    const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
-    await sql`INSERT INTO users (uid,username,create_time,admin)
-    VALUES (${getuuid()},${username},${time},${admin ? 1 : 0});`;
-  }
   if (method === "update") {
     const { uid, birthday, username, email } = rest;
     await sql`UPDATE users SET
