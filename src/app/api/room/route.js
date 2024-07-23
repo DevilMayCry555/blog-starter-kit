@@ -10,9 +10,6 @@ export async function GET(request) {
   if (method === "delete") {
     await sql`DELETE FROM rooms WHERE uid = ${rest.uid};`;
   }
-  if (method === "clear") {
-    await sql`DELETE FROM chats WHERE uid = ${rest.uid};`;
-  }
   if (method === "create") {
     const { uid, password } = rest;
     await sql`INSERT INTO rooms (uid,password)
