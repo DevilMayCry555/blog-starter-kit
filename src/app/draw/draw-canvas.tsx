@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 import { DrawingBoard } from "../../lib/canvas";
 import { BASE_URL } from "@/lib/constants";
 import { Button } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 
 let canvas: HTMLCanvasElement | undefined = undefined;
 export default function DrawCanvas({ imgData, userid }: any) {
   const [cas_data, set_cas_data] = useState<string | undefined>("");
   const [loading, setLoading] = useState(false);
   const handleSave = (data: string) => set_cas_data(data);
+  const router = useRouter();
   const handleClick = (data: any) => {
     setLoading(true);
     fetch(BASE_URL + "/api/draw", {
@@ -22,6 +24,9 @@ export default function DrawCanvas({ imgData, userid }: any) {
       cache: "no-store",
     }).finally(() => {
       setLoading(false);
+      if (data.method === "publish") {
+        router.push("/guess", { scroll: true });
+      }
     });
   };
   const handleLoad = (imgData: string) => {
