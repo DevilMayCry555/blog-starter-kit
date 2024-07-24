@@ -34,6 +34,7 @@ function AblyPubChat({ username, hardcore }: any) {
 
   useConnectionStateListener("connected", () => {
     console.log("Connected success!");
+    alert("Connected success!");
   });
 
   // Create a channel called 'get-started' and subscribe to all messages with the name 'first' using the useChannel hook
