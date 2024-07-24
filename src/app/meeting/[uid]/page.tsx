@@ -1,8 +1,7 @@
 import { fetchRoom, fetchUser } from "@/lib/sql";
 
-import "./style.css";
 import AuthError from "./auth-error";
-import BaseRtc from "@/app/_components/base-rtc";
+import RtChat from "./rt-chat";
 
 export default async function Page({ params }: Params) {
   const roomid = decodeURIComponent(params.uid);
@@ -20,11 +19,7 @@ export default async function Page({ params }: Params) {
   const { username } = userinfo ?? {
     username: "anonymous",
   };
-  return (
-    <div className="chat-room">
-      <BaseRtc type="chat" username={username} hardcore={roomid} />
-    </div>
-  );
+  return <RtChat username={username} hardcore={roomid} />;
 }
 type Params = {
   params: {
