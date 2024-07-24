@@ -17,7 +17,7 @@ export default async function Page({ params }: Params) {
   //   return notFound();
   // }
   const { username } = userinfo ?? {
-    username: "anonymous",
+    username: "anonymous-" + (Date.now() % 10000),
   };
   return <RtChat username={username} hardcore={roomid} />;
 }
