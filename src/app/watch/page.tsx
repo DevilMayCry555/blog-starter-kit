@@ -1,28 +1,13 @@
 import { ff } from "@/lib/api";
 import BaseRadioPlayer from "../_components/base-radio-player";
 import BaseList from "../_components/base-list";
-//
-const fields: { [k: string]: string } = {
-  r855833: "鬼灭之刃：柱训练篇&2&f8dcd522fdd6f6eeb1fe9a7f52915667",
-  r387916: "加菲猫2004&1&2c1fe5c78f7737223c9a71443c4dd24d",
-  r411885: "加菲猫2006&1&28c1965251a6fd7eee5868706e6aa951",
-  r746742: "加菲猫的幸福生活S1&18&3c8d8682c5918a4bd978026de6a3eefa",
-  r746741: "加菲猫的幸福生活S2&18&30fc0a7f06b29a19e125b861e4bf500a",
-  r746743: "加菲猫的幸福生活S3&18&249983ee58c172e36d9065320cdf5ffb",
-  r746737: "加菲猫的幸福生活S4&18&d0202ab4cf0e9b8edae05942b539c467",
-  r661589: "明星大侦探S3&19&d88c4f5204ad3aa9cf43641283ac8dd7",
-  r591360: "明星大侦探S4&19&14cf892ea66018125f719027f4aa9179",
-  r421162: "甄嬛传&2&a49abcd6d66c6479aef6e98cdfdfdbc7",
-  r587092: "知否&2&bc16f57d183f499a73dbae85c0354ccd",
-  r381931: "请回答1988&2&3924fd46af8f266d182f89805910f65c",
-};
+
 //
 export default async function Watch({ searchParams }: any) {
   const { id } = searchParams;
   if (!id) {
-    const list = Object.keys(fields).map((it) => {
-      const [value] = fields[it].split("&");
-      return { label: `/watch?id=${it}`, value };
+    const list = fields.map((it) => {
+      return { label: `/watch?id=${it.code}`, value: it.name };
     });
     return (
       <main className=" flex-1">
@@ -31,10 +16,14 @@ export default async function Watch({ searchParams }: any) {
       </main>
     );
   }
-  const [name, mtype, token] = fields[id].split("&");
+  const info = fields.find((it) => it.code === id);
+  if (!info) {
+    return 404;
+  }
+  const { token, type, code, name } = info;
   const res = await ff("https://v.aikanbot.com/api/getResN", {
-    videoId: id.replace("r", ""),
-    mtype,
+    videoId: code,
+    mtype: type,
     token,
   });
   //   console.log(res.data);
@@ -60,3 +49,78 @@ export default async function Watch({ searchParams }: any) {
     </main>
   );
 }
+//
+const fields = [
+  {
+    code: 855833,
+    name: "鬼灭之刃：柱训练篇",
+    type: 2,
+    token: "f8dcd522fdd6f6eeb1fe9a7f52915667",
+  },
+  {
+    code: 387916,
+    name: "加菲猫 2004",
+    type: 1,
+    token: "2c1fe5c78f7737223c9a71443c4dd24d",
+  },
+  {
+    code: 411885,
+    name: "加菲猫 2006",
+    type: 1,
+    token: "28c1965251a6fd7eee5868706e6aa951",
+  },
+  {
+    code: 746742,
+    name: "加菲猫的幸福生活 S1",
+    type: 18,
+    token: "3c8d8682c5918a4bd978026de6a3eefa",
+  },
+  {
+    code: 746741,
+    name: "加菲猫的幸福生活 S2",
+    type: 18,
+    token: "30fc0a7f06b29a19e125b861e4bf500a",
+  },
+  {
+    code: 746743,
+    name: "加菲猫的幸福生活 S3",
+    type: 18,
+    token: "249983ee58c172e36d9065320cdf5ffb",
+  },
+  {
+    code: 746737,
+    name: "加菲猫的幸福生活 S4",
+    type: 18,
+    token: "d0202ab4cf0e9b8edae05942b539c467",
+  },
+  {
+    code: 661589,
+    name: "明星大侦探 S3",
+    type: 19,
+    token: "d88c4f5204ad3aa9cf43641283ac8dd7",
+  },
+  {
+    code: 591360,
+    name: "明星大侦探 S4",
+    type: 19,
+    token: "14cf892ea66018125f719027f4aa9179",
+  },
+  {
+    code: 421162,
+    name: "甄嬛传",
+    type: 2,
+    token: "a49abcd6d66c6479aef6e98cdfdfdbc7",
+  },
+  {
+    code: 587092,
+    name: "知否知否",
+    type: 2,
+    token: "bc16f57d183f499a73dbae85c0354ccd",
+  },
+  {
+    code: 381931,
+    name: "请回答1988",
+    type: 2,
+    token: "3924fd46af8f266d182f89805910f65c",
+  },
+];
