@@ -1,4 +1,4 @@
-import { CMS_NAME, HOME_OG_IMAGE_URL } from "@/lib/constants";
+import { BASE_URL, CMS_NAME, HOME_OG_IMAGE_URL } from "@/lib/constants";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
@@ -11,7 +11,7 @@ import { Providers } from "./providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("http://localhost:3000"),
+  metadataBase: new URL(BASE_URL),
   title: "T.Y.D.L.Y",
   description: `LY LOVE TYD | Next.js Blog Example with ${CMS_NAME}`,
   openGraph: {
