@@ -32,14 +32,21 @@ function AblyPubChat({ username, hardcore }: any) {
   const [messages, setMessages] = useState<Ably.Message[]>([]);
   const [talk, set_talk] = useState("");
 
-  useConnectionStateListener("connected", () => {
-    console.log("Connected success!");
-    alert("Connected success!");
-  });
-
   // Create a channel called 'get-started' and subscribe to all messages with the name 'first' using the useChannel hook
   const { channel } = useChannel(name, hardcore, (message) => {
     setMessages((previousMessages) => [...previousMessages, message]);
+  });
+
+  useConnectionStateListener("connected", () => {
+    console.log("Connected success!");
+    channel.publish(
+      hardcore,
+      JSON.stringify({
+        content: `${username}, welcome`,
+        user_name: "bot",
+        create_time: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
+      })
+    );
   });
 
   const onSubmit = () => {
