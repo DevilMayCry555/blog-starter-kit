@@ -26,7 +26,7 @@ export default async function Watch({ searchParams }: any) {
     mtype: type,
     token,
   });
-  //   console.log(res.data);
+  // console.log(res.data);
   const list: { id: number; resData: string }[] = res.data.list;
   const group = list.map((it) => {
     const [{ url }] = JSON.parse(it.resData);
@@ -50,13 +50,7 @@ export default async function Watch({ searchParams }: any) {
   );
 }
 //
-const fields = [
-  {
-    code: 855833,
-    name: "鬼灭之刃：柱训练篇",
-    type: 2,
-    token: "f8dcd522fdd6f6eeb1fe9a7f52915667",
-  },
+const jiafei = [
   {
     code: 387916,
     name: "加菲猫 2004",
@@ -93,18 +87,8 @@ const fields = [
     type: 18,
     token: "d0202ab4cf0e9b8edae05942b539c467",
   },
-  {
-    code: 661589,
-    name: "明星大侦探 S3",
-    type: 19,
-    token: "d88c4f5204ad3aa9cf43641283ac8dd7",
-  },
-  {
-    code: 591360,
-    name: "明星大侦探 S4",
-    type: 19,
-    token: "14cf892ea66018125f719027f4aa9179",
-  },
+];
+const tv = [
   {
     code: 421162,
     name: "甄嬛传",
@@ -123,6 +107,46 @@ const fields = [
     type: 2,
     token: "3924fd46af8f266d182f89805910f65c",
   },
+  {
+    code: 661589,
+    name: "明星大侦探 S3",
+    type: 19,
+    token: "d88c4f5204ad3aa9cf43641283ac8dd7",
+  },
+  {
+    code: 591360,
+    name: "明星大侦探 S4",
+    type: 19,
+    token: "14cf892ea66018125f719027f4aa9179",
+  },
+  {
+    code: 388539,
+    name: "亮剑",
+    type: 2,
+    token: "08b510abb6441d15419f0d4303fe34a9",
+  },
+];
+const longzhu = [
+  {
+    code: 409751,
+    name: "龙珠改",
+    type: 18,
+    token: "736749d0d15128840205d9facadf6295",
+  },
+  {
+    code: 417285,
+    name: "龙珠改 布欧篇",
+    type: 18,
+    token: "9c97d275f878c3d78f1ac96687bf9284",
+  },
+  {
+    code: 428864,
+    name: "龙珠GT",
+    type: 18,
+    token: "bc54e6c8ce311ee0cb2914d41fb80bab",
+  },
+];
+const heipao = [
   {
     code: 600544,
     name: "黑袍纠察队 S1",
@@ -147,42 +171,8 @@ const fields = [
     type: 2,
     token: "ce686031cf1c8887e85e3740e7a4d77a",
   },
-  {
-    code: 388539,
-    name: "亮剑",
-    type: 2,
-    token: "08b510abb6441d15419f0d4303fe34a9",
-  },
-  {
-    code: 431319,
-    name: "变形金刚：领袖之证 S1",
-    type: 18,
-    token: "05faf98f205dd0756fb4a308440c4020",
-  },
-  {
-    code: 422593,
-    name: "变形金刚：领袖之证 S2",
-    type: 18,
-    token: "1ee1ffa2da508c24edf2caf8dec47094",
-  },
-  {
-    code: 409751,
-    name: "龙珠改",
-    type: 18,
-    token: "736749d0d15128840205d9facadf6295",
-  },
-  {
-    code: 417285,
-    name: "龙珠改 布欧篇",
-    type: 18,
-    token: "9c97d275f878c3d78f1ac96687bf9284",
-  },
-  {
-    code: 428864,
-    name: "龙珠GT",
-    type: 18,
-    token: "bc54e6c8ce311ee0cb2914d41fb80bab",
-  },
+];
+const juren = [
   {
     code: 707380,
     name: "进击的巨人 S1 2013",
@@ -219,4 +209,92 @@ const fields = [
     type: 18,
     token: "c0ada8aca2b8c4d5c9e36009b1b1babe",
   },
+];
+const guimie = [
+  {
+    code: 601425,
+    name: "鬼灭之刃：无限列车篇",
+    type: 18,
+    token: "f8dcd522fdd6f6eeb1fe9a7f52915667",
+  },
+  {
+    code: 601428,
+    name: "鬼灭之刃：游郭篇",
+    type: 18,
+    token: "e4d03c33cc494ecea8aa71a2e49c3b2a",
+  },
+  {
+    code: 792897,
+    name: "鬼灭之刃：锻刀村篇",
+    type: 18,
+    token: "7761c2aee7260c416b569fc87998c2de",
+  },
+  {
+    code: 854922,
+    name: "鬼灭之刃：柱训练篇",
+    type: 18,
+    token: "6c119b0ec65543f04ef28b89592950f3",
+  },
+];
+const qinshi = [
+  {
+    code: 390471,
+    name: "秦时明月：诸子百家 2010",
+    type: 18,
+    token: "aec8b674762c68c4024f3c9d033b2f41",
+  },
+  {
+    code: 429707,
+    name: "秦时明月：万里长城 2012",
+    type: 18,
+    token: "ccab15e8a2f2836109c8bedc4fb26d10",
+  },
+  {
+    code: 381422,
+    name: "秦时明月：君临天下 2014",
+    type: 18,
+    token: "94134b4bf976cfdd4a260f69b03179f1",
+  },
+  {
+    code: 660012,
+    name: "秦时明月：沧海横流 2020",
+    type: 18,
+    token: "0f94901f8842cc12c91dd13e65b99d8f",
+  },
+];
+const old = [
+  {
+    code: 602519,
+    name: "火影忍者",
+    type: 18,
+    token: "cc8b1a2401bef2469e36d7d81ab50f7e",
+  },
+  {
+    code: 396912,
+    name: "数码宝贝",
+    type: 18,
+    token: "215467d0e762b4c86949048abac828a7",
+  },
+  {
+    code: 431319,
+    name: "变形金刚：领袖之证 S1",
+    type: 18,
+    token: "05faf98f205dd0756fb4a308440c4020",
+  },
+  {
+    code: 422593,
+    name: "变形金刚：领袖之证 S2",
+    type: 18,
+    token: "1ee1ffa2da508c24edf2caf8dec47094",
+  },
+];
+const fields = [
+  ...jiafei,
+  ...tv,
+  ...longzhu,
+  ...heipao,
+  ...juren,
+  ...guimie,
+  ...qinshi,
+  ...old,
 ];
