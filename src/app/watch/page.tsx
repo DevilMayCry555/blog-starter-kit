@@ -21,16 +21,16 @@ export default async function Watch({ searchParams }: any) {
           秦时明月,
           综艺,
           怀旧,
-        }).map((it) => {
+        }).map((it, idx) => {
           const [label, value] = it;
           const list = value.map((it) => {
             return { label: `/watch?id=${it.code}`, value: it.name };
           });
           return (
-            <>
+            <div key={idx}>
               <div className=" text-center">{label}</div>
               <BaseList list={list} />
-            </>
+            </div>
           );
         })}
       </main>
