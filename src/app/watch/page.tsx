@@ -6,13 +6,33 @@ import BaseList from "../_components/base-list";
 export default async function Watch({ searchParams }: any) {
   const { id } = searchParams;
   if (!id) {
-    const list = fields.map((it) => {
-      return { label: `/watch?id=${it.code}`, value: it.name };
-    });
+    // const list = fields.map((it) => {
+    //   return { label: `/watch?id=${it.code}`, value: it.name };
+    // });
     return (
       <main className=" flex-1">
-        <div className=" text-center">list</div>
-        <BaseList list={list} />
+        {Object.entries({
+          加菲猫,
+          好剧,
+          龙珠,
+          黑袍纠察队,
+          进击的巨人,
+          鬼灭之刃,
+          秦时明月,
+          综艺,
+          怀旧,
+        }).map((it) => {
+          const [label, value] = it;
+          const list = value.map((it) => {
+            return { label: `/watch?id=${it.code}`, value: it.name };
+          });
+          return (
+            <>
+              <div className=" text-center">{label}</div>
+              <BaseList list={list} />
+            </>
+          );
+        })}
       </main>
     );
   }
@@ -50,7 +70,7 @@ export default async function Watch({ searchParams }: any) {
   );
 }
 //
-const jiafei = [
+const 加菲猫 = [
   {
     code: 387916,
     name: "加菲猫 2004",
@@ -88,7 +108,7 @@ const jiafei = [
     token: "d0202ab4cf0e9b8edae05942b539c467",
   },
 ];
-const tv = [
+const 好剧 = [
   {
     code: 421162,
     name: "甄嬛传",
@@ -107,18 +127,7 @@ const tv = [
     type: 2,
     token: "3924fd46af8f266d182f89805910f65c",
   },
-  {
-    code: 661589,
-    name: "明星大侦探 S3",
-    type: 19,
-    token: "d88c4f5204ad3aa9cf43641283ac8dd7",
-  },
-  {
-    code: 591360,
-    name: "明星大侦探 S4",
-    type: 19,
-    token: "14cf892ea66018125f719027f4aa9179",
-  },
+
   {
     code: 388539,
     name: "亮剑",
@@ -126,7 +135,7 @@ const tv = [
     token: "08b510abb6441d15419f0d4303fe34a9",
   },
 ];
-const longzhu = [
+const 龙珠 = [
   {
     code: 409751,
     name: "龙珠改",
@@ -146,7 +155,7 @@ const longzhu = [
     token: "bc54e6c8ce311ee0cb2914d41fb80bab",
   },
 ];
-const heipao = [
+const 黑袍纠察队 = [
   {
     code: 600544,
     name: "黑袍纠察队 S1",
@@ -172,7 +181,7 @@ const heipao = [
     token: "ce686031cf1c8887e85e3740e7a4d77a",
   },
 ];
-const juren = [
+const 进击的巨人 = [
   {
     code: 707380,
     name: "进击的巨人 S1 2013",
@@ -210,7 +219,7 @@ const juren = [
     token: "c0ada8aca2b8c4d5c9e36009b1b1babe",
   },
 ];
-const guimie = [
+const 鬼灭之刃 = [
   {
     code: 601425,
     name: "鬼灭之刃：无限列车篇",
@@ -236,7 +245,7 @@ const guimie = [
     token: "6c119b0ec65543f04ef28b89592950f3",
   },
 ];
-const qinshi = [
+const 秦时明月 = [
   {
     code: 390471,
     name: "秦时明月：诸子百家 2010",
@@ -255,14 +264,22 @@ const qinshi = [
     type: 18,
     token: "94134b4bf976cfdd4a260f69b03179f1",
   },
+];
+const 综艺 = [
   {
-    code: 660012,
-    name: "秦时明月：沧海横流 2020",
-    type: 18,
-    token: "0f94901f8842cc12c91dd13e65b99d8f",
+    code: 661589,
+    name: "明星大侦探 S3",
+    type: 19,
+    token: "d88c4f5204ad3aa9cf43641283ac8dd7",
+  },
+  {
+    code: 591360,
+    name: "明星大侦探 S4",
+    type: 19,
+    token: "14cf892ea66018125f719027f4aa9179",
   },
 ];
-const old = [
+const 怀旧 = [
   {
     code: 602519,
     name: "火影忍者",
@@ -288,13 +305,14 @@ const old = [
     token: "1ee1ffa2da508c24edf2caf8dec47094",
   },
 ];
-const fields = [
-  ...jiafei,
-  ...tv,
-  ...longzhu,
-  ...heipao,
-  ...juren,
-  ...guimie,
-  ...qinshi,
-  ...old,
-];
+const fields = Object.values({
+  加菲猫,
+  好剧,
+  龙珠,
+  黑袍纠察队,
+  进击的巨人,
+  鬼灭之刃,
+  秦时明月,
+  综艺,
+  怀旧,
+}).flat();
