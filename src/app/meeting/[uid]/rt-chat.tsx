@@ -10,6 +10,7 @@ import {
 } from "ably/react";
 import { format } from "date-fns";
 import "./style.css";
+import { BASE_URL, isDEV } from "@/lib/constants";
 
 // Connect to Ably using the AblyProvider component and your API key
 const client = new Ably.Realtime({
@@ -39,14 +40,14 @@ function AblyPubChat({ username, hardcore }: any) {
 
   useConnectionStateListener("connected", () => {
     console.log("Connected success!");
-    channel.publish(
-      hardcore,
-      JSON.stringify({
-        content: `${username}, welcome`,
-        user_name: "bot",
-        create_time: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
-      })
-    );
+    if (isDEV) {
+      return;
+    }
+    fetch(BASE_URL + "/api/open", {
+      method: "POST",
+      body: "rtchat",
+      cache: "no-store",
+    });
   });
 
   const onSubmit = () => {
