@@ -16,7 +16,7 @@ export default async function Watch({ searchParams }: any) {
       </main>
     );
   }
-  const info = fields.find((it) => it.code === id);
+  const info = fields.find((it) => `${it.code}` === id);
   if (!info) {
     return 404;
   }
