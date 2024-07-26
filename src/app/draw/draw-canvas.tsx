@@ -51,7 +51,7 @@ export default function DrawCanvas({ imgData, userid }: any) {
     };
   }, []);
   return (
-    <main>
+    <main className=" m-auto">
       <canvas
         id="drawboard"
         className="shadow-md m-auto bg-white"

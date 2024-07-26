@@ -1,6 +1,5 @@
 import { fetchUser } from "@/lib/sql";
 import DrawCanvas from "./draw-canvas";
-import { notFound } from "next/navigation";
 
 export default async function Draw() {
   // 未登录
