@@ -3,6 +3,7 @@ import Container from "../_components/container";
 import BasePagination from "../_components/base-pagination";
 import BaseModal from "../_components/base-modal";
 import BaseForm from "../_components/base-form";
+import BaseList from "../_components/base-list";
 
 const createProps = {
   action: "/api/room",
@@ -36,15 +37,12 @@ export default async function Page({ searchParams }: any) {
         </BaseModal>
       </div>
       <Container>
-        {rows.map((row) => {
-          const { uid } = row;
-          // console.log(row);
-          return (
-            <div key={uid} className="py-2 border-b-2 border-red-300">
-              <a href={`/meeting/${uid}`}>{uid}</a>
-            </div>
-          );
-        })}
+        <BaseList
+          list={rows.map((it) => ({
+            label: `/meeting/${it.uid}`,
+            value: it.uid,
+          }))}
+        />
         <BasePagination
           current={current}
           pageSize={pageSize}

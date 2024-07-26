@@ -1,6 +1,7 @@
 import { fetchArts } from "@/lib/sql";
 import Container from "../_components/container";
 import BasePagination from "../_components/base-pagination";
+import BaseList from "../_components/base-list";
 
 export default async function Page({ searchParams }: any) {
   const { current = 1, pageSize = 10 } = searchParams;
@@ -8,15 +9,12 @@ export default async function Page({ searchParams }: any) {
   return (
     <main className=" flex-1 relative">
       <Container>
-        {rows.map((row) => {
-          const { uid, title } = row;
-          // console.log(row);
-          return (
-            <div key={uid} className="py-2 border-b-2 border-red-300">
-              <a href={`/guess/${uid}`}>{title}</a>
-            </div>
-          );
-        })}
+        <BaseList
+          list={rows.map((it) => ({
+            label: `/guess/${it.uid}`,
+            value: it.title,
+          }))}
+        />
         <BasePagination
           current={current}
           pageSize={pageSize}
