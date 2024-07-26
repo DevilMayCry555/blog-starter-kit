@@ -78,6 +78,7 @@ function AblyPubChat({ username, hardcore }: any) {
             type="text"
             value={talk}
             onChange={(e) => set_talk(e.target.value)}
+            maxLength={150}
             required
           />
           <button type="submit">发送</button>
