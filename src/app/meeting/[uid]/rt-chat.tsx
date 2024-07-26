@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as Ably from "ably";
 import {
   AblyProvider,
@@ -61,6 +61,12 @@ function AblyPubChat({ username, hardcore }: any) {
     );
     set_talk("");
   };
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((info) => {
+      const { latitude, longitude } = info.coords;
+      alert(`${longitude},${latitude}`);
+    });
+  }, []);
 
   return (
     <div className="chat-room">
