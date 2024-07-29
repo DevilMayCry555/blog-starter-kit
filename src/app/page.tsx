@@ -20,6 +20,7 @@ const Tools = transfer({
   "/demo": "GPT",
   "/yami": "YAYA",
   "/gcores": "Gcores",
+  "/mathviewer": "公式编辑器",
 });
 
 interface Newinfo {
