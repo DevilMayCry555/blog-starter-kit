@@ -15,13 +15,13 @@ const handle = ({ id = "", type = "", children = [] }: Part): string => {
   const parts = children.map((it) => handle(it));
   if (type === "square") {
     return `<msup>
-      ${parts.join("")}
+      <mrow>${parts.join("")}</mrow>
       <mn>2</mn>
       </msup>`;
   }
   if (type === "sqrt") {
     return `<msqrt>
-        ${parts.join("")}
+        <mrow>${parts.join("")}</mrow>
         </msqrt>`;
   }
 
@@ -141,7 +141,7 @@ export default function Editor() {
   }, []);
   return (
     <>
-      <div className=" flex flex-wrap mb-12">
+      <div className=" flex flex-wrap justify-center mb-12">
         <button
           className=" w-12 bg-slate-100 m-2"
           onClick={() => onAction("add")}
