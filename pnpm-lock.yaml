@@ -88,6 +88,9 @@ dependencies:
     version: 0.165.0
 
 devDependencies:
+  '@types/mathjax':
+    specifier: ^0.0.40
+    version: 0.0.40
   '@types/node':
     specifier: ^20.14.2
     version: 20.14.2
@@ -3339,6 +3342,10 @@ packages:
   /@types/lodash@4.17.5:
     resolution: {integrity: sha512-MBIOHVZqVqgfro1euRDWX7OO0fBVUUMrN6Pwm8LQsz8cWhEpihlvR70ENj3f40j58TNxZaWv2ndSkInykNBBJw==}
     dev: false
+
+  /@types/mathjax@0.0.40:
+    resolution: {integrity: sha512-rHusx08LCg92WJxrsM3SPjvLTSvK5C+gealtSuhKbEOcUZfWlwigaFoPLf6Dfxhg4oryN5qP9Sj7zOQ4HYXINw==}
+    dev: true
 
   /@types/mdast@4.0.4:
     resolution: {integrity: sha512-kGaNbPh1k7AFzgpud/gMdvIm5xuECykRR+JnWKQno9TAXVa6WIVCGTPvYGekIDL4uwCZQSYbUxNBSb1aUo79oA==}
