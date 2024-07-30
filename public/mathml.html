@@ -38,6 +38,7 @@
 </body>
 <script async>
     const _values = {}
+    let prev = []
     const _handle = ({ id = "", type = "", children = [] }, toImage = false) => {
         const parts = children.map((it) => _handle(it, toImage));
         if (type === "square") {
@@ -88,11 +89,11 @@
     const imageContainer = document.getElementById('math-editor-image')
     window.addEventListener("message", function (e) {
         // console.log(e.data);
-        const inputs = [].concat(JSON.parse(e.data));
-        container.innerHTML = inputs.map((it) => {
+        prev = [].concat(JSON.parse(e.data));
+        container.innerHTML = prev.map((it) => {
             return _handle(it);
         }).join("");
-        imageContainer.innerHTML = inputs.map((it) => {
+        imageContainer.innerHTML = prev.map((it) => {
             return _handle(it, true);
         }).join("");
     });
@@ -104,6 +105,9 @@
         Object.assign(_values, {
             [id]: e.target.value
         })
+        imageContainer.innerHTML = prev.map((it) => {
+            return _handle(it, true);
+        }).join("");
     })
 </script>
 
