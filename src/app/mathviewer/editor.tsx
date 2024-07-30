@@ -112,6 +112,7 @@ export default function Editor() {
       }
     });
   }, []);
+  // post message to update mathml
   useEffect(() => {
     // const container = document.getElementById("math-editor-container");
     // if (container) {
