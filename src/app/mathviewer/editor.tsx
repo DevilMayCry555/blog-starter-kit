@@ -63,7 +63,7 @@ export default function Editor() {
   const onAction = (type = "") => {
     if (type === "clear") {
       set([{ id: getuuid() }]);
-      select("");
+      select(type);
       return;
     }
     set((state) => onPartChange(state, current, type));
