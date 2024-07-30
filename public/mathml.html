@@ -32,11 +32,14 @@
 <body>
     <math id="math-editor" xmlns="http://www.w3.org/1998/Math/MathML" display="block">
     </math>
+    <div style="height: 50px;"></div>
+    <math id="math-editor-image" xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+    </math>
 </body>
 <script async>
     const _values = {}
-    const _handle = ({ id = "", type = "", children = [] }) => {
-        const parts = children.map((it) => _handle(it));
+    const _handle = ({ id = "", type = "", children = [] }, toImage = false) => {
+        const parts = children.map((it) => _handle(it, toImage));
         if (type === "square") {
             return `<msup>
                 <mrow>
@@ -72,6 +75,9 @@
                 <mrow>${p2}</mrow>
             </mfrac>`;
         }
+        if (toImage) {
+            return `<mi>${_values[id] ?? ''}</mi>`
+        }
 
         return `<mi class="math-random" >
             <input class="math-random-input" id="${id}_input" type="text" placeholder="..." value="${_values[id] ?? ''}" />
@@ -79,11 +85,15 @@
         </mi>`;
     };
     const container = document.getElementById('math-editor')
+    const imageContainer = document.getElementById('math-editor-image')
     window.addEventListener("message", function (e) {
         // console.log(e.data);
         const inputs = [].concat(JSON.parse(e.data));
         container.innerHTML = inputs.map((it) => {
             return _handle(it);
+        }).join("");
+        imageContainer.innerHTML = inputs.map((it) => {
+            return _handle(it, true);
         }).join("");
     });
     container.addEventListener('click', function (e) {
