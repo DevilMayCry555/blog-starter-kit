@@ -7,9 +7,24 @@
     <title>Document</title>
     <style>
         .math-random {
+            position: relative;
+        }
+
+        .math-random-input {
             border: 1px solid #cacaca;
             width: 52px;
             text-align: center;
+            margin-right: 10px;
+        }
+
+        .math-random-close {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: red;
+            top: 0;
+            right: 0;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -54,7 +69,10 @@
             </mfrac>`;
         }
 
-        return `<mi><input class="math-random" id="${id}" type="text" placeholder="..." value="${_values[id] ?? ''}" ></mi>`;
+        return `<mi class="math-random" >
+            <input class="math-random-input" id="${id}_input" type="text" placeholder="..." value="${_values[id] ?? ''}" />
+            <span class="math-random-close" id="${id}_close" ></span>
+        </mi>`;
     };
     const container = document.getElementById('math-editor')
     window.addEventListener("message", function (e) {
@@ -68,8 +86,9 @@
         window.parent.postMessage(e.target.id)
     })
     container.addEventListener('input', function (e) {
+        const [id] = `${e.target.id}`.split('_')
         Object.assign(_values, {
-            [e.target.id]: e.target.value
+            [id]: e.target.value
         })
     })
 </script>

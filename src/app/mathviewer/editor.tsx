@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import "./style.css";
 import { Button } from "@nextui-org/react";
 
@@ -9,6 +9,7 @@ interface Part {
   id: string;
   type?: string;
   children?: Part[];
+  close?: boolean;
   [k: string]: any;
 }
 
@@ -39,6 +40,34 @@ const onPartChange = (state: Part[], current: string, type: string): Part[] => {
     }
     return it;
   });
+};
+const onPartClose = (state: Part[], current: string): Part[] => {
+  return state
+    .map((it) => {
+      const { id, children = [] } = it;
+      //
+      if (id === current) {
+        return {
+          ...it,
+          close: true,
+        };
+      }
+      //
+      if (children.some((it) => it.id === current)) {
+        return {
+          id,
+        };
+      }
+      //
+      if (children.length > 0) {
+        return {
+          ...it,
+          children: onPartClose(children, current),
+        };
+      }
+      return it;
+    })
+    .filter((it) => !it.close);
 };
 
 export default function Editor() {
@@ -78,9 +107,6 @@ export default function Editor() {
     //     select(id);
     //   });
     // }
-    window.addEventListener("message", function (e) {
-      select(e.data);
-    });
     const f = document.getElementById(
       "math-editor-iframe"
     ) as HTMLIFrameElement;
@@ -88,10 +114,23 @@ export default function Editor() {
       f.addEventListener("load", function (e) {
         f.contentWindow?.postMessage(JSON.stringify(inputs));
       });
-    } else {
-      f.contentWindow?.postMessage(JSON.stringify(inputs));
-      select("");
+      window.addEventListener("message", function (e) {
+        const [id, method] = `${e.data ?? ""}`.split("_");
+        if (method === "input") {
+          select(id);
+        }
+        if (method === "close") {
+          set((state) => {
+            const res = onPartClose(state, id);
+            return res.length > 0 ? res : [{ id: getuuid() }];
+          });
+          select("close");
+        }
+      });
+      return;
     }
+    f.contentWindow?.postMessage(JSON.stringify(inputs));
+    select("");
   }, [inputs]);
   return (
     <>
