@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import "./style.css";
 import { Button } from "@nextui-org/react";
 
 const getuuid = () => `tyd-${Math.random()}`;
