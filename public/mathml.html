@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        .math-random {
+            border: 1px solid #cacaca;
+            width: 52px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <math id="math-editor" xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+    </math>
+</body>
+<script async>
+    const _values = {}
+    const _handle = ({ id = "", type = "", children = [] }) => {
+        const parts = children.map((it) => _handle(it));
+        if (type === "square") {
+            return `<msup>
+                <mrow>${parts.join("")}</mrow>
+                <mn>2</mn>
+            </msup>`;
+        }
+        if (type === "sqrt") {
+            return `<msqrt>
+                <mrow>${parts.join("")}</mrow>
+            </msqrt>`;
+        }
+
+        const [p1, p2] = parts;
+        if (type === "equal") {
+            return `${p1}<mo>=</mo>${p2}`;
+        }
+        if (type === "add") {
+            return `${p1}<mo>+</mo>${p2}`;
+        }
+        if (type === "subtract") {
+            return `${p1}<mo>-</mo>${p2}`;
+        }
+        if (type === "multiply") {
+            return `${p1}<mo>&#x2219;</mo>${p2}`;
+        }
+        if (type === "divide") {
+            return `<mfrac>
+                <mrow>${p1}</mrow>
+                <mrow>${p2}</mrow>
+            </mfrac>`;
+        }
+
+        return `<mi><input class="math-random" id="${id}" type="text" placeholder="..." value="${_values[id] ?? ''}" ></mi>`;
+    };
+    const container = document.getElementById('math-editor')
+    window.addEventListener("message", function (e) {
+        // console.log(e.data);
+        const inputs = [].concat(JSON.parse(e.data));
+        container.innerHTML = inputs.map((it) => {
+            return _handle(it);
+        }).join("");
+    });
+    container.addEventListener('click', function (e) {
+        window.parent.postMessage(e.target.id)
+    })
+    container.addEventListener('input', function (e) {
+        Object.assign(_values, {
+            [e.target.id]: e.target.value
+        })
+    })
+</script>
+
+</html>
