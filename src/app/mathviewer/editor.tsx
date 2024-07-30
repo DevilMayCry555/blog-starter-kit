@@ -98,6 +98,21 @@ export default function Editor() {
   };
 
   useEffect(() => {
+    window.addEventListener("message", function (e) {
+      const [id, method] = `${e.data ?? ""}`.split("_");
+      if (method === "input") {
+        select(id);
+      }
+      if (method === "close") {
+        set((state) => {
+          const res = onPartClose(state, id);
+          return res.length > 0 ? res : [{ id: getuuid() }];
+        });
+        select("close");
+      }
+    });
+  }, []);
+  useEffect(() => {
     // const container = document.getElementById("math-editor-container");
     // if (container) {
     //   console.log(container);
@@ -109,25 +124,6 @@ export default function Editor() {
     const f = document.getElementById(
       "math-editor-iframe"
     ) as HTMLIFrameElement;
-    if (!current) {
-      f.addEventListener("load", function (e) {
-        f.contentWindow?.postMessage(JSON.stringify(inputs));
-      });
-      window.addEventListener("message", function (e) {
-        const [id, method] = `${e.data ?? ""}`.split("_");
-        if (method === "input") {
-          select(id);
-        }
-        if (method === "close") {
-          set((state) => {
-            const res = onPartClose(state, id);
-            return res.length > 0 ? res : [{ id: getuuid() }];
-          });
-          select("close");
-        }
-      });
-      return;
-    }
     f.contentWindow?.postMessage(JSON.stringify(inputs));
     select("");
   }, [inputs]);
