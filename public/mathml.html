@@ -39,7 +39,11 @@
         const parts = children.map((it) => _handle(it));
         if (type === "square") {
             return `<msup>
-                <mrow>${parts.join("")}</mrow>
+                <mrow>
+                    <mo>(</mo>
+                    ${parts.join("")}
+                    <mo>)</mo>
+                </mrow>
                 <mn>2</mn>
             </msup>`;
         }
