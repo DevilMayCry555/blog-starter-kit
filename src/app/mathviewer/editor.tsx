@@ -22,7 +22,7 @@ const actions: any = {
   square: "×²",
   sqrt: "√",
   sum: "∑",
-  clear: "清空",
+  group: "( )",
 };
 //
 export default function Editor() {
@@ -49,6 +49,11 @@ export default function Editor() {
       return `<msqrt>
             <mrow>${parts.join("")}</mrow>
         </msqrt>`;
+    }
+    if (type === "group") {
+      return `<mo>(</mo>
+                ${parts.join("")}
+            <mo>)</mo>`;
     }
 
     const [p1, p2, p3] = parts;
@@ -175,6 +180,13 @@ export default function Editor() {
             {actions[it]}
           </Button>
         ))}
+        <Button
+          className=" m-2 text-large"
+          color="danger"
+          onClick={() => onAction("clear")}
+        >
+          C
+        </Button>
       </div>
       <iframe
         id="math-editor-iframe"
@@ -194,7 +206,7 @@ const getChildern = (type = "") => {
   if (["equal", "add", "subtract", "multiply", "divide"].includes(type)) {
     return [{ id: getuuid() }, { id: getuuid() }];
   }
-  if (["square", "sqrt"].includes(type)) {
+  if (["square", "sqrt", "group"].includes(type)) {
     return [{ id: getuuid() }];
   }
   return [];
