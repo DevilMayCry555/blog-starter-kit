@@ -153,7 +153,7 @@ export default function Editor() {
   }, [inputs]);
   return (
     <>
-      <div className=" flex flex-wrap justify-center mb-12">
+      <div className=" flex flex-wrap justify-center">
         <Button className=" m-2 text-large" onClick={() => onAction("add")}>
           {" "}
           +{" "}
