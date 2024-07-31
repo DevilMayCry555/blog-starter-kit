@@ -38,9 +38,7 @@ export default function Editor() {
     if (type === "square") {
       return `<msup>
             <mrow>
-                <mo>(</mo>
-                ${parts.join("")}
-                <mo>)</mo>
+              ${parts.join("")}
             </mrow>
             <mn>2</mn>
         </msup>`;
