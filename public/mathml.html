@@ -32,7 +32,9 @@
 <body>
     <math id="math-editor" xmlns="http://www.w3.org/1998/Math/MathML" display="block">
     </math>
-    <div style="height: 50px;"></div>
+    <div style="text-align: center;line-height: 5em;">
+        <button id="math-create">生成公式</button>
+    </div>
     <math id="math-editor-image" xmlns="http://www.w3.org/1998/Math/MathML" display="block">
     </math>
 </body>
@@ -86,6 +88,7 @@
         </mi>`;
     };
     const container = document.getElementById('math-editor')
+    const action = document.getElementById('math-create')
     const imageContainer = document.getElementById('math-editor-image')
     window.addEventListener("message", function (e) {
         // console.log(e.data);
@@ -93,9 +96,7 @@
         container.innerHTML = prev.map((it) => {
             return _handle(it);
         }).join("");
-        imageContainer.innerHTML = prev.map((it) => {
-            return _handle(it, true);
-        }).join("");
+
     });
     container.addEventListener('click', function (e) {
         window.parent.postMessage(e.target.id)
@@ -105,12 +106,14 @@
         Object.assign(_values, {
             [id]: e.target.value
         })
-        imageContainer.innerHTML = prev.map((it) => {
-            return _handle(it, true);
-        }).join("");
     })
     window.addEventListener('load', function (e) {
         window.parent.postMessage('tyd_load')
+    })
+    action.addEventListener('click', function (e) {
+        imageContainer.innerHTML = prev.map((it) => {
+            return _handle(it, true);
+        }).join("");
     })
 </script>
 
