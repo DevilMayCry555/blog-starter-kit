@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+        }
+
         .math-random {
             position: relative;
         }
@@ -29,102 +35,26 @@
     </style>
 </head>
 
-<body>
+<body style="display: flex;align-items: center;justify-content: center;">
     <math id="math-editor" xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-    </math>
-    <div style="text-align: center;line-height: 5em;">
-        <button id="math-create">生成公式</button>
-    </div>
-    <math id="math-editor-image" xmlns="http://www.w3.org/1998/Math/MathML" display="block">
     </math>
 </body>
 <script async>
-    const _values = {}
-    let prev = []
-    const _handle = ({ id = "", type = "", children = [] }, toImage = false) => {
-        const parts = children.map((it) => _handle(it, toImage));
-        if (type === "square") {
-            return `<msup>
-                <mrow>
-                    <mo>(</mo>
-                    ${parts.join("")}
-                    <mo>)</mo>
-                </mrow>
-                <mn>2</mn>
-            </msup>`;
-        }
-        if (type === "sqrt") {
-            return `<msqrt>
-                <mrow>${parts.join("")}</mrow>
-            </msqrt>`;
-        }
-
-        const [p1, p2, p3] = parts;
-        if (type === "equal") {
-            return `${p1}<mo>=</mo>${p2}`;
-        }
-        if (type === "add") {
-            return `${p1}<mo>+</mo>${p2}`;
-        }
-        if (type === "subtract") {
-            return `${p1}<mo>-</mo>${p2}`;
-        }
-        if (type === "multiply") {
-            return `${p1}<mo>&#x2219;</mo>${p2}`;
-        }
-        if (type === "divide") {
-            return `<mfrac>
-                <mrow>${p1}</mrow>
-                <mrow>${p2}</mrow>
-            </mfrac>`;
-        }
-        if (type === 'sum') {
-            return `<munderover>
-              <mo>∑</mo>
-              <mrow>
-                ${p1}
-              </mrow>
-              <mi>${p2}</mi>
-            </munderover>
-            ${p3}
-            `
-        }
-        if (toImage) {
-            return `<mi>${_values[id] ?? ''}</mi>`
-        }
-
-        return `<mi class="math-random" >
-            <input class="math-random-input" id="${id}_input" type="text" placeholder="..." value="${_values[id] ?? ''}" />
-            <span class="math-random-close" id="${id}_close" ></span>
-        </mi>`;
-    };
     const container = document.getElementById('math-editor')
-    const action = document.getElementById('math-create')
-    const imageContainer = document.getElementById('math-editor-image')
     window.addEventListener("message", function (e) {
         // console.log(e.data);
-        prev = [].concat(JSON.parse(e.data));
-        container.innerHTML = prev.map((it) => {
-            return _handle(it);
-        }).join("");
+        container.innerHTML = e.data
 
     });
     container.addEventListener('click', function (e) {
         window.parent.postMessage(e.target.id)
     })
-    container.addEventListener('input', function (e) {
+    container.addEventListener('change', function (e) {
         const [id] = `${e.target.id}`.split('_')
-        Object.assign(_values, {
-            [id]: e.target.value
-        })
+        window.parent.postMessage(`${id}_change_${e.target.value}`)
     })
     window.addEventListener('load', function (e) {
         window.parent.postMessage('tyd_load')
-    })
-    action.addEventListener('click', function (e) {
-        imageContainer.innerHTML = prev.map((it) => {
-            return _handle(it, true);
-        }).join("");
     })
 </script>
 
