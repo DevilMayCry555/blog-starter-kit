@@ -58,13 +58,13 @@ export default function TopBanner({ uid }: any) {
           </NavbarItem>
         )}
         <NavbarItem>
-          <Link href="/watch">Video</Link>
+          <Link href="/watch">{`(￣y▽￣)╭ Ohohoho.....`}</Link>
         </NavbarItem>
         <NavbarItem>
-          <Link href="/books">Book</Link>
+          <Link href="/books">{`○( ＾皿＾)っHiahiahia…`}</Link>
         </NavbarItem>
         <NavbarItem>
-          <Link href="/yami">Yami</Link>
+          <Link href="/yami">{`(〃￣︶￣)人(￣︶￣〃)`}</Link>
         </NavbarItem>
         <NavbarItem>
           {uid ? (
