@@ -44,7 +44,6 @@
     window.addEventListener("message", function (e) {
         // console.log(e.data);
         container.innerHTML = e.data
-
     });
     container.addEventListener('click', function (e) {
         window.parent.postMessage(e.target.id)
