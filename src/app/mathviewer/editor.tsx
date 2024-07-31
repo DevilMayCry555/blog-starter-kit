@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
 
 const getuuid = () => `tyd-${Math.random()}`;
+let once = true;
 interface Part {
   id: string;
   type?: string;
@@ -91,15 +92,18 @@ export default function Editor() {
   const onAction = (type = "") => {
     if (type === "clear") {
       set([{ id: getuuid() }]);
-      select(type);
       return;
     }
     set((state) => onPartChange(state, current, type));
+    select("");
   };
-
+  //
   useEffect(() => {
     window.addEventListener("message", function (e) {
       const [id, method] = `${e.data ?? ""}`.split("_");
+      if (method === "load") {
+        set((state) => onPartChange(state, current, ""));
+      }
       if (method === "input") {
         select(id);
       }
@@ -108,10 +112,10 @@ export default function Editor() {
           const res = onPartClose(state, id);
           return res.length > 0 ? res : [{ id: getuuid() }];
         });
-        select("close");
       }
     });
   }, []);
+
   // post message to update mathml
   useEffect(() => {
     // const container = document.getElementById("math-editor-container");
@@ -122,11 +126,14 @@ export default function Editor() {
     //     select(id);
     //   });
     // }
+    if (once) {
+      once = false;
+      return;
+    }
     const f = document.getElementById(
       "math-editor-iframe"
     ) as HTMLIFrameElement;
     f.contentWindow?.postMessage(JSON.stringify(inputs));
-    select("");
   }, [inputs]);
   return (
     <>

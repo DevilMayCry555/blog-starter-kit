@@ -109,6 +109,9 @@
             return _handle(it, true);
         }).join("");
     })
+    window.addEventListener('load', function (e) {
+        window.parent.postMessage('tyd_load')
+    })
 </script>
 
 </html>
