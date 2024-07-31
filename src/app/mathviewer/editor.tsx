@@ -13,7 +13,18 @@ interface Part {
   close?: boolean;
   [k: string]: any;
 }
-
+const actions: any = {
+  add: "+",
+  subtract: "-",
+  multiply: "*",
+  divide: "÷",
+  equal: "=",
+  square: "×²",
+  sqrt: "√",
+  sum: "∑",
+  clear: "清空",
+};
+//
 export default function Editor() {
   const [current, select] = useState("");
   const [inputs, set] = useState<Part[]>([{ id: getuuid() }]);
@@ -151,50 +162,19 @@ export default function Editor() {
       .join("");
     f.contentWindow?.postMessage(str);
   }, [inputs]);
+
   return (
     <>
       <div className=" flex flex-wrap justify-center">
-        <Button className=" m-2 text-large" onClick={() => onAction("add")}>
-          {" "}
-          +{" "}
-        </Button>
-        <Button
-          className=" m-2 text-large"
-          onClick={() => onAction("subtract")}
-        >
-          {" "}
-          -{" "}
-        </Button>
-        <Button
-          className=" m-2 text-large"
-          onClick={() => onAction("multiply")}
-        >
-          {" "}
-          *{" "}
-        </Button>
-        <Button className=" m-2 text-large" onClick={() => onAction("divide")}>
-          {" "}
-          /{" "}
-        </Button>
-        <Button className=" m-2 text-large" onClick={() => onAction("equal")}>
-          {" "}
-          ={" "}
-        </Button>
-        <Button className=" m-2 text-large" onClick={() => onAction("square")}>
-          {" "}
-          x²{" "}
-        </Button>
-        <Button className=" m-2 text-large" onClick={() => onAction("sqrt")}>
-          {" "}
-          &#x221A;{" "}
-        </Button>
-        <Button className=" m-2 text-large" onClick={() => onAction("sum")}>
-          {" "}
-          ∑{" "}
-        </Button>
-        <Button className=" m-2 text-large" onClick={() => onAction("clear")}>
-          clear
-        </Button>
+        {Object.keys(actions).map((it) => (
+          <Button
+            key={it}
+            className=" m-2 text-large"
+            onClick={() => onAction(it)}
+          >
+            {actions[it]}
+          </Button>
+        ))}
       </div>
       <iframe
         id="math-editor-iframe"
