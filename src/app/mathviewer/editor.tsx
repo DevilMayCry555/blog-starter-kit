@@ -195,13 +195,7 @@ export default function Editor() {
         <Button className=" m-2 text-large" onClick={() => onAction("clear")}>
           clear
         </Button>
-        <div className=" m-2 text-large">
-          <BaseModal action="show" title="">
-            <div style={{ minHeight: "56vw" }}>{transfer}</div>
-          </BaseModal>
-        </div>
       </div>
-      {/* <div id="math-editor-container">{transfer}</div> */}
       <iframe
         id="math-editor-iframe"
         src="/mathml.html"
@@ -209,6 +203,7 @@ export default function Editor() {
         height={200}
         className=" shadow-inner bg-white"
       ></iframe>
+      <div className=" my-4">{transfer}</div>
     </>
   );
 }
