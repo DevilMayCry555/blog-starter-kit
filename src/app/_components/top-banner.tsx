@@ -41,12 +41,12 @@ export default function TopBanner({ uid }: any) {
           {uid ? (
             <Link href="/api/logout">Logout</Link>
           ) : (
-            <Link href="/api/login">Login</Link>
+            <Link href="/login">Login</Link>
           )}
         </NavbarItem>
         {!uid && (
           <NavbarItem>
-            <Link href="register">Register</Link>
+            <Link href="/register">Register</Link>
           </NavbarItem>
         )}
       </NavbarContent>
@@ -70,12 +70,12 @@ export default function TopBanner({ uid }: any) {
           {uid ? (
             <Link href="/api/logout">Logout</Link>
           ) : (
-            <Link href="/api/login">Login</Link>
+            <Link href="/login">Login</Link>
           )}
         </NavbarItem>
         {!uid && (
           <NavbarItem>
-            <Link href="register">Register</Link>
+            <Link href="/register">Register</Link>
           </NavbarItem>
         )}
       </NavbarMenu>
