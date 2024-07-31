@@ -44,11 +44,6 @@ export default function TopBanner({ uid }: any) {
             <Link href="/login">Login</Link>
           )}
         </NavbarItem>
-        {!uid && (
-          <NavbarItem>
-            <Link href="/register">Register</Link>
-          </NavbarItem>
-        )}
       </NavbarContent>
       {/* 折叠 */}
       <NavbarMenu>
@@ -73,11 +68,6 @@ export default function TopBanner({ uid }: any) {
             <Link href="/login">Login</Link>
           )}
         </NavbarItem>
-        {!uid && (
-          <NavbarItem>
-            <Link href="/register">Register</Link>
-          </NavbarItem>
-        )}
       </NavbarMenu>
     </Navbar>
   );
