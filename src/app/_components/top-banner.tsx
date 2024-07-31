@@ -64,6 +64,9 @@ export default function TopBanner({ uid }: any) {
           <Link href="/books">Book</Link>
         </NavbarItem>
         <NavbarItem>
+          <Link href="/yami">Yami</Link>
+        </NavbarItem>
+        <NavbarItem>
           {uid ? (
             <Link href="/api/logout">Logout</Link>
           ) : (

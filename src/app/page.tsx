@@ -18,7 +18,6 @@ const Tools = transfer({
   "/three": "3D",
   "/map": "天气",
   "/demo": "GPT",
-  "/yami": "YAYA",
   "/gcores": "Gcores",
   "/mathviewer": "Formula",
 });
