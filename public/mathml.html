@@ -59,7 +59,7 @@
             </msqrt>`;
         }
 
-        const [p1, p2] = parts;
+        const [p1, p2, p3] = parts;
         if (type === "equal") {
             return `${p1}<mo>=</mo>${p2}`;
         }
@@ -77,6 +77,17 @@
                 <mrow>${p1}</mrow>
                 <mrow>${p2}</mrow>
             </mfrac>`;
+        }
+        if (type === 'sum') {
+            return `<munderover>
+              <mo>∑</mo>
+              <mrow>
+                ${p1}
+              </mrow>
+              <mi>${p2}</mi>
+            </munderover>
+            ${p3}
+            `
         }
         if (toImage) {
             return `<mi>${_values[id] ?? ''}</mi>`

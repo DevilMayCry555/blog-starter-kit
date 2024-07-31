@@ -14,6 +14,9 @@ interface Part {
 }
 
 const getChildern = (type = "") => {
+  if (["sum"].includes(type)) {
+    return [{ id: getuuid() }, { id: getuuid() }, { id: getuuid() }];
+  }
   if (["equal", "add", "subtract", "multiply", "divide"].includes(type)) {
     return [{ id: getuuid() }, { id: getuuid() }];
   }
@@ -171,6 +174,10 @@ export default function Editor() {
         <Button className=" m-2 text-large" onClick={() => onAction("sqrt")}>
           {" "}
           &#x221A;{" "}
+        </Button>
+        <Button className=" m-2 text-large" onClick={() => onAction("sum")}>
+          {" "}
+          ∑{" "}
         </Button>
         <Button className=" m-2 text-large" onClick={() => onAction("clear")}>
           clear
