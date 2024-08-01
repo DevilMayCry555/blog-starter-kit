@@ -361,12 +361,8 @@ export default async function Yami({ searchParams }: any) {
     video: { sources, actors = [], title, genres },
   } = res;
   // console.log(sources);
-  const [src] = Object.values({ ...sources }) as string[];
   return (
     <main className=" flex-1 p-4">
-      <Link target="_blank" href={`/m3u8?src=${btoa(src)}`}>
-        {id}
-      </Link>
       <div>{title}</div>
       <div className=" my-2">
         {genres.map((it, idx) => (
