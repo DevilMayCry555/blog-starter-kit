@@ -20,6 +20,7 @@ const Tools = transfer({
   "/demo": "GPT",
   "/gcores": "Gcores",
   "/mathviewer": "Formula",
+  "/logic": "Logic",
 });
 
 interface Newinfo {

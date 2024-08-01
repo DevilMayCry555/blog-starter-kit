@@ -14,6 +14,7 @@ export default async function Watch({ searchParams }: any) {
         {Object.entries({
           加菲猫,
           好剧,
+          漫威,
           龙珠,
           黑袍纠察队,
           进击的巨人,
@@ -106,6 +107,20 @@ const 加菲猫 = [
     name: "加菲猫的幸福生活 S4",
     type: 18,
     token: "d0202ab4cf0e9b8edae05942b539c467",
+  },
+];
+const 漫威 = [
+  {
+    code: 408503,
+    name: "死侍 2016",
+    type: 1,
+    token: "d4f048c2191a010539e6a2c9596e72a1",
+  },
+  {
+    code: 602137,
+    name: "死侍 2018",
+    type: 18,
+    token: "9150a0bb61834a0675295197075ce0fe",
   },
 ];
 const 好剧 = [
