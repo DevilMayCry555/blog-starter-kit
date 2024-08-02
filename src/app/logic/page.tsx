@@ -1,22 +1,31 @@
 export default async function Logic() {
-  let time = Date.now();
-  const as = Array(10)
-    .fill(1000)
-    .map((it) => parseInt(`${Math.random() * it}`));
-  // console.log(gb_sort(as));
-  const res: any = await new Promise((resolve) => {
-    const r = huisu(as);
-    time = Date.now() - time;
-    resolve(r);
-  });
+  // let time = Date.now();
+  // const as = Array(10)
+  //   .fill(1000)
+  //   .map((it) => parseInt(`${Math.random() * it}`));
+  // // console.log(gb_sort(as));
+  // const res: any = await new Promise((resolve) => {
+  //   const r = huisu(as);
+  //   time = Date.now() - time;
+  //   resolve(r);
+  // });
+  // return (
+  //   <main className=" flex-1">
+  //     <div>{time}ms</div>
+  //     <div className=" flex flex-col">
+  //       {[].concat(res).map((it, idx) => (
+  //         <span key={idx}>{it}</span>
+  //       ))}
+  //     </div>
+  //   </main>
+  // );
   return (
     <main className=" flex-1">
-      <div>{time}ms</div>
-      <div className=" flex flex-col">
-        {[].concat(res).map((it, idx) => (
-          <span key={idx}>{it}</span>
-        ))}
-      </div>
+      <iframe
+        src="https://algo.itcharge.cn/10.Dynamic-Programming/"
+        width="100%"
+        height="100%"
+      ></iframe>
     </main>
   );
 }
