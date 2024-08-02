@@ -1,6 +1,6 @@
 export default async function Logic() {
   let time = Date.now();
-  const as = Array(100)
+  const as = Array(10)
     .fill(1000)
     .map((it) => parseInt(`${Math.random() * it}`));
   // console.log(gb_sort(as));
