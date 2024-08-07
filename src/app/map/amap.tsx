@@ -154,7 +154,7 @@ export default function AMapContainer() {
       </div>
       <div
         id="weather-dict-select"
-        className=" absolute top-0 right-0 bottom-0 w-48 overflow-auto bg-white opacity-70"
+        className=" absolute top-0 right-0 bottom-0 w-48 overflow-auto bg-orange-400"
       >
         {dict && <Dictree treeData={dict} />}
       </div>
