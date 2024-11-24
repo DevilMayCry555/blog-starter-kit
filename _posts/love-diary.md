@@ -2,13 +2,25 @@
 title: "Love Diary"
 excerpt: "Sharing our daily lives, trips, and sweet moments."
 coverImage: "/assets/blog/love-diary/cover.jpg"
-date: "2024-07-18"
+date: "2024-11-24"
 author:
   name: L.D.T
   picture: "/assets/blog/authors/ly.jpg"
 ogImage:
   url: "/assets/blog/love-diary/cover.jpg"
 ---
+
+**_2024/11/24 周常_**
+松了一口气
+
+**_2024/11/11 周常_**
+宝宝最近挺累的  
+飞回来放松放松  
+一起打羽毛球、逛银座  
+光棍节没有落单，嘿嘿嘿
+
+**_2024/10/05 周常_**
+和宝宝一起欢度国庆
 
 **_2024/07/28 周常_**
 上周末见了面，天下着蒙蒙雨  

@@ -2,7 +2,7 @@
 title: "Photo Wall"
 excerpt: "Portrait and artistic photos of the princess."
 coverImage: "/assets/blog/photo-wall/cover.png"
-date: "2024-05-19"
+date: "2024-11-08"
 author:
   name: L.D.T
   picture: "/assets/blog/authors/ly.jpg"
@@ -31,3 +31,8 @@ y r![这是图片](/assets/blog/photo-wall/wx_20240315135312.jpg "my wife")
 pw y l![这是图片](/assets/blog/photo-wall/wx_20240424103750.jpg "my wife")
 y l![这是图片](/assets/blog/photo-wall/wx_20240424155056.jpg "my wife")
 x r![这是图片](/assets/blog/photo-wall/wx_20240519131837.jpg "my wife")
+
+pw y l![这是图片](/assets/blog/photo-wall/wx_20241124213227.jpg "my wife")
+x r![这是图片](/assets/blog/photo-wall/wx_20241124213316.jpg "my wife")
+
+pw x l![这是图片](/assets/blog/photo-wall/wx_20241124213305.jpg "my wife")
