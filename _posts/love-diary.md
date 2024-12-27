@@ -2,13 +2,21 @@
 title: "Love Diary"
 excerpt: "Sharing our daily lives, trips, and sweet moments."
 coverImage: "/assets/blog/love-diary/cover.jpg"
-date: "2024-11-24"
+date: "2024-12-27"
 author:
   name: L.D.T
   picture: "/assets/blog/authors/ly.jpg"
 ogImage:
   url: "/assets/blog/love-diary/cover.jpg"
 ---
+
+**_2024/12/27 周常_**
+这个月大部分时间都在南京  
+培训自己、培训别人  
+宝宝不远万里飞过来  
+很开心，很幸福  
+活儿总是干不完的  
+不过幸福是绵延不断的
 
 **_2024/11/24 周常_**
 松了一口气
