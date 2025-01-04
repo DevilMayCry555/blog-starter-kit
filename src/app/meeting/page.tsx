@@ -4,6 +4,7 @@ import BasePagination from "../_components/base-pagination";
 import BaseModal from "../_components/base-modal";
 import BaseForm from "../_components/base-form";
 import BaseList from "../_components/base-list";
+import Coze from "../_components/coze-chat";
 
 const createProps = {
   action: "/api/room",
@@ -31,7 +32,7 @@ export default async function Page({ searchParams }: any) {
   const { rows, total } = await fetchRooms(current, pageSize);
   return (
     <main className=" flex-1 relative">
-      <div className=" fixed bottom-8 right-4">
+      <div className=" fixed bottom-8 left-4">
         <BaseModal action="create" title="create">
           <BaseForm {...createProps} />
         </BaseModal>
@@ -50,6 +51,7 @@ export default async function Page({ searchParams }: any) {
           path="/meeting"
         />
       </Container>
+      <Coze />
     </main>
   );
 }

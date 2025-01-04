@@ -2,7 +2,6 @@ import { ff } from "@/lib/api";
 import BaseCard from "./_components/base-card";
 import BaseList from "./_components/base-list";
 import BaseModal from "./_components/base-modal";
-import Coze from "./_components/coze-chat";
 
 const transfer = (obj: { [k: string]: any }) =>
   Object.entries({ ...obj }).map(([label, value]) => ({ label, value }));
@@ -18,9 +17,9 @@ const Pages = transfer({
 const Tools = transfer({
   "/three": "3D",
   "/map": "天气",
-  // "/demo": "GPT",
   "/gcores": "机核",
   "/mathviewer": "公式",
+  "/watch": "看剧",
 });
 
 interface Newinfo {
@@ -45,7 +44,7 @@ export default async function Index() {
           <BaseList list={it.value} />
         </BaseCard>
       ))}
-      <div className=" fixed bottom-4 left-4">
+      <div className=" fixed bottom-4 right-4">
         <BaseModal action="HOT" title="HOT">
           {realtime.map((it, idx) => (
             <div className=" my-2 flex justify-between" key={idx}>
@@ -62,7 +61,6 @@ export default async function Index() {
           ))}
         </BaseModal>
       </div>
-      <Coze />
     </main>
   );
 }

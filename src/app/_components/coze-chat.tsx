@@ -1,6 +1,7 @@
 "use client";
 
 import Script from "next/script";
+import { BASE_URL, isDEV } from "@/lib/constants";
 
 export default function Coze() {
   const load = () => {
@@ -13,6 +14,13 @@ export default function Coze() {
         title: "Coze",
       },
     });
+    if (!isDEV) {
+      fetch(BASE_URL + "/api/open", {
+        method: "POST",
+        body: "rtchat",
+        cache: "no-store",
+      });
+    }
   };
   return (
     <Script
