@@ -1,0 +1,11 @@
+.base-radio-player-wrap {
+  position: relative;
+  padding-top: 42.86%;
+  box-shadow: inset 0 0 5px red;
+}
+
+.base-radio-player-wrap>div {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

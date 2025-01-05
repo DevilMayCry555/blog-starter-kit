@@ -9,11 +9,23 @@ interface Props {
   url: string;
   action?: string;
   htype?: boolean;
+  rt?: boolean;
 }
-export default function BaseRadioPlayer({ url, action = "on" }: Props) {
+export default function BaseRadioPlayer({
+  url,
+  action = "on",
+  rt = false,
+}: Props) {
   const r = btoa(encodeURIComponent(url));
   return (
     <BaseModal action={action} title={action} dismiss={false}>
+      {!rt && (
+        <div className=" flex justify-center">
+          <Link href={`/watch/tyd#${url}`} target="_blank">
+            together
+          </Link>
+        </div>
+      )}
       {/* 16：9 */}
       <div className="base-radio-player-wrap">
         <ReactPlayer url={url} controls width={"100%"} height={"100%"} />

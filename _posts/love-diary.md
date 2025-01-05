@@ -2,7 +2,7 @@
 title: "Love Diary"
 excerpt: "Sharing our daily lives, trips, and sweet moments."
 coverImage: "/assets/blog/love-diary/cover.jpg"
-date: "2024-12-27"
+date: "2024-01-05"
 author:
   name: L.D.T
   picture: "/assets/blog/authors/ly.jpg"
@@ -10,13 +10,20 @@ ogImage:
   url: "/assets/blog/love-diary/cover.jpg"
 ---
 
+**_2025/01/05 周常_**
+喝的醉醺醺  
+没有陪宝宝好好跨年  
+宝宝还发了点烧  
+大头送药及时  
+被夸奖 O(∩_∩)O
+
 **_2024/12/27 周常_**
 这个月大部分时间都在南京  
 培训自己、培训别人  
 宝宝不远万里飞过来  
-很开心，很幸福  
-活儿总是干不完的  
-不过幸福是绵延不断的
+去逛了南京博物院  
+吃了南京大排档  
+给宝宝更新行头
 
 **_2024/11/24 周常_**
 松了一口气
