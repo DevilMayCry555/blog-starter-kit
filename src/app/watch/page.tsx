@@ -12,6 +12,7 @@ export default async function Watch({ searchParams }: any) {
     return (
       <main className=" flex-1">
         {Object.entries({
+          暮光之城,
           加菲猫,
           好剧,
           漫威,
@@ -63,7 +64,9 @@ export default async function Watch({ searchParams }: any) {
           <div>线路{idx + 1}</div>
           {g.map((v) => {
             const [lab, url] = `${v}`.split("$");
-            return <BaseRadioPlayer key={url} action={lab} url={url} />;
+            return (
+              <BaseRadioPlayer key={url} action={lab} url={url} rt={true} />
+            );
           })}
         </div>
       ))}
@@ -320,7 +323,34 @@ const 怀旧 = [
     token: "1ee1ffa2da508c24edf2caf8dec47094",
   },
 ];
+const 暮光之城 = [
+  {
+    code: 421110,
+    name: "新月 2009",
+    type: 1,
+    token: "2fffadb8f121a80555d90fcf3745edae",
+  },
+  {
+    code: 386028,
+    name: "月食 2010",
+    type: 1,
+    token: "e0b7c0479b307fc420cabf4b94eff768",
+  },
+  {
+    code: 419122,
+    name: "破晓上 2011",
+    type: 1,
+    token: "66b12c05ad2e381af725e1e0836af6ba",
+  },
+  {
+    code: 416109,
+    name: "破晓下 2012",
+    type: 1,
+    token: "41cc2eca40c460bf649691a9142fb088",
+  },
+];
 const fields = Object.values({
+  暮光之城,
   加菲猫,
   漫威,
   好剧,

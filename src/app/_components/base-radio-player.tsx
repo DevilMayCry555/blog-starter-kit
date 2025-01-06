@@ -19,7 +19,7 @@ export default function BaseRadioPlayer({
   const r = btoa(encodeURIComponent(url));
   return (
     <BaseModal action={action} title={action} dismiss={false}>
-      {!rt && (
+      {rt && (
         <div className=" flex justify-center">
           <Link href={`/watch/tyd#${url}`} target="_blank">
             together
