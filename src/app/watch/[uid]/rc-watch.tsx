@@ -28,7 +28,7 @@ export default function RtWatch(props: any) {
     </AblyProvider>
   );
 }
-
+let stop = false;
 function AblyPubChat({ hardcore }: any) {
   const [messages, setMessages] = useState<Ably.Message[]>([]);
   const [ss, set_ss] = useState(0);
@@ -40,6 +40,7 @@ function AblyPubChat({ hardcore }: any) {
     // setMessages((previousMessages) => [...previousMessages, message]);
     const { time } = JSON.parse(message.data);
     playerRef.current?.seekTo(time);
+    stop = true;
   });
 
   useConnectionStateListener("connected", () => {
@@ -50,7 +51,8 @@ function AblyPubChat({ hardcore }: any) {
     set_url(location.hash.replace(/^#/, ""));
   });
   const onSeek = (time: number) => {
-    if (`${ss}` === `${time}`) {
+    if (stop) {
+      stop = false;
       return;
     }
     console.log("lalala", ss, time);
