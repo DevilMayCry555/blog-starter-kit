@@ -21,7 +21,7 @@ export default function BaseRadioPlayer({
     <BaseModal action={action} title={action} dismiss={false}>
       {rt && (
         <div className=" flex justify-center">
-          <Link href={`/watch/tyd#${url}`} target="_blank">
+          <Link href={`/watch/${Date.now()}#${url}`} target="_blank">
             together
           </Link>
         </div>
