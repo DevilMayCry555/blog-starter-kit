@@ -152,6 +152,12 @@ const 好剧 = [
     type: 2,
     token: "08b510abb6441d15419f0d4303fe34a9",
   },
+  {
+    code: 661929,
+    name: "都挺好",
+    type: 2,
+    token: "bfb36ed29efb7fc426dfabea31980d92",
+  },
 ];
 const 龙珠 = [
   {
