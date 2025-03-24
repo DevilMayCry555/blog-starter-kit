@@ -388,5 +388,31 @@ const videos = {
       token: "6ad6276478e345c5bc2c9d5e3b98b735",
     },
   ],
+  黑客帝国: [
+    {
+      code: 458067,
+      name: "黑客帝国",
+      type: 1,
+      token: "96451c6e5ed083aacdef9296a880f523",
+    },
+    {
+      code: 380611,
+      name: "重装上阵",
+      type: 18,
+      token: "060c7b72506149166d528b160ee1509b",
+    },
+    {
+      code: 458008,
+      name: "矩阵革命",
+      type: 18,
+      token: "046fc6eb8b4ebecfce5e0334e24f890e",
+    },
+    {
+      code: 602281,
+      name: "矩阵重启",
+      type: 18,
+      token: "4be9d84eb779175bdb9b1bccf1632ebc",
+    },
+  ],
 };
 const fields = Object.values(videos).flat();
