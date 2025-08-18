@@ -32,8 +32,8 @@ interface Newinfo {
 
 export default async function Index() {
   // console.log(paths);
-  const { data } = await ff("https://weibo.com/ajax/side/hotSearch");
-  const { realtime } = data as { realtime: Newinfo[] };
+  // const { data, ...rest } = await ff("https://weibo.com/ajax/side/hotSearch");
+  // const { realtime } = data as { realtime: Newinfo[] };
   return (
     <main className=" m-auto w-4/5 flex flex-col lg:flex-row">
       {transfer({
@@ -44,23 +44,6 @@ export default async function Index() {
           <BaseList list={it.value} />
         </BaseCard>
       ))}
-      <div className=" fixed bottom-4 right-4">
-        <BaseModal action="HOT" title="HOT">
-          {realtime.map((it, idx) => (
-            <div className=" my-2 flex justify-between" key={idx}>
-              <span className=" w-20">
-                <img
-                  src={it.icon}
-                  alt=""
-                  width={it.icon_width}
-                  height={it.icon_height}
-                />
-              </span>
-              <span className=" flex-1">{it.word}</span>
-            </div>
-          ))}
-        </BaseModal>
-      </div>
     </main>
   );
 }
