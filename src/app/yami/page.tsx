@@ -152,7 +152,7 @@ export default async function Yami({ searchParams }: any) {
   // 登录
   if (!token) {
     let ct = "";
-    const tcode = await fetch("https://apit.tvtkoi.com/vw3/code", {
+    const tcode = await fetch("https://apih.lhlamp.com/vw3/code", {
       cache: "no-store",
     }).then((res) => {
       ct = res.headers.get("Cors-Cookie") ?? "";
@@ -168,7 +168,7 @@ export default async function Yami({ searchParams }: any) {
   // 主页
   if (!id && !sid && !cid && !gid && !q && !sort) {
     const { categorys }: { categorys: Category[] } = await ff(
-      "https://apit.tvtkoi.com/vw3/categorys",
+      "https://apih.lhlamp.com/vw3/categorys",
       {},
       token
     );
@@ -211,7 +211,7 @@ export default async function Yami({ searchParams }: any) {
       videos,
       next,
     }: { next: number; videos: Video[]; actor: Actor } = await ff(
-      "https://apit.tvtkoi.com/vw3/search",
+      "https://apih.lhlamp.com/vw3/search",
       {
         actor_type: "long",
         next: to,
@@ -238,7 +238,7 @@ export default async function Yami({ searchParams }: any) {
       videos,
       next,
     }: { next: number; videos: Video[]; actor: Actor } = await ff(
-      `https://apit.tvtkoi.com/vw3/lite/category/${cid}/videos`,
+      `https://apih.lhlamp.com/vw3/lite/category/${cid}/videos`,
       {
         video_type: "long",
         next: to,
@@ -264,7 +264,7 @@ export default async function Yami({ searchParams }: any) {
       videos,
       next,
     }: { next: number; videos: Video[]; actor: Actor } = await ff(
-      `https://apit.tvtkoi.com/vw3/genre/${gid}/videos`,
+      `https://apih.lhlamp.com/vw3/genre/${gid}/videos`,
       {
         video_type: "long",
         next: to,
@@ -290,7 +290,7 @@ export default async function Yami({ searchParams }: any) {
       videos,
       next,
     }: { next: number; videos: Video[]; actor: Actor } = await ff(
-      `https://apit.tvtkoi.com/vw3/actor/${sid}/videos`,
+      `https://apih.lhlamp.com/vw3/actor/${sid}/videos`,
       {
         actor_type: "long",
         next: to,
@@ -312,7 +312,7 @@ export default async function Yami({ searchParams }: any) {
   // 演员索引
   if (sort) {
     const girls: { actors: Actor[]; next: number } = await fetch(
-      "https://apit.tvtkoi.com/vw3/category/actors",
+      "https://apih.lhlamp.com/vw3/category/actors",
       {
         method: "POST",
         body: JSON.stringify({
@@ -349,7 +349,7 @@ export default async function Yami({ searchParams }: any) {
   }
   // 详情
   const res: resProps = await ff(
-    `https://apit.tvtkoi.com/vw3/video/${id}`,
+    `https://apih.lhlamp.com/vw3/video/${id}`,
     {
       cdn: "tc",
     },

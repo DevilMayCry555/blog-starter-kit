@@ -11,7 +11,7 @@ export async function GET(request) {
   if (method === "yami") {
     const { account, password, imgCode, ct } = rest;
     const { token } = await fetch(
-      "https://apit.tvtkoi.com/vw3/login?platform=pwa&version=1.0.0",
+      "https://apih.lhlamp.com/vw3/login?platform=pwa&version=1.0.0",
       {
         method: "POST",
         body: JSON.stringify({ account, password, imgCode }),
